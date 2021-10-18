@@ -31,13 +31,13 @@ class UserController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        //
     }
 
     /**
      * Display a listing of the resource.
      *
-     * @return Application|Factory|Response|View
+     * @return Application|Factory|\Illuminate\Contracts\View\View
      * @throws PermissionForPropertyIsNotDeclaredInControllerException
      */
     public function index()
@@ -91,7 +91,7 @@ class UserController extends Controller
      * Display the specified resource.
      *
      * @param int $id
-     * @return Application|Factory|Response|View
+     * @return Application|Factory|View
      * @throws PermissionForPropertyIsNotDeclaredInControllerException
      */
     public function show($id, UserService $userService)
@@ -117,7 +117,7 @@ class UserController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param int $id
-     * @return Application|Factory|Response|View
+     * @return Application|Factory|View
      * @throws PermissionForPropertyIsNotDeclaredInControllerException
      */
     public function edit($id)

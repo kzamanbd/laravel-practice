@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Team;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -21,7 +20,6 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             PermissionSeeder::class,
             AssignRolePermissionSeeder::class,
-            TeamSeeder::class,
             CategorySeeder::class,
             TagSeeder::class,
             PostSeeder::class,
