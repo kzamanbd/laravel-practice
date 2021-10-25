@@ -29,8 +29,8 @@ class UserCacheListener
     {
         // clear cache
         Cache::forget('users');
-        // query
-        $users = User::with(['roles'])->latest()->limit(50)->get();
+        //* query
+        $users = User::with(['roles'])->latest()->limit(250)->get();
         Cache::forever('users', $users);
     }
 }

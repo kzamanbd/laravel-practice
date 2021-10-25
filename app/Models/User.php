@@ -74,4 +74,8 @@ class User extends Authenticatable
         'updated' => UserUpdated::class,
         'deleted' => UserDeleted::class,
     ];
+    
+    public function getProfilePhotoUrlAttribute(){
+        return 'profile_photo_url';
+    }
 }

@@ -2,6 +2,12 @@
 
 namespace App\Providers;
 
+use App\Events\NewChatMessage;
+use App\Events\UserCreated;
+use App\Events\UserDeleted;
+use App\Events\UserUpdated;
+use App\Listeners\NewChatMessageNotification;
+use App\Listeners\UserCacheListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -18,6 +24,18 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        UserCreated::class => [
+            UserCacheListener::class,
+        ],
+        UserUpdated::class => [
+            UserCacheListener::class,
+        ],
+        UserDeleted::class => [
+            UserCacheListener::class,
+        ],
+        NewChatMessage::class =>[
+            NewChatMessageNotification::class
+        ]
     ];
 
     /**

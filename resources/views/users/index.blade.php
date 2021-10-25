@@ -41,6 +41,9 @@
                                             <th class="text-left px-3 py-3 border-b-2 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                                 Email
                                             </th>
+                                            <th class="text-left px-3 py-3 border-b-2 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                                Roles
+                                            </th>
                                             <th class="text-center px-3 py-3 border-b-2 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider"></th>
                                         </tr>
                                         </thead>
@@ -70,6 +73,12 @@
                                                         {{ $user->email }}
                                                     </span>
                                                 </td>
+                                                <td class="px-3 py-2 text-sm">
+                                                    <span class="text-gray-900 whitespace-no-wrap">
+                                                        {{ $user->roles->pluck('name')->join(', ') }}
+                                                    </span>
+                                                </td>
+                                                
                                                 <td class="text-center px-3 py-2 flex justify-center items-center on-hover-show">
                                                     <a href="{{ route('user.show', $user->id) }}" class="bg-indigo-500 hover:bg-indigo-700 text-white rounded-full text-xs h-8 w-8 flex items-center justify-center mr-2 cursor-pointer">
                                                         <span class="material-icons text-base">visibility</span>

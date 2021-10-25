@@ -14,7 +14,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $total_users = 30;
+        $total_users = 1453;
         $admin_email = 'laravel@practice.test';
 
         $defined_emails = [
