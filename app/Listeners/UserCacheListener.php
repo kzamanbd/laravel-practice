@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 
 class UserCacheListener
 {
@@ -27,6 +28,7 @@ class UserCacheListener
      */
     public function handle($event)
     {
+        Log::debug('App cache users log');
         // clear cache
         Cache::forget('users');
         //* query
