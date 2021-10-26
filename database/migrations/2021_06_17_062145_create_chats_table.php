@@ -15,20 +15,16 @@ class CreateChatsTable extends Migration
     {
         Schema::create('chats', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('from_user_id');
-            $table->unsignedBigInteger('to_user_id');
+            $table->foreignId('from_user_id')
+                ->constrained('users')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+            $table->foreignId('to_user_id')
+                ->constrained('users')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
             $table->longText('message');
             $table->boolean('status')->default(false);
-            $table->foreign('from_user_id')
-                ->on('users')
-                ->references('id')
-                ->cascadeOnUpdate()
-                ->cascadeOnUpdate();
-            $table->foreign('to_user_id')
-                ->on('users')
-                ->references('id')
-                ->cascadeOnUpdate()
-                ->cascadeOnUpdate();
             $table->timestamps();
         });
     }

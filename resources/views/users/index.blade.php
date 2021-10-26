@@ -86,8 +86,13 @@
                                                     <a href="{{ route('user.edit', $user->id) }}" class="bg-purple-500 hover:bg-purple-700 text-white rounded-full text-xs h-8 w-8 flex items-center justify-center mr-2 cursor-pointer">
                                                         <span class="material-icons text-base">edit</span>
                                                     </a>
-                                                    <a href="{{ route('user.destroy', $user->id) }}" class="bg-red-500 hover:bg-red-700 text-white rounded-full text-xs h-8 w-8 flex items-center justify-center cursor-pointer">
+                                                    <a href="{{ route('user.index') }}" onclick="if(confirm('Are you sure,\nYou want to delete this record?')){event.preventDefault();document.getElementById('user-{{ $user->id }}').submit();} else {event.preventDefault();}" class="bg-red-500 hover:bg-red-700 text-white rounded-full text-xs h-8 w-8 flex items-center justify-center cursor-pointer">
                                                         <span class="material-icons text-base">delete</span>
+                                                        <form action="{{ route('user.destroy', $user->id) }}" method="post" id="user-{{ $user->id }}" style="display: none;">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                        </form>
+                
                                                     </a>
                                                 </td>
                                             </tr>

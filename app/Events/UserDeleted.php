@@ -9,6 +9,7 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
 class UserDeleted
 {
@@ -22,6 +23,7 @@ class UserDeleted
     public function __construct()
     {
         //
+        Log::debug('App cache users Deleted');
     }
 
     /**
