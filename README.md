@@ -23,6 +23,14 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 
 The Laravel framework is open-source software licensed under the [MIT license]
 
+## Required Permissions
+
+If you are facing any issues regarding the permissions, then you need to run the following command in your project directory:
+
+  ```
+  sudo chmod -R o+rw bootstrap/cache
+  sudo chmod -R o+rw storage
+  ```
 
 # Developed by Zaman
 
