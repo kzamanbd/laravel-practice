@@ -44,9 +44,7 @@ class UserController extends Controller
     {
         // check permission
         $this->hasPermission('view');
-        $users = Cache::get('users', function(){
-            return User::with(['roles'])->latest()->limit(50)->get();
-        });
+        $users = User::with(['roles'])->latest()->limit(50)->get();
         return view('users.index', compact('users'));
     }
 
