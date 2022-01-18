@@ -32,7 +32,6 @@ jobs:
         DB_PASSWORD: 6ak8cv8gnCoi%KQb
         CACHE_DRIVER: redis
         REDIS_CLIENT: predis
-      run: vendor/bin/phpunit
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@4.1.0
       with:
