@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAssesTable extends Migration
+class CreateContactsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateAssesTable extends Migration
      */
     public function up()
     {
-        Schema::create('asses', function (Blueprint $table) {
+        Schema::create('contacts', function (Blueprint $table) {
             $table->id();
             $table->string('e_tin');
             $table->string('old_tin')->nullable();
@@ -34,6 +34,6 @@ class CreateAssesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('asses');
+        Schema::dropIfExists('contacts');
     }
 }

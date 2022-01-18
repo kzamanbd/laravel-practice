@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Asses;
+use App\Models\Contact;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -85,13 +85,13 @@ class PHPSpreadsheetController extends Controller
             return $row;
         }, $data);
 
-        Asses::insert($asses);
+        Contact::insert($asses);
         return back()->with("success", "Data Successfully Imported");
     }
 
     public function show(Request $request)
     {
-        $asses = Asses::all();
+        $asses = Contact::all();
         return view('excel.export', compact('asses'));
     }
 
@@ -110,7 +110,7 @@ class PHPSpreadsheetController extends Controller
             'circle_name' => 'Circle Name',
         ];
 
-        $records = Asses::all();
+        $records = Contact::all();
 
         foreach ($records as $index => $row) {
             $record = [
