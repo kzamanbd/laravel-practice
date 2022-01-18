@@ -26,10 +26,12 @@ jobs:
       run: chmod -R 777 storage bootstrap/cache
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       env:
-        DB_CONNECTION: sqlite
+        DB_CONNECTION: mysql
         DB_DATABASE: kzaman_laravel
         DB_USERNAME: kzaman_laravel
-        DB_PASSWORD: KZkz2020$
+        DB_PASSWORD: 6ak8cv8gnCoi%KQb
+        CACHE_DRIVER: redis
+        REDIS_CLIENT: predis
       run: vendor/bin/phpunit
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@4.1.0
