@@ -1,29 +1,25 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
-    mode: 'jit',
-    purge: [
+    content: [
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
         './resources/js/**/*.vue',
     ],
 
-    theme: {
-        extend: {
-            fontFamily: {
-                sans: ['Roboto', ...defaultTheme.fontFamily.sans],
-            },
-        },
-    },
+    darkMode: 'class', // or 'media'
 
-    variants: {
+    theme: {
+        themeVariants: ['dark', 'light'],
         extend: {
-            opacity: ['disabled'],
-            backgroundColor: ['responsive', 'hover', 'focus', 'checked'],
-            borderColor: ['checked'],
-            outline: ['hover', 'active', 'focus', 'checked'],
-            gridAutoColumns: ['hover', 'focus'],
+            maxHeight: {
+                0: '0',
+                xl: '36rem',
+            },
+            fontFamily: {
+                sans: ['Inter', ...defaultTheme.fontFamily.sans],
+            },
         },
     },
 
