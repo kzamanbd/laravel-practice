@@ -46,7 +46,6 @@ Route::prefix('auth')->group(function () {
 });
 
 Route::get('init-app', [HomeController::class, 'index']);
-Route::get('user', [HomeController::class, 'user']);
 //get category
 Route::get('category', [CategoryController::class, 'index']);
 //get post
@@ -65,6 +64,10 @@ Route::post('upload-image-by-croperjs', [HomeController::class, 'uploadImageByCr
 Route::post('upload-docs-file', [HomeController::class, 'uploadDocsFile']);
 
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
 });
+// get all users
+Route::get('get-users', [HomeController::class, 'getAllUsers']);

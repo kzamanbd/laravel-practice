@@ -46,4 +46,12 @@ class HomeController extends Controller
         }
         return $uploaded_file;
     }
+
+    public function getAllUsers(){
+        $users = User::with('roles')->latest()->limit(50)->get();
+        return response()->json([
+            'success' => true,
+            'users' => $users
+        ], 200);
+    }
 }
