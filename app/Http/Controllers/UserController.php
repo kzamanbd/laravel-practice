@@ -40,11 +40,17 @@ class UserController extends Controller
      * @return Application|Factory|\Illuminate\Contracts\View\View
      * @throws PermissionForPropertyIsNotDeclaredInControllerException
      */
-    public function index()
+    public function index(Request $request)
     {
         // check permission
         $this->hasPermission('view');
-        $users = User::with(['roles'])->latest()->paginate(50);
+
+        $users = User::with(['roles']);
+
+        if($request->search){
+            $users->where('name', 'like', '%'.$request->search.'%')->orWhere('email', 'like', '%'.$request->search.'%');
+        }
+        $users = $users->paginate(50);
         return view('users.index', compact('users'));
     }
 
