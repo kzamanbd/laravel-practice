@@ -9,16 +9,16 @@
     <div class="py-5">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4">
-                <div class="p-6 bg-white border-b border-gray-200">
+                <form action="" method="get" class="p-6 bg-white border-b border-gray-200 flex justify-between items-center">
                     <strong>Total {{ count($users) }} records found!</strong>
-                    <p>[]</p>
-                </div>
+                    <input name="search" value="{{ request()->search ?? '' }}" class="w-64 text-sm border rounded appearance-none p-2 dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray" placeholder="Jane Doe">
+                </form>
             </div>
 
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-5">
                     <div class="flex justify-between">
-                        <a href="{{ route('user.create') }}" class="bg-white mb-2 text-gray-800 font-bold rounded border-b-2 border-purple-500 hover:border-purple-600 hover:bg-purple-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center focus:outline-none">
+                        <a href="{{ route('user.create') }}" class="bg-white mb-2 text-sm text-gray-800 font-bold rounded border-b-2 border-purple-500 hover:border-purple-600 hover:bg-purple-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center focus:outline-none">
                             <span class="mr-2">Add User</span>
                             <span class="material-icons">add</span>
                         </a>
