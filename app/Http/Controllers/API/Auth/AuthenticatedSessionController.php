@@ -177,7 +177,11 @@ class AuthenticatedSessionController extends Controller
             //create token
             $token = $user->createToken($request->email);
 
-            return response()->json(['token' => $token->plainTextToken], 201);
+            return response()->json([
+				'response_code' => 200,
+				'user' => $user,
+				'token' => $token->plainTextToken
+			]);
         }
         else{
             //error message
