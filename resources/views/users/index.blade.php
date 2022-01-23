@@ -62,7 +62,7 @@
                                                         </label>
                                                     </td>
                                                     <td class="px-3 py-2 text-sm">
-                                                        <a href="#" class="flex items-center no-underline hover:underline">
+                                                        <a href="{{ route('user.show', $user->id) }}" class="flex items-center no-underline hover:underline">
                                                             <div class="flex-shrink-0 w-10 h-10 hidden sm:table-cell">
                                                                 <img class="w-full h-full rounded-full" src="https://ui-avatars.com/api/?name={{ $user->name }}&color=7F9CF5&background=EBF4FF" alt="" />
                                                             </div>
@@ -97,7 +97,6 @@
                                                                 @csrf
                                                                 @method('DELETE')
                                                             </form>
-                    
                                                         </a>
                                                     </td>
                                                 </tr>
