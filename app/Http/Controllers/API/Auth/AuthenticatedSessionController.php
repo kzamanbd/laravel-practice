@@ -56,8 +56,9 @@ class AuthenticatedSessionController extends Controller
                 $token = $user->createToken($request->email);
     
                 return response()->json([
-                    'response_code' => 200,
                     'user' => $user,
+                    'message' => 'Login Successful',
+                    'response_code' => 200,
                     'token' => $token->plainTextToken
                 ]);
             }
@@ -178,9 +179,10 @@ class AuthenticatedSessionController extends Controller
             $token = $user->createToken($request->email);
 
             return response()->json([
-				'response_code' => 200,
 				'user' => $user,
-				'token' => $token->plainTextToken
+                'message' => 'Registration Successful',
+                'response_code' => 200,
+                'token' => $token->plainTextToken
 			]);
         }
         else{
