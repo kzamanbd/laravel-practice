@@ -63,10 +63,10 @@ class AuthenticatedSessionController extends Controller
                 ]);
             }
             else{
-                throw ValidationException::withMessages([
-                    'email' => ['The provided credentials are incorrect.'],
-                ]);
-                //return response()->json(['message' => 'Unauthorized'], 401);
+                // throw ValidationException::withMessages([
+                //     'email' => ['The provided credentials are incorrect.'],
+                // ]);
+                return response()->json(['message' => 'Unauthorized'], 401);
             }
         }
         
