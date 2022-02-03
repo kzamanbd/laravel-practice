@@ -65,9 +65,7 @@ Route::post('upload-docs-file', [HomeController::class, 'uploadDocsFile']);
 
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/user', function (Request $request) {
-        return $request->user();
-    });
+    Route::get('get-user-detail/{id}', [HomeController::class, 'user']);
 });
 // get all users
 Route::get('get-users', [HomeController::class, 'getAllUsers']);
