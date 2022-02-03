@@ -76,6 +76,6 @@ class User extends Authenticatable
     ];
     
     public function getProfilePhotoUrlAttribute(){
-        return 'profile_photo_url';
+        return "https://ui-avatars.com/api/?name=$this->name";
     }
 }
