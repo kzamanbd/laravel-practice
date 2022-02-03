@@ -20,9 +20,12 @@ class HomeController extends Controller
             'tags' => $tags
         ], 200);
     }
-    public function user(Request $request){
-
-        return User::where('username', $request->username)->first();
+    public function user($id){
+        $user = User::find($id);
+        return response()->json([
+            'success' => true,
+            'users' => $user
+        ], 200);
 
     }
 
