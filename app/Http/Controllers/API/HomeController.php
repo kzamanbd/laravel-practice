@@ -24,7 +24,7 @@ class HomeController extends Controller
         $user = User::find($id);
         return response()->json([
             'success' => true,
-            'users' => $user
+            'user' => $user
         ], 200);
 
     }
