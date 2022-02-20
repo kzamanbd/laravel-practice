@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::view('/', 'welcome');
+Route::view('/product', 'product');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
