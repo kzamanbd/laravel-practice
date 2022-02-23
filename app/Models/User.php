@@ -9,6 +9,9 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
+/**
+ * @method static create(array $array)
+ */
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
@@ -64,7 +67,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $dispatchesEvents = [];
-    
+
     public function getProfilePhotoUrlAttribute(){
         return "https://ui-avatars.com/api/?name=$this->name";
     }
