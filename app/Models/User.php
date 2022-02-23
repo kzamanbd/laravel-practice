@@ -2,9 +2,6 @@
 
 namespace App\Models;
 
-use App\Events\UserCreated;
-use App\Events\UserDeleted;
-use App\Events\UserUpdated;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -14,36 +11,33 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens;
-    use HasFactory;
-    use Notifiable;
-    use HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
      *
-     * @var array
+     * @var array<int, string>
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name',
+        'email',
+        'password',
     ];
 
     /**
-     * The attributes that should be hidden for arrays.
+     * The attributes that should be hidden for serialization.
      *
-     * @var array
+     * @var array<int, string>
      */
     protected $hidden = [
         'password',
         'remember_token',
-        'two_factor_recovery_codes',
-        'two_factor_secret',
     ];
 
     /**
-     * The attributes that should be cast to native types.
+     * The attributes that should be cast.
      *
-     * @var array
+     * @var array<string, string>
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
@@ -69,11 +63,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $dispatchesEvents = [
-        'created' => UserCreated::class,
-        'updated' => UserUpdated::class,
-        'deleted' => UserDeleted::class,
-    ];
+    protected $dispatchesEvents = [];
     
     public function getProfilePhotoUrlAttribute(){
         return "https://ui-avatars.com/api/?name=$this->name";

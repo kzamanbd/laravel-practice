@@ -257,13 +257,13 @@
     </head>
     <body>
         <div id="toggle">Verify Product</div>
-        <div id="sidebar">
+        <div id="sidebar" class="active">
             <!--class="active" -->
             <span id="close-btn"><i id="close" class="fa fa-times" aria-hidden="true" title="Close"></i></span>
     
             <div class="product">
     
-                <h3>Verify Product</h3>
+                <h3>Verify Product {{ request()->sbu_id ?? '' }}</h3>
     
                 <!-- Start Search Box -->
                 <div class="search-box">

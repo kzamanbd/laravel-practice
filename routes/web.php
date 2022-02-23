@@ -26,21 +26,11 @@ Route::middleware(['auth'])->group(function () {
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('upload-excel', [PHPSpreadsheetController::class, 'index'])
-        ->name('upload-excel');
-
-    Route::post('upload-excel', [PHPSpreadsheetController::class, 'preview'])
-        ->name('submit-excel');
-
-    Route::post('upload-confirm', [PHPSpreadsheetController::class, 'store'])
-        ->name('upload-confirm');
-
-    Route::get('export-excel', [PHPSpreadsheetController::class, 'show'])
-        ->name('export-excel');
-
-    Route::post('export-excel', [PHPSpreadsheetController::class, 'export'])
-        ->name('download-excel');
-
+    Route::get('upload-excel', [PHPSpreadsheetController::class, 'index'])->name('upload-excel');
+    Route::post('upload-excel', [PHPSpreadsheetController::class, 'preview'])->name('submit-excel');
+    Route::post('upload-confirm', [PHPSpreadsheetController::class, 'store'])->name('upload-confirm');
+    Route::get('export-excel', [PHPSpreadsheetController::class, 'show'])->name('export-excel');
+    Route::post('export-excel', [PHPSpreadsheetController::class, 'export'])->name('download-excel');
     //role
     Route::resource('role', RoleController::class);
     //current user
@@ -50,25 +40,14 @@ Route::middleware(['auth'])->group(function () {
     //user
     Route::resource('user', UserController::class);
     //generate permission
-    Route::get('generate-permission', 'PermissionController@generateAllPermissions')
-        ->name('generate.permission');
-
-    Route::get('send-notification', [HomeController::class, 'sendAccountVerificationMail'])
-        ->name('send.notification');
-
-// chat
-
-    Route::get('chat', [ChatRoomController::class, 'index'])
-        ->name('chat');
-
-    Route::get('chat/rooms', [ChatRoomController::class, 'rooms'])
-        ->name('chat.rooms');
-
-    Route::get('chat/{roomId}/messages', [ChatRoomController::class, 'messages'])
-        ->name('chat.messages');
-
-    Route::post('chat/{roomId}/messages', [ChatRoomController::class, 'newMessages'])
-        ->name('new.messages');
+    Route::get('generate-permission', 'PermissionController@generateAllPermissions')->name('generate.permission');
+    Route::get('send-notification', [HomeController::class, 'sendAccountVerificationMail'])->name('send.notification');
+    // chat
+    Route::get('chat', [ChatRoomController::class, 'index'])->name('chat');
+    Route::get('chat/rooms', [ChatRoomController::class, 'rooms'])->name('chat.rooms');
+    Route::get('chat/{roomId}/messages', [ChatRoomController::class, 'messages'])->name('chat.messages');
+    Route::post('chat/{roomId}/messages', [ChatRoomController::class, 'newMessages'])->name('new.messages');
 });
 
 require __DIR__ . '/auth.php';
+
