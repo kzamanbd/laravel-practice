@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\ChatController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\API\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\API\CategoryController;
@@ -35,11 +36,9 @@ Route::post('form-submitted', function (Request $request) {
 Route::prefix('auth')->group(function () {
     //get current user
     Route::get('current-user', [AuthenticatedSessionController::class, 'currentUser']);
-
     //login routes
     Route::post('login', [AuthenticatedSessionController::class, 'login']);
     Route::post('register', [AuthenticatedSessionController::class, 'register']);
-
     //logout
     Route::post('logout', [AuthenticatedSessionController::class, 'logout']);
 
@@ -57,8 +56,7 @@ Route::post('comment', [CommentController::class, 'store']);
 Route::post('comment', [CommentController::class, 'destroy']);
 
 // chat
-Route::post('get-message', [\App\Http\Controllers\API\ChatController::class, 'getMessage']);
-
+Route::post('get-message', [ChatController::class, 'getMessage']);
 // upload-image-by-cropper js
 Route::post('upload-image-by-croperjs', [HomeController::class, 'uploadImageByCroperjs']);
 Route::post('upload-docs-file', [HomeController::class, 'uploadDocsFile']);
@@ -68,4 +66,3 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('get-users', [HomeController::class, 'getAllUsers']);
     Route::get('get-user-detail/{id}', [HomeController::class, 'user']);
 });
-// get all users
