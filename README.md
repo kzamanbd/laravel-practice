@@ -8,7 +8,7 @@
 - Clone Repository
 
 - Run command `composer install`
-- Copy env. example file, and rename .env
+- Copy `env. example file`, and rename .env
 - Then Run command `php artisan key:generate`
 - Then Run command `php artisan migrate`
 - Then Run command `php artisan db:seed`
