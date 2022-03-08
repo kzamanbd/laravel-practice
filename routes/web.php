@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ChatRoomController;
+use App\Http\Controllers\BrowserSessionManager;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PHPSpreadsheetController;
 use App\Http\Controllers\RoleController;
@@ -42,11 +42,11 @@ Route::middleware(['auth'])->group(function () {
     //generate permission
     Route::get('generate-permission', 'PermissionController@generateAllPermissions')->name('generate.permission');
     Route::get('send-notification', [HomeController::class, 'sendAccountVerificationMail'])->name('send.notification');
-    // chat
-    Route::get('chat', [ChatRoomController::class, 'index'])->name('chat');
-    Route::get('chat/rooms', [ChatRoomController::class, 'rooms'])->name('chat.rooms');
-    Route::get('chat/{roomId}/messages', [ChatRoomController::class, 'messages'])->name('chat.messages');
-    Route::post('chat/{roomId}/messages', [ChatRoomController::class, 'newMessages'])->name('new.messages');
+
+    // browser session
+    Route::get('browser-session', [BrowserSessionManager::class, 'getSessionsProperty'])->name('browser-session');
+    Route::post('logout-other-browser', [BrowserSessionManager::class, 'logoutOtherBrowserSessions'])->name('logout-other-browser');
+    Route::get('logout-single-browser/{device_id}', [BrowserSessionManager::class, 'logoutSingleSessionDevice'])->name('logout-single-browser');
 });
 
 require __DIR__ . '/auth.php';
