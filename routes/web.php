@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ChatRoomController;
+use App\Http\Controllers\BrowserSessionManager;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PHPSpreadsheetController;
 use App\Http\Controllers\RoleController;
@@ -17,15 +17,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+require __DIR__ . '/auth.php';
 
 Route::view('/', 'welcome');
-Route::view('/product', 'product');
-
 Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-
+    Route::view('dashboard', 'dashboard')->name('dashboard');
     Route::get('upload-excel', [PHPSpreadsheetController::class, 'index'])->name('upload-excel');
     Route::post('upload-excel', [PHPSpreadsheetController::class, 'preview'])->name('submit-excel');
     Route::post('upload-confirm', [PHPSpreadsheetController::class, 'store'])->name('upload-confirm');
@@ -42,12 +38,10 @@ Route::middleware(['auth'])->group(function () {
     //generate permission
     Route::get('generate-permission', 'PermissionController@generateAllPermissions')->name('generate.permission');
     Route::get('send-notification', [HomeController::class, 'sendAccountVerificationMail'])->name('send.notification');
-    // chat
-    Route::get('chat', [ChatRoomController::class, 'index'])->name('chat');
-    Route::get('chat/rooms', [ChatRoomController::class, 'rooms'])->name('chat.rooms');
-    Route::get('chat/{roomId}/messages', [ChatRoomController::class, 'messages'])->name('chat.messages');
-    Route::post('chat/{roomId}/messages', [ChatRoomController::class, 'newMessages'])->name('new.messages');
-});
 
-require __DIR__ . '/auth.php';
+    // browser session
+    Route::get('browser-session', [BrowserSessionManager::class, 'getSessionsProperty'])->name('browser-session');
+    Route::post('logout-other-browser', [BrowserSessionManager::class, 'logoutOtherBrowserSessions'])->name('logout-other-browser');
+    Route::get('logout-single-browser/{device_id}', [BrowserSessionManager::class, 'logoutSingleSessionDevice'])->name('logout-single-browser');
+});
 
