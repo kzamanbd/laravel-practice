@@ -57,7 +57,7 @@
                                                                     @endif
                                                                 </div>
                                                                 <span class="ml-3 text-gray-900 whitespace-no-wrap m-0">
-                                                                    {{ $session->agent->platform() ? $session->agent->platform() : 'Unknown' }} {{ $session->agent->platform() ? $session->agent->version($session->agent->platform()) : "" }} - {{ $session->agent->browser() ? $session->agent->browser() : 'Unknown' }}
+                                                                    {{ $session->agent->platform() ? $session->agent->platform() : 'Unknown' }} - {{ $session->agent->browser() ? $session->agent->browser() : 'Unknown' }}
                                                                 </span>
                                                             </div>
                                                         </a>
