@@ -17,15 +17,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+require __DIR__ . '/auth.php';
 
 Route::view('/', 'welcome');
-Route::view('/product', 'product');
-
 Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-
+    Route::view('dashboard', 'dashboard')->name('dashboard');
     Route::get('upload-excel', [PHPSpreadsheetController::class, 'index'])->name('upload-excel');
     Route::post('upload-excel', [PHPSpreadsheetController::class, 'preview'])->name('submit-excel');
     Route::post('upload-confirm', [PHPSpreadsheetController::class, 'store'])->name('upload-confirm');
@@ -48,6 +44,4 @@ Route::middleware(['auth'])->group(function () {
     Route::post('logout-other-browser', [BrowserSessionManager::class, 'logoutOtherBrowserSessions'])->name('logout-other-browser');
     Route::get('logout-single-browser/{device_id}', [BrowserSessionManager::class, 'logoutSingleSessionDevice'])->name('logout-single-browser');
 });
-
-require __DIR__ . '/auth.php';
 
