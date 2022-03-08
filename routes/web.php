@@ -30,9 +30,7 @@ Route::middleware(['auth'])->group(function () {
     //role
     Route::resource('role', RoleController::class);
     //current user
-    Route::get('current-user', 'HomeController@profile')->name('current-user.show');
-    Route::get('current-user/edit', 'HomeController@edit')->name('current-user.edit');
-    Route::post('current-user/update', 'HomeController@update')->name('current-user.update');
+    Route::get('user/profile', [HomeController::class, 'profile'])->name('current-user.show');
     //user
     Route::resource('user', UserController::class);
     //generate permission
