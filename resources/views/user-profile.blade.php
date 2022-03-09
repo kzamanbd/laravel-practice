@@ -7,7 +7,7 @@
 
     <div>
         <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
-            @livewire('update-profile-information-form')
+            @livewire('profile.update-profile-information-form')
             <x-section-border/>
             @livewire('profile.update-password-form')
             <x-section-border/>

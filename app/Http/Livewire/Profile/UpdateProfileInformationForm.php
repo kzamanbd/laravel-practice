@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Profile;
 
 use App\Models\User;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use function view;
 
 class UpdateProfileInformationForm extends Component
 {
@@ -71,6 +70,7 @@ class UpdateProfileInformationForm extends Component
         $user = $profilePhotoPath ? array_merge($this->state, ['profile_photo_path' => $profilePhotoPath]) : $this->state;
         Auth::user()->update($user);
         $this->emit('saved');
+        $this->emit('refresh-navigation-menu');
     }
 
     /**
@@ -90,6 +90,6 @@ class UpdateProfileInformationForm extends Component
      */
     public function render(): View
     {
-        return view('livewire.update-profile-information-form');
+        return view('livewire.profile.update-profile-information-form');
     }
 }
