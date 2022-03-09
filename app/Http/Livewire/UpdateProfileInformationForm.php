@@ -20,16 +20,25 @@ class UpdateProfileInformationForm extends Component
      *
      * @var array
      */
-    public $state = [];
+    public array $state = [];
 
     /**
      * The state validation.
      *
      * @var array
      */
-    protected $rules = [
-        'state.name' => 'required|min:6',
+    protected array $rules = [
+        'state.name' => 'required|string',
         'state.email' => 'required|email',
+    ];
+    /**
+     * The state validation Attributes.
+     *
+     * @var array
+     */
+    protected array $validationAttributes = [
+        'state.name' => 'name',
+        'state.email' => 'email',
     ];
 
     /**
@@ -77,9 +86,9 @@ class UpdateProfileInformationForm extends Component
     /**
      * Render the component.
      *
-     * @return Application|Factory|View
+     * @return View
      */
-    public function render()
+    public function render(): View
     {
         return view('livewire.update-profile-information-form');
     }
