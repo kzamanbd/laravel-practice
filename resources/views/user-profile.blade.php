@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Profile Jet') }}
+            {{ __('Profile') }}
         </h2>
     </x-slot>
 
@@ -10,6 +10,8 @@
             @livewire('update-profile-information-form')
             <x-section-border/>
             @livewire('profile.update-password-form')
+            <x-section-border/>
+            @livewire('profile.logout-other-browser-sessions-form')
             <x-section-border/>
         </div>
     </div>
