@@ -16,7 +16,7 @@ class UpdatePasswordForm extends Component
      *
      * @var array
      */
-    public $state = [
+    public array $state = [
         'current_password' => '',
         'password' => '',
         'password_confirmation' => '',
@@ -27,10 +27,18 @@ class UpdatePasswordForm extends Component
      *
      * @var array
      */
-    protected $rules = [
-        'state.current_password' => 'required|min:6',
-        'state.password' => 'required|email',
-        'state.password_confirmation' => 'required|email',
+    protected array $rules = [
+        'state.current_password' => 'required|current_password',
+        'state.password' => 'required|confirmed',
+    ];
+    /**
+     * The state validation Attributes.
+     *
+     * @var array
+     */
+    protected array $validationAttributes = [
+        'state.current_password' => 'current password',
+        'state.password' => 'password',
     ];
 
     /**
@@ -40,13 +48,14 @@ class UpdatePasswordForm extends Component
      */
     public function updatePassword()
     {
+        $this->validate();
         $this->resetErrorBag();
+        Auth::user()->update(['password' => bcrypt($this->state['password'])]);
         $this->state = [
             'current_password' => '',
             'password' => '',
             'password_confirmation' => '',
         ];
-
         $this->emit('saved');
     }
 
@@ -63,9 +72,9 @@ class UpdatePasswordForm extends Component
     /**
      * Render the component.
      *
-     * @return Application|Factory|View
+     * @return View
      */
-    public function render()
+    public function render(): View
     {
         return view('livewire.profile.update-password-form');
     }
