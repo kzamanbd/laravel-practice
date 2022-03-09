@@ -19,6 +19,15 @@ use Illuminate\Support\Facades\Route;
 */
 require __DIR__ . '/auth.php';
 
+Route::get('clear', function (){
+    Artisan::call('optimize:clear');
+    return "Site Optimized";
+});
+Route::get('storage', function (){
+    Artisan::call('storage:link');
+    return "Storage Link Created";
+});
+
 Route::view('/', 'welcome');
 Route::middleware(['auth'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
