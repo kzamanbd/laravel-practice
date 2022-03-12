@@ -19,11 +19,11 @@ use Illuminate\Support\Facades\Route;
 */
 require __DIR__ . '/auth.php';
 
-Route::get('clear', function (){
+Route::get('clear', function () {
     Artisan::call('optimize:clear');
     return "Site Optimized";
 });
-Route::get('storage', function (){
+Route::get('storage', function () {
     Artisan::call('storage:link');
     return "Storage Link Created";
 });
@@ -31,24 +31,32 @@ Route::get('storage', function (){
 Route::view('/', 'welcome');
 Route::middleware(['auth'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
-    Route::get('upload-excel', [PHPSpreadsheetController::class, 'index'])->name('upload-excel');
-    Route::post('upload-excel', [PHPSpreadsheetController::class, 'preview'])->name('submit-excel');
-    Route::post('upload-confirm', [PHPSpreadsheetController::class, 'store'])->name('upload-confirm');
-    Route::get('export-excel', [PHPSpreadsheetController::class, 'show'])->name('export-excel');
-    Route::post('export-excel', [PHPSpreadsheetController::class, 'export'])->name('download-excel');
+    Route::controller(PHPSpreadsheetController::class)->group(function () {
+        Route::get('upload-excel', 'index')->name('upload-excel');
+        Route::post('upload-excel', 'preview')->name('submit-excel');
+        Route::post('upload-confirm', 'store')->name('upload-confirm');
+        Route::get('export-excel', 'show')->name('export-excel');
+        Route::post('export-excel', 'export')->name('download-excel');
+    });
+
     //role
     Route::resource('role', RoleController::class);
-    //current user
-    Route::get('user/profile', [HomeController::class, 'profile'])->name('current-user.show');
     //user
     Route::resource('user', UserController::class);
     //generate permission
     Route::get('generate-permission', 'PermissionController@generateAllPermissions')->name('generate.permission');
-    Route::get('send-notification', [HomeController::class, 'sendAccountVerificationMail'])->name('send.notification');
 
-    // browser session
-    Route::get('browser-session', [BrowserSessionManager::class, 'getSessionsProperty'])->name('browser-session');
-    Route::post('logout-other-browser', [BrowserSessionManager::class, 'logoutOtherBrowserSessions'])->name('logout-other-browser');
-    Route::get('logout-single-browser/{device_id}', [BrowserSessionManager::class, 'logoutSingleSessionDevice'])->name('logout-single-browser');
+    Route::controller(HomeController::class)->group(function(){
+        //current user
+        Route::get('user/profile', 'profile')->name('current-user.show');
+        Route::get('send-notification',  'sendAccountVerificationMail')->name('send.notification');
+    });
+    Route::controller(BrowserSessionManager::class)->group(function(){
+        // browser session
+        Route::get('browser-session',  'getSessionsProperty')->name('browser-session');
+        Route::post('logout-other-browser',  'logoutOtherBrowserSessions')->name('logout-other-browser');
+        Route::get('logout-single-browser/{device_id}',  'logoutSingleSessionDevice')->name('logout-single-browser');
+    });
+
 });
 
