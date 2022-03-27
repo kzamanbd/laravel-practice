@@ -1,10 +1,10 @@
 on:
   push:
-    branches: [ master ]
+    branches: [ develop ]
   pull_request:
-    branches: [ master ]
+    branches: [ develop ]
 
-name: 🚀 Deploy Private Server Master
+name: 🚀 Deploy Private Server DevEnv
 jobs:
   web-deploy:
     name: 🎉 Deploy
@@ -19,4 +19,4 @@ jobs:
         server: 207.180.201.234
         username: ${{ secrets.ftp_zamanz_username }}
         password: ${{ secrets.ftp_zamanz_userpassword }}
-        server-dir: /api.kzaman.me/
+        server-dir: /develops/
