@@ -4,7 +4,7 @@ on:
   pull_request:
     branches: [ master ]
 
-name: 🚀 Deploy Private Server K Zaman
+name: 🚀 Deploy Private Server Master
 jobs:
   web-deploy:
     name: 🎉 Deploy
