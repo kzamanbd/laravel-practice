@@ -19,4 +19,4 @@ jobs:
         server: 207.180.201.234
         username: ${{ secrets.ftp_zamanz_username }}
         password: ${{ secrets.ftp_zamanz_userpassword }}
-        server-dir: /api.kzaman.me/
+        server-dir: /api.kzaman.me
