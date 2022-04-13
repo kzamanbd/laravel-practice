@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PHPSpreadsheetController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PermissionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,11 +45,11 @@ Route::middleware(['auth'])->group(function () {
     //user
     Route::resource('user', UserController::class);
     //generate permission
-    Route::get('generate-permission', 'PermissionController@generateAllPermissions')->name('generate.permission');
+    Route::get('generate-permission', [PermissionController::class, 'generateAllPermissions'])->name('generate.permission');
 
     Route::controller(HomeController::class)->group(function(){
         //current user
-        Route::get('user/profile', 'profile')->name('current-user.show');
+        Route::get('profile', 'profile')->name('current-user.show');
         Route::get('send-notification',  'sendAccountVerificationMail')->name('send.notification');
     });
     Route::controller(BrowserSessionManager::class)->group(function(){
