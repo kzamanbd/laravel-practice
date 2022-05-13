@@ -16,6 +16,6 @@ jobs:
       uses: SamKirkland/FTP-Deploy-Action@4.1.0
       with:
         server: 207.180.201.234
-        username: ${{ secrets.ftp_zamanz_username }}
-        password: ${{ secrets.ftp_zamanz_userpassword }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
         server-dir: /
