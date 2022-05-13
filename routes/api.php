@@ -66,3 +66,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('get-users', [HomeController::class, 'getAllUsers']);
     Route::get('get-user-detail/{id}', [HomeController::class, 'user']);
 });
+
+
+Route::post('forward-notification', function (Request $request) {
+    return $request->all();
+});
