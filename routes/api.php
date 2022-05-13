@@ -69,5 +69,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
 Route::post('forward-notification', function (Request $request) {
-    return $request->all();
+    return response()->json([
+        'success' => true,
+        'message' => 'notification forwarded',
+        'request_data' => $request->all()
+    ]);
 });
