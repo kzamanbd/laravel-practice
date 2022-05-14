@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BrowserSessionManager;
+use App\Http\Controllers\FirebaseController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PHPSpreadsheetController;
 use App\Http\Controllers\RoleController;
@@ -60,4 +61,6 @@ Route::middleware(['auth'])->group(function () {
     });
 
 });
+
+Route::get('firebase', [FirebaseController::class, 'firebase'])->name('firebase');
 
