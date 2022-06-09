@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Contact;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -224,22 +225,26 @@ class PHPSpreadsheetController extends Controller
 
         // create spreadsheet object
         $spreadsheet = new Spreadsheet();
-
         // add dataset
         $spreadsheet->getActiveSheet()->fromArray($collections);
-
         // create xlsx file
-        $writer = new Xlsx($spreadsheet);
-        
-        $name = 'export-excel/Sales-Reports-' . time() . '.xlsx';
-        $path = storage_path('app/public/' . $name);
+        $date = date('d-m-y-'.substr((string)microtime(), 1, 8));
+        $date = str_replace(".", "", $date);
+        $filename = "Sales-Reports-{$date}.xlsx";
 
-        if (!Storage::exists('export-excel')) {
-            Storage::makeDirectory('export-excel', 0777, true);
+        try {
+            $writer = new Xlsx($spreadsheet);
+            $writer->save($filename);
+            $content = file_get_contents($filename);
+        } catch(Exception $e) {
+            exit($e->getMessage());
         }
-        $writer->save($path);
+        header("Content-Disposition: attachment; filename=".$filename);
+        unlink($filename);
+        exit($content);
+
         // download file
-        return Storage::download($name);
+        //return Storage::download($name);
 
         $asses = Contact::all();
         return view('excel.export', compact('asses'));
