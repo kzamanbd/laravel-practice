@@ -89,12 +89,161 @@ class PHPSpreadsheetController extends Controller
         return back()->with("success", "Data Successfully Imported");
     }
 
-    public function show(Request $request)
+    public function show()
     {
+        $columns = [
+            'layer' => 'Layer',
+            'sl' => 'SL',
+            'territory_code' => 'Code',
+            'territory_name' => 'Territory Name',
+            'employee_id' => 'ID',
+            'employee_name' => 'Name',
+            'designation' => 'Designation',
+            'opening' => 'Opening',
+            'target' => 'Target',
+            'no_of_inv' => 'No of Inv',
+            'dispatch' => 'Dispatch',
+            'return' => 'Return',
+            'return_percentage' => 'Return %',
+            'discount' => 'Discount',
+            'actual_sales' => 'Actual Sales',
+            'vat' => 'Vat',
+            'net_sales' => 'Net Sales',
+            'previous_collection' => 'Pre Collection',
+            'current_collection' => 'Curr Collection',
+            'in_transit' => 'In Transit',
+            'cr_note' => 'Cr Note',
+            'out_standing' => 'Outstanding',
+            'sales_percentage' => 'Sales %',
+            'collection_percentage' => 'Collection %',
+        ];
+
+        $collections[] = $columns;
+        
+        $json_path = public_path('sales-reports.json');
+        $jsonRecords = collect(json_decode(file_get_contents($json_path), true));
+
+        $records = $jsonRecords['data']['bu_data'];
+
+        $mioCount = 1;
+        $amCount = 1;
+        $rsmCount = 1;
+        foreach($records as $key => $record) {
+            foreach($record['rsm_info'] as $rsmKey => $rsmInfo){
+                foreach($rsmInfo['am_data'] as $amKey => $amData){
+                    foreach($amData['mio_data'] as $mioKey => $mioData){
+                        $collections[] = [
+                            'layer' => 'MIO',
+                            'sl' => $mioCount,
+                            'territory_code' => $mioData['mio_area_code'],
+                            'territory_name' => $mioData['mio_area_name'],
+                            'employee_id' => $mioData['mio_code'],
+                            'employee_name' => $mioData['mio_name'],
+                            'designation' => $mioData['mio_desig'],
+                            'opening' => $mioData['opening_dues'],
+                            'target' => $mioData['mio_target'],
+                            'no_of_inv' => $mioData['no_of_inv'],
+                            'dispatch' => $mioData['dispatch'],
+                            'return' => $mioData['return_total'],
+                            'return_percentage' => $mioData['return_percent'],
+                            'discount' => $mioData['discount'],
+                            'actual_sales' => $mioData['actual_sales'],
+                            'vat' => $mioData['inv_vat'],
+                            'net_sales' => $mioData['net_sales'],
+                            'previous_collection' => $mioData['prev_coll'],
+                            'current_collection' => $mioData['curr_coll'],
+                            'in_transit' => $mioData['in_transit_coll'],
+                            'cr_note' => $mioData['credit_note'],
+                            'out_standing' => $mioData['total_outstandings'],
+                            'sales_percentage' => $mioData['sales_achvmnt'],
+                            'collection_percentage' => $mioData['coll_achvmnt'],
+                        ];
+
+                        $mioCount++;
+                    }
+
+                    $collections[] = [
+                        'layer' => 'AM',
+                        'sl' => $amCount,
+                        'territory_code' => $amData['am_area_code'],
+                        'territory_name' => $amData['am_area_name'],
+                        'employee_id' => $amData['am_code'],
+                        'employee_name' => $amData['am_name'],
+                        'designation' => $amData['am_desig'],
+                        'opening' => $amData['opening_dues'],
+                        'target' => $amData['am_target'],
+                        'no_of_inv' => $amData['am_no_of_inv'],
+                        'dispatch' => $amData['dispatch'],
+                        'return' => $amData['return_total'],
+                        'return_percentage' => $amData['return_percent'],
+                        'discount' => $amData['discount'],
+                        'actual_sales' => $amData['actual_sales'],
+                        'vat' => $amData['inv_vat'],
+                        'net_sales' => $amData['net_sales'],
+                        'previous_collection' => $amData['prev_coll'],
+                        'current_collection' => $amData['curr_coll'],
+                        'in_transit' => $amData['in_transit_coll'],
+                        'cr_note' => $amData['credit_note'],
+                        'out_standing' => $amData['total_outstandings'],
+                        'sales_percentage' => $amData['sales_achvmnt'],
+                        'collection_percentage' => $amData['coll_achvmnt'],
+                    ];
+
+                    $amCount++;
+                }
+
+                $collections[] = [
+                    'layer' => 'RSM',
+                    'sl' => $rsmCount,
+                    'territory_code' => $rsmInfo['rsm_area_code'],
+                    'territory_name' => $rsmInfo['rsm_area_name'],
+                    'employee_id' => $rsmInfo['rsm_code'],
+                    'employee_name' => $rsmInfo['rsm_name'],
+                    'designation' => $rsmInfo['rsm_desig'],
+                    'opening' => $rsmInfo['opening_dues'],
+                    'target' => $rsmInfo['rsm_target'],
+                    'no_of_inv' => $rsmInfo['rsm_no_of_inv'],
+                    'dispatch' => $rsmInfo['dispatch'],
+                    'return' => $rsmInfo['return_total'],
+                    'return_percentage' => $rsmInfo['return_percent'],
+                    'discount' => $rsmInfo['discount'],
+                    'actual_sales' => $rsmInfo['actual_sales'],
+                    'vat' => $rsmInfo['inv_vat'],
+                    'net_sales' => $rsmInfo['net_sales'],
+                    'previous_collection' => $rsmInfo['prev_coll'],
+                    'current_collection' => $rsmInfo['curr_coll'],
+                    'in_transit' => $rsmInfo['in_transit_coll'],
+                    'cr_note' => $rsmInfo['credit_note'],
+                    'out_standing' => $rsmInfo['total_outstandings'],
+                    'sales_percentage' => $rsmInfo['sales_achvmnt'],
+                    'collection_percentage' => $rsmInfo['coll_achvmnt'],
+                ];
+                $rsmCount++;
+            }
+        }
+
+        // create spreadsheet object
+        $spreadsheet = new Spreadsheet();
+
+        // add dataset
+        $spreadsheet->getActiveSheet()->fromArray($collections);
+
+        // create xlsx file
+        $writer = new Xlsx($spreadsheet);
+        
+        $name = 'export-excel/Sales-Reports-' . time() . '.xlsx';
+        $path = storage_path('app/public/' . $name);
+
+        if (!Storage::exists('export-excel')) {
+            Storage::makeDirectory('export-excel', 0777, true);
+        }
+        $writer->save($path);
+        // download file
+        return Storage::download($name);
+
         $asses = Contact::all();
         return view('excel.export', compact('asses'));
     }
-
     public function export(Request $request)
     {
 
