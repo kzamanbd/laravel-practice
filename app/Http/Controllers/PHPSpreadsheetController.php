@@ -21,20 +21,20 @@ class PHPSpreadsheetController extends Controller
 
     public function preview(Request $request)
     {
-        // return $request->all();
+
         if ($request->file('file')) {
-            $path = $request->file('file')->store('public');
-            $name = storage_path('app/' . $path);
             $this->validate($request, [
                 'file' => 'required|file|mimes:xlsx'
             ]);
+            $path = $request->file('file')->store('documents');
+            $url = Storage::url($path);
         } else {
-            $name = public_path('docs/data.xlsx');
+            $url = public_path('docs/data.xlsx');
         }
 
         $reader = IOFactory::createReader("Xlsx");
         $reader->setLoadAllSheets();
-        $spreadsheet = $reader->load($name);
+        $spreadsheet = $reader->load($url);
         $worksheet = $spreadsheet->getActiveSheet(); //Selecting The Active Sheet
         $highest_row = $worksheet->getHighestRow();
         $highest_col = "H";
@@ -49,7 +49,7 @@ class PHPSpreadsheetController extends Controller
             TRUE,      // Should values be formatted (the equivalent of getFormattedValue() for each cell)
             TRUE      // Should the array be indexed by cell row and cell column
         );
-        $fields = ["e_tin", "tin_date", "asses_name", "mobile", "address", "police_station", "old_tin", "circle_name"];
+        $fields = ["e_tin", "tin_date", "name", "mobile", "address", "police_station", "old_tin", "circle_name"];
         $data = array_map(function ($row) use ($fields) {
             //Combining key value pair;
             return array_combine($fields, $row);
@@ -59,12 +59,12 @@ class PHPSpreadsheetController extends Controller
         $data = array_map(function ($item) {
             if (trim($item["tin_date"]) != null) {
                 $d = Carbon::createFromFormat("d/m/Y", $item["tin_date"]);
-                $item["tin_date"] = $d->format("Y-m-d");
+                $item["tin_date"] = $d->format("d-M-Y");
             }
             return $item;
         }, $data);
 
-        ($request->file) && Storage::disk('public')->exists($path) ? Storage::disk('public')->delete($path) : '';
+        ($request->file) && Storage::exists($path) ? Storage::delete($path) : '';
         // return $data;
         session()->flash("success", "Data Successfully Imported, Please Confirm!");
 

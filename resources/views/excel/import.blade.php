@@ -75,17 +75,17 @@
                                             SL
                                         </th>
                                         <th class="text-left px-2 py-1 text-sm border-2 border-left border-gray-200">
+                                            Name
+                                        </th>
+                                        <th class="text-left px-2 py-1 text-sm border-2 border-left border-gray-200">
+                                            Mobile
+                                        </th>
+                                        <th class="text-left px-2 py-1 text-sm border-2 border-left border-gray-200">
                                             E-TIN
                                         </th>
 
                                         <th class="text-left px-2 py-1 text-sm border-2 border-left border-gray-200">
                                             TIN Date
-                                        </th>
-                                        <th class="text-left px-2 py-1 text-sm border-2 border-left border-gray-200">
-                                            Name
-                                        </th>
-                                        <th class="text-left px-2 py-1 text-sm border-2 border-left border-gray-200">
-                                            Mobile
                                         </th>
 
                                         <th class="text-left px-2 py-1 text-sm border-2 border-left border-gray-200">
@@ -100,16 +100,16 @@
                                                 {{ $loop->iteration }}.
                                             </td>
                                             <td class="px-2 py-1 text-left whitespace-nowrap text-sm border-2 border-left border-gray-200">
+                                                {{ $row['name'] ?? 'N/A' }}
+                                            </td>
+                                            <td class="px-2 py-1 text-left whitespace-nowrap text-sm border-2 border-left border-gray-200">
+                                                {{ $row['mobile'] ? \Illuminate\Support\Str::substr($row['mobile'], -11) : 'N/A' }}
+                                            </td>
+                                            <td class="px-2 py-1 text-left whitespace-nowrap text-sm border-2 border-left border-gray-200">
                                                 {{ $row['e_tin'] ?? 'N/A' }}
                                             </td>
                                             <td class="px-2 py-1 text-left whitespace-nowrap text-sm border-2 border-left border-gray-200">
                                                 {{ $row['tin_date'] ?? 'N/A' }}
-                                            </td>
-                                            <td class="px-2 py-1 text-left whitespace-nowrap text-sm border-2 border-left border-gray-200">
-                                                {{ $row['asses_name'] ?? 'N/A' }}
-                                            </td>
-                                            <td class="px-2 py-1 text-left whitespace-nowrap text-sm border-2 border-left border-gray-200">
-                                                {{ $row['mobile'] ? \Illuminate\Support\Str::substr($row['mobile'], -11) : 'N/A' }}
                                             </td>
                                             <td class="px-2 py-1 text-left whitespace-nowrap text-sm border-2 border-left border-gray-200">
                                                 {{ $row['address'] ?? 'N/A' }}

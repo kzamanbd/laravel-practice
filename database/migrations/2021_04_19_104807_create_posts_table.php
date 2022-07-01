@@ -21,14 +21,12 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-
+            $table->longText('body')->nullable();
+            $table->string('image')->nullable();
             $table->foreignId('user_id')
                 ->constrained()
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-
-            $table->longText('body')->nullable();
-            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

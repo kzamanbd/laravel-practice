@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('contacts', function (Blueprint $table) {
             $table->id();
-            $table->string('e_tin');
-            $table->string('old_tin')->nullable();
-            $table->string('tin_date')->nullable();
-            $table->string('asses_name')->nullable();
+            $table->string('name')->nullable();
             $table->string('mobile')->nullable();
             $table->string('address')->nullable();
+            $table->string('e_tin')->nullable();
+            $table->string('old_tin')->nullable();
+            $table->string('tin_date')->nullable();
             $table->string('police_station')->nullable();
             $table->string('circle_name')->nullable();
             $table->timestamps();
