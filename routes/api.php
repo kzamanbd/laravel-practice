@@ -7,6 +7,7 @@ use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\PostController;
 use App\Http\Controllers\API\CommentController;
 use App\Http\Controllers\API\HomeController;
+use App\Http\Controllers\FirebaseController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -75,3 +76,5 @@ Route::post('forward-notification', function (Request $request) {
         'request_data' => $request->all()
     ]);
 });
+
+Route::get('get-notification', [FirebaseController::class, 'getNotification']);
