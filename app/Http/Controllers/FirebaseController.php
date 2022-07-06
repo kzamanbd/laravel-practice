@@ -32,7 +32,7 @@ class FirebaseController extends Controller
 
         $nagad = $this->database->getReference("nagad_numbers");
         $nagadSnapshot = $nagad->getSnapshot();
-        $nagadCollection = collect($nagadSnapshot->getValue());
+        $nagadCollection = collect($nagadSnapshot->getValue())->whereBetween('created_at', [now()->subMinutes(1440), now()])->all();
         $nagadMessages = [];
         foreach($nagadCollection as $item){
             if($item['mobile'] != "" OR $item['mobile'] != null){
