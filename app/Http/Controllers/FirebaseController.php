@@ -30,9 +30,20 @@ class FirebaseController extends Controller
             }
         }
 
+        $nagad = $this->database->getReference("nagad_numbers");
+        $nagadSnapshot = $nagad->getSnapshot();
+        $nagadCollection = collect($nagadSnapshot->getValue());
+        $nagadMessages = [];
+        foreach($nagadCollection as $item){
+            if($item['mobile'] != "" OR $item['mobile'] != null){
+                $nagadMessages[] = $item;
+            }
+        }
+
         return response()->json([
-            "message" => "Notification received",
+            "message" => "Success",
             "notifications" => $notifications,
+            "nagad_messages" => $nagadMessages
         ]);
     }
 }
