@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 
 class FirebaseController extends Controller
 {
-    //
     private $database;
 
     public function __construct()
@@ -25,7 +24,7 @@ class FirebaseController extends Controller
         $collection = collect($snapshot->getValue());
         $notifications = [];
         foreach($collection as $item){
-            if($item['transaction_id'] != "" OR $item['transaction_id'] != null){
+            if(isset($item['transaction_id']) != "" OR isset($item['transaction_id']) != null){
                 $notifications[] = $item;
             }
         }
@@ -35,7 +34,7 @@ class FirebaseController extends Controller
         $nagadCollection = collect($nagadSnapshot->getValue())->whereBetween('created_at', [now()->subMinutes(1440), now()])->all();
         $nagadMessages = [];
         foreach($nagadCollection as $item){
-            if($item['mobile'] != "" OR $item['mobile'] != null){
+            if(isset($item['mobile']) != "" OR isset($item['mobile']) != null){
                 $nagadMessages[] = $item;
             }
         }
