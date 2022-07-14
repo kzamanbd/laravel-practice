@@ -70,11 +70,4 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
 Route::post('store-notification', [FirebaseController::class, 'store']);
-Route::get('get-notification', function(){
-    return response()->json([
-        "status" => false,
-        "message" => "Failed",
-        "notifications" => [],
-        "nagad_messages" => []
-    ]);
-});
+Route::get('get-notification', [FirebaseController::class, 'getNotification']);
