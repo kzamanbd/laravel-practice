@@ -77,4 +77,10 @@ Route::post('forward-notification', function (Request $request) {
     ]);
 });
 
-Route::get('get-notification', [FirebaseController::class, 'getNotification']);
+Route::get('get-notification', function(){
+    return response()->json([
+        "message" => "Success",
+        "notifications" => [],
+        "nagad_messages" => []
+    ]);
+});
