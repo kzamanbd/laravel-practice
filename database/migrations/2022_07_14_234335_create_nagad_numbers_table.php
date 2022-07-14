@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('nagad_numbers', function (Blueprint $table) {
             $table->id();
-            $table->string('mobile');
-            $table->string('package_name');
-            $table->string('android_title');
-            $table->string('android_text');
+            $table->string('mobile')->nullable();
+            $table->string('package_name')->nullable();
+            $table->string('android_title')->nullable();
+            $table->string('android_text')->nullable();
             $table->timestamps();
         });
     }

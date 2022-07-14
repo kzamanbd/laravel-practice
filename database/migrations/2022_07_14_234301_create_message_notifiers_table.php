@@ -15,14 +15,14 @@ return new class extends Migration
     {
         Schema::create('message_notifiers', function (Blueprint $table) {
             $table->id();
-            $table->string('app_name');
-            $table->string('package_name');
-            $table->string('android_title');
-            $table->string('android_text');
-            $table->string('android_sub_text');
-            $table->string('android_big_text');
-            $table->string('android_info_text');
-            $table->string('transaction_id');
+            $table->string('app_name')->nullable();
+            $table->string('package_name')->nullable();
+            $table->string('android_title')->nullable();
+            $table->string('android_text')->nullable();
+            $table->string('android_sub_text')->nullable();
+            $table->string('android_big_text')->nullable();
+            $table->string('android_info_text')->nullable();
+            $table->string('transaction_id')->nullable();
             $table->timestamps();
         });
     }
