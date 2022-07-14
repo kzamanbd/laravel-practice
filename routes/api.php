@@ -69,17 +69,11 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 
-Route::post('forward-notification', function (Request $request) {
-    return response()->json([
-        'success' => true,
-        'message' => 'notification forwarded',
-        'request_data' => $request->all()
-    ]);
-});
-
+Route::post('store-notification', [FirebaseController::class, 'store']);
 Route::get('get-notification', function(){
     return response()->json([
-        "message" => "Success",
+        "status" => false,
+        "message" => "Failed",
         "notifications" => [],
         "nagad_messages" => []
     ]);
