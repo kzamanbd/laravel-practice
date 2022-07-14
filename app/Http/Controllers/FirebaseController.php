@@ -68,11 +68,12 @@ class FirebaseController extends Controller
 
         if (isset($newReference) or isset($newNagad)) {
             return response()->json([
+                "status" => true,
                 "message" => "Successfully Added",
             ]);
         }
         return response()->json([
-            "response_code" => "204",
+            "status" => false,
             "message" => "Not found!",
         ]);
     }
