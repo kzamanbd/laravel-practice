@@ -6,6 +6,7 @@ use App\Models\MessageNotifier;
 use App\Models\NagadNumber;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Str;
 
 class NotifierController extends Controller
 {
@@ -16,10 +17,10 @@ class NotifierController extends Controller
     function store(Request $request)
     {
         $androidText = $request->input('android_text');
-        if (str_contains($request->input('android_title'), "bKash")) {
+        if (Str::contains($request->input('android_title'), "bKash")) {
             $secondArray = explode("TrxID ", $androidText);
             $transactionId = isset($secondArray[1]) ? explode(" ", $secondArray[1])[0] : null;
-        } else if (str_contains($request->input('android_title'), "NAGAD")) {
+        } else if (Str::contains($request->input('android_title'), "NAGAD")) {
             $secondArray = explode("TxnID:", $androidText);
             $transactionId = isset($secondArray[1]) ? explode("Comm:", $secondArray[1])[0] : null;
         } else {
