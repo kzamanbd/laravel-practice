@@ -7,7 +7,7 @@ use App\Models\NagadNumber;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
-class FirebaseController extends Controller
+class NotifierController extends Controller
 {
     /**
      * @param Request $request
@@ -64,7 +64,7 @@ class FirebaseController extends Controller
      */
     function getNotification()
     {
-        $notifications = MessageNotifier::query()->latest()->get();
+        $notifications = MessageNotifier::query()->whereBetween('created_at', [now()->subMinutes(4320), now()])->latest()->get();
         $nagadMessages = NagadNumber::query()->whereBetween('created_at', [now()->subMinutes(1440), now()])->get();
 
         return response()->json([

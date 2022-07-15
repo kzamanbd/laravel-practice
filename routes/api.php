@@ -7,7 +7,7 @@ use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\PostController;
 use App\Http\Controllers\API\CommentController;
 use App\Http\Controllers\API\HomeController;
-use App\Http\Controllers\FirebaseController;
+use App\Http\Controllers\NotifierController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -69,5 +69,5 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 
-Route::post('store-notification', [FirebaseController::class, 'store']);
-Route::get('get-notification', [FirebaseController::class, 'getNotification']);
+Route::post('store-notification', [NotifierController::class, 'store']);
+Route::get('get-notification', [NotifierController::class, 'getNotification']);
