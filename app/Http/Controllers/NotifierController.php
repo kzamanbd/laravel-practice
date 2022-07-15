@@ -64,12 +64,20 @@ class NotifierController extends Controller
      */
     function getNotification()
     {
-        $notifications = MessageNotifier::query()->whereBetween('created_at', [now()->subMinutes(4320), now()])->latest()->get();
-        $nagadMessages = NagadNumber::query()->whereBetween('created_at', [now()->subMinutes(1440), now()])->get();
+        $notifications = MessageNotifier::query()
+            ->whereBetween('created_at', [now()->subMinutes(4320), now()])
+            ->latest()
+            ->get();
 
+        $nagadMessages = NagadNumber::query()
+            ->whereBetween('created_at', [now()->subMinutes(1440), now()])
+            ->get();
+
+        $countNotification = count($notifications);
+        $countNagad = count($nagadMessages);
         return response()->json([
             "status" => true,
-            "message" => "Success",
+            "message" => "Total $countNotification Notification and $countNagad Mobile Number Founds!",
             "nagad_messages" => $nagadMessages,
             "notifications" => $notifications
         ]);
