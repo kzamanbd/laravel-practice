@@ -20,8 +20,8 @@ class FirebaseController extends Controller
             $secondArray = explode("TrxID ", $androidText);
             $transactionId = isset($secondArray[1]) ? explode(" ", $secondArray[1])[0] : null;
         } else if (str_contains($request->input('android_title'), "NAGAD")) {
-            $secondArray = explode("TxnID: ", $androidText);
-            $transactionId = isset($secondArray[1]) ? explode(" ", $secondArray[1])[0] : null;
+            $secondArray = explode("TxnID:", $androidText);
+            $transactionId = isset($secondArray[1]) ? explode("Comm:", $secondArray[1])[0] : null;
         } else {
             $transactionId = null;
         }
