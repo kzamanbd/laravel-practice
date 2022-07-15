@@ -15,7 +15,7 @@ class FirebaseController extends Controller
      */
     function store(Request $request)
     {
-        $androidText = str_replace(array("\n", "\r"), '', $request->input('android_text'));
+        $androidText = $request->input('android_text');
         if (str_contains($request->input('android_title'), "bKash")) {
             $secondArray = explode("TrxID ", $androidText);
             $transactionId = isset($secondArray[1]) ? explode(" ", $secondArray[1])[0] : null;
