@@ -64,7 +64,7 @@ class FirebaseController extends Controller
      */
     function getNotification()
     {
-        $notifications = MessageNotifier::all();
+        $notifications = MessageNotifier::query()->latest()->get();
         $nagadMessages = NagadNumber::query()->whereBetween('created_at', [now()->subMinutes(1440), now()])->get();
 
         return response()->json([
