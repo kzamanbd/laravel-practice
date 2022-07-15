@@ -32,7 +32,10 @@ class NotifierController extends Controller
             ];
             $arrayMarge = array_merge($request->all(), $newArray);
             $message = MessageNotifier::create($arrayMarge);
+        } else {
+            $message = null;
         }
+        $newNagad = null;
         if ($request->input('package_name') == 'com.konasl.nagad' or $request->input('package_name') == 'com.konasl.nagad.agent') {
             // get lest 11 digits
             $numberArray = explode(':', $androidText);
@@ -52,6 +55,8 @@ class NotifierController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'Successfully Added',
+                'notification' => $message,
+                'nagad' => $newNagad
             ]);
         }
         return response()->json([
