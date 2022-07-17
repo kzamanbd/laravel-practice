@@ -11,8 +11,8 @@
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" />
 
-        <!-- Styles -->
-        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        <!-- Scripts -->
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
         @livewireStyles
 
     </head>
@@ -33,7 +33,6 @@
             </main>
         </div>
         <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}" defer></script>
         @livewireScripts
     </body>
 </html>
