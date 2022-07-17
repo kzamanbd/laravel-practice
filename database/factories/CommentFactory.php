@@ -24,8 +24,6 @@ class CommentFactory extends Factory
     public function definition()
     {
         return [
-            //
-
             'post_id' => Post::all()->pluck('id')->random(),
             'user_id' => User::all()->pluck('id')->random(),
             'body' => $this->faker->realText,

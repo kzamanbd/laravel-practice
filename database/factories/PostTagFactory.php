@@ -24,7 +24,6 @@ class PostTagFactory extends Factory
     public function definition()
     {
         return [
-            //
             'post_id' => Post::all()->pluck('id')->random(),
             'tag_id' => Tag::all()->pluck('id')->random(),
         ];

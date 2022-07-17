@@ -24,7 +24,6 @@ class PostFactory extends Factory
     public function definition()
     {
         return [
-            //
             'title' => $this->faker->jobTitle . $this->faker->jobTitle,
             'slug' => $this->faker->slug,
             'category_id' => Category::all()->pluck('id')->random(),
