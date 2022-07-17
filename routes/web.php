@@ -37,7 +37,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('upload-excel', 'preview')->name('submit-excel');
         Route::post('upload-confirm', 'store')->name('upload-confirm');
         Route::get('export-excel', 'show')->name('export-excel');
-        Route::post('export-excel', 'export')->name('download-excel');
+        Route::get('download-excel', 'export')->name('download-excel');
     });
 
     //role
