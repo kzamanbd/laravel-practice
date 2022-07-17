@@ -97,7 +97,7 @@ class PHPSpreadsheetController extends Controller
     }
     public function export()
     {
-        $data[0] = [
+        $data[] = [
             'sl' => 'SL',
             'e_tin' => 'e-TIN',
             'tin_date' => 'TIN Date',
@@ -124,7 +124,7 @@ class PHPSpreadsheetController extends Controller
                 'circle_name' => $row->circle_name,
             ];
 
-            $data[$index + 1] = $record;
+            $data[] = $record;
         }
         // create spreadsheet object
         $spreadsheet = new Spreadsheet();
