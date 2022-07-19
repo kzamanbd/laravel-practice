@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('message_notifiers', function (Blueprint $table) {
+        Schema::create('messages', function (Blueprint $table) {
             $table->id();
             $table->string('app_name')->nullable();
             $table->string('package_name')->nullable();
@@ -22,7 +22,8 @@ return new class extends Migration
             $table->string('android_sub_text')->nullable();
             $table->string('android_big_text')->nullable();
             $table->string('android_info_text')->nullable();
-            $table->string('transaction_id')->nullable();
+            $table->string('transaction_id')->unique()->nullable();
+            $table->tinyInteger('is_offline')->nullable();
             $table->timestamps();
         });
     }
@@ -34,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('message_notifiers');
+        Schema::dropIfExists('messages');
     }
 };

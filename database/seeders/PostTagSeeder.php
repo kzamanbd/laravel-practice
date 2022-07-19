@@ -13,6 +13,6 @@ class PostTagSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\PostTag::factory(100)->create();
+        \App\Models\Taggable::factory(100)->create();
     }
 }

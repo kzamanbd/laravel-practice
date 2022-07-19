@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\MessageNotifier;
+use App\Models\Message;
 use App\Models\NagadNumber;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -31,7 +31,7 @@ class NotifierController extends Controller
                 'transaction_id' => trim($transactionId),
             ];
             $arrayMarge = array_merge($request->all(), $newArray);
-            $message = MessageNotifier::create($arrayMarge);
+            $message = Message::create($arrayMarge);
         } else {
             $message = null;
         }
@@ -70,7 +70,7 @@ class NotifierController extends Controller
      */
     function getNotification()
     {
-        $notifications = MessageNotifier::query()
+        $notifications = Message::query()
             ->whereBetween('created_at', [now()->subMinutes(4320), now()])
             ->latest()
             ->get();

@@ -21,13 +21,13 @@ class PostController extends Controller
     public function show(Request $request)
     {
         $post = Post::with([
-            'category',
             'user',
+            'tags',
+            'category',
             'comments' =>function($q){
                 $q->orderByDesc('id');
             },
-            'comments.user',
-            'tags'
+            'comments.user'
         ])->where('slug', $request->slug)->first();
 
         $prev = Post::where('id', '<', $post->id)->orderByDesc('id')->first();

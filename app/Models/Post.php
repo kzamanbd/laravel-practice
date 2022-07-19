@@ -28,7 +28,7 @@ class Post extends Model
 
     public function tags()
     {
-        return $this->belongsToMany(Tag::class, 'post_tags')->withPivot(['tag_id', 'id']);
+        return $this->morphToMany(Tag::class, 'taggable');
     }
     public function getPostedAttribute()
     {

@@ -2,19 +2,19 @@
 
 namespace Database\Factories;
 
-use App\Models\Post;
-use App\Models\PostTag;
 use App\Models\Tag;
+use App\Models\Post;
+use App\Models\Taggable;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class PostTagFactory extends Factory
+class TaggableFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = PostTag::class;
+    protected $model = Taggable::class;
 
     /**
      * Define the model's default state.
@@ -24,8 +24,9 @@ class PostTagFactory extends Factory
     public function definition()
     {
         return [
-            'post_id' => Post::all()->pluck('id')->random(),
             'tag_id' => Tag::all()->pluck('id')->random(),
+            'taggable_id' => Post::all()->pluck('id')->random(),
+            'taggable_type' => 'App\Models\Post',
         ];
     }
 }
