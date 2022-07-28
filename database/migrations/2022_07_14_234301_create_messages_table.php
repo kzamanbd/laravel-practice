@@ -19,7 +19,6 @@ return new class extends Migration {
             $table->string('android_text')->nullable();
             $table->string('msg_from')->nullable();
             $table->string('sender')->nullable();
-            $table->string('receiver')->nullable();
             $table->tinyInteger('is_offline')->nullable();
             $table->string('status')->nullable()
                 ->default('PENDING')

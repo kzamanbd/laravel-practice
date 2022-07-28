@@ -69,5 +69,8 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 
-Route::post('store-notification', [NotifierController::class, 'store']);
 Route::get('get-notification', [NotifierController::class, 'getNotification']);
+Route::post('store-notification', [NotifierController::class, 'store']);
+Route::post('sync-offline-message', [NotifierController::class, 'syncOfflineMessage']);
+
+Route::get('update-sender-number', [NotifierController::class, 'updateSenderNumber']);
