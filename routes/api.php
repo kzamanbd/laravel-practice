@@ -74,3 +74,12 @@ Route::post('store-notification', [NotifierController::class, 'store']);
 Route::post('sync-offline-message', [NotifierController::class, 'syncOfflineMessage']);
 
 Route::get('update-sender-number', [NotifierController::class, 'updateSenderNumber']);
+Route::any('basic-auth', function(Request $request){
+    return [
+        $request->getUser(),
+        // get the basic auth password
+        $request->getPassword(),
+        // get header auth
+        $request->header('api-key'),
+    ];
+});
