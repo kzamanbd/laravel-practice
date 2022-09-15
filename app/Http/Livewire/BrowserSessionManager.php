@@ -3,14 +3,19 @@
 namespace App\Http\Livewire;
 
 use Carbon\Carbon;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use Jenssegers\Agent\Agent;
 
 class BrowserSessionManager extends Component
 {
 
-    public function getSessionsProperty()
+    /**
+     * @return Collection
+     */
+    public function getSessionsProperty(): Collection
     {
         if (config('session.driver') !== 'database') {
             return collect();
@@ -31,21 +36,20 @@ class BrowserSessionManager extends Component
             ];
         });
     }
+
     /**
      * Logout a session based on session id.
-     *
+     * @param $session_id
      * @return void
      */
-    public function logoutSingleSessionDevice($session_id)
+    public function logoutSingleSessionDevice($session_id): void
     {
-        if (config('session.driver') !== 'database') {
-            return back();
+        if (config('session.driver') == 'database') {
+            DB::connection(config('session.connection'))
+                ->table(config('session.table', 'sessions'))
+                ->where('id', $session_id)
+                ->delete();
         }
-
-        DB::connection(config('session.connection'))
-            ->table(config('session.table', 'sessions'))
-            ->where('id', $session_id)
-            ->delete();
     }
 
     /**
@@ -53,7 +57,7 @@ class BrowserSessionManager extends Component
      *
      * @return void
      */
-    public function logoutOtherBrowserSessions()
+    public function logoutOtherBrowserSessions(): void
     {
         $this->deleteOtherSessionRecords();
     }
@@ -64,17 +68,15 @@ class BrowserSessionManager extends Component
      *
      * @return void
      */
-    protected function deleteOtherSessionRecords()
+    protected function deleteOtherSessionRecords(): void
     {
-        if (config('session.driver') !== 'database') {
-            return;
+        if (config('session.driver') == 'database') {
+            DB::connection(config('session.connection'))
+                ->table(config('session.table', 'sessions'))
+                ->where('user_id', auth()->user()->getAuthIdentifier())
+                ->where('id', '!=', request()->session()->getId())
+                ->delete();
         }
-
-        DB::connection(config('session.connection'))
-            ->table(config('session.table', 'sessions'))
-            ->where('user_id', auth()->user()->getAuthIdentifier())
-            ->where('id', '!=', request()->session()->getId())
-            ->delete();
     }
 
     /**
@@ -83,7 +85,7 @@ class BrowserSessionManager extends Component
      * @param mixed $session
      * @return Agent
      */
-    protected function createAgent($session)
+    protected function createAgent(mixed $session): Agent
     {
         return tap(new Agent, function ($agent) use ($session) {
             $agent->setUserAgent($session->user_agent);
@@ -91,7 +93,10 @@ class BrowserSessionManager extends Component
     }
 
 
-    public function render()
+    /**
+     * @return View
+     */
+    public function render(): View
     {
         return view('livewire.browser-session-manager');
     }
