@@ -1,5 +1,14 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900");
 
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .form-control {
+        @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500;
+    }
+    .form-label {
+        @apply block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300;
+    }
+}

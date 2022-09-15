@@ -38,6 +38,7 @@
     </div>
     <!-- Scripts -->
     @livewireScripts
+    <x-confirmation-alert />
     {{ $scripts ?? '' }}
 </body>
 
