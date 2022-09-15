@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\BrowserSessionManager;
+use App\Http\Livewire\BrowserSessionManager;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PHPSpreadsheetController;
 use App\Http\Controllers\RoleController;
@@ -43,17 +43,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //generate permission
     Route::get('generate-permission', [PermissionController::class, 'generateAllPermissions'])->name('generate.permission');
 
-    Route::controller(HomeController::class)->group(function () {
-        //current user
-        Route::get('profile', 'profile')->name('current-user.show');
-        Route::get('send-notification',  'sendAccountVerificationMail')->name('send.notification');
-    });
-    Route::controller(BrowserSessionManager::class)->group(function () {
-        // browser session
-        Route::get('browser-session',  'getSessionsProperty')->name('browser-session');
-        Route::post('logout-other-browser',  'logoutOtherBrowserSessions')->name('logout-other-browser');
-        Route::get('logout-single-browser/{device_id}',  'logoutSingleSessionDevice')->name('logout-single-browser');
-    });
+    //current user
+    Route::get('profile', [HomeController::class, 'profile'])->name('current-user.show');
+    Route::get('send-notification',  [HomeController::class, 'sendAccountVerificationMail'])->name('send.notification');
+    // browser session
+    Route::get('browser-session',  BrowserSessionManager::class)->name('browser-session');
 });
 
 

@@ -1,4 +1,5 @@
-<x-app-layout>
+<div>
+
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             User Session
@@ -9,19 +10,16 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <strong>Total {{ count($sessions) }} devices found!</strong>
+                    <strong>Total {{ count($this->sessions) }} devices found!</strong>
                 </div>
             </div>
 
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-5">
-                    <form action="{{ route('logout-other-browser') }}" method="post">
-                        @csrf
-                        <button type="submit"
-                            class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">
-                            LOG OUT OTHER BROWSER SESSIONS
-                        </button>
-                    </form>
+                    <button wire:click="logoutOtherBrowserSessions" type="submit"
+                        class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">
+                        LOG OUT OTHER BROWSER SESSIONS
+                    </button>
 
                     <div class="flex flex-col">
                         <div class="overflow-x-auto">
@@ -49,7 +47,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($sessions as $session)
+                                            @foreach ($this->sessions as $session)
                                                 <tr class="border-b border-gray-200 on-parent-hover-show">
                                                     <td class="px-3 py-2 text-sm">
                                                         <a href="#"
@@ -109,10 +107,11 @@
                                                                 This Device
                                                             </button>
                                                         @else
-                                                            <a href="{{ route('logout-single-browser', $session->id) }}"
+                                                            <button type="button"
+                                                                wire:click="logoutSingleSessionDevice({{ $session->id }})"
                                                                 class="bg-purple-500 p-2 hover:bg-purple-700 text-white rounded-full text-xs flex items-center justify-center mr-2 cursor-pointer">
                                                                 Remove
-                                                            </a>
+                                                            </button>
                                                         @endif
                                                     </td>
                                                 </tr>
@@ -128,4 +127,5 @@
         </div>
     </div>
 
-</x-app-layout>
+
+</div>

@@ -1,32 +1,24 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Livewire;
 
 use Carbon\Carbon;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Livewire\Component;
 use Jenssegers\Agent\Agent;
 
-class BrowserSessionManager extends Controller
+class BrowserSessionManager extends Component
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Application|Factory|View
-     */
+
     public function getSessionsProperty()
     {
         if (config('session.driver') !== 'database') {
             return collect();
         }
-        $sessions = collect(
+        return collect(
             DB::connection(config('session.connection'))
                 ->table(config('session.table', 'sessions'))
-                ->where('user_id', Auth::user()->getAuthIdentifier())
+                ->where('user_id', auth()->user()->getAuthIdentifier())
                 ->orderBy('last_activity', 'desc')
                 ->get()
         )->map(function ($session) {
@@ -38,14 +30,11 @@ class BrowserSessionManager extends Controller
                 'last_active' => Carbon::createFromTimestamp($session->last_activity)->diffForHumans(),
             ];
         });
-
-        return view('logout-other-browser-sessions-form', compact('sessions'));
     }
-
     /**
      * Logout a session based on session id.
      *
-     * @return RedirectResponse
+     * @return void
      */
     public function logoutSingleSessionDevice($session_id)
     {
@@ -57,18 +46,16 @@ class BrowserSessionManager extends Controller
             ->table(config('session.table', 'sessions'))
             ->where('id', $session_id)
             ->delete();
-        return back();
     }
 
     /**
      * Log out from other browser sessions.
      *
-     * @return RedirectResponse
+     * @return void
      */
     public function logoutOtherBrowserSessions()
     {
         $this->deleteOtherSessionRecords();
-        return back();
     }
 
 
@@ -85,7 +72,7 @@ class BrowserSessionManager extends Controller
 
         DB::connection(config('session.connection'))
             ->table(config('session.table', 'sessions'))
-            ->where('user_id', Auth::user()->getAuthIdentifier())
+            ->where('user_id', auth()->user()->getAuthIdentifier())
             ->where('id', '!=', request()->session()->getId())
             ->delete();
     }
@@ -101,5 +88,11 @@ class BrowserSessionManager extends Controller
         return tap(new Agent, function ($agent) use ($session) {
             $agent->setUserAgent($session->user_agent);
         });
+    }
+
+
+    public function render()
+    {
+        return view('livewire.browser-session-manager');
     }
 }
