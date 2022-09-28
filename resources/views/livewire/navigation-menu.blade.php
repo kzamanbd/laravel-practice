@@ -66,10 +66,10 @@
                         </x-slot>
 
                         <x-slot name="content">
-                            <x-dropdown-link :href="route('user-list')">
+                            <x-dropdown-link :href="route('user.list')">
                                 Users List
                             </x-dropdown-link>
-                            <x-dropdown-link :href="route('role.index')">
+                            <x-dropdown-link :href="route('role.list')">
                                 Roles List
                             </x-dropdown-link>
                         </x-slot>

@@ -6,6 +6,7 @@ use App\Http\Controllers\PHPSpreadsheetController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Livewire\RoleList;
 use App\Http\Livewire\UserList;
 use Illuminate\Support\Facades\Route;
 
@@ -38,8 +39,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //role
     Route::resource('role', RoleController::class);
     //user
-    Route::get('user-list', UserList::class)->name('user-list');
+    Route::get('user-list', UserList::class)->name('user.list');
     Route::get('user/{id}', [UserController::class, 'show'])->name('user.show');
+    Route::get('role-list', RoleList::class)->name('role.list');
     //generate permission
     Route::get('generate-permission', [PermissionController::class, 'generateAllPermissions'])->name('generate.permission');
 

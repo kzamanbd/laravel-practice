@@ -228,9 +228,9 @@
         </div>
     </div>
 
-    {{-- user create modal --}}
+    {{-- user create or update modal --}}
 
-    <x-dialog-modal wire:model="userCreateOrUpdateModal" maxWidth="3xl">
+    <x-dialog-modal wire:model="openModal" maxWidth="3xl">
         <x-slot name="title">
             {{ $editableMode ? 'Update' : 'Create' }} User
         </x-slot>
@@ -296,7 +296,7 @@
         </x-slot>
 
         <x-slot name="footer">
-            <x-button color="danger" wire:click="$toggle('userCreateOrUpdateModal')" wire:loading.attr="disabled">
+            <x-button color="danger" wire:click="$toggle('openModal')" wire:loading.attr="disabled">
                 {{ __('Cancel') }}
             </x-button>
 

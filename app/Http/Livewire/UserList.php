@@ -17,11 +17,11 @@ class UserList extends Component
     use WithPagination, PermissionForPropertyValidation;
 
     protected $permission_for = 'user';
-    public $userCreateOrUpdateModal = false;
+    public $openModal = false;
     public $name, $email, $password, $password_confirmation, $roles = [];
     public $editableMode = false, $userId, $searchKey;
-    protected $queryString = ['searchKey' => ['except' => '']];
 
+    protected $queryString = ['searchKey' => ['except' => '']];
     public $sortColumnName = 'created_at';
     public $sortDirection = 'desc';
     public $perPage = 25;
@@ -102,7 +102,7 @@ class UserList extends Component
     {
         // check permission
         $this->hasPermission('create');
-        $this->userCreateOrUpdateModal = true;
+        $this->openModal = true;
     }
 
     /**
@@ -140,7 +140,7 @@ class UserList extends Component
         $this->name = $user->name;
         $this->email = $user->email;
         $this->roles = $user->roles->pluck('id')->toArray();
-        $this->userCreateOrUpdateModal = true;
+        $this->openModal = true;
         $this->editableMode = true;
         $this->userId = $id;
     }
@@ -171,7 +171,7 @@ class UserList extends Component
         $user->syncRoles($this->roles);
         $this->reset();
         $this->editableMode = false;
-        $this->userCreateOrUpdateModal = false;
+        $this->openModal = false;
     }
 
     /**
