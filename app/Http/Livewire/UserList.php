@@ -19,7 +19,16 @@ class UserList extends Component
     protected $permission_for = 'user';
     public $userCreateOrUpdateModal = false;
     public $name, $email, $password, $password_confirmation, $roles = [];
-    public $editableMode = false, $userId;
+    public $editableMode = false, $userId, $searchKey;
+    protected $queryString = ['searchKey' => ['except' => '']];
+
+    public $sortColumnName = 'created_at';
+    public $sortDirection = 'desc';
+    public $perPage = 25;
+
+    public $selectedPage = false;
+    public $selectedItem = [];
+
 
     protected $listeners = [
         'deleteConfirmed' => 'deleteConfirmed'
@@ -32,13 +41,49 @@ class UserList extends Component
         'roles' => 'nullable|array'
     ];
 
+    /**
+     * @param $value
+     * @return void
+     */
+    public function updatedSelectedPage($value): void
+    {
+        $this->selectedItem = $value ? $this->users->pluck('id')->toArray() : [];
+    }
+
+    /**
+     * @return void
+     */
+    public function updatedSelectedItem(): void
+    {
+        $this->selectedPage = false;
+    }
+
+    /**
+     * @param $columnName
+     * @return void
+     */
+    public function sortBy($columnName): void
+    {
+        if ($this->sortColumnName === $columnName) {
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortDirection = 'asc';
+        }
+
+        $this->sortColumnName = $columnName;
+    }
+
 
     /**
      * @return LengthAwarePaginator
      */
     public function getUsersProperty(): LengthAwarePaginator
     {
-        return User::with(['roles'])->latest()->paginate(30);
+        return User::with(['roles'])
+            ->where('name', 'like', '%' . $this->searchKey . '%')
+            ->orWhere('email', 'like', '%' . $this->searchKey . '%')
+            ->orderBy($this->sortColumnName, $this->sortDirection)
+            ->paginate($this->perPage);
     }
 
     /**
