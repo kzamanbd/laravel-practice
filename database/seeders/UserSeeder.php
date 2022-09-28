@@ -15,18 +15,18 @@ class UserSeeder extends Seeder
     public function run()
     {
         $total_users = 1000;
-        $admin_email = 'zamandotbd@gmail.com';
+        $admin_email = 'kzamanbn@gmail.com';
 
         $defined_emails = [
             $admin_email
         ];
 
         foreach ($defined_emails as $email) {
-            if (User::whereEmail($email)->first()){
+            if (User::whereEmail($email)->first()) {
                 continue;
             }
 
-            if ($email === $admin_email){
+            if ($email === $admin_email) {
                 User::factory()->create(['email' => $email]);
             }
 

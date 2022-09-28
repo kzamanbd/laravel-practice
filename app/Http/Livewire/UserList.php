@@ -204,6 +204,8 @@ class UserList extends Component
         // check permission
         $this->hasPermission('view');
 
-        return view('livewire.user-list');
+        return view('livewire.user-list')->layoutData([
+            'title' => 'User List',
+        ]);
     }
 }

@@ -98,6 +98,8 @@ class BrowserSessionManager extends Component
      */
     public function render(): View
     {
-        return view('livewire.browser-session-manager');
+        return view('livewire.browser-session-manager')->layoutData([
+            'title' => 'Browser Session Manager',
+        ]);
     }
 }

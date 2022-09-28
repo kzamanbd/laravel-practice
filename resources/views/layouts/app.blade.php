@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ $title ?? null }} - {{ config('app.name', 'Laravel') }}</title>
     <!-- favicon -->
     <link rel="shortcut icon" href="{{ asset('favicon.svg') }}">
 
@@ -16,7 +16,7 @@
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
-    {{ $head ?? '' }}
+    {{ $head ?? null }}
 
 </head>
 
@@ -39,7 +39,7 @@
     <!-- Scripts -->
     @livewireScripts
     <x-confirmation-alert />
-    {{ $scripts ?? '' }}
+    {{ $scripts ?? null }}
 </body>
 
 </html>

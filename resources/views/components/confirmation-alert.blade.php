@@ -1,5 +1,5 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
+<script type="text/javascript">
     // delete confirmation
     window.addEventListener('show-delete-confirmation', event => {
         Swal.fire({
