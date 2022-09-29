@@ -36,12 +36,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('download-excel', 'export')->name('download-excel');
     });
 
-    //role
-    Route::resource('role', RoleController::class);
     //user
     Route::get('user-list', UserList::class)->name('user.list');
-    Route::get('user/{id}', [UserController::class, 'show'])->name('user.show');
+    Route::get('user/{id}/view', [UserController::class, 'show'])->name('user.show');
+    //role
     Route::get('role-list', RoleList::class)->name('role.list');
+    Route::get('role/{id}/view', [RoleController::class, 'show'])->name('role.show');
     //generate permission
     Route::get('generate-permission', [PermissionController::class, 'generateAllPermissions'])->name('generate.permission');
 
