@@ -11,6 +11,7 @@ use Illuminate\Queue\SerializesModels;
 class UserAccountVerificationMail extends Mailable
 {
     use Queueable, SerializesModels;
+
     public $user;
     /**
      * Create a new message instance.
@@ -30,6 +31,6 @@ class UserAccountVerificationMail extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.account-verification');
+        return $this->view('template.account-verification');
     }
 }
