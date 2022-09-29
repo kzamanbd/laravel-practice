@@ -52,8 +52,7 @@
                                                 <th
                                                     class="w-6 px-3 py-3 border-b-2 border-gray-200 bg-gray-100 font-semibold text-gray-600 uppercase tracking-wider">
                                                     <label class="inline-flex items-center">
-                                                        <input type="checkbox"
-                                                            class="form-checkbox h-4 w-4 text-purple-600 rounded" />
+                                                        <x-input-box wire:model="selectedPage" />
                                                         <span class="ml-2 text-gray-700">SL</span>
                                                     </label>
                                                 </th>
@@ -83,10 +82,11 @@
                                                 <tr class="border-b border-gray-200 on-parent-hover-show">
                                                     <td class="px-3 py-2 text-sm">
                                                         <label class="inline-flex items-center">
-                                                            <input type="checkbox"
-                                                                class="form-checkbox h-4 w-4 text-purple-600 rounded checked:border-transparent" />
-                                                            <span
-                                                                class="ml-2 text-gray-700">{{ $loop->iteration }}</span>
+                                                            <x-input-box wire:model="selectedItem"
+                                                                value="{{ $role->id }}" />
+                                                            <span class="ml-2 text-gray-700">
+                                                                {{ $loop->iteration }}
+                                                            </span>
                                                         </label>
                                                     </td>
                                                     <td class="px-3 py-2 text-sm">
@@ -115,13 +115,14 @@
                                                             </x-slot>
 
                                                             <x-slot name="content">
-                                                                <x-dropdown-link
-                                                                    href="{{ route('role.edit', $role->id) }}">
+                                                                <x-dropdown-link href="#"
+                                                                    wire:click="editItem({{ $role->id }})">
                                                                     Edit</x-dropdown-link>
                                                                 <x-dropdown-link
                                                                     href="{{ route('role.show', $role->id) }}">
                                                                     View</x-dropdown-link>
-                                                                <x-dropdown-link href="#">
+                                                                <x-dropdown-link href="#"
+                                                                    wire:click.prevent="deleteItem({{ $role->id }})">
                                                                     Delete</x-dropdown-link>
                                                             </x-slot>
                                                         </x-dropdown>
@@ -139,7 +140,7 @@
         </div>
     </div>
 
-    {{-- user create or update modal --}}
+    {{-- role create or update modal --}}
 
     <x-dialog-modal wire:model="openModal" maxWidth="3xl">
         <x-slot name="title">
@@ -176,16 +177,16 @@
                 <div class="space-y-4">
                     @foreach ($this->menus as $menu)
                         <div class="form-control" x-data="roleList">
-                            <label class="inline-flex items-center mb-2">
-                                <x-input-box wire:click="checkAllMenu({{ $menu->slug }})" x-ref="selectAllPermissions"
-                                    x-on:click="checkedAllPermission" x-bind:checked="isAllChecked" />
+                            <label class="flex items-center mb-2">
+                                <x-input-box x-ref="selectAllPermissions" x-on:click="checkedAllPermission"
+                                    x-bind:checked="isAllChecked" />
                                 <span class="ml-2">{{ $menu->name }}</span>
                             </label>
                             <div class="flex items-center space-x-2" x-ref="permissions">
                                 @foreach ($this->permissionsList as $permission)
                                     @continue(\Illuminate\Support\Str::of($permission->name)->beforeLast('-') != $menu->slug)
                                     <label class="block">
-                                        <x-input-box value="{{ $permission->id }}"
+                                        <x-input-box value="{{ $permission->id }}" wire:model="permissions"
                                             x-on:click="checkedSinglePermission" />
                                         <span class="mr-2 ml-1 text-gray-700">
                                             {{ \Illuminate\Support\Str::of($permission->name)->afterLast('-')->replace('_', ' ')->ucfirst() }}

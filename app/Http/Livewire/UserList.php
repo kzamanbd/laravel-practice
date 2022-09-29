@@ -131,7 +131,7 @@ class UserList extends Component
      * @return void
      * @throws PermissionForPropertyIsNotDeclaredInControllerException
      */
-    public function edit($id): void
+    public function editItem($id): void
     {
         // check permission
         $this->hasPermission('update');
@@ -178,7 +178,7 @@ class UserList extends Component
      * @param $id
      * @return void
      */
-    public function deleteUser($id): void
+    public function deleteItem($id): void
     {
         $this->dispatchBrowserEvent('show-delete-confirmation');
         $this->userId = $id;

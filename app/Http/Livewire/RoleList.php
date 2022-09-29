@@ -5,7 +5,6 @@ namespace App\Http\Livewire;
 use App\Exceptions\PermissionForPropertyIsNotDeclaredInControllerException;
 use App\Http\Controllers\PermissionForPropertyValidation;
 use App\Services\MenuService\MenuService;
-use App\Services\RoleService\RoleService;
 use App\Services\PermissionService\PermissionService;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
@@ -21,16 +20,20 @@ class RoleList extends Component
     public $editableMode = false;
     public $name, $description, $permissions = [];
 
-    public $searchKey;
+    public $searchKey, $roleId;
     protected $queryString = ['searchKey' => ['except' => '']];
     public $sortColumnName = 'created_at';
     public $sortDirection = 'desc';
     public $perPage = 25;
+    public $selectedPage = false, $selectedItem = [];
 
     protected $rules = [
         'name' => 'required|string|max:255|unique:roles',
         'description' => 'nullable|string',
         'permissions' => 'nullable|array',
+    ];
+    protected $listeners = [
+        'deleteConfirmed' => 'deleteConfirmed'
     ];
 
     /**
@@ -89,17 +92,12 @@ class RoleList extends Component
         $this->openModal = true;
     }
 
-    public function checkAllMenu($slug)
-    {
-        dd($this->permissions);
-    }
-
     public function store()
     {
-        $this->validate();
-
         // check permission
         $this->hasPermission('create');
+
+        $this->validate();
 
         // create a new rule
         $role = Role::create([
@@ -115,6 +113,37 @@ class RoleList extends Component
         // reset form
         $this->reset();
         $this->openModal = false;
+    }
+
+    public function editItem($id)
+    {
+        $this->openModal = true;
+        $this->editableMode = true;
+        $role = Role::with('permissions')->findOrFail($id);
+        $this->name = $role->name;
+        $this->description = $role->description;
+        $this->permissions = $role->permissions->pluck('id')->toArray();
+    }
+
+    /**
+     * @param $id
+     * @return void
+     */
+    public function deleteItem($id): void
+    {
+        $this->dispatchBrowserEvent('show-delete-confirmation');
+        $this->roleId = $id;
+    }
+
+    /**
+     * @return void
+     * @throws PermissionForPropertyIsNotDeclaredInControllerException
+     */
+    public function deleteConfirmed(): void
+    {
+        // check permission
+        $this->hasPermission('delete');
+        Role::destroy($this->roleId);
     }
 
     /**

@@ -139,13 +139,13 @@
 
                                                             <x-slot name="content">
                                                                 <x-dropdown-link href="#"
-                                                                    wire:click.prevent="edit({{ $user->id }})">
+                                                                    wire:click.prevent="editItem({{ $user->id }})">
                                                                     Edit</x-dropdown-link>
                                                                 <x-dropdown-link
                                                                     href="{{ route('user.show', $user->id) }}">
                                                                     View</x-dropdown-link>
                                                                 <x-dropdown-link href="#"
-                                                                    wire:click.prevent="deleteUser({{ $user->id }})">
+                                                                    wire:click.prevent="deleteItem({{ $user->id }})">
                                                                     Delete</x-dropdown-link>
                                                             </x-slot>
                                                         </x-dropdown>
