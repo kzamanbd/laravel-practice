@@ -47,28 +47,28 @@ abstract class BasePermissionService implements PermissionServiceContract
             $excepted_permissions = $permission_service->exceptedMenuPermissions($menu->slug);
 
             // has excepted permissions
-            if (count($excepted_permissions)){
-                $permissions = $permissions->filter(function ($description, $_permission) use ($excepted_permissions){
-                    return ! in_array($_permission, $excepted_permissions);
+            if (count($excepted_permissions)) {
+                $permissions = $permissions->filter(function ($description, $_permission) use ($excepted_permissions) {
+                    return !in_array($_permission, $excepted_permissions);
                 });
             }
 
             // additional permissions
             $additional_permissions = $permission_service->additionalMenuPermissions($menu->slug);
             // has additional permissions
-            if (count($additional_permissions)){
+            if (count($additional_permissions)) {
                 $permissions = $permissions->merge($additional_permissions);
             }
 
             foreach ($permissions as $permissionName => $description) {
                 // generate permission name
-                $name = $this->generatedPermissionName($menu->slug, $permissionName);
+                $name = $this->generatedPermissionName($menu->slug, (string) $permissionName);
                 // check permission exists or not
                 $has_permission = $this->checkPermissionExists($name);
 
                 if (!$has_permission) {
                     // create permission
-                    $this->createSinglePermission($name, $description);
+                    $this->createSinglePermission($name, (string) $description);
                 }
             }
         });
@@ -117,7 +117,6 @@ abstract class BasePermissionService implements PermissionServiceContract
     public function additionalMenuPermissions(string $menu_slug): array
     {
         return config('menus.available')[$menu_slug]['additional_permissions'] ?? [];
-
     }
 
 

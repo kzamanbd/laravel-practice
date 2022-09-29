@@ -26,10 +26,12 @@
                             </div>
 
                             <div class="flex items-center space-x-4">
-                                <x-button color="light" type="button" wire:click="exportExcel('csv')">
+                                <x-button color="light" type="button" wire:loading.attr="disabled"
+                                    wire:click="exportExcel('csv')">
                                     csv
                                 </x-button>
-                                <x-button color="light" type="button" wire:click="exportExcel('xlsx')">
+                                <x-button color="light" type="button" wire:loading.attr="disabled"
+                                    wire:click="exportExcel('xlsx')">
                                     Xslx
                                 </x-button>
                                 <x-button color="light" type="button">

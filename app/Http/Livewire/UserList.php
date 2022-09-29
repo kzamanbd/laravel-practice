@@ -81,8 +81,9 @@ class UserList extends Component
     public function getUsersProperty(): LengthAwarePaginator
     {
         return User::with(['roles'])
-            ->where('name', 'like', '%' . $this->searchKey . '%')
-            ->orWhere('email', 'like', '%' . $this->searchKey . '%')
+            ->where('id', '!=', auth()->id())
+            ->where('name', 'like', "%{$this->searchKey}%")
+            ->orWhere('email', 'like', "%{$this->searchKey}%")
             ->orderBy($this->sortColumnName, $this->sortDirection)
             ->paginate($this->perPage);
     }
