@@ -117,12 +117,41 @@ class RoleList extends Component
 
     public function editItem($id)
     {
+        $this->roleId = $id;
         $this->openModal = true;
         $this->editableMode = true;
         $role = Role::with('permissions')->findOrFail($id);
         $this->name = $role->name;
         $this->description = $role->description;
         $this->permissions = $role->permissions->pluck('id')->toArray();
+    }
+
+    public function update()
+    {
+        // check permission
+        $this->hasPermission('update');
+
+        $this->validate([
+            'name' => 'required|string|max:255|unique:roles,name,' . $this->roleId,
+            'description' => 'nullable|string',
+            'permissions' => 'nullable|array',
+        ]);
+
+        $role = Role::findOrFail($this->roleId);
+        $role->update([
+            'name' => $this->name,
+            'description' => $this->description,
+        ]);
+
+        if (is_array($this->permissions)) {
+            // sync permission role
+            $role->syncPermissions($this->permissions);
+        }
+
+        // reset form
+        $this->reset();
+        $this->openModal = false;
+        $this->editableMode = false;
     }
 
     /**
