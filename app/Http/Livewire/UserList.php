@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Exceptions\PermissionForPropertyIsNotDeclaredInControllerException;
+use App\Exports\UserExports;
 use App\Http\Controllers\PermissionForPropertyValidation;
 use App\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -193,6 +194,12 @@ class UserList extends Component
         // check permission
         $this->hasPermission('delete');
         User::destroy($this->userId);
+    }
+
+
+    public function exportExcel(string $type = 'xlsx')
+    {
+        return UserExports::downloadExcel($type);
     }
 
     /**
