@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Livewire\RoleList;
 use App\Http\Livewire\UserList;
+use App\Http\Livewire\ContactList;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,6 +36,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('export-excel', 'show')->name('export-excel');
         Route::get('download-excel', 'export')->name('download-excel');
     });
+
+    Route::get('contacts-list', ContactList::class)->name('contacts.list');
 
     //user
     Route::get('user-list', UserList::class)->name('user.list');
