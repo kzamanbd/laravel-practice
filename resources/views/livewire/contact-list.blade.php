@@ -33,9 +33,16 @@
                                     PDF
                                 </x-button>
 
-                                <x-button type="button" wire:click="$toggle('openModal')">
-                                    Upload
-                                </x-button>
+                                @if (count($excelData) > 0)
+                                    <x-button type="button" wire:click="confirmToImport">
+                                        Confirm Upload
+                                    </x-button>
+                                @else
+                                    <x-button type="button" wire:click="$toggle('openModal')">
+                                        Upload
+                                    </x-button>
+                                @endif
+
                             </div>
                         </div>
 
@@ -77,30 +84,58 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($this->contacts as $item)
-                                            <tr class="border-b border-gray-200 hover:bg-gray-100">
-                                                <td class="px-3 py-2 text-sm">
-                                                    {{ $loop->iteration }}.
-                                                </td>
-                                                <td class="px-3 py-2 text-sm">
-                                                    {{ $item->name ?? 'N/A' }}
-                                                </td>
-                                                <td class="px-3 py-2 text-sm">
-                                                    {{ $item->mobile ? \Illuminate\Support\Str::substr($item->mobile, -11) : 'N/A' }}
-                                                </td>
-                                                <td class="px-3 py-2 text-sm">
-                                                    {{ $item->e_tin ?? 'N/A' }}
-                                                </td>
-                                                <td class="px-3 py-2 text-sm">
-                                                    {{ $item->tin_date ?? 'N/A' }}
-                                                </td>
-                                                <td class="px-3 py-2 text-sm">
-                                                    {{ $item->address ?? 'N/A' }}
-                                                </td>
-                                            </tr>
-                                        @endforeach
+                                        @if (count($excelData) > 0)
+                                            @foreach ($excelData as $item)
+                                                <tr class="border-b border-gray-200 hover:bg-gray-100">
+                                                    <td class="px-3 py-2 text-sm">
+                                                        {{ $loop->iteration }}.
+                                                    </td>
+                                                    <td class="px-3 py-2 text-sm">
+                                                        {{ $item['name'] ?? 'N/A' }}
+                                                    </td>
+                                                    <td class="px-3 py-2 text-sm">
+                                                        {{ $item['mobile'] ? \Illuminate\Support\Str::substr($item['mobile'], -11) : 'N/A' }}
+                                                    </td>
+                                                    <td class="px-3 py-2 text-sm">
+                                                        {{ $item['e_tin'] ?? 'N/A' }}
+                                                    </td>
+                                                    <td class="px-3 py-2 text-sm">
+                                                        {{ $item['tin_date'] ?? 'N/A' }}
+                                                    </td>
+                                                    <td class="px-3 py-2 text-sm">
+                                                        {{ $item['address'] ?? 'N/A' }}
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        @else
+                                            @foreach ($this->contacts as $item)
+                                                <tr class="border-b border-gray-200 hover:bg-gray-100">
+                                                    <td class="px-3 py-2 text-sm">
+                                                        {{ $loop->iteration }}.
+                                                    </td>
+                                                    <td class="px-3 py-2 text-sm">
+                                                        {{ $item->name ?? 'N/A' }}
+                                                    </td>
+                                                    <td class="px-3 py-2 text-sm">
+                                                        {{ $item->mobile ? \Illuminate\Support\Str::substr($item->mobile, -11) : 'N/A' }}
+                                                    </td>
+                                                    <td class="px-3 py-2 text-sm">
+                                                        {{ $item->e_tin ?? 'N/A' }}
+                                                    </td>
+                                                    <td class="px-3 py-2 text-sm">
+                                                        {{ $item->tin_date ?? 'N/A' }}
+                                                    </td>
+                                                    <td class="px-3 py-2 text-sm">
+                                                        {{ $item->address ?? 'N/A' }}
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        @endif
                                     </tbody>
                                 </table>
+                                <div class="p-2">
+                                    {{ $this->contacts->links() }}
+                                </div>
                             </div>
                         </div>
                     </div>

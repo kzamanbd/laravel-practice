@@ -2,7 +2,6 @@
 
 use App\Http\Livewire\BrowserSessionManager;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\PHPSpreadsheetController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PermissionController;
@@ -28,14 +27,6 @@ Route::view('/', 'welcome');
 Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::view('dashboard', 'dashboard')->name('dashboard');
-
-    Route::controller(PHPSpreadsheetController::class)->group(function () {
-        Route::get('upload-excel', 'index')->name('upload-excel');
-        Route::post('upload-excel', 'preview')->name('submit-excel');
-        Route::post('upload-confirm', 'store')->name('upload-confirm');
-        Route::get('export-excel', 'show')->name('export-excel');
-        Route::get('download-excel', 'export')->name('download-excel');
-    });
 
     Route::get('contacts-list', ContactList::class)->name('contacts.list');
 

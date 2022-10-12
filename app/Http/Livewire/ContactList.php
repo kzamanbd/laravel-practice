@@ -4,18 +4,19 @@ namespace App\Http\Livewire;
 
 use App\Models\Contact;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Livewire\WithFileUploads;
-use Storage;
+use Livewire\WithPagination;
 
 class ContactList extends Component
 {
 
-    use WithFileUploads;
+    use WithFileUploads, WithPagination;
 
     public $openModal, $perPage = 25;
-    public $excelFile;
+    public $excelFile, $excelData = [];
 
     public function upload()
     {
@@ -25,7 +26,7 @@ class ContactList extends Component
         // dd($this->excelFile);
         if ($this->excelFile) {
             $path = Storage::put('documents', $this->excelFile);
-            $url = Storage::url($path);
+            $url = storage_path("app/public/{$path}");
         } else {
             $url = public_path('docs/excel-format.xlsx');
         }
@@ -41,11 +42,11 @@ class ContactList extends Component
         $rang = "A2:" . $highest_cell; // Selecting The Cell Range
 
         $dataToArray = $spreadsheet->getActiveSheet()->rangeToArray(
-            $rang,              // The worksheet range that we want to retrieve
-            NULL,       // Value that should be returned for empty cells
+            $rang, // The worksheet range that we want to retrieve
+            NULL, // Value that should be returned for empty cells
             TRUE, // Should formulas be calculated (the equivalent of getCalculatedValue() for each cell)
-            TRUE,      // Should values be formatted (the equivalent of getFormattedValue() for each cell)
-            TRUE      // Should the array be indexed by cell row and cell column
+            TRUE, // Should values be formatted (the equivalent of getFormattedValue() for each cell)
+            TRUE  // Should the array be indexed by cell row and cell column
         );
         $fields = ["e_tin", "tin_date", "name", "mobile", "address", "police_station", "old_tin", "circle_name"];
         $data = array_map(function ($row) use ($fields) {
@@ -53,8 +54,7 @@ class ContactList extends Component
             return array_combine($fields, $row);
         }, $dataToArray);
 
-        //return $data;
-        $data = array_map(function ($item) {
+        $this->excelData = array_map(function ($item) {
             if (trim($item["tin_date"]) != null) {
                 $d = Carbon::createFromFormat("d/m/Y", $item["tin_date"]);
                 $item["tin_date"] = $d->format("d-M-Y");
@@ -62,7 +62,20 @@ class ContactList extends Component
             return $item;
         }, $data);
 
-        dd($data);
+        $this->openModal = false;
+    }
+
+    public function confirmToImport()
+    {
+        if (count($this->excelData) > 0) {
+            $contacts = array_map(function ($row) {
+                $row['created_at'] = now();
+                $row['updated_at'] = now();
+                return $row;
+            }, $this->excelData);
+            Contact::insert($contacts);
+            $this->excelData = [];
+        }
     }
 
 
