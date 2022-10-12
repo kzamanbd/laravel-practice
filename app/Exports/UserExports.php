@@ -41,20 +41,21 @@ class UserExports
 
         // create xlsx file
         $date = now()->format('d-M-Y-H-i-s');
+        $directoryName = 'documents';
 
-        if (!Storage::exists('exports')) {
-            Storage::makeDirectory('exports', 0777, true);
+        if (!Storage::exists($directoryName)) {
+            Storage::makeDirectory($directoryName, 0777, true);
         }
 
         try {
             if ($format == 'xlsx') {
-                $filename = "{$date}.xlsx";
-                $path = "exports/{$filename}";
+                $filename = "{$date}-users.xlsx";
+                $path = "$directoryName/{$filename}";
                 $writer = new Xlsx($spreadsheet);
                 $writer->save(storage_path("app/public/$path"));
             } else {
-                $filename = "{$date}.csv";
-                $path = "exports/{$filename}";
+                $filename = "{$date}-users.csv";
+                $path = "$directoryName/{$filename}";
                 $writer = new Csv($spreadsheet);
                 $writer->save(storage_path("app/public/$path"));
             }
