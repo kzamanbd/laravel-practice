@@ -61,7 +61,7 @@ class UserExports
             // download file
             return Storage::download($path);
         } catch (Exception $e) {
-            exit($e->getMessage());
+            dd($e->getMessage());
         }
     }
 }
