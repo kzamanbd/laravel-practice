@@ -9,23 +9,16 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class ChatFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
-    protected $model = Chat::class;
-
-    /**
      * Define the model's default state.
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function definition()
     {
         return [
-            'from_user_id' => User::all()->pluck('id')->random(),
-            'to_user_id' => User::all()->pluck('id')->random(),
-            'message' => $this->faker->sentence
+            'from_user_id' => User::query()->inRandomOrder()->first(),
+            'to_user_id' => User::query()->inRandomOrder()->first(),
+            'message' => fake()->sentence
         ];
     }
 }

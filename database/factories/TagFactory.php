@@ -8,23 +8,16 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class TagFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
-    protected $model = Tag::class;
-
-    /**
      * Define the model's default state.
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function definition()
     {
         return [
-            'name' => $this->faker->colorName,
-            'slug' => $this->faker->slug,
-            'description' => $this->faker->realText,
+            'name' => fake()->colorName,
+            'slug' => fake()->slug,
+            'description' => fake()->realText,
         ];
     }
 }

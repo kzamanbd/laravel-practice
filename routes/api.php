@@ -42,7 +42,6 @@ Route::prefix('auth')->group(function () {
     Route::post('register', [AuthenticatedSessionController::class, 'register']);
     //logout
     Route::post('logout', [AuthenticatedSessionController::class, 'logout']);
-
 });
 
 Route::get('init-app', [HomeController::class, 'index']);
@@ -74,7 +73,7 @@ Route::post('store-notification', [NotifierController::class, 'store']);
 Route::post('sync-offline-message', [NotifierController::class, 'syncOfflineMessage']);
 
 Route::get('update-sender-number', [NotifierController::class, 'updateSenderNumber']);
-Route::any('basic-auth', function(Request $request){
+Route::any('basic-auth', function (Request $request) {
     return [
         $request->getUser(),
         // get the basic auth password

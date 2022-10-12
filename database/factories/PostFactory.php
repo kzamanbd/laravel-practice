@@ -10,26 +10,19 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class PostFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
-    protected $model = Post::class;
-
-    /**
      * Define the model's default state.
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function definition()
     {
         return [
-            'title' => $this->faker->jobTitle . $this->faker->jobTitle,
-            'slug' => $this->faker->slug,
-            'category_id' => Category::all()->pluck('id')->random(),
-            'user_id' => User::all()->pluck('id')->random(),
-            'body' => $this->faker->realText . $this->faker->realText,
-            'image' => $this->faker->imageUrl($width = 700, $height = 300)
+            'title' => fake()->jobTitle,
+            'slug' => fake()->slug,
+            'category_id' => Category::query()->inRandomOrder()->first(),
+            'user_id' => User::query()->inRandomOrder()->first(),
+            'body' => fake()->realText(1000),
+            'image' => fake()->imageUrl($width = 700, $height = 300)
         ];
     }
 }

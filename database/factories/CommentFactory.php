@@ -10,23 +10,16 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class CommentFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
-    protected $model = Comment::class;
-
-    /**
      * Define the model's default state.
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function definition()
     {
         return [
-            'post_id' => Post::all()->pluck('id')->random(),
-            'user_id' => User::all()->pluck('id')->random(),
-            'body' => $this->faker->realText,
+            'post_id' => Post::query()->inRandomOrder()->first(),
+            'user_id' => User::query()->inRandomOrder()->first(),
+            'body' => fake()->realText,
         ];
     }
 }

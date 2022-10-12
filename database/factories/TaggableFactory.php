@@ -10,22 +10,15 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class TaggableFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
-    protected $model = Taggable::class;
-
-    /**
      * Define the model's default state.
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function definition()
     {
         return [
-            'tag_id' => Tag::all()->pluck('id')->random(),
-            'taggable_id' => Post::all()->pluck('id')->random(),
+            'tag_id' => Tag::query()->inRandomOrder()->first(),
+            'taggable_id' => Post::query()->inRandomOrder()->first(),
             'taggable_type' => 'App\Models\Post',
         ];
     }
