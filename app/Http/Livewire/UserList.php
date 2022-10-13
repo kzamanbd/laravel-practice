@@ -3,7 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Exceptions\PermissionForPropertyIsNotDeclaredInControllerException;
-use App\Exports\UserExports;
+use App\Exports\UserExport;
 use App\Http\Controllers\PermissionForPropertyValidation;
 use App\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -200,7 +200,7 @@ class UserList extends Component
 
     public function exportExcel(string $type = 'xlsx')
     {
-        return UserExports::downloadExcel($type);
+        return UserExport::downloadExcel($type);
     }
 
     /**

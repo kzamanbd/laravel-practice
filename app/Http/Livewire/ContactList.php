@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Exports\ContactExport;
 use App\Models\Contact;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
@@ -76,6 +77,11 @@ class ContactList extends Component
             Contact::insert($contacts);
             $this->excelData = [];
         }
+    }
+
+    public function exportExcel(string $type = 'xlsx')
+    {
+        return ContactExport::downloadExcel($type);
     }
 
     public function getContactsProperty()
