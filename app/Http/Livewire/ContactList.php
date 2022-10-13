@@ -78,10 +78,9 @@ class ContactList extends Component
         }
     }
 
-
     public function getContactsProperty()
     {
-        return Contact::query()->paginate($this->perPage);
+        return (count($this->excelData) > 0) ? [] : Contact::query()->paginate($this->perPage);
     }
     public function render()
     {

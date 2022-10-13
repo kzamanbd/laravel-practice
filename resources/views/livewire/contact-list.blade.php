@@ -133,9 +133,11 @@
                                         @endif
                                     </tbody>
                                 </table>
-                                <div class="p-2">
-                                    {{ $this->contacts->links() }}
-                                </div>
+                                @if (count($excelData) == 0)
+                                    <div class="p-2">
+                                        {{ $this->contacts->links() }}
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -156,7 +158,7 @@
             <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
 
-            <div class="flex justify-center items-center w-full">
+            <div x-data="{ fileName: null }" class="flex justify-center items-center w-full">
                 <label for="dropzone-file"
                     class="flex flex-col justify-center items-center w-full h-64 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                     <div class="flex flex-col justify-center items-center pt-5 pb-6">
@@ -170,8 +172,11 @@
                             <span class="font-semibold">Click to upload</span> or drag and drop
                         </p>
                         <p class="text-xs text-gray-500 dark:text-gray-400">File Extension must be .xlsx file</p>
+                        <p x-text="fileName"></p>
                     </div>
-                    <input wire:model="excelFile" id="dropzone-file" type="file" class="hidden">
+                    <input wire:model="excelFile" x-ref="excelFile"
+                        x-on:change="fileName = $refs.excelFile.files[0].name;" id="dropzone-file" type="file"
+                        class="hidden" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
                 </label>
             </div>
             <div class="py-2">
