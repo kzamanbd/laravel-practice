@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\UserAccountVerificationMail;
+use App\Helpers\LogViewer;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Mail;
@@ -25,5 +26,10 @@ class HomeController extends Controller
     public function profile()
     {
         return view('user-profile');
+    }
+
+    public function logViewer()
+    {
+        return (new LogViewer())->getLog();
     }
 }

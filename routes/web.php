@@ -44,6 +44,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('send-notification',  [HomeController::class, 'sendAccountVerificationMail'])->name('send.notification');
     // browser session
     Route::get('browser-session',  BrowserSessionManager::class)->name('browser-session');
+
+    Route::get('log-viewer',  [HomeController::class, 'logViewer'])->name('log-viewer');
 });
 
 
