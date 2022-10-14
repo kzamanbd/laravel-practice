@@ -1,8 +1,8 @@
 <?php
 
 /**
- ** @Author: Kamruzzaman 
- * @Date: 2022-10-13 23:48:12 
+ ** @Author: Kamruzzaman
+ * @Date: 2022-10-13 23:48:12
  * @Last Modified by: Kamruzzaman
  * @Last Modified time: 2022-10-14 00:28:34
  */
@@ -10,83 +10,83 @@
 namespace App\Helpers;
 
 
+use Illuminate\Http\JsonResponse;
+
 class LogViewer
 {
-    protected $final = [];
-    protected $config = [];
+    protected array $final = [];
+    protected array $config = [];
 
-
-    public function __construct($config = [])
+    /**
+     * @param array $config
+     */
+    public function __construct(array $config = [])
     {
-        if (array_key_exists('date', $config)) {
-            $this->config['date'] = $config['date'];
+        if (array_key_exists('file', $config)) {
+            $this->config['file'] = $config['file'];
         } else {
-            $this->config['date'] = null;
+            $this->config['file'] = null;
         }
     }
 
+    /**
+     * @return array
+     */
 
-    public function getLogFileDates()
+    public function getLogFile(): array
     {
-        $dates = [];
         $files = glob(storage_path('logs/laravel*.log'));
         $files = array_reverse($files);
-        foreach ($files as $path) {
-            $fileName = basename($path);
-            preg_match('/(?<=laravel)(.*)(?=.log)/', $fileName, $dtMatch);
-            $date = $dtMatch[0];
-            array_push($dates, $date);
-        }
 
-        return $dates;
+        return array_map(function ($file) {
+            return basename($file);
+        }, $files);
     }
 
-    public function getLog()
+    public function getLog(): JsonResponse
     {
-        $availableDates = $this->getLogFileDates();
+        $availableFiles = $this->getLogFile();
 
-        if (count($availableDates) == 0) {
+        if (count($availableFiles) == 0) {
             return response()->json([
                 'success' => false,
                 'message' => 'No log file available'
             ]);
         }
 
-        $configDate = $this->config['date'];
-        if ($configDate == null) {
-            $configDate = $availableDates[0];
+        $requestFile = $this->config['file'];
+        if ($requestFile == null) {
+            $requestFile = $availableFiles[0];
         }
 
-        if (!in_array($configDate, $availableDates)) {
+        if (!in_array($requestFile, $availableFiles)) {
             return response()->json([
                 'success' => false,
-                'message' => 'No log file found with selected date ' . $configDate
+                'message' => 'No log file found with selected date ' . $requestFile
             ]);
         }
 
 
         $pattern = "/^\[(?<date>.*)\]\s(?<env>\w+)\.(?<type>\w+):(?<message>.*)/m";
 
-        $fileName = 'laravel.log';
+        $fileName = $requestFile;
         $content = file_get_contents(storage_path('logs/' . $fileName));
         preg_match_all($pattern, $content, $matches, PREG_SET_ORDER, 0);
 
-        $logs = [];
-        foreach ($matches as $match) {
-            $logs[] = [
+        $logs = array_map(function ($match) {
+            return [
                 'env' => $match['env'],
                 'type' => $match['type'],
                 'timestamp' => $match['date'],
                 'message' => trim($match['message'])
             ];
-        }
+        }, $matches);
 
         preg_match('/(?<=laravel)(.*)(?=.log)/', $fileName, $dtMatch);
         $date = $dtMatch[0];
 
         $data = [
-            'available_log_dates' => $availableDates,
-            'date' => $date,
+            'available_log_files' => $availableFiles,
             'filename' => $fileName,
             'logs' => collect($logs)->reverse()->values()->all()
         ];

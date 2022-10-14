@@ -40,12 +40,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('generate-permission', [PermissionController::class, 'generateAllPermissions'])->name('generate.permission');
 
     //current user
-    Route::get('profile', [HomeController::class, 'profile'])->name('current-user.show');
-    Route::get('send-notification',  [HomeController::class, 'sendAccountVerificationMail'])->name('send.notification');
+    Route::view('profile', 'user-profile')->name('current-user.show');
+    Route::get('send-notification', [HomeController::class, 'sendAccountVerificationMail'])->name('send.notification');
     // browser session
-    Route::get('browser-session',  BrowserSessionManager::class)->name('browser-session');
+    Route::get('browser-session', BrowserSessionManager::class)->name('browser-session');
 
-    Route::get('log-viewer',  [HomeController::class, 'logViewer'])->name('log-viewer');
+    Route::get('log-viewer', [HomeController::class, 'logViewer'])->name('log-viewer');
 });
 
 

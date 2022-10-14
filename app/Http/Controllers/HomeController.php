@@ -13,9 +13,8 @@ class HomeController extends Controller
     /**
      * @return RedirectResponse
      */
-    function sendAccountVerificationMail()
+    function sendAccountVerificationMail(): RedirectResponse
     {
-
         $users = User::query()->limit(5)->get();
         foreach ($users as $user) {
             Mail::to($user->email)->queue(new UserAccountVerificationMail($user));
@@ -23,13 +22,11 @@ class HomeController extends Controller
         return back()->with('success', 'Notification successfully send.');
     }
 
-    public function profile()
-    {
-        return view('user-profile');
-    }
-
     public function logViewer()
     {
-        return (new LogViewer())->getLog();
+        $query = [
+            'file' => request('file')
+        ];
+        return (new LogViewer($query))->getLog();
     }
 }
