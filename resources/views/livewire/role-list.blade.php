@@ -171,16 +171,16 @@
                 </h1>
 
                 <div class="space-y-4">
-                    @foreach ($this->menus as $menu)
+                    @foreach ($this->features as $feature)
                         <div class="form-control" x-data="roleList">
                             <label class="flex items-center mb-2">
                                 <x-input-box x-ref="selectAllPermissions" x-on:click="checkedAllPermission"
                                     x-bind:checked="isAllChecked" />
-                                <span class="ml-2">{{ $menu->name }}</span>
+                                <span class="ml-2">{{ $feature->name }}</span>
                             </label>
                             <div class="flex items-center space-x-2" x-ref="permissions">
                                 @foreach ($this->permissionsList as $permission)
-                                    @continue(\Illuminate\Support\Str::of($permission->name)->beforeLast('-') != $menu->slug)
+                                    @continue(\Illuminate\Support\Str::of($permission->name)->beforeLast('-') != $feature->slug)
                                     <label class="block">
                                         <x-input-box value="{{ $permission->id }}" wire:model="permissions"
                                             x-on:click="checkedSinglePermission" />

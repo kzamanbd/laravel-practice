@@ -108,12 +108,12 @@
                                                 class="text-center focus:outline-none text-lg font-bold text-gray-800 dark:text-gray-100 leading-5 pt-2 mb-2">
                                                 Permissions</h1>
                                             <div class="grid grid-cols-2 gap-2">
-                                                @forelse($menus_permissions as $menu => $permissions)
+                                                @forelse($features_permissions as $feature => $permissions)
                                                     <div
                                                         class="relative rounded shadow p-5 border border-1 border-gray-300">
                                                         <p tabindex="0"
                                                             class="focus:outline-none text-gray-600 dark:text-gray-100 text-sm leading-none pt-2">
-                                                            {{ $menu }}</p>
+                                                            {{ $feature }}</p>
                                                         <p tabindex="0"
                                                             class="focus:outline-none text-xs italic pt-1 leading-3 text-gray-400">
                                                             Discussion on the template design</p>

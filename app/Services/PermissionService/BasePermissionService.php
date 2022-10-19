@@ -4,9 +4,9 @@
 namespace App\Services\PermissionService;
 
 
-use App\Models\Menu;
+use App\Models\Feature;
 use App\Services\Contracts\PermissionServiceContract;
-use App\Services\MenuService\MenuService;
+use App\Services\FeatureService\FeatureService;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Log;
 use Spatie\Permission\Models\Permission;
@@ -20,31 +20,31 @@ abstract class BasePermissionService implements PermissionServiceContract
      */
     public function permissionsFromConfig(): array
     {
-        return config('menus.default_permissions');
+        return config('features.default_permissions');
     }
 
 
     /**
-     * Generate all menu permissions
+     * Generate all feature permissions
      *
      * @return Permission[]|Collection
      */
     public function generateAllPermissions(): Collection
     {
-        // get all created menu items
-        $menus = (new MenuService())->createdMenuItems();
+        // get all created feature items
+        $features = (new FeatureService())->createdFeatureItems();
 
         $permission_service = new PermissionService();
 
         $default_permissions = $permission_service->permissionsFromConfig();
 
-        $menus->each(function (Menu $menu) use ($default_permissions, $permission_service) {
+        $features->each(function (Feature $feature) use ($default_permissions, $permission_service) {
 
             // default permissions
             $permissions = collect($default_permissions);
 
             // excepted permissions
-            $excepted_permissions = $permission_service->exceptedMenuPermissions($menu->slug);
+            $excepted_permissions = $permission_service->exceptedFeaturePermissions($feature->slug);
 
             // has excepted permissions
             if (count($excepted_permissions)) {
@@ -54,7 +54,7 @@ abstract class BasePermissionService implements PermissionServiceContract
             }
 
             // additional permissions
-            $additional_permissions = $permission_service->additionalMenuPermissions($menu->slug);
+            $additional_permissions = $permission_service->additionalFeaturePermissions($feature->slug);
             // has additional permissions
             if (count($additional_permissions)) {
                 $permissions = $permissions->merge($additional_permissions);
@@ -62,13 +62,13 @@ abstract class BasePermissionService implements PermissionServiceContract
 
             foreach ($permissions as $permissionName => $description) {
                 // generate permission name
-                $name = $this->generatedPermissionName($menu->slug, (string) $permissionName);
+                $name = $this->generatedPermissionName($feature->slug, (string)$permissionName);
                 // check permission exists or not
                 $has_permission = $this->checkPermissionExists($name);
 
                 if (!$has_permission) {
                     // create permission
-                    $this->createSinglePermission($name, (string) $description);
+                    $this->createSinglePermission($name, (string)$description);
                 }
             }
         });
@@ -98,25 +98,25 @@ abstract class BasePermissionService implements PermissionServiceContract
     }
 
     /**
-     * Menu excepted permissions
+     * Feature excepted permissions
      *
-     * @param string $menu_slug
+     * @param string $feature_slug
      * @return array
      */
-    public function exceptedMenuPermissions(string $menu_slug): array
+    public function exceptedFeaturePermissions(string $feature_slug): array
     {
-        return config('menus.available')[$menu_slug]['except_permissions'] ?? [];
+        return config('features.available')[$feature_slug]['except_permissions'] ?? [];
     }
 
     /**
-     * Menu additional permissions
+     * Feature additional permissions
      *
-     * @param string $menu_slug
+     * @param string $feature_slug
      * @return array
      */
-    public function additionalMenuPermissions(string $menu_slug): array
+    public function additionalFeaturePermissions(string $feature_slug): array
     {
-        return config('menus.available')[$menu_slug]['additional_permissions'] ?? [];
+        return config('features.available')[$feature_slug]['additional_permissions'] ?? [];
     }
 
 
@@ -138,13 +138,13 @@ abstract class BasePermissionService implements PermissionServiceContract
     /**
      * Generate permission name
      *
-     * @param string $menuName Menu name
+     * @param string $featureName Feature name
      * @param string $permissionName Permission name
-     * @return string Generated permission name for menu
+     * @return string Generated permission name for feature
      */
-    protected function generatedPermissionName(string $menuName, string $permissionName): string
+    protected function generatedPermissionName(string $featureName, string $permissionName): string
     {
-        return str_replace(' ', '_', strtolower($menuName)) . '-' . $permissionName;
+        return str_replace(' ', '_', strtolower($featureName)) . '-' . $permissionName;
     }
 
 

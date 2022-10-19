@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Menu;
+use App\Models\Feature;
 use Illuminate\Database\Seeder;
 
-class MenuSeeder extends Seeder
+class FeatureSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,12 +14,12 @@ class MenuSeeder extends Seeder
      */
     public function run()
     {
-        $menus = config('menus.available');
+        $features = config('features.available');
 
         // total count
-        foreach ($menus as $slug => $menu) {
-            Menu::create([
-                'name' => $menu['name'],
+        foreach ($features as $slug => $feature) {
+            Feature::create([
+                'name' => $feature['name'],
                 'slug' => $slug
             ]);
         }

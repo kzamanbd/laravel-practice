@@ -10,7 +10,7 @@ use Spatie\Permission\Models\Permission;
 interface PermissionServiceContract
 {
     /**
-     * Generate all menu permissions
+     * Generate all feature permissions
      *
      * @return Permission[]|Collection
      */
@@ -39,18 +39,18 @@ interface PermissionServiceContract
     public function permissionsByIds(array $ids): Collection;
 
     /**
-     * Menu excepted permissions
+     * Feature excepted permissions
      *
-     * @param string $menu_slug
+     * @param string $feature_slug
      * @return array
      */
-    public function exceptedMenuPermissions(string $menu_slug): array;
+    public function exceptedFeaturePermissions(string $feature_slug): array;
 
     /**
-     * Menu additional permissions
+     * Feature additional permissions
      *
-     * @param string $menu_slug
+     * @param string $feature_slug
      * @return array
      */
-    public function additionalMenuPermissions(string $menu_slug): array;
+    public function additionalFeaturePermissions(string $feature_slug): array;
 }

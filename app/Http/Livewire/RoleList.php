@@ -4,7 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Exceptions\PermissionForPropertyIsNotDeclaredInControllerException;
 use App\Http\Controllers\PermissionForPropertyValidation;
-use App\Services\MenuService\MenuService;
+use App\Services\FeatureService\FeatureService;
 use App\Services\PermissionService\PermissionService;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
@@ -77,9 +77,9 @@ class RoleList extends Component
             ->paginate($this->perPage);
     }
 
-    public function getMenusProperty(MenuService $menuService)
+    public function getFeaturesProperty(FeatureService $featureService)
     {
-        return $menuService->createdMenuItems();
+        return $featureService->createdFeatureItems();
     }
 
     public function getPermissionsListProperty(PermissionService $permissionService)

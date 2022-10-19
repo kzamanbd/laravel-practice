@@ -28,12 +28,12 @@ class UserController extends Controller
         // get all permissions
         $permissions = $user->getAllPermissions();
 
-        // manipulate menu permissions
-        $menus_permissions = $permissions->map(function (Permission $permission) {
-            $permission['menu'] = (string)Str::of($permission->name)->before('-')->replace('_', ' ')->ucfirst();
+        // manipulate feature permissions
+        $features_permissions = $permissions->map(function (Permission $permission) {
+            $permission['feature'] = (string)Str::of($permission->name)->before('-')->replace('_', ' ')->ucfirst();
             return $permission;
-        })->groupBy('menu');
+        })->groupBy('feature');
 
-        return view('user-show', compact('user', 'menus_permissions'));
+        return view('user-show', compact('user', 'features_permissions'));
     }
 }
