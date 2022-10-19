@@ -14,7 +14,8 @@ class UserExport
 {
     public static function downloadExcel(string $format)
     {
-        // export excel
+        ini_set('max_execution_time', 0);
+        ini_set('memory_limit', '4000M');
 
         $data[] = [
             'sl' => 'SL',
