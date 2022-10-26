@@ -90,7 +90,6 @@ class NotifierController extends Controller
                     $offlineIdsNotSynced[] = $message['offline_id'];
                     $transactionIds[] = $transactionId;
                 }
-
             }
 
             $countIds = count($offlineIds);
@@ -131,12 +130,12 @@ class NotifierController extends Controller
         foreach ($messages as $message) {
             $senderNumber = self::getSenderNumber($message->android_text);
             if ($senderNumber) {
-                $numbers [] = [
+                $numbers[] = [
                     'id' => $message->id,
                     'number' => $senderNumber
                 ];
             } else {
-                $numberNotFound [] = $message->android_text;
+                $numberNotFound[] = $message->android_text;
             }
         }
 

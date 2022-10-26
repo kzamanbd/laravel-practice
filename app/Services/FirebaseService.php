@@ -14,8 +14,8 @@ class FirebaseService
     private static function createFactory(): Factory
     {
         return (new Factory)
-            ->withServiceAccount(storage_path("firebase.json"))
-            ->withDatabaseUri("https://fir-zaman-default-rtdb.asia-southeast1.firebasedatabase.app/");
+            ->withServiceAccount(storage_path("app/firebase.json"))
+            ->withDatabaseUri("https://ztest-app-default-rtdb.asia-southeast1.firebasedatabase.app");
     }
 
     /**
