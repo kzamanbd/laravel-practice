@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use App\Models\Tag;
 use App\Models\Post;
-use App\Models\Taggable;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TaggableFactory extends Factory

@@ -17,13 +17,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('post_id')
                 ->constrained()
-                ->cascadeOnUpdate()
                 ->cascadeOnDelete();
             $table->foreignId('user_id')
                 ->constrained()
-                ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-            $table->text('body');
+            $table->text('comment');
             $table->timestamps();
         });
     }

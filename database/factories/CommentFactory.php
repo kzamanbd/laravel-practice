@@ -19,7 +19,7 @@ class CommentFactory extends Factory
         return [
             'post_id' => Post::query()->inRandomOrder()->first(),
             'user_id' => User::query()->inRandomOrder()->first(),
-            'body' => fake()->realText,
+            'comment' => fake()->realText,
         ];
     }
 }

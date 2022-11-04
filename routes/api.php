@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\API\ChatController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\API\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\API\CategoryController;
@@ -55,8 +54,6 @@ Route::get('post', [PostController::class, 'show']);
 Route::post('comment', [CommentController::class, 'store']);
 Route::post('comment', [CommentController::class, 'destroy']);
 
-// chat
-Route::post('get-message', [ChatController::class, 'getMessage']);
 // upload-image-by-cropper js
 Route::post('upload-image-by-croperjs', [HomeController::class, 'uploadImageByCroperjs']);
 Route::post('upload-docs-file', [HomeController::class, 'uploadDocsFile']);

@@ -11,7 +11,12 @@ class PostController extends Controller
     //
     public function index()
     {
-        $posts = Post::with('category', 'user', 'comments', 'tags')->latest()->paginate(6);
+        $posts = Post::with([
+            'category:id,name,slug',
+            'user:id,name,username,email,profile_photo_path,created_at',
+            'tags:id,name,slug,description',
+            'comments:id,post_id,user_id,comment'
+        ])->latest()->paginate(6);
         return response()->json([
             'success' => true,
             'posts' => $posts
@@ -21,14 +26,14 @@ class PostController extends Controller
     public function show(Request $request)
     {
         $post = Post::with([
-            'user',
-            'tags',
-            'category',
-            'comments' =>function($q){
+            'category:id,name,slug',
+            'user:id,name,username,email,profile_photo_path,created_at',
+            'tags:id,name,slug,description',
+            'comments' => function ($q) {
                 $q->orderByDesc('id');
             },
             'comments.user'
-        ])->where('slug', $request->slug)->first();
+        ])->where('slug', $request->slug)->firstOrFail();
 
         $prev = Post::where('id', '<', $post->id)->orderByDesc('id')->first();
         $next = Post::where('id', '>', $post->id)->orderBy('id')->first();

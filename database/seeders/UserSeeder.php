@@ -14,7 +14,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $total_users = 1000;
+        $total_users = 100;
         $admin_email = 'kzamanbn@gmail.com';
 
         $defined_emails = [

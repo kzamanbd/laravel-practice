@@ -255,7 +255,6 @@ class NotifierController extends Controller
         return response()->json([
             'status' => true,
             'message' => "Last 2 days total $countNotification messages Found!",
-            'nagad_messages' => [],
             'notifications' => $notifications
         ]);
     }
