@@ -31,12 +31,16 @@ class PostController extends Controller
             'tags:id,name,slug,description',
             'comments' => function ($q) {
                 $q->orderByDesc('id');
+                $q->select(['id', 'post_id', 'user_id', 'comment']);
             },
-            'comments.user'
+            'comments.user:id,name,username,created_at'
         ])->where('slug', $slug)->firstOrFail();
 
-        $prev = Post::where('id', '<', $post->id)->orderByDesc('id')->first();
-        $next = Post::where('id', '>', $post->id)->orderBy('id')->first();
+        $prev = Post::where('id', '<', $post->id)
+            ->orderByDesc('id')->first(['id', 'title', 'slug', 'image']);
+
+        $next = Post::where('id', '>', $post->id)
+            ->orderBy('id')->first(['id', 'title', 'slug', 'image']);
 
         return response()->json([
             'success' => true,
