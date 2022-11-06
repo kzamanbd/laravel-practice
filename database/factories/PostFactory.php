@@ -18,10 +18,10 @@ class PostFactory extends Factory
     {
         return [
             'title' => fake()->jobTitle,
-            'slug' => fake()->slug,
+            'slug' => fake()->unique()->slug,
             'category_id' => Category::query()->inRandomOrder()->first(),
+            'description' => fake()->realText(1000),
             'user_id' => User::query()->inRandomOrder()->first(),
-            'body' => fake()->realText(1000),
             'image' => fake()->imageUrl($width = 700, $height = 300)
         ];
     }

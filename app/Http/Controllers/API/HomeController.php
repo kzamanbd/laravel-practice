@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function initApp()
     {
         $users = User::latest()->limit(20)->get();
         $tags = Tag::latest()->limit(20)->get();
@@ -20,37 +20,41 @@ class HomeController extends Controller
             'tags' => $tags
         ], 200);
     }
-    public function user($id){
+
+    public function user($id)
+    {
         $user = User::find($id);
         return response()->json([
             'success' => true,
             'user' => $user
         ], 200);
-
     }
 
-    public function uploadImageByCroperjs(Request $request){
-        $png_url = uniqid().time().".jpg";
+    public function uploadImage(Request $request)
+    {
+        $png_url = uniqid() . time() . ".jpg";
         $path = "images/" . $png_url;
         $img = file_get_contents($request->image);
         $success = Storage::put($path, $img);
         print $success ? $png_url : 'Unable to save the file.';
     }
 
-    public function uploadDocsFile(Request $request){
+    public function uploadDocsFile(Request $request)
+    {
         $uploaded_file = [];
-        foreach($request->attachments as $attachment){
+        foreach ($request->attachments as $attachment) {
             $type = explode('.', $attachment['name']);
-            $file_name = uniqid().time().".".end($type);
+            $file_name = uniqid() . time() . "." . end($type);
             $path = "docs/" . $file_name;
             $base64 = file_get_contents($attachment['base64']);
             Storage::put($path, $base64);
-            $uploaded_file [] = $file_name;            
+            $uploaded_file[] = $file_name;
         }
         return $uploaded_file;
     }
 
-    public function getAllUsers(){
+    public function getAllUsers()
+    {
         $users = User::with('roles')->latest()->limit(50)->get();
         return response()->json([
             'success' => true,

@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('features', function (Blueprint $table) {
             $table->id();
+            $table->unsignedInteger('parent_id')->nullable()
+                ->comment('Parent feature ID for nested features');
             $table->string('name');
             $table->string('slug')->unique();
             $table->text('description')->nullable();

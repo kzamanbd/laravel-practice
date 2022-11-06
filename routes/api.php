@@ -22,16 +22,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return response()->json([
-        'request url' => request()->url(),
         'success' => true,
-        'message' => 'api under construction'
+        'request url' => request()->url(),
+        'message' => 'This api under construction'
     ]);
 });
-
-Route::post('form-submitted', function (Request $request) {
-    return $request->all();
-});
-
 
 Route::prefix('auth')->group(function () {
     //get current user
@@ -43,19 +38,19 @@ Route::prefix('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'logout']);
 });
 
-Route::get('init-app', [HomeController::class, 'index']);
+Route::get('init-app', [HomeController::class, 'initApp']);
 //get category
 Route::get('category', [CategoryController::class, 'index']);
 //get post
-Route::get('posts', [PostController::class, 'index']);
-Route::get('post', [PostController::class, 'show']);
+Route::get('posts', [PostController::class, 'posts']);
+Route::get('post/{slug}', [PostController::class, 'show']);
 
 // comment route
 Route::post('comment', [CommentController::class, 'store']);
 Route::post('comment', [CommentController::class, 'destroy']);
 
 // upload-image-by-cropper js
-Route::post('upload-image-by-croperjs', [HomeController::class, 'uploadImageByCroperjs']);
+Route::post('upload-image-by-croperjs', [HomeController::class, 'uploadImage']);
 Route::post('upload-docs-file', [HomeController::class, 'uploadDocsFile']);
 
 

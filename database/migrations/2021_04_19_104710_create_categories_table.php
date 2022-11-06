@@ -15,9 +15,11 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
+            $table->unsignedInteger('parent_id')->nullable()
+                ->comment('Parent category ID for nested categories');
             $table->string('name');
             $table->string('slug');
-            $table->string('description',200)->nullable();
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }

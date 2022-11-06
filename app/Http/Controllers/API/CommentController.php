@@ -11,16 +11,15 @@ class CommentController extends Controller
 {
     public function store(Request $request)
     {
-        //return $request->all();
         $this->validate($request, [
-            'body' => 'required'
+            'comment' => 'required'
         ]);
 
         $comment = new Comment();
 
         $comment->user_id = $request->user_id;
         $comment->post_id = $request->post_id;
-        $comment->body = $request->body;
+        $comment->comment = $request->comment;
         $comment->save();
         return $comment->load('user');
     }
@@ -33,7 +32,6 @@ class CommentController extends Controller
      */
     public function destroy(Request $request)
     {
-        //return $request->all();
         Comment::destroy($request->id);
         return 'success';
     }

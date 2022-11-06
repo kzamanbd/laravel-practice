@@ -8,35 +8,36 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    //
-    public function index()
+    public function posts()
     {
         $posts = Post::with([
             'category:id,name,slug',
-            'user:id,name,username,email,profile_photo_path,created_at',
+            'user:id,name,username,created_at',
             'tags:id,name,slug,description',
             'comments:id,post_id,user_id,comment'
-        ])->latest()->paginate(6);
+        ])->latest()->paginate(10);
+
         return response()->json([
             'success' => true,
             'posts' => $posts
         ], 200);
     }
 
-    public function show(Request $request)
+    public function show(string $slug)
     {
         $post = Post::with([
             'category:id,name,slug',
-            'user:id,name,username,email,profile_photo_path,created_at',
+            'user:id,name,username,created_at',
             'tags:id,name,slug,description',
             'comments' => function ($q) {
                 $q->orderByDesc('id');
             },
             'comments.user'
-        ])->where('slug', $request->slug)->firstOrFail();
+        ])->where('slug', $slug)->firstOrFail();
 
         $prev = Post::where('id', '<', $post->id)->orderByDesc('id')->first();
         $next = Post::where('id', '>', $post->id)->orderBy('id')->first();
+
         return response()->json([
             'success' => true,
             'post' => $post,
