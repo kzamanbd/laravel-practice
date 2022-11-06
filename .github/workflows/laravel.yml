@@ -1,10 +1,10 @@
+name: 🚀 Deploy Private Server Master
 on:
   push:
     branches: [ master ]
 
-name: 🚀 Deploy Private Server Master
 jobs:
-  web-deploy:
+  deploy:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
     
@@ -12,7 +12,7 @@ jobs:
     - name: 🚚 Get latest code
       uses: actions/checkout@v2
 
-    - name: 📂 Sync files
+    - name: 📂 Sync files to server
       uses: SamKirkland/FTP-Deploy-Action@4.1.0
       with:
         server: 207.180.201.234
