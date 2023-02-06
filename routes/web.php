@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Livewire\ApiTokenManager;
 use App\Http\Livewire\RoleList;
 use App\Http\Livewire\UserList;
 use App\Http\Livewire\ContactList;
@@ -29,6 +30,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
 
     Route::get('contacts-list', ContactList::class)->name('contacts.list');
+    Route::view('api-tokens', 'api.index')->name('api.tokens');
 
     //user
     Route::get('user-list', UserList::class)->name('user.list');
