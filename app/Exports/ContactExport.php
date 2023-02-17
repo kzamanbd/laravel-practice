@@ -9,14 +9,13 @@ use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Writer\Csv;
+use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\FromView;
 
-class ContactExport
+class ContactExport implements FromView
 {
     public static function downloadExcel(string $format)
     {
-        ini_set('max_execution_time', 0);
-        ini_set('memory_limit', '4000M');
-
         $data[] = [
             'sl' => 'SL',
             'name' => 'Name',
@@ -77,5 +76,14 @@ class ContactExport
         } catch (Exception $e) {
             dd($e->getMessage());
         }
+    }
+
+    public function view(): View
+    {
+        $contacts = Contact::query()->latest()->get();
+
+        return view('exports.contacts', [
+            'contacts' => $contacts
+        ]);
     }
 }

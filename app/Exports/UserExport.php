@@ -9,8 +9,10 @@ use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Writer\Csv;
+use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\FromView;
 
-class UserExport
+class UserExport implements FromView
 {
     public static function downloadExcel(string $format)
     {
@@ -65,5 +67,14 @@ class UserExport
         } catch (Exception $e) {
             dd($e->getMessage());
         }
+    }
+
+    public function view(): View
+    {
+        $users = User::query()->latest()->get();
+
+        return view('exports.users', [
+            'users' => $users
+        ]);
     }
 }
