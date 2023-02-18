@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8c297dd45562e0f78d81846e33d6c542",
+    "content-hash": "acf736a5d0249f8e46ea27b9fd480eda",
     "packages": [
         {
             "name": "beste/clock",
@@ -1970,16 +1970,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v10.0.0",
+            "version": "v10.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "be2ddb5c31b0b9ebc2738d9f37a9d4c960aa3199"
+                "reference": "0bd303853444de33f4fcb16d13bd7574030aa3d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/be2ddb5c31b0b9ebc2738d9f37a9d4c960aa3199",
-                "reference": "be2ddb5c31b0b9ebc2738d9f37a9d4c960aa3199",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/0bd303853444de33f4fcb16d13bd7574030aa3d4",
+                "reference": "0bd303853444de33f4fcb16d13bd7574030aa3d4",
                 "shasum": ""
             },
             "require": {
@@ -2166,7 +2166,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2023-02-14T15:12:47+00:00"
+            "time": "2023-02-16T22:03:27+00:00"
         },
         {
             "name": "laravel/sanctum",
@@ -2689,16 +2689,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "3.12.2",
+            "version": "3.12.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "f6377c709d2275ed6feaf63e44be7a7162b0e77f"
+                "reference": "81e87e74dd5213795c7846d65089712d2dda90ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/f6377c709d2275ed6feaf63e44be7a7162b0e77f",
-                "reference": "f6377c709d2275ed6feaf63e44be7a7162b0e77f",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/81e87e74dd5213795c7846d65089712d2dda90ce",
+                "reference": "81e87e74dd5213795c7846d65089712d2dda90ce",
                 "shasum": ""
             },
             "require": {
@@ -2760,7 +2760,7 @@
             ],
             "support": {
                 "issues": "https://github.com/thephpleague/flysystem/issues",
-                "source": "https://github.com/thephpleague/flysystem/tree/3.12.2"
+                "source": "https://github.com/thephpleague/flysystem/tree/3.12.3"
             },
             "funding": [
                 {
@@ -2776,7 +2776,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-01-19T12:02:19+00:00"
+            "time": "2023-02-18T15:32:41+00:00"
         },
         {
             "name": "league/mime-type-detection",
@@ -2909,16 +2909,16 @@
         },
         {
             "name": "maatwebsite/excel",
-            "version": "3.1.46",
+            "version": "3.1.47",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SpartnerNL/Laravel-Excel.git",
-                "reference": "ba0b9b9305d5b603c3938d4d1d4a13025c92c241"
+                "reference": "fd928d68a1422d6abce73255b4406b3c5659e197"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SpartnerNL/Laravel-Excel/zipball/ba0b9b9305d5b603c3938d4d1d4a13025c92c241",
-                "reference": "ba0b9b9305d5b603c3938d4d1d4a13025c92c241",
+                "url": "https://api.github.com/repos/SpartnerNL/Laravel-Excel/zipball/fd928d68a1422d6abce73255b4406b3c5659e197",
+                "reference": "fd928d68a1422d6abce73255b4406b3c5659e197",
                 "shasum": ""
             },
             "require": {
@@ -2973,7 +2973,7 @@
             ],
             "support": {
                 "issues": "https://github.com/SpartnerNL/Laravel-Excel/issues",
-                "source": "https://github.com/SpartnerNL/Laravel-Excel/tree/3.1.46"
+                "source": "https://github.com/SpartnerNL/Laravel-Excel/tree/3.1.47"
             },
             "funding": [
                 {
@@ -2985,7 +2985,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-01-26T20:40:09+00:00"
+            "time": "2023-02-16T15:09:07+00:00"
         },
         {
             "name": "maennchen/zipstream-php",
@@ -8214,28 +8214,29 @@
         },
         {
             "name": "nunomaduro/collision",
-            "version": "v7.0.2",
+            "version": "v7.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nunomaduro/collision.git",
-                "reference": "15e5fe35305419c9c6cf196be8d62cf70087a20c"
+                "reference": "d9205550494a8e6865ae59eaa3fd0f77f6c916fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nunomaduro/collision/zipball/15e5fe35305419c9c6cf196be8d62cf70087a20c",
-                "reference": "15e5fe35305419c9c6cf196be8d62cf70087a20c",
+                "url": "https://api.github.com/repos/nunomaduro/collision/zipball/d9205550494a8e6865ae59eaa3fd0f77f6c916fb",
+                "reference": "d9205550494a8e6865ae59eaa3fd0f77f6c916fb",
                 "shasum": ""
             },
             "require": {
                 "filp/whoops": "^2.14.6",
                 "nunomaduro/termwind": "^1.15.1",
                 "php": "^8.1.0",
+                "sebastian/environment": "^6.0.0",
                 "symfony/console": "^6.2.5"
             },
             "require-dev": {
                 "laravel/framework": "^10.0.0",
-                "laravel/pint": "^1.4.1",
-                "laravel/sail": "^1.20.1",
+                "laravel/pint": "^1.5.0",
+                "laravel/sail": "^1.20.2",
                 "laravel/sanctum": "^3.2.1",
                 "laravel/tinker": "^2.8.0",
                 "nunomaduro/larastan": "^2.4.0",
@@ -8301,7 +8302,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2023-02-11T18:10:08+00:00"
+            "time": "2023-02-17T11:52:52+00:00"
         },
         {
             "name": "phar-io/manifest",

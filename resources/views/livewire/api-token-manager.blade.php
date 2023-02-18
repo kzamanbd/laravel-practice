@@ -26,7 +26,7 @@
                 <div class="mt-2 grid grid-cols-1 md:grid-cols-2 gap-4">
                     @foreach ($permissionsList as $permission)
                         <label class="flex items-center">
-                            <x-input-box wire:model.defer="createApiTokenForm.permissions" :value="$permission" />
+                            <x-checkbox wire:model.defer="createApiTokenForm.permissions" :value="$permission" />
                             <span class="ml-2 text-sm text-gray-600">{{ $permission }}</span>
                         </label>
                     @endforeach
@@ -130,7 +130,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 @foreach ($permissionsList as $permission)
                     <label class="flex items-center">
-                        <x-input-box wire:model.defer="updateApiTokenForm.permissions" :value="$permission" />
+                        <x-checkbox wire:model.defer="updateApiTokenForm.permissions" :value="$permission" />
                         <span class="ml-2 text-sm text-gray-600">{{ $permission }}</span>
                     </label>
                 @endforeach

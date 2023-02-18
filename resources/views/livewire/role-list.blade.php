@@ -51,7 +51,7 @@
                                             <th
                                                 class="w-6 px-3 py-3 border-b-2 border-gray-200 bg-gray-100 font-semibold text-gray-600 uppercase tracking-wider">
                                                 <label class="inline-flex items-center">
-                                                    <x-input-box wire:model="selectedPage" />
+                                                    <x-checkbox wire:model="selectedPage" />
                                                     <span class="ml-2 text-gray-700">SL</span>
                                                 </label>
                                             </th>
@@ -80,7 +80,7 @@
                                             <tr class="border-b border-gray-200 on-parent-hover-show">
                                                 <td class="px-3 py-2 text-sm">
                                                     <label class="inline-flex items-center">
-                                                        <x-input-box wire:model="selectedItem"
+                                                        <x-checkbox wire:model="selectedItem"
                                                             value="{{ $role->id }}" />
                                                         <span class="ml-2 text-gray-700">
                                                             {{ $loop->iteration }}
@@ -174,7 +174,7 @@
                     @foreach ($this->features as $feature)
                         <div class="form-control" x-data="roleList">
                             <label class="flex items-center mb-2">
-                                <x-input-box x-ref="selectAllPermissions" x-on:click="checkedAllPermission"
+                                <x-checkbox x-ref="selectAllPermissions" x-on:click="checkedAllPermission"
                                     x-bind:checked="isAllChecked" />
                                 <span class="ml-2">{{ $feature->name }}</span>
                             </label>
@@ -182,7 +182,7 @@
                                 @foreach ($this->permissionsList as $permission)
                                     @continue(\Illuminate\Support\Str::of($permission->name)->beforeLast('-') != $feature->slug)
                                     <label class="block">
-                                        <x-input-box value="{{ $permission->id }}" wire:model="permissions"
+                                        <x-checkbox value="{{ $permission->id }}" wire:model="permissions"
                                             x-on:click="checkedSinglePermission" />
                                         <span class="mr-2 ml-1 text-gray-700">
                                             {{ \Illuminate\Support\Str::of($permission->name)->afterLast('-')->replace('_', ' ')->ucfirst() }}

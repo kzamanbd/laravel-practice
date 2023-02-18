@@ -56,7 +56,7 @@
                                             <th
                                                 class="w-6 px-3 py-3 border-b-2 border-gray-200 bg-gray-100 font-semibold text-gray-600 uppercase tracking-wider">
                                                 <label class="inline-flex items-center">
-                                                    <x-input-box wire:model="selectedPage" type="checkbox" />
+                                                    <x-checkbox wire:model="selectedPage" type="checkbox" />
                                                     <span class="ml-2 text-gray-700">SL</span>
                                                 </label>
                                             </th>
@@ -94,7 +94,7 @@
                                             <tr class="border-b border-gray-200 on-parent-hover-show">
                                                 <td class="px-3 py-2 text-sm">
                                                     <label class="inline-flex items-center">
-                                                        <x-input-box wire:model="selectedItem" type="checkbox"
+                                                        <x-checkbox wire:model="selectedItem" type="checkbox"
                                                             name="select" value="{{ $user->id }}" />
                                                         <span
                                                             class="ml-2 text-gray-700">{{ $loop->index + $this->users->firstItem() }}</span>
