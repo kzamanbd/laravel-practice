@@ -15,19 +15,8 @@
                 </div>
             </div>
             <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
-                <div class="flex items-center">
-                    <a class="block h-12 w-auto" href="#">
-                        <x-application-logo class="block h-12 w-auto fill-current text-gray-600" />
-                    </a>
-                    <div class="ml-8 text-2xl">
-                        Welcome to Laravel application!
-                    </div>
-                </div>
-
-
-
                 <div class="mt-6 text-gray-500">
-                    Laravel Laravel provides a beautiful, robust starting point for your next Laravel application.
+                    Laravel provides a beautiful, robust starting point for your next Laravel application.
                     Laravel is designed
                     to help you build your application using a development environment that is simple, powerful, and
                     enjoyable. We believe
