@@ -2,14 +2,15 @@
 
 namespace App\Http\Livewire;
 
-use App\Exports\ContactExport;
-use App\Models\Contact;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
-use PhpOffice\PhpSpreadsheet\IOFactory;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
+use App\Models\Contact;
+use App\Exports\ContactExport;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ContactList extends Component
 {
@@ -81,7 +82,14 @@ class ContactList extends Component
 
     public function exportExcel(string $type = 'xlsx')
     {
-        return ContactExport::downloadExcel($type);
+        $date = now()->format('d-M-Y-H-i-s');
+        $filename = "contacts-{$date}.$type";
+
+        if ($type == 'csv') {
+            return Excel::download(new ContactExport, $filename, \Maatwebsite\Excel\Excel::CSV);
+        } else {
+            return Excel::download(new ContactExport, $filename, \Maatwebsite\Excel\Excel::XLSX);
+        }
     }
 
     public function getContactsProperty()

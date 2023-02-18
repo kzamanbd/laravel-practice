@@ -11,6 +11,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Maatwebsite\Excel\Facades\Excel;
 use Spatie\Permission\Models\Role;
 
 class UserList extends Component
@@ -200,7 +201,14 @@ class UserList extends Component
 
     public function exportExcel(string $type = 'xlsx')
     {
-        return UserExport::downloadExcel($type);
+        $date = now()->format('d-M-Y-H-i-s');
+        $filename = "users-{$date}.$type";
+
+        if ($type == 'csv') {
+            return Excel::download(new UserExport, $filename, \Maatwebsite\Excel\Excel::CSV);
+        } else {
+            return Excel::download(new UserExport, $filename, \Maatwebsite\Excel\Excel::XLSX);
+        }
     }
 
     /**
