@@ -1,7 +1,7 @@
 name: 🚀 Deploy Private Server Master
 on:
   push:
-    branches: [ master ]
+    branches: [ test ]
 
 jobs:
   deploy:
