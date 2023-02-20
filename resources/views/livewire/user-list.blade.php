@@ -86,7 +86,10 @@
                                                 class="text-left px-3 py-3 border-b-2 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                                 Roles
                                             </th>
-                                            <th class="px-3 py-3 border-b-2 border-gray-200 bg-gray-100"></th>
+                                            <th
+                                                class="text-center px-3 py-3 border-b-2 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                                Action
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -122,11 +125,11 @@
                                                 </td>
                                                 <td class="px-3 py-2 text-sm">
                                                     <span class="text-gray-900 whitespace-no-wrap">
-                                                        {{ $user->roles->pluck('name')->join(', ') }}
+                                                        {{ count($user->roles) > 0 ? $user->roles->pluck('name')->join(', ') : 'No Role' }}
                                                     </span>
                                                 </td>
 
-                                                <td class="px-3 py-2 text-sm">
+                                                <td class="px-3 py-2 text-sm text-center">
                                                     <x-dropdown align="right">
                                                         <x-slot name="trigger">
                                                             <button type="button">

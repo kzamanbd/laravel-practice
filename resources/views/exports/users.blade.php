@@ -8,10 +8,12 @@
                 </th>
             </tr>
             <tr>
-                <th style="border: 1px solid #000; font-weight:bold;">SL</th>
-                <th style="border: 1px solid #000; font-weight:bold;">Name</th>
-                <th style="border: 1px solid #000; font-weight:bold;">Email</th>
-                <th style="border: 1px solid #000; font-weight:bold;">Created At</th>
+                <th style="border: 1px solid #000; font-weight:bold; text-align:center; background: gray;">SL</th>
+                <th style="border: 1px solid #000; font-weight:bold; text-align:center; background: gray;">Name</th>
+                <th style="border: 1px solid #000; font-weight:bold; text-align:center; background: gray;">Email</th>
+                <th style="border: 1px solid #000; font-weight:bold; text-align:center; background: gray;">
+                    Created At
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -20,7 +22,9 @@
                     <td style="border: 1px solid #000">{{ $loop->iteration }}</td>
                     <td style="border: 1px solid #000">{{ $user->name }}</td>
                     <td style="border: 1px solid #000">{{ $user->email }}</td>
-                    <td style="border: 1px solid #000">{{ $user->created_at }}</td>
+                    <td style="border: 1px solid #000; text-align:center;">
+                        {{ $user->created_at->format('d-M-Y') }}
+                    </td>
                 </tr>
             @endforeach
         </tbody>

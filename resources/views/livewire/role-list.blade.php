@@ -72,6 +72,7 @@
                                             </th>
                                             <th
                                                 class="text-center px-3 py-3 border-b-2 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                                Action
                                             </th>
                                         </tr>
                                     </thead>
@@ -102,7 +103,7 @@
                                                         {{ $role->description }}
                                                     </span>
                                                 </td>
-                                                <td class="px-3 py-2">
+                                                <td class="px-3 py-2 text-center">
                                                     <x-dropdown align="right">
                                                         <x-slot name="trigger">
                                                             <button type="button">
