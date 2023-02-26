@@ -9,7 +9,7 @@ use Maatwebsite\Excel\Events\AfterSheet;
 
 abstract class BaseExportFromView implements FromView, ShouldAutoSize, WithEvents
 {
-    protected string $freezeRow;
+    protected string $freezePane;
     protected string $autoFilter;
 
     public function registerEvents(): array
@@ -17,8 +17,8 @@ abstract class BaseExportFromView implements FromView, ShouldAutoSize, WithEvent
         // after sheet rows grouping
         return [
             AfterSheet::class => function (AfterSheet $event) {
-                if (isset($this->freezeRow)) {
-                    $event->sheet->getDelegate()->freezePane($this->freezeRow);
+                if (isset($this->freezePane)) {
+                    $event->sheet->getDelegate()->freezePane($this->freezePane);
                 }
                 if (isset($this->autoFilter)) {
                     $event->sheet->getDelegate()->setAutoFilter($this->autoFilter);

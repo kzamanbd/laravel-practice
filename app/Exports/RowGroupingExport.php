@@ -11,7 +11,7 @@ use Maatwebsite\Excel\Events\AfterSheet;
 
 class RowGroupingExport extends BaseExportFromView
 {
-    protected string $freezeRow = 'A3';
+    protected string $freezePane = 'A3';
     protected string $autoFilter = 'B2:E2';
 
     public function view(): View
@@ -27,7 +27,7 @@ class RowGroupingExport extends BaseExportFromView
         return [
             AfterSheet::class => function (AfterSheet $event) {
                 $event->sheet->getDelegate()->setAutoFilter($this->autoFilter);
-                $event->sheet->getDelegate()->freezePane($this->freezeRow);
+                $event->sheet->getDelegate()->freezePane($this->freezePane);
                 // 10 rows grouping
                 foreach (range(2, 15) as $row) {
                     $event->sheet->getDelegate()

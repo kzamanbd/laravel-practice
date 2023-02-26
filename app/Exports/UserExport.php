@@ -11,7 +11,7 @@ use Maatwebsite\Excel\Events\AfterSheet;
 
 class UserExport extends BaseExportFromView
 {
-    protected string $freezeRow = 'A3';
+    protected string $freezePane = 'A3';
     protected string $autoFilter = 'B2:E2';
 
     public function view(): View
