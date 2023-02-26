@@ -4,9 +4,8 @@ namespace App\Exports;
 
 use App\Models\Contact;
 use Illuminate\Contracts\View\View;
-use Maatwebsite\Excel\Concerns\FromView;
 
-class ContactExport implements FromView
+class ContactExport extends BaseExportFromView
 {
 
     /**
