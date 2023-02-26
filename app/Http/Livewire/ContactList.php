@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use Carbon\Carbon;
+use Illuminate\Http\Response;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
@@ -25,7 +26,7 @@ class ContactList extends Component
         $this->validate([
             'excelFile' => 'nullable|file|mimes:xlsx'
         ]);
-        // dd($this->excelFile);
+
         if ($this->excelFile) {
             $path = Storage::put('documents', $this->excelFile);
             $url = storage_path("app/public/{$path}");
@@ -83,7 +84,7 @@ class ContactList extends Component
     public function exportExcel(string $type = 'xlsx')
     {
         $date = now()->format('d-M-Y-H-i-s');
-        $filename = "contacts-{$date}.$type";
+        $filename = "contacts-$date.$type";
 
         if ($type == 'csv') {
             return Excel::download(new ContactExport, $filename, \Maatwebsite\Excel\Excel::CSV);
@@ -96,6 +97,7 @@ class ContactList extends Component
     {
         return (count($this->excelData) > 0) ? [] : Contact::query()->paginate($this->perPage);
     }
+
     public function render()
     {
         return view('livewire.contact-list')

@@ -13,11 +13,12 @@
                         <div class="flex items-center space-x-4">
                             <div class="flex items-center">
                                 <label for="perPage" class="text-sm text-gray-600">Show</label>
-                                <select id="perPage" class="mx-2 form-control min-w-[80px] px-4 py-1.5">
+                                <select id="perPage" wire:model="perPage" class="mx-2 form-control min-w-[80px] px-4 py-1.5">
                                     <option value="10">10</option>
                                     <option value="15">15</option>
                                     <option value="25">25</option>
                                     <option value="50">50</option>
+                                    <option value="100">100</option>
                                 </select>
                                 <label for="perPage" class="text-sm text-gray-600">entries</label>
                             </div>
