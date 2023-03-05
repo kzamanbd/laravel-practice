@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Mail\UserAccountVerificationMail;
-use App\Helpers\LogViewer;
 use App\Models\User;
+use App\Services\LogViewer;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Mail;
 
@@ -20,13 +20,5 @@ class HomeController extends Controller
             Mail::to($user->email)->queue(new UserAccountVerificationMail($user));
         }
         return back()->with('success', 'Notification successfully send.');
-    }
-
-    public function logViewer()
-    {
-        $query = [
-            'file' => request('file')
-        ];
-        return (new LogViewer($query))->getLog();
     }
 }
