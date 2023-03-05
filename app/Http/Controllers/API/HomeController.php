@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Throwable;
 
 class HomeController extends Controller
 {
@@ -60,5 +63,32 @@ class HomeController extends Controller
             'success' => true,
             'users' => $users
         ], 200);
+    }
+
+    public function testDatabaseTransactions()
+    {
+
+        DB::beginTransaction();
+
+        try {
+            $category = Category::query()->create([
+                'name' => 'Test Category',
+                'slug' => 'test-category'
+            ]);
+            $user = User::query()->create([
+                'name' => 'ZAMAN',
+                'email' => 'zaman@gmail.com',
+                'password' => bcrypt('password')
+            ]);
+
+            DB::commit();
+            return [$user, $category];
+        } catch (Throwable $e) {
+            DB::rollBack();
+            return response()->json([
+                'status' => 'Failed',
+                'message' => $e->getMessage()
+            ]);
+        }
     }
 }

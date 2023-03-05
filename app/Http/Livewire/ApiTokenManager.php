@@ -117,7 +117,7 @@ class ApiTokenManager extends Component
 
         $this->displayTokenValue($this->user->createToken(
             $this->createApiTokenForm['name'],
-            self::validPermissions($this->createApiTokenForm['permissions'])
+            $this->createApiTokenForm['permissions']
         ));
 
         $this->createApiTokenForm['name'] = '';
@@ -167,7 +167,7 @@ class ApiTokenManager extends Component
     public function updateApiToken()
     {
         $this->managingPermissionsFor->forceFill([
-            'abilities' => self::validPermissions($this->updateApiTokenForm['permissions']),
+            'abilities' => $this->updateApiTokenForm['permissions'],
         ])->save();
 
         $this->managingApiTokenPermissions = false;

@@ -80,6 +80,9 @@
                         <x-dropdown-link :href="route('current-user.show')">
                             Profile
                         </x-dropdown-link>
+                        <x-dropdown-link :href="route('api.tokens')">
+                            APIs Tokens
+                        </x-dropdown-link>
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf

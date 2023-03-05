@@ -5,10 +5,10 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PermissionController;
-use App\Http\Livewire\ApiTokenManager;
 use App\Http\Livewire\RoleList;
 use App\Http\Livewire\UserList;
 use App\Http\Livewire\ContactList;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,6 +21,15 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('clear', function () {
+    Artisan::call('optimize:clear');
+    return "Site Optimized";
+});
+Route::get('storage', function () {
+    Artisan::call('storage:link');
+    return "Storage Link Created";
+});
 
 
 Route::view('/', 'welcome');
@@ -52,12 +61,3 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 
 require __DIR__ . '/auth.php';
-
-Route::get('clear', function () {
-    Artisan::call('optimize:clear');
-    return "Site Optimized";
-});
-Route::get('storage', function () {
-    Artisan::call('storage:link');
-    return "Storage Link Created";
-});

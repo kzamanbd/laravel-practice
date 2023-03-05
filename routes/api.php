@@ -74,3 +74,4 @@ Route::any('basic-auth', function (Request $request) {
         $request->header('api-key'),
     ];
 });
+Route::get('test-database-transactions', [HomeController::class, 'testDatabaseTransactions']);
