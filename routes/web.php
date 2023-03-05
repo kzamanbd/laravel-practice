@@ -2,6 +2,7 @@
 
 use App\Http\Livewire\BrowserSessionManager;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LogViewerController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PermissionController;
@@ -56,7 +57,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // browser session
     Route::get('browser-session', BrowserSessionManager::class)->name('browser-session');
 
-    Route::get('log-viewer', [HomeController::class, 'logViewer'])->name('log-viewer');
+    Route::get('log-viewer', [LogViewerController::class, 'getLogFile'])->name('log-viewer');
+    Route::get('log-viewer/{file}', [LogViewerController::class, 'getLogDetail']);
+    Route::get('log-viewer/download/{file}', [LogViewerController::class, 'downloadLogs']);
+    Route::get('log-viewer/clear/{file}', [LogViewerController::class, 'clearLogs']);
+    Route::get('log-viewer/delete/{file}', [LogViewerController::class, 'deleteLogs']);
+    Route::post('log-viewer/bulk-action', [LogViewerController::class, 'bulkAction']);
 });
 
 
