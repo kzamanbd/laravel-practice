@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Helpers;
+namespace App\Services;
 
 use Illuminate\Support\Facades\File;
 
@@ -200,7 +200,7 @@ class LogViewer
             foreach ($matches[0] as $v) {
                 preg_match($this->regexEachLog, $v, $extractLogs);
                 if (!empty($extractLogs) && count($extractLogs)) {
-                    $logsData[] = $extractLogs;
+                    $logsData[] = array_values(array_filter($extractLogs));
                 }
             }
             if (!empty($logsData)) {
