@@ -31,7 +31,7 @@ services:
             - ~/.ssh:/root/.ssh
         depends_on:
             - mysql-database
-            - redis
+            - redis-database
         networks:
             - laravel-network
 
@@ -55,7 +55,7 @@ services:
         networks:
             - laravel-network
 
-    redis:
+    redis-database:
         image: redis:alpine
         container_name: laravel-redis-container
         restart: unless-stopped
