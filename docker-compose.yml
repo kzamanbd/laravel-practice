@@ -2,39 +2,42 @@ version: '3.8'
 services:
     nginx:
         image: nginx:alpine
-        container_name: latavel-container
+        container_name: nginx-container
         restart: unless-stopped
         ports:
-            - 80:80
+            - 8000:80
             - 443:443
         volumes:
             - ./:/var/www/html:cached
             - ./docker/nginx:/etc/nginx/conf.d
             - ./docker/nginx/ssl:/etc/nginx/conf.d/ssl
         depends_on:
-            - app
+            - laravel-app
         networks:
             - laravel-network
 
-    app:
+    laravel-app:
         build:
+            args:
+                user: zaman
+                uid: 1000
             context: ./docker/php
             dockerfile: Dockerfile
-        container_name: latavel-container-app
+        container_name: laravel-app-container
         restart: unless-stopped
         volumes:
             - ./:/var/www/html:cached
             - ./docker/php/php-fpm.ini:/usr/local/etc/php/conf.d/custom.ini
             - ~/.ssh:/root/.ssh
         depends_on:
-            - database
+            - mysql-database
             - redis
         networks:
             - laravel-network
 
-    database:
+    mysql-database:
         image: mysql
-        container_name: latavel-container-mysql
+        container_name: laravel-mysql-container
         command: --default-authentication-plugin=mysql_native_password
         restart: unless-stopped
         ports:
@@ -42,16 +45,19 @@ services:
         volumes:
             - ./docker/mysql:/var/lib/mysql
         environment:
-            MYSQL_ROOT_PASSWORD: root
-            MYSQL_DATABASE: laravel
-            MYSQL_USER: laravel
-            MYSQL_PASSWORD: laravel
+            MYSQL_DATABASE: ${DB_DATABASE}
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+            MYSQL_PASSWORD: ${DB_PASSWORD}
+            MYSQL_USER: ${DB_USERNAME}
+            MYSQL_ALLOW_EMPTY_PASSWORD: true
+            SERVICE_TAGS: dev
+            SERVICE_NAME: mysql
         networks:
             - laravel-network
 
     redis:
         image: redis:alpine
-        container_name: latavel-container-redis
+        container_name: laravel-redis-container
         restart: unless-stopped
         ports:
             - 6379:6379

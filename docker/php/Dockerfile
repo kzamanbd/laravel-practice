@@ -1,32 +1,36 @@
-# Path: .docker\nginx\Dockerfile
+FROM php:8.1-fpm
 
-FROM php:8.1-fpm-alpine
+# Arguments defined in docker-compose.yml
+ARG user
+ARG uid
 
+ENV http_proxy=http
+ENV https_proxy=http
 # Install system dependencies
-ENV PECL_EXTENSIONS = "pcov psr xdebug"
-ENV PECL_EXTENSIONS ="bz2 gd exif gettext intl pcntl pdo_mysql zip"
+RUN apt-get update && apt-get install -y \
+    git \
+    curl \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
+    zip \
+    unzip
 
-RUN apk add --no-cache --virtual .build-deps \
-    $PHPIZE_DEPS libtool \
-    && apk add --no-cache bzip2-dev gettext-dev git icu icu-dev libintl libpng-dev libzip-dev mysql-client \
-    # Install PECL extensions
-    && docker-php-source extract \
-    && pecl channel-update pecl.php.net \
-    && pecl install $PECL_EXTENSIONS \
-    && cd /usr/src/php/ext/ \
-    && docker-php-ext-configure opcache --enable-opcache \
-    # Install PHP extensions
-    && docker-php-ext-install -j "$(nproc)" $PHP_EXTENSIONS \
-    # clean up
-    && apk del -f .build-deps \
-    && cd /usr/local/etc/php/conf.d \
-    && pecl clear-cache \
-    && docker-php-source delete \
-    && rm -rf /var/cache/apk/* /tmp/* /var/tmp/* /usr/share/doc/* /usr/share/man/*
+# Clear cache
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Install composer
+# Install PHP extensions
+RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
+
+# Get latest Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-WORKDIR /var/www/html
-USER www-data
+# Create system user to run Composer and Artisan Commands
+RUN useradd -G www-data,root -u $uid -d /home/$user $user
+RUN mkdir -p /home/$user/.composer && \
+    chown -R $user:$user /home/$user
 
+# Set working directory
+WORKDIR /var/www/html
+
+USER $user
