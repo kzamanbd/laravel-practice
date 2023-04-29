@@ -1,8 +1,9 @@
 version: '3.8'
 services:
+    # nginx server
     nginx:
         image: nginx:alpine
-        container_name: nginx-container
+        container_name: laravel-nginx
         restart: unless-stopped
         ports:
             - 8000:80
@@ -16,6 +17,7 @@ services:
         networks:
             - laravel-network
 
+    # laravel app
     laravel-app:
         build:
             args:
@@ -35,43 +37,53 @@ services:
         networks:
             - laravel-network
 
+    # mysql database
     mysql-database:
-        image: mysql:8.0
-        container_name: laravel-mysql-container
+        image: mysql
+        container_name: laravel-mysql
         command: --default-authentication-plugin=mysql_native_password
         restart: unless-stopped
         ports:
             - 3306:3306
         volumes:
-            - mysql_data:/var/lib/mysql
+            - mysql-data:/var/lib/mysql
         environment:
             MYSQL_DATABASE: ${DB_DATABASE}
-            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-            MYSQL_PASSWORD: ${DB_PASSWORD}
-            MYSQL_USER: ${DB_USERNAME}
-            MYSQL_ALLOW_EMPTY_PASSWORD: true
-            SERVICE_TAGS: dev
-            SERVICE_NAME: mysql
+            MYSQL_ROOT_PASSWORD: root
         networks:
             - laravel-network
 
+    # redis database
     redis-database:
         image: redis:alpine
-        container_name: laravel-redis-container
+        container_name: laravel-redis
         restart: unless-stopped
         ports:
             - 6379:6379
         volumes:
-            - redis_data:/data
+            - redis-data:/data
         networks:
             - laravel-network
 
+    # phpmyadmin server
+    phpmyadmin:
+        image: phpmyadmin:latest
+        ports:
+            - 8001:80
+        restart: unless-stopped
+        depends_on:
+            - mysql-database
+        container_name: laravel-phpmyadmin
+        environment:
+            - PMA_ARBITRARY=1
+        networks:
+            - laravel-network
 networks:
     laravel-network:
         driver: bridge
 
 volumes:
-    mysql_data:
+    mysql-data:
         driver: local
-    redis_data:
+    redis-data:
         driver: local
