@@ -7,28 +7,26 @@ WORKDIR /var/www/html
 ARG user
 ARG uid
 
-ENV http_proxy=http
-ENV https_proxy=http
-
 # Install system dependencies
 # Linux Library
 RUN apt-get update -y && apt-get install -y \
     libicu-dev \
     libmariadb-dev \
     unzip zip \
-    zlib1g-dev \
+    libzip-dev \
     libpng-dev \
     libjpeg-dev \
     libfreetype6-dev \
     libjpeg62-turbo-dev \
-    libpng-dev
+    libpng-dev \
+    zlib1g-dev
 
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install PHP extensions
-RUN docker-php-ext-install pdo_mysql gettext intl gd
+RUN docker-php-ext-install pdo_mysql gettext intl gd zip exif
 
 RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) gd
