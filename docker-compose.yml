@@ -28,7 +28,7 @@ services:
         container_name: laravel-app
         restart: unless-stopped
         volumes:
-            - ./:/var/www/html:cached
+            - ./:/var/www/html:ro # ro:Read only
             - ./docker/php/php-fpm.ini:/usr/local/etc/php/conf.d/custom.ini
             - ~/.ssh:/root/.ssh
         depends_on:
