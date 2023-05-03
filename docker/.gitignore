@@ -1,7 +1,0 @@
-*
-!mysql/
-!nginx/
-!php/
-!phpmyadmin/
-!redis/
-!.gitignore

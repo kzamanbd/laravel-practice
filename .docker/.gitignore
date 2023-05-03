@@ -1,0 +1,4 @@
+.env
+mysql/*
+redis/*
+!.gitignore

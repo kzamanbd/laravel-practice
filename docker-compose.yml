@@ -48,13 +48,13 @@ services:
             args:
                 user: zaman
                 uid: 1000
-            context: ./docker/php
+            context: ./.docker/php
             dockerfile: Dockerfile
         restart: unless-stopped
         volumes:
             - ./:/var/www/html:cached
-            - ./docker/php/php-fpm.ini:/usr/local/etc/php/conf.d/custom.ini
-            - ~/docker/ssh:/root/.ssh
+            - ./.docker/php/php-fpm.ini:/usr/local/etc/php/conf.d/custom.ini
+            - ./.docker/ssh:/root/.ssh
         depends_on:
             - mysql-database
             - redis-database
@@ -71,8 +71,8 @@ services:
             - 443:443
         volumes:
             - ./:/var/www/html:cached
-            - ./docker/nginx:/etc/nginx/conf.d
-            - ./docker/nginx/ssl:/etc/nginx/conf.d/ssl
+            - ./.docker/nginx:/etc/nginx/conf.d
+            - ./.docker/nginx/ssl:/etc/nginx/conf.d/ssl
         depends_on:
             - laravel-app
         networks:
