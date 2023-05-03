@@ -1,8 +1,7 @@
 .git
-.dockerignore
 .github
-docker
-README.md
+.docker
+vendor
 node_modules
 npm-debug.log
 docker-compose.yml
