@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-        stage("Verify tooling") {
+        stage('Verify tooling') {
             steps {
                 sh '''
                     docker info
@@ -10,7 +10,7 @@ pipeline {
                 '''
             }
         }
-        stage("Verify SSH connection to server") {
+        stage('Verify SSH connection to server') {
             steps {
                 sshagent(credentials: ['dev_api']) {
                     sh '''
@@ -19,7 +19,7 @@ pipeline {
                 }
             }
         }
-        stage("Clear all running docker containers") {
+        stage('Clear all running docker containers') {
             steps {
                 script {
                     try {
@@ -30,25 +30,25 @@ pipeline {
                 }
             }
         }
-        stage("Start Docker") {
+        stage('Start Docker') {
             steps {
                 sh 'docker-compose up -d'
                 sh 'docker compose ps'
             }
         }
-        stage("Run Composer Install") {
+        stage('Run Composer Install') {
             steps {
                 sh 'docker compose run --rm composer install'
             }
         }
-        stage("Populate .env file") {
+        stage('Populate .env file') {
             steps {
-                dir("/var/lib/jenkins/workspace/envs/laravel-test") {
+                dir('/var/lib/jenkins/workspace/envs/laravel-test') {
                     fileOperations([fileCopyOperation(excludes: '', flattenFiles: true, includes: '.env', targetLocation: "${WORKSPACE}")])
                 }
             }
         }
-        stage("Run Tests") {
+        stage('Run Tests') {
             steps {
                 sh 'docker compose run --rm artisan test'
             }
@@ -59,7 +59,7 @@ pipeline {
             sh 'cd "/var/lib/jenkins/workspace/LaravelTest"'
             sh 'rm -rf artifact.zip'
             sh 'zip -r artifact.zip . -x "*node_modules**"'
-            withCredentials([sshUserPrivateKey(credentialsId: "dev_api", keyFileVariable: 'keyfile')]) {
+            withCredentials([sshUserPrivateKey(credentialsId: 'dev_api', keyFileVariable: 'keyfile')]) {
                 sh 'scp -v -o StrictHostKeyChecking=no -i ${keyfile} /var/lib/jenkins/workspace/LaravelTest/artifact.zip root@203.188.245.58:/home/ec2-user/artifact'
             }
             sshagent(credentials: ['dev_api']) {
