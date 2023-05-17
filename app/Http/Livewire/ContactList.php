@@ -3,7 +3,9 @@
 namespace App\Http\Livewire;
 
 use Carbon\Carbon;
-use Illuminate\Http\Response;
+use Illuminate\Contracts\View\View;
+use Illuminate\Pagination\LengthAwarePaginator;
+use LaravelIdea\Helper\App\Models\_IH_Contact_C;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
@@ -12,6 +14,7 @@ use App\Exports\ContactExport;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class ContactList extends Component
 {
@@ -21,7 +24,7 @@ class ContactList extends Component
     public $openModal, $perPage = 25;
     public $excelFile, $excelData = [];
 
-    public function upload()
+    public function upload(): void
     {
         $this->validate([
             'excelFile' => 'nullable|file|mimes:xlsx'
@@ -68,7 +71,7 @@ class ContactList extends Component
         $this->openModal = false;
     }
 
-    public function confirmToImport()
+    public function confirmToImport(): void
     {
         if (count($this->excelData) > 0) {
             $contacts = array_map(function ($row) {
@@ -81,7 +84,7 @@ class ContactList extends Component
         }
     }
 
-    public function exportExcel(string $type = 'xlsx')
+    public function exportExcel(string $type = 'xlsx'): BinaryFileResponse
     {
         $date = now()->format('d-M-Y-H-i-s');
         $filename = "contacts-$date.$type";
@@ -93,12 +96,12 @@ class ContactList extends Component
         }
     }
 
-    public function getContactsProperty()
+    public function getContactsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator|LengthAwarePaginator|array|_IH_Contact_C
     {
         return (count($this->excelData) > 0) ? [] : Contact::query()->paginate($this->perPage);
     }
 
-    public function render()
+    public function render(): View
     {
         return view('livewire.contact-list')
             ->layoutData(['title' => 'Contact List']);

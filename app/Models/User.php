@@ -58,7 +58,7 @@ class User extends Authenticatable
         'user_created_at'
     ];
 
-    public function getUserCreatedAtAttribute()
+    public function getUserCreatedAtAttribute(): string
     {
         return $this->created_at->diffforhumans();
     }

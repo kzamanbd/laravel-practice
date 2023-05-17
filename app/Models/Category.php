@@ -4,10 +4,23 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Category extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
+
+    // get sub menu by parent id
+    public function children(): HasMany
+    {
+        return $this->child()->with('children');
+    }
+
+    // recursive children
+    public function child(): HasMany
+    {
+        return $this->hasMany($this, 'parent_id');
+    }
 }
