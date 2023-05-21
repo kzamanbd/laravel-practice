@@ -38,7 +38,6 @@
     </div>
     <!-- Scripts -->
     @livewireScripts
-    <x-progress-bar />
     <x-confirmation-alert />
     <x-progress-dialog />
     {{ $scripts ?? null }}

@@ -10,7 +10,7 @@ use App\Exceptions\PermissionForPropertyIsNotDeclaredInControllerException;
 
 class UserController extends Controller
 {
-    protected string $permission_for = 'user';
+    protected string $permission_for = 'users';
 
     /**
      * @param $id

@@ -17,8 +17,9 @@ return new class extends Migration {
             $table->unsignedInteger('parent_id')->nullable()
                 ->comment('Parent feature ID for nested features');
             $table->string('name');
-            $table->string('slug')->unique();
+            $table->string('slug')->unique()->nullable();
             $table->text('description')->nullable();
+            $table->string('icon')->nullable();
             $table->timestamps();
         });
     }

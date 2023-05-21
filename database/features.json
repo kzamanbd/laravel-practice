@@ -238,9 +238,9 @@
         {
             "id": "30",
             "parent_id": null,
-            "name": "UNASSIGNED",
+            "name": "ROLES",
             "slug": null,
-            "description": "DESCRIPTION OF UNASSIGNED. CHANGE IT IF NECESSARY",
+            "description": "DESCRIPTION OF ROLES. CHANGE IT IF NECESSARY",
             "icon": null
         },
         {

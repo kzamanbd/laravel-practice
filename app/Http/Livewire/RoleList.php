@@ -14,7 +14,7 @@ class RoleList extends Component
 {
     use PermissionForPropertyValidation;
 
-    protected $permission_for = 'role';
+    protected string $permission_for = 'roles';
 
     public $openModal = false;
     public $editableMode = false;

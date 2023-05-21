@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\Feature;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class FeatureSeeder extends Seeder
 {
@@ -12,16 +14,27 @@ class FeatureSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
-        $features = config('features.available');
+        $features = File::json(database_path('features.json'));
 
-        // total count
-        foreach ($features as $slug => $feature) {
-            Feature::create([
-                'name' => $feature['name'],
-                'slug' => $slug
-            ]);
-        }
+        $features = collect($features['data']);
+        // set max progress
+        $this->command->getOutput()->progressStart($features->count());
+
+        // add timestamps
+        $features = $features->map(function ($feature) {
+            $feature['created_at'] = now();
+            $feature['updated_at'] = now();
+            $feature['slug'] = $feature['slug'] ?? Str::slug($feature['name']);
+            // progress
+            $this->command->getOutput()->progressAdvance();
+            return $feature;
+        })->toArray();
+
+        // insert into database
+        Feature::insert($features);
+        // finish progress
+        $this->command->getOutput()->progressFinish();
     }
 }

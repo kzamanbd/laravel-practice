@@ -18,7 +18,7 @@ class UserList extends Component
 {
     use WithPagination, PermissionForPropertyValidation;
 
-    protected $permission_for = 'user';
+    protected string $permission_for = 'users';
     public $openModal = false;
     public $name, $email, $password, $password_confirmation, $roles = [];
     public $editableMode = false, $userId, $searchKey;
