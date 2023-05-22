@@ -9,15 +9,9 @@ class Feature extends Model
 {
     protected $guarded = [];
 
-    // get sub menu by parent id
+    // get sub menu by parent id recursive children
     public function children(): HasMany
     {
-        return $this->child()->with('children');
-    }
-
-    // recursive children
-    public function child(): HasMany
-    {
-        return $this->hasMany(Feature::class, 'parent_id');
+        return $this->hasMany($this, 'parent_id')->with('children');
     }
 }
