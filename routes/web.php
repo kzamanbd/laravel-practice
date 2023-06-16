@@ -9,6 +9,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Livewire\RoleList;
 use App\Http\Livewire\UserList;
 use App\Http\Livewire\ContactList;
+use App\Models\Contact;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -34,6 +35,7 @@ Route::get('storage', function () {
 
 
 Route::view('/', 'welcome');
+Route::view('/map', 'google-map');
 
 Route::middleware(['auth', 'verified'])->group(function () {
 
@@ -67,3 +69,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 
 require __DIR__ . '/auth.php';
+
+Route::get('test', function () {
+    return Contact::query()->paginate(25);
+});
