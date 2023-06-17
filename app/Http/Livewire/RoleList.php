@@ -183,8 +183,8 @@ class RoleList extends Component
     {
         $this->hasPermission('view');
 
-        return view('livewire.role-list')->layoutData([
-            'title' => 'Role List',
+        return view('livewire.roles')->layoutData([
+            'title' => 'Roles',
         ]);
     }
 }

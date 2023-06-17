@@ -103,7 +103,7 @@ class ContactList extends Component
 
     public function render(): View
     {
-        return view('livewire.contact-list')
-            ->layoutData(['title' => 'Contact List']);
+        return view('livewire.contacts')
+            ->layoutData(['title' => 'Contacts']);
     }
 }

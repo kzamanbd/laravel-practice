@@ -22,7 +22,6 @@
             loaderTimeout = setTimeout(() => {
                 loaderElement.classList.add('flex');
                 loaderElement.classList.remove('hidden');
-                document.body.classList.add('overflow-hidden');
             }, 100);
         }
     });
@@ -31,7 +30,6 @@
         if (loaderTimeout != null) {
             loaderElement.classList.add('hidden');
             loaderElement.classList.remove('flex');
-            document.body.classList.remove('overflow-hidden');
             clearTimeout(loaderTimeout);
             loaderTimeout = null;
         }

@@ -1,15 +1,19 @@
-const defaultTheme = require("tailwindcss/defaultTheme");
-const colors = require('tailwindcss/colors');
+import aspectRatio from "@tailwindcss/aspect-ratio";
+import forms from "@tailwindcss/forms";
+import typography from "@tailwindcss/typography";
+import colors from "tailwindcss/colors";
+import defaultTheme from "tailwindcss/defaultTheme";
+
 const primary = colors.sky;
 
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
     content: [
         "./vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php",
         "./storage/framework/views/*.php",
         "./resources/views/**/*.blade.php",
         "./resources/js/**/*.vue",
-        "./resources/js/**/*.js"
+        "./resources/js/**/*.js",
     ],
 
     darkMode: "class", // or 'media'
@@ -19,11 +23,11 @@ module.exports = {
         extend: {
             colors: {
                 dark: {
-                    primary: '#1E1E2D',
-                    secondary: '#151521',
+                    primary: "#1E1E2D",
+                    secondary: "#151521",
                 },
                 light: {
-                    gray: '#F5F8FA',
+                    gray: "#F5F8FA",
                 },
                 primary: {
                     100: primary[100],
@@ -37,7 +41,7 @@ module.exports = {
                     900: primary[900],
                     DEFAULT: primary[500],
                 },
-                info: '#56B6F7',
+                info: "#56B6F7",
                 danger: colors.red[500],
                 success: colors.green[600],
                 warning: colors.yellow[500],
@@ -48,10 +52,10 @@ module.exports = {
                 xl: "36rem",
             },
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ["Figtree", ...defaultTheme.fontFamily.sans],
             },
         },
     },
 
-    plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography'), require('@tailwindcss/aspect-ratio')],
+    plugins: [forms, typography, aspectRatio],
 };

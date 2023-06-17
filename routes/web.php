@@ -41,14 +41,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::view('dashboard', 'dashboard')->name('dashboard');
 
-    Route::get('contacts-list', ContactList::class)->name('contacts.list');
+    Route::get('contacts', ContactList::class)->name('contacts.list');
     Route::view('api-tokens', 'api.index')->name('api.tokens');
 
     //user
-    Route::get('user-list', UserList::class)->name('user.list');
+    Route::get('users', UserList::class)->name('user.list');
     Route::get('user/{id}/view', [UserController::class, 'show'])->name('user.show');
     //role
-    Route::get('role-list', RoleList::class)->name('role.list');
+    Route::get('roles', RoleList::class)->name('role.list');
     Route::get('role/{id}/view', [RoleController::class, 'show'])->name('role.show');
     //generate permission
     Route::get('generate-permission', [PermissionController::class, 'generateAllPermissions'])->name('generate.permission');

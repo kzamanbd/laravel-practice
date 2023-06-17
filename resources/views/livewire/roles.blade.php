@@ -171,7 +171,7 @@
                     <span class="material-icons cursor-pointer">sync</span>
                 </h1>
 
-                <div class="space-y-4">
+                <div class="space-y-4 h-96 overflow-y-auto">
                     @foreach ($this->features as $feature)
                         <div class="form-control" x-data="roleList">
                             <label class="flex items-center mb-2">

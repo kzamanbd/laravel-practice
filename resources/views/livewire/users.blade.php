@@ -305,5 +305,4 @@
             </x-button>
         </x-slot>
     </x-dialog-modal>
-
 </div>

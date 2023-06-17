@@ -39,7 +39,7 @@
     <!-- Scripts -->
     @livewireScripts
     <x-confirmation-alert />
-    <x-progress-dialog />
+    <x-loading />
     {{ $scripts ?? null }}
 </body>
 
