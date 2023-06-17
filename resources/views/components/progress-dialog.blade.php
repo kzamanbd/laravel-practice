@@ -1,4 +1,5 @@
-<div id="livewire-loader" class="hidden fixed left-0 top-0 items-center justify-center w-full h-full bg-gray-400/50 z-40">
+<div id="livewire-loader"
+    class="hidden fixed inset-0 items-center justify-center w-full h-full supports-[backdrop-filter]:bg-light-gray/30 supports-[backdrop-filter]:backdrop-blur z-[9999] duration-300 transition-all">
     <div role="status">
         <svg aria-hidden="true" class="inline w-10 h-10 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
             viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -21,6 +22,7 @@
             loaderTimeout = setTimeout(() => {
                 loaderElement.classList.add('flex');
                 loaderElement.classList.remove('hidden');
+                document.body.classList.add('overflow-hidden');
             }, 100);
         }
     });
@@ -29,6 +31,7 @@
         if (loaderTimeout != null) {
             loaderElement.classList.add('hidden');
             loaderElement.classList.remove('flex');
+            document.body.classList.remove('overflow-hidden');
             clearTimeout(loaderTimeout);
             loaderTimeout = null;
         }

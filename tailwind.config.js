@@ -1,6 +1,6 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
 const colors = require('tailwindcss/colors');
-const primary = colors.violet;
+const primary = colors.sky;
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
