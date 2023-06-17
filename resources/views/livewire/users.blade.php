@@ -44,7 +44,7 @@
                             </div>
                         </div>
 
-                        <x-search-input wire:model="searchKey" />
+                        <x-search-input wire:model.debounce.500ms="searchKey" />
                     </div>
 
                     <div class="flex flex-col">

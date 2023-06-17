@@ -33,6 +33,7 @@ Route::get('storage', function () {
     return "Storage Link Created";
 });
 
+require __DIR__ . '/auth.php';
 
 Route::view('/', 'welcome');
 Route::view('/map', 'google-map');
@@ -65,11 +66,4 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('log-viewer/clear/{file}', [LogViewerController::class, 'clearLogs']);
     Route::get('log-viewer/delete/{file}', [LogViewerController::class, 'deleteLogs']);
     Route::post('log-viewer/bulk-action', [LogViewerController::class, 'bulkAction']);
-});
-
-
-require __DIR__ . '/auth.php';
-
-Route::get('test', function () {
-    return Contact::query()->paginate(25);
 });

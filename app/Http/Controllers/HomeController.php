@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\UserAccountVerificationMail;
+use App\Mail\AccountVerification;
 use App\Models\User;
-use App\Services\LogViewer;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Mail;
 
@@ -17,7 +16,7 @@ class HomeController extends Controller
     {
         $users = User::query()->limit(5)->get();
         foreach ($users as $user) {
-            Mail::to($user->email)->queue(new UserAccountVerificationMail($user));
+            Mail::to($user->email)->queue(new AccountVerification($user));
         }
         return back()->with('success', 'Notification successfully send.');
     }
