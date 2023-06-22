@@ -12,9 +12,7 @@
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
-
+        <div>
             <!-- Email Address -->
             <div>
                 <x-label for="email" :value="__('Email')" />
@@ -49,10 +47,10 @@
                     </a>
                 @endif
 
-                <x-button class="ml-3">
+                <x-button class="ml-3" wire:loading.attr="disabled" wire:click.prevent="login">
                     {{ __('Log in') }}
                 </x-button>
             </div>
-        </form>
+        </div>
     </x-auth-card>
 </x-guest-layout>
