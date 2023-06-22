@@ -261,7 +261,7 @@
                     <input wire:model="password" class="form-control" type="password" placeholder="Password" />
                 </div>
                 <div class="w-full md:w-1/2 px-3">
-                    <label class="form-label" for="confirm-password">
+                    <label class="form-label">
                         Confirm Password
                     </label>
                     <input wire:model="password_confirmation" class="form-control" type="password"

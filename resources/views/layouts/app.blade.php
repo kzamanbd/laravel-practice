@@ -38,9 +38,9 @@
     </div>
     <!-- Scripts -->
     @livewireScripts
-    <x-confirmation-alert />
     <x-loading />
-    {{ $scripts ?? null }}
+    <x-confirmation-alert />
+    {{ $script ?? null }}
 </body>
 
 </html>

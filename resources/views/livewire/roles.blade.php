@@ -211,7 +211,7 @@
     </x-dialog-modal>
 
 
-    <x-slot name="scripts">
+    <x-slot name="script">
         <script type="text/javascript">
             document.addEventListener('alpine:init', () => {
                 // alpine data
