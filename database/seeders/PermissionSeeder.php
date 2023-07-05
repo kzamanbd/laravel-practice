@@ -24,12 +24,12 @@ class PermissionSeeder extends Seeder
     /**
      * Generate permission name
      *
-     * @param string $featureName Feature name
-     * @param string $permissionName Permission name
+     * @param  string  $featureName Feature name
+     * @param  string  $permissionName Permission name
      * @return string Generated permission name for feature
      */
     protected function generatedPermissionName(string $featureName, string $permissionName): string
     {
-        return str_replace(' ', '_', strtolower($featureName)) . '-' . $permissionName;
+        return str_replace(' ', '_', strtolower($featureName)).'-'.$permissionName;
     }
 }

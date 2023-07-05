@@ -12,7 +12,7 @@ class Post extends Model
 {
     use HasFactory;
 
-    protected $appends = ["posted"];
+    protected $appends = ['posted'];
 
     public function category(): BelongsTo
     {
@@ -33,8 +33,9 @@ class Post extends Model
     {
         return $this->morphToMany(Tag::class, 'taggable');
     }
+
     public function getPostedAttribute(): string
     {
-        return date("F j, Y - h:i A", strtotime($this->created_at));
+        return date('F j, Y - h:i A', strtotime($this->created_at));
     }
 }

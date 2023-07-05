@@ -12,7 +12,7 @@ class UserStoreRequest extends FormRequest
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
             'password' => 'required|confirmed|min:8',
-            'roles' => 'nullable|array'
+            'roles' => 'nullable|array',
         ];
     }
 

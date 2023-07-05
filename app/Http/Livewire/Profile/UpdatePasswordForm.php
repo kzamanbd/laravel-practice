@@ -3,8 +3,6 @@
 namespace App\Http\Livewire\Profile;
 
 use App\Models\User;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -13,8 +11,6 @@ class UpdatePasswordForm extends Component
 {
     /**
      * The component's state.
-     *
-     * @var array
      */
     public array $state = [
         'current_password' => '',
@@ -24,17 +20,14 @@ class UpdatePasswordForm extends Component
 
     /**
      * The state validation.
-     *
-     * @var array
      */
     protected array $rules = [
         'state.current_password' => 'required|current_password',
         'state.password' => 'required|confirmed',
     ];
+
     /**
      * The state validation Attributes.
-     *
-     * @var array
      */
     protected array $validationAttributes = [
         'state.current_password' => 'current password',
@@ -71,8 +64,6 @@ class UpdatePasswordForm extends Component
 
     /**
      * Render the component.
-     *
-     * @return View
      */
     public function render(): View
     {

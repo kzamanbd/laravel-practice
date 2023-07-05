@@ -17,46 +17,51 @@ class RoleList extends Component
     protected string $permission_for = 'roles';
 
     public $openModal = false;
-    public $editableMode = false;
-    public $name, $description, $permissions = [];
 
-    public $searchKey, $roleId;
+    public $editableMode = false;
+
+    public $name;
+
+    public $description;
+
+    public $permissions = [];
+
+    public $searchKey;
+
+    public $roleId;
+
     protected $queryString = ['searchKey' => ['except' => '']];
+
     public $sortColumnName = 'created_at';
+
     public $sortDirection = 'desc';
+
     public $perPage = 25;
-    public $selectedPage = false, $selectedItem = [];
+
+    public $selectedPage = false;
+
+    public $selectedItem = [];
 
     protected $rules = [
         'name' => 'required|string|max:255|unique:roles',
         'description' => 'nullable|string',
         'permissions' => 'nullable|array',
     ];
+
     protected $listeners = [
-        'deleteConfirmed' => 'deleteConfirmed'
+        'deleteConfirmed' => 'deleteConfirmed',
     ];
 
-    /**
-     * @param $value
-     * @return void
-     */
     public function updatedSelectedPage($value): void
     {
         $this->selectedItem = $value ? $this->roles->pluck('id')->toArray() : [];
     }
 
-    /**
-     * @return void
-     */
     public function updatedSelectedItem(): void
     {
         $this->selectedPage = false;
     }
 
-    /**
-     * @param $columnName
-     * @return void
-     */
     public function sortBy($columnName): void
     {
         if ($this->sortColumnName === $columnName) {
@@ -68,11 +73,10 @@ class RoleList extends Component
         $this->sortColumnName = $columnName;
     }
 
-
     public function getRolesProperty()
     {
         return Role::query()
-            ->where('name', 'like', '%' . $this->searchKey . '%')
+            ->where('name', 'like', '%'.$this->searchKey.'%')
             ->orderBy($this->sortColumnName, $this->sortDirection)
             ->paginate($this->perPage);
     }
@@ -132,7 +136,7 @@ class RoleList extends Component
         $this->hasPermission('update');
 
         $this->validate([
-            'name' => 'required|string|max:255|unique:roles,name,' . $this->roleId,
+            'name' => 'required|string|max:255|unique:roles,name,'.$this->roleId,
             'description' => 'nullable|string',
             'permissions' => 'nullable|array',
         ]);
@@ -154,10 +158,6 @@ class RoleList extends Component
         $this->editableMode = false;
     }
 
-    /**
-     * @param $id
-     * @return void
-     */
     public function deleteItem($id): void
     {
         $this->dispatchBrowserEvent('show-delete-confirmation');
@@ -165,7 +165,6 @@ class RoleList extends Component
     }
 
     /**
-     * @return void
      * @throws PermissionForPropertyIsNotDeclaredInControllerException
      */
     public function deleteConfirmed(): void
@@ -176,7 +175,6 @@ class RoleList extends Component
     }
 
     /**
-     * @return View
      * @throws PermissionForPropertyIsNotDeclaredInControllerException
      */
     public function render(): View

@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -26,7 +25,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'profile_photo_path'
+        'profile_photo_path',
     ];
 
     /**
@@ -55,7 +54,7 @@ class User extends Authenticatable
      */
     protected $appends = [
         'profile_photo_url',
-        'user_created_at'
+        'user_created_at',
     ];
 
     public function getUserCreatedAtAttribute(): string
@@ -72,8 +71,6 @@ class User extends Authenticatable
 
     /**
      * Get the URL to the user's profile photo.
-     *
-     * @return string
      */
     public function getProfilePhotoUrlAttribute(): string
     {
@@ -84,8 +81,6 @@ class User extends Authenticatable
 
     /**
      * Get the default profile photo URL if no profile photo has been uploaded.
-     *
-     * @return string
      */
     protected function defaultProfilePhotoUrl(): string
     {
@@ -93,6 +88,6 @@ class User extends Authenticatable
             return mb_substr($segment, 0, 1);
         })->join(' '));
 
-        return 'https://ui-avatars.com/api/?name=' . urlencode($name) . '&color=7F9CF5&background=EBF4FF';
+        return 'https://ui-avatars.com/api/?name='.urlencode($name).'&color=7F9CF5&background=EBF4FF';
     }
 }

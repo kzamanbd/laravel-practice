@@ -1,18 +1,19 @@
 <?php
+
 return [
     'default_permissions' => [
         'view' => 'Description', // TODO Add permission description
         'create' => 'Description', // TODO Add permission description
         'update' => 'Description', // TODO Add permission description
         'show' => 'Description', // TODO Add permission description
-        'delete' => 'Description' // TODO Add permission description
+        'delete' => 'Description', // TODO Add permission description
     ],
-    
+
     'available' => [
         'dashboard' => [
             'name' => 'Dashboard',
-            'except_permissions' => ['create', 'update', 'show', 'trash', 'delete',], // Example: ['store', 'update']
-            'additional_permissions' => [  // Example ['action' => 'Action description']
+            'except_permissions' => ['create', 'update', 'show', 'trash', 'delete'], // Example: ['store', 'update']
+            'additional_permissions' => [// Example ['action' => 'Action description']
 
             ],
         ],
@@ -20,7 +21,7 @@ return [
         'user' => [
             'name' => 'Users',
             'except_permissions' => [], // Example: ['store', 'update']
-            'additional_permissions' => [  // Example ['action' => 'Action description']
+            'additional_permissions' => [// Example ['action' => 'Action description']
 
             ],
         ],
@@ -28,7 +29,7 @@ return [
         'permission' => [
             'name' => 'Permission',
             'except_permissions' => [], // Example: ['store', 'update']
-            'additional_permissions' => [  // Example ['action' => 'Action description']
+            'additional_permissions' => [// Example ['action' => 'Action description']
 
             ],
         ],
@@ -36,9 +37,9 @@ return [
         'role' => [
             'name' => 'Role',
             'except_permissions' => [], // Example: ['store', 'update']
-            'additional_permissions' => [  // Example ['action' => 'Action description']
+            'additional_permissions' => [// Example ['action' => 'Action description']
 
             ],
-        ]
-    ]
+        ],
+    ],
 ];

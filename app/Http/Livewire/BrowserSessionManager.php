@@ -3,23 +3,20 @@
 namespace App\Http\Livewire;
 
 use Carbon\Carbon;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Contracts\View\View;
-use Livewire\Component;
 use Jenssegers\Agent\Agent;
+use Livewire\Component;
 
 class BrowserSessionManager extends Component
 {
-
-    /**
-     * @return Collection
-     */
     public function getSessionsProperty(): Collection
     {
         if (config('session.driver') !== 'database') {
             return collect();
         }
+
         return collect(
             DB::connection(config('session.connection'))
                 ->table(config('session.table', 'sessions'))
@@ -27,7 +24,7 @@ class BrowserSessionManager extends Component
                 ->orderBy('last_activity', 'desc')
                 ->get()
         )->map(function ($session) {
-            return (object)[
+            return (object) [
                 'id' => $session->id,
                 'agent' => $this->createAgent($session),
                 'ip_address' => $session->ip_address,
@@ -39,8 +36,6 @@ class BrowserSessionManager extends Component
 
     /**
      * Logout a session based on session id.
-     * @param $session_id
-     * @return void
      */
     public function logoutSingleSessionDevice($session_id): void
     {
@@ -54,19 +49,14 @@ class BrowserSessionManager extends Component
 
     /**
      * Log out from other browser sessions.
-     *
-     * @return void
      */
     public function logoutOtherBrowserSessions(): void
     {
         $this->deleteOtherSessionRecords();
     }
 
-
     /**
      * Delete the other browser session records from storage.
-     *
-     * @return void
      */
     protected function deleteOtherSessionRecords(): void
     {
@@ -81,9 +71,6 @@ class BrowserSessionManager extends Component
 
     /**
      * Create a new agent instance from the given session.
-     *
-     * @param mixed $session
-     * @return Agent
      */
     protected function createAgent(mixed $session): Agent
     {
@@ -92,10 +79,6 @@ class BrowserSessionManager extends Component
         });
     }
 
-
-    /**
-     * @return View
-     */
     public function render(): View
     {
         return view('livewire.browser-session-manager')->layoutData([

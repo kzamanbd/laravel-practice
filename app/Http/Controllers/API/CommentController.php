@@ -4,7 +4,6 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
-use App\Models\Post;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -12,7 +11,7 @@ class CommentController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'comment' => 'required'
+            'comment' => 'required',
         ]);
 
         $comment = new Comment();
@@ -21,6 +20,7 @@ class CommentController extends Controller
         $comment->post_id = $request->post_id;
         $comment->comment = $request->comment;
         $comment->save();
+
         return $comment->load('user');
     }
 
@@ -33,6 +33,7 @@ class CommentController extends Controller
     public function destroy(Request $request)
     {
         Comment::destroy($request->id);
+
         return 'success';
     }
 }

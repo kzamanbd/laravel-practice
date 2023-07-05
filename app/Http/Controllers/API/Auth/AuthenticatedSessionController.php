@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\API\Auth;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
-
 
 class AuthenticatedSessionController extends Controller
 {
@@ -26,17 +25,15 @@ class AuthenticatedSessionController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @return JsonResponse
      * @throws ValidationException
      */
     public function login(Request $request): JsonResponse
     {
-        if ($request->input("strategy") == "facebook") {
+        if ($request->input('strategy') == 'facebook') {
             return $this->loginWithFacebook($request);
-        } elseif ($request->input("strategy") == "github") {
+        } elseif ($request->input('strategy') == 'github') {
             return $this->loginWithGithub($request);
-        } elseif ($request->input("strategy") == "google") {
+        } elseif ($request->input('strategy') == 'google') {
             return $this->loginWithGoogle($request);
         } else {
             $this->validate($request, [
@@ -44,11 +41,11 @@ class AuthenticatedSessionController extends Controller
                 'password' => 'required|min:6',
             ]);
 
-            $user = User::query()->where('email', $request->input("email"))->first();
+            $user = User::query()->where('email', $request->input('email'))->first();
 
-            if ($user && Hash::check($request->input("password"), $user->password)) {
+            if ($user && Hash::check($request->input('password'), $user->password)) {
 
-                $token = $user->createToken($request->input("email"));
+                $token = $user->createToken($request->input('email'));
 
                 return response()->json([
                     'response_code' => 200,
@@ -61,14 +58,12 @@ class AuthenticatedSessionController extends Controller
             }
         }
 
-
     }
-
 
     private function loginWithGithub($userData)
     {
-        $user = User::query()->where("email", $userData->email)->first();
-        $regularUser = User::query()->where("email", $userData->email)->whereNull("github_id")->first();
+        $user = User::query()->where('email', $userData->email)->first();
+        $regularUser = User::query()->where('email', $userData->email)->whereNull('github_id')->first();
 
         if ($user == null && $regularUser != null) { //Checking for regular existing member with only email
             $regularUser->github_id = $userData->id;
@@ -77,11 +72,11 @@ class AuthenticatedSessionController extends Controller
         }
         if ($user == null) {
             $user = User::create([
-                "name" => $userData->name,
-                "email" => $userData->login . '@github.com',
+                'name' => $userData->name,
+                'email' => $userData->login.'@github.com',
                 'username' => $userData->login,
-                "github_id" => $userData->id,
-                "email_verified_at" => now(),
+                'github_id' => $userData->id,
+                'email_verified_at' => now(),
             ]);
         }
         $token = $user->createToken($user->email);
@@ -91,10 +86,9 @@ class AuthenticatedSessionController extends Controller
 
     private function loginWithFacebook($userData)
     {
-        $user = User::query()->where("email", $userData->email)->first();
-        $fbUser = User::query()->where("facebook_id", $userData->id)->first(); //Facebook User Without Email address
-        $regularUser = User::query()->where("email", $userData->email)->whereNull("facebook_id")->first();
-
+        $user = User::query()->where('email', $userData->email)->first();
+        $fbUser = User::query()->where('facebook_id', $userData->id)->first(); //Facebook User Without Email address
+        $regularUser = User::query()->where('email', $userData->email)->whereNull('facebook_id')->first();
 
         if ($user == null && $fbUser == null && $regularUser != null) { //Checking for regular existing member with only email
             $regularUser->facebook_id = $userData->id;
@@ -111,11 +105,11 @@ class AuthenticatedSessionController extends Controller
             // Storage::disk("public")->put($name, $contents);
 
             $user = User::create([
-                "name" => $userData->name,
-                "email" => $userData->email,
+                'name' => $userData->name,
+                'email' => $userData->email,
                 'username' => explode('@', $userData->email)[0],
-                "facebook_id" => $userData->id,
-                "email_verified_at" => now(),
+                'facebook_id' => $userData->id,
+                'email_verified_at' => now(),
             ]);
         }
         $token = $user->createToken($userData->email);
@@ -125,8 +119,8 @@ class AuthenticatedSessionController extends Controller
 
     private function loginWithGoogle($userData)
     {
-        $user = User::query()->where("email", $userData->email)->where("google_id", $userData->sub)->first();
-        $regularUser = User::query()->where("email", $userData->email)->whereNull("google_id")->first();
+        $user = User::query()->where('email', $userData->email)->where('google_id', $userData->sub)->first();
+        $regularUser = User::query()->where('email', $userData->email)->whereNull('google_id')->first();
 
         if ($user == null && $regularUser != null) { //Checking for regular existing member with only email
             $regularUser->google_id = $userData->sub;
@@ -135,11 +129,11 @@ class AuthenticatedSessionController extends Controller
         }
         if ($user == null) {
             $user = User::create([
-                "name" => $userData->name,
-                "email" => $userData->email,
+                'name' => $userData->name,
+                'email' => $userData->email,
                 'username' => explode('@', $userData->email)[0],
-                "google_id" => $userData->sub,
-                "email_verified_at" => now(),
+                'google_id' => $userData->sub,
+                'email_verified_at' => now(),
             ]);
         }
         $token = $user->createToken($user->email);
@@ -148,8 +142,6 @@ class AuthenticatedSessionController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @return JsonResponse
      * @throws ValidationException
      */
     public function register(Request $request): JsonResponse
@@ -161,14 +153,15 @@ class AuthenticatedSessionController extends Controller
         ]);
 
         $user = User::create([
-            'name' => $request->input("name"),
-            'email' => $request->input("email"),
-            'username' => explode('@', $request->input("email"))[0],
-            'password' => Hash::make($request->input("password")),
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'username' => explode('@', $request->input('email'))[0],
+            'password' => Hash::make($request->input('password')),
         ]);
 
         if ($user) {
-            $token = $user->createToken($request->input("email"));
+            $token = $user->createToken($request->input('email'));
+
             return response()->json([
                 'response_code' => 200,
                 'message' => 'Login Successful',
@@ -188,6 +181,7 @@ class AuthenticatedSessionController extends Controller
     public function logout(Request $request): JsonResponse
     {
         $request->user()->currentAccessToken()->delete();
+
         return response()->json(['message' => 'You are Successfully Logged out'], 200);
     }
 }

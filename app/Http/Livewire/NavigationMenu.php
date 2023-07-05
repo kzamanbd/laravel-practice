@@ -16,9 +16,6 @@ class NavigationMenu extends Component
         'refresh-navigation-menu' => '$refresh',
     ];
 
-    /**
-     * @return View
-     */
     public function render(): View
     {
         return view('livewire.navigation-menu');

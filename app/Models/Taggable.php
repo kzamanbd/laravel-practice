@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
 class Taggable extends Model
 {
     use HasFactory;
+
     /**
      * Get all the posts that are assigned this tag.
      */

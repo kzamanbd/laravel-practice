@@ -1,28 +1,22 @@
 <?php
 
-
 namespace App\Services\PermissionService;
-
 
 use App\Models\Feature;
 use App\Services\Contracts\PermissionServiceContract;
 use App\Services\FeatureService\FeatureService;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Log;
 use Spatie\Permission\Models\Permission;
 
 abstract class BasePermissionService implements PermissionServiceContract
 {
     /**
      * Get permissions from config
-     *
-     * @return array
      */
     public function permissionsFromConfig(): array
     {
         return config('features.default_permissions');
     }
-
 
     /**
      * Generate all feature permissions
@@ -49,7 +43,7 @@ abstract class BasePermissionService implements PermissionServiceContract
             // has excepted permissions
             if (count($excepted_permissions)) {
                 $permissions = $permissions->filter(function ($description, $_permission) use ($excepted_permissions) {
-                    return !in_array($_permission, $excepted_permissions);
+                    return ! in_array($_permission, $excepted_permissions);
                 });
             }
 
@@ -62,13 +56,13 @@ abstract class BasePermissionService implements PermissionServiceContract
 
             foreach ($permissions as $permissionName => $description) {
                 // generate permission name
-                $name = $this->generatedPermissionName($feature->slug, (string)$permissionName);
+                $name = $this->generatedPermissionName($feature->slug, (string) $permissionName);
                 // check permission exists or not
                 $has_permission = $this->checkPermissionExists($name);
 
-                if (!$has_permission) {
+                if (! $has_permission) {
                     // create permission
-                    $this->createSinglePermission($name, (string)$description);
+                    $this->createSinglePermission($name, (string) $description);
                 }
             }
         });
@@ -89,7 +83,6 @@ abstract class BasePermissionService implements PermissionServiceContract
     /**
      * Get permissions by ids
      *
-     * @param array $ids
      * @return Permission[]|Collection
      */
     public function permissionsByIds(array $ids): Collection
@@ -99,9 +92,6 @@ abstract class BasePermissionService implements PermissionServiceContract
 
     /**
      * Feature excepted permissions
-     *
-     * @param string $feature_slug
-     * @return array
      */
     public function exceptedFeaturePermissions(string $feature_slug): array
     {
@@ -110,48 +100,43 @@ abstract class BasePermissionService implements PermissionServiceContract
 
     /**
      * Feature additional permissions
-     *
-     * @param string $feature_slug
-     * @return array
      */
     public function additionalFeaturePermissions(string $feature_slug): array
     {
         return config('features.available')[$feature_slug]['additional_permissions'] ?? [];
     }
 
-
     /**
      * Create single permission
      *
-     * @param string $name Permission name
-     * @param string $description Permission description
+     * @param  string  $name Permission name
+     * @param  string  $description Permission description
      * @return Permission Created permission
      */
     protected function createSinglePermission(string $name, string $description): Permission
     {
         return Permission::create([
             'name' => $name,
-            'description' => $description
+            'description' => $description,
         ]);
     }
 
     /**
      * Generate permission name
      *
-     * @param string $featureName Feature name
-     * @param string $permissionName Permission name
+     * @param  string  $featureName Feature name
+     * @param  string  $permissionName Permission name
      * @return string Generated permission name for feature
      */
     protected function generatedPermissionName(string $featureName, string $permissionName): string
     {
-        return str_replace(' ', '_', strtolower($featureName)) . '-' . $permissionName;
+        return str_replace(' ', '_', strtolower($featureName)).'-'.$permissionName;
     }
-
 
     /**
      * Check permission already exists or not
      *
-     * @param string $permissionName Permission name
+     * @param  string  $permissionName Permission name
      * @return bool Permission exists or not status
      */
     protected function checkPermissionExists(string $permissionName): bool

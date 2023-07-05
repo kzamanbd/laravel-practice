@@ -19,51 +19,58 @@ class UserList extends Component
     use WithPagination, PermissionForPropertyValidation;
 
     protected string $permission_for = 'users';
+
     public $openModal = false;
-    public $name, $email, $password, $password_confirmation, $roles = [];
-    public $editableMode = false, $userId, $searchKey;
+
+    public $name;
+
+    public $email;
+
+    public $password;
+
+    public $password_confirmation;
+
+    public $roles = [];
+
+    public $editableMode = false;
+
+    public $userId;
+
+    public $searchKey;
 
     protected $queryString = ['searchKey' => ['except' => '']];
+
     public $sortColumnName = 'created_at';
+
     public $sortDirection = 'desc';
+
     public $perPage = 25;
 
     public $selectedPage = false;
+
     public $selectedItem = [];
 
-
     protected $listeners = [
-        'deleteConfirmed' => 'deleteConfirmed'
+        'deleteConfirmed' => 'deleteConfirmed',
     ];
 
     protected $rules = [
         'name' => 'required|string|max:255',
         'email' => 'required|email|unique:users',
         'password' => 'required|confirmed|min:8',
-        'roles' => 'nullable|array'
+        'roles' => 'nullable|array',
     ];
 
-    /**
-     * @param $value
-     * @return void
-     */
     public function updatedSelectedPage($value): void
     {
         $this->selectedItem = $value ? $this->users->pluck('id')->toArray() : [];
     }
 
-    /**
-     * @return void
-     */
     public function updatedSelectedItem(): void
     {
         $this->selectedPage = false;
     }
 
-    /**
-     * @param $columnName
-     * @return void
-     */
     public function sortBy($columnName): void
     {
         if ($this->sortColumnName === $columnName) {
@@ -75,10 +82,6 @@ class UserList extends Component
         $this->sortColumnName = $columnName;
     }
 
-
-    /**
-     * @return LengthAwarePaginator
-     */
     public function getUsersProperty(): LengthAwarePaginator
     {
         return User::with(['roles'])
@@ -89,16 +92,12 @@ class UserList extends Component
             ->paginate($this->perPage);
     }
 
-    /**
-     * @return Collection
-     */
     public function getRolesListProperty(): Collection
     {
         return Role::all();
     }
 
     /**
-     * @return void
      * @throws PermissionForPropertyIsNotDeclaredInControllerException
      */
     public function create(): void
@@ -109,7 +108,6 @@ class UserList extends Component
     }
 
     /**
-     * @return void
      * @throws PermissionForPropertyIsNotDeclaredInControllerException
      */
     public function store(): void
@@ -130,8 +128,6 @@ class UserList extends Component
     }
 
     /**
-     * @param $id
-     * @return void
      * @throws PermissionForPropertyIsNotDeclaredInControllerException
      */
     public function editItem($id): void
@@ -149,15 +145,14 @@ class UserList extends Component
     }
 
     /**
-     * @return void
      * @throws PermissionForPropertyIsNotDeclaredInControllerException
      */
     public function update(): void
     {
         $this->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $this->userId,
-            'roles' => 'nullable|array'
+            'email' => 'required|email|unique:users,email,'.$this->userId,
+            'roles' => 'nullable|array',
         ]);
 
         // check permission
@@ -177,10 +172,6 @@ class UserList extends Component
         $this->openModal = false;
     }
 
-    /**
-     * @param $id
-     * @return void
-     */
     public function deleteItem($id): void
     {
         $this->dispatchBrowserEvent('show-delete-confirmation');
@@ -188,7 +179,6 @@ class UserList extends Component
     }
 
     /**
-     * @return void
      * @throws PermissionForPropertyIsNotDeclaredInControllerException
      */
     public function deleteConfirmed(): void
@@ -197,7 +187,6 @@ class UserList extends Component
         $this->hasPermission('delete');
         User::destroy($this->userId);
     }
-
 
     public function exportExcel(string $type = 'xlsx')
     {
@@ -212,7 +201,6 @@ class UserList extends Component
     }
 
     /**
-     * @return View
      * @throws PermissionForPropertyIsNotDeclaredInControllerException
      */
     public function render(): View

@@ -2,19 +2,20 @@
 
 namespace App\Exports;
 
-use Dompdf\Dompdf;
 use App\Models\User;
+use Dompdf\Dompdf;
 use Illuminate\Contracts\View\View;
 
 class UserExport extends BaseExportFromView
 {
     protected string $freezePane = 'A3';
+
     protected string $autoFilter = 'B2:E2';
 
     public function view(): View
     {
         return view('exports.users', [
-            'users' => User::query()->latest()->get()
+            'users' => User::query()->latest()->get(),
         ]);
     }
 
@@ -24,7 +25,8 @@ class UserExport extends BaseExportFromView
         $dompdf->loadHtml($this->view());
         $dompdf->setPaper('A4', 'landscape');
         $dompdf->render();
-        $name = 'users-' . now()->format('Y-m-d') . '.pdf';
+        $name = 'users-'.now()->format('Y-m-d').'.pdf';
+
         return $dompdf->stream($name, ['Attachment' => false]);
     }
 }

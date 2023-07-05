@@ -10,6 +10,7 @@ use Maatwebsite\Excel\Events\AfterSheet;
 abstract class BaseExportFromView implements FromView, ShouldAutoSize, WithEvents
 {
     protected string $freezePane;
+
     protected string $autoFilter;
 
     public function registerEvents(): array

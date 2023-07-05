@@ -12,14 +12,9 @@ use Illuminate\Contracts\View\View;
 
 class RoleController extends Controller
 {
-
     protected string $permission_for = 'roles';
 
     /**
-     * @param $id
-     * @param RoleService $roleService
-     * @param FeatureService $featureService
-     * @param PermissionService $permissionService
      * @throws PermissionForPropertyIsNotDeclaredInControllerException
      */
     public function show($id, RoleService $roleService, FeatureService $featureService, PermissionService $permissionService): Application|Factory|View|\Illuminate\Foundation\Application

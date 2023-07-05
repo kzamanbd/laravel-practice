@@ -9,6 +9,7 @@ use Livewire\Component;
 class ApiTokenManager extends Component
 {
     public static $defaultPermissions = ['read'];
+
     public $permissionsList = ['create', 'read', 'update', 'delete'];
 
     /**
@@ -92,7 +93,6 @@ class ApiTokenManager extends Component
     /**
      * Return the permissions in the given list that are actually defined permissions for the application.
      *
-     * @param  array  $permissions
      * @return array
      */
     public static function validPermissions(array $permissions)

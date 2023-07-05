@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Services\FeatureService;
-
 
 use App\Models\Feature;
 use App\Services\Contracts\FeatureServiceContract;
@@ -24,7 +22,6 @@ abstract class BaseFeatureService implements FeatureServiceContract
     /**
      * Feature details
      *
-     * @param int $id
      * @return Feature|Collection
      */
     public function show(int $id): Feature
@@ -35,8 +32,7 @@ abstract class BaseFeatureService implements FeatureServiceContract
     /**
      * Create a new feature
      *
-     * @param string $slug Feature slug
-     * @param string|null $description
+     * @param  string  $slug Feature slug
      * @return Feature Created feature
      */
     public function store(string $slug, ?string $description = null): Feature
@@ -46,7 +42,7 @@ abstract class BaseFeatureService implements FeatureServiceContract
         $feature = Feature::create([
             'name' => $name,
             'slug' => $slug,
-            'description' => $description
+            'description' => $description,
         ]);
 
         // generate permissions for features
@@ -58,8 +54,6 @@ abstract class BaseFeatureService implements FeatureServiceContract
     /**
      * Soft delete feature
      *
-     * @param int $id
-     * @return bool
      * @throws \Exception
      */
     public function softDelete(int $id): bool
@@ -69,8 +63,6 @@ abstract class BaseFeatureService implements FeatureServiceContract
 
     /**
      * Available all feature items
-     *
-     * @return array
      */
     public function allFeatureItems(): array
     {
@@ -79,8 +71,6 @@ abstract class BaseFeatureService implements FeatureServiceContract
 
     /**
      * Available feature items to create feature
-     *
-     * @return array
      */
     public function availableFeatureItemsToCreate(): array
     {
@@ -89,7 +79,7 @@ abstract class BaseFeatureService implements FeatureServiceContract
         $all_features = collect($this->allFeatureItems());
 
         return $all_features->filter(function ($feature, $index) use ($created_features) {
-            return !in_array($index, $created_features);
+            return ! in_array($index, $created_features);
         })->toArray();
     }
 }

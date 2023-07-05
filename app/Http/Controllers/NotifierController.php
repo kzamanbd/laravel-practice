@@ -4,22 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Models\Message;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class NotifierController extends Controller
 {
-    const BKASH = "BKASH";
-    const NAGAD = "NAGAD";
-    const ROCKET = "16216";
-    const UPAY = "UPAY";
+    const BKASH = 'BKASH';
+
+    const NAGAD = 'NAGAD';
+
+    const ROCKET = '16216';
+
+    const UPAY = 'UPAY';
 
     /**
-     * @param Request $request
      * @return JsonResponse
      */
-    function store(Request $request)
+    public function store(Request $request)
     {
         $androidTitle = $request->input('android_title');
         $androidText = preg_replace('/(\v|\s)+/', ' ', $request->input('android_text'));
@@ -41,7 +43,7 @@ class NotifierController extends Controller
             'amount' => $amount,
             'app_id' => $request->input('app_id'),
             'msg_from' => substr($request->input('msg_from'), -11),
-            'sender' => $sender
+            'sender' => $sender,
         ]);
 
         if (isset($message)) {
@@ -51,6 +53,7 @@ class NotifierController extends Controller
                 'app_id' => $message->app_id,
             ]);
         }
+
         return response()->json([
             'status' => false,
             'message' => 'Failed to add',
@@ -58,10 +61,9 @@ class NotifierController extends Controller
     }
 
     /**
-     * @param Request $request
      * @return JsonResponse
      */
-    function syncOfflineMessage(Request $request)
+    public function syncOfflineMessage(Request $request)
     {
         if ($request->input('messages')) {
             $offlineIds = [];
@@ -71,7 +73,7 @@ class NotifierController extends Controller
                 $androidText = preg_replace('/(\v|\s)+/', ' ', $message['android_text']);
                 $transactionId = self::getTransactionId($androidTitle, $androidText);
 
-                if (!Message::query()->where('transaction_id', $transactionId)->exists()) {
+                if (! Message::query()->where('transaction_id', $transactionId)->exists()) {
                     $amount = self::getAmountFromText($androidText);
                     $sender = self::getSenderNumber($androidText);
                     $newMsg = Message::create([
@@ -97,22 +99,24 @@ class NotifierController extends Controller
                 return response()->json([
                     'status' => true,
                     'message' => "$countIds Offline Message Synced",
-                    'offlineIds' => $offlineIds
+                    'offlineIds' => $offlineIds,
                 ]);
             } else {
                 if (count($transactionIds) > 0) {
                     return response()->json([
                         'status' => false,
-                        'message' => count($transactionIds) . " Transaction ID Which Is " . collect($transactionIds)->join(', ') . 'Already Exists',
-                        'offlineIds' => $offlineIdsNotSynced
+                        'message' => count($transactionIds).' Transaction ID Which Is '.collect($transactionIds)->join(', ').'Already Exists',
+                        'offlineIds' => $offlineIdsNotSynced,
                     ]);
                 }
+
                 return response()->json([
                     'status' => false,
                     'message' => 'Operation Failed',
                 ]);
             }
         }
+
         return response()->json([
             'status' => false,
             'message' => 'Failed to Add',
@@ -122,7 +126,7 @@ class NotifierController extends Controller
     /**
      * @return JsonResponse
      */
-    function updateSenderNumber()
+    public function updateSenderNumber()
     {
         $messages = Message::query()->orderByDesc('id')->get();
         $numbers = [];
@@ -132,7 +136,7 @@ class NotifierController extends Controller
             if ($senderNumber) {
                 $numbers[] = [
                     'id' => $message->id,
-                    'number' => $senderNumber
+                    'number' => $senderNumber,
                 ];
             } else {
                 $numberNotFound[] = $message->android_text;
@@ -150,53 +154,51 @@ class NotifierController extends Controller
         return response()->json([
             'status' => true,
             'numbers' => $updatedNumber,
-            'numberNotFound' => $numberNotFound
+            'numberNotFound' => $numberNotFound,
         ]);
     }
 
     /**
-     * @param string $androidTitle
-     * @param string $text
      * @return string|null
      */
-    function getTransactionId(string $androidTitle, string $text)
+    public function getTransactionId(string $androidTitle, string $text)
     {
         $androidText = trim(preg_replace('/(\v|\s)+/', ' ', $text));
         if (Str::contains(Str::upper($androidTitle), self::BKASH) or Str::contains(Str::upper($androidTitle), self::UPAY)) {
             $secondArray = explode('TrxID ', $androidText);
             $transactionId = isset($secondArray[1]) ? substr($secondArray[1], 0, 10) : null;
-        } else if (Str::contains(Str::upper($androidTitle), self::NAGAD)) {
+        } elseif (Str::contains(Str::upper($androidTitle), self::NAGAD)) {
             $secondArray = explode('TxnID: ', $androidText);
             $transactionId = isset($secondArray[1]) ? substr($secondArray[1], 0, 8) : null;
-        } else if (Str::contains(Str::upper($androidTitle), self::ROCKET)) {
+        } elseif (Str::contains(Str::upper($androidTitle), self::ROCKET)) {
             $secondArray = explode('TxnId:', $androidText);
             $transactionId = isset($secondArray[1]) ? substr(trim($secondArray[1]), 0, 10) : null;
         } else {
             $transactionId = null;
         }
+
         return trim($transactionId);
     }
 
     /**
-     * @param string $text
      * @return int|null
      */
-    function getAmountFromText(string $text)
+    public function getAmountFromText(string $text)
     {
         $message = explode('Tk ', $text);
         if (isset($message[1])) {
             $amount = str_replace(',', '', explode(' ', $message[1])[0]);
-            return (int)$amount;
+
+            return (int) $amount;
         } else {
             return null;
         }
     }
 
     /**
-     * @param string $text
      * @return string|null
      */
-    function getSenderNumber(string $text)
+    public function getSenderNumber(string $text)
     {
         $first = explode('Customer:', $text);
         if (isset($first[1])) {
@@ -244,7 +246,7 @@ class NotifierController extends Controller
     /**
      * @return JsonResponse
      */
-    function getNotification()
+    public function getNotification()
     {
         $notifications = Message::query()
             ->whereBetween('created_at', [now()->subMinutes(2880), now()])
@@ -252,10 +254,11 @@ class NotifierController extends Controller
             ->get(['id', 'android_title', 'android_text', 'transaction_id', 'created_at']);
 
         $countNotification = count($notifications);
+
         return response()->json([
             'status' => true,
             'message' => "Last 2 days total $countNotification messages Found!",
-            'notifications' => $notifications
+            'notifications' => $notifications,
         ]);
     }
 }

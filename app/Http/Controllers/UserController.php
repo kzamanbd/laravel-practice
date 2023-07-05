@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\PermissionForPropertyIsNotDeclaredInControllerException;
+use App\Services\UserService\UserService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Str;
-use App\Services\UserService\UserService;
 use Spatie\Permission\Models\Permission;
-use App\Exceptions\PermissionForPropertyIsNotDeclaredInControllerException;
 
 class UserController extends Controller
 {
     protected string $permission_for = 'users';
 
     /**
-     * @param $id
-     * @param UserService $userService
      * @return View
+     *
      * @throws PermissionForPropertyIsNotDeclaredInControllerException
      */
     public function show($id, UserService $userService)
@@ -30,7 +29,8 @@ class UserController extends Controller
 
         // manipulate feature permissions
         $features_permissions = $permissions->map(function (Permission $permission) {
-            $permission['feature'] = (string)Str::of($permission->name)->before('-')->replace('_', ' ')->ucfirst();
+            $permission['feature'] = (string) Str::of($permission->name)->before('-')->replace('_', ' ')->ucfirst();
+
             return $permission;
         })->groupBy('feature');
 

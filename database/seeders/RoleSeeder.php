@@ -8,6 +8,7 @@ use Spatie\Permission\Models\Role;
 class RoleSeeder extends Seeder
 {
     private $roles = [];
+
     /**
      * Run the database seeds.
      *
@@ -24,7 +25,7 @@ class RoleSeeder extends Seeder
                 'description' => 'Dummy description',
                 'guard_name' => 'web',
                 'created_at' => now(),
-                'updated_at' => now()
+                'updated_at' => now(),
             ];
 
             array_push($this->roles, $r);

@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Contact;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class ContactSeeder extends Seeder
@@ -35,6 +34,7 @@ class ContactSeeder extends Seeder
             $contact['updated_at'] = now();
             // progress
             $this->command->getOutput()->progressAdvance();
+
             return $contact;
         })->toArray();
 

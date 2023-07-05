@@ -2,32 +2,36 @@
 
 namespace App\Http\Livewire;
 
+use App\Exports\ContactExport;
+use App\Models\Contact;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Storage;
 use LaravelIdea\Helper\App\Models\_IH_Contact_C;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
-use App\Models\Contact;
-use App\Exports\ContactExport;
-use PhpOffice\PhpSpreadsheet\IOFactory;
-use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class ContactList extends Component
 {
-
     use WithFileUploads, WithPagination;
 
-    public $openModal, $perPage = 25;
-    public $excelFile, $excelData = [];
+    public $openModal;
+
+    public $perPage = 25;
+
+    public $excelFile;
+
+    public $excelData = [];
 
     public function upload(): void
     {
         $this->validate([
-            'excelFile' => 'nullable|file|mimes:xlsx'
+            'excelFile' => 'nullable|file|mimes:xlsx',
         ]);
 
         if ($this->excelFile) {
@@ -37,34 +41,35 @@ class ContactList extends Component
             $url = public_path('docs/excel-format.xlsx');
         }
 
-        $reader = IOFactory::createReader("Xlsx");
+        $reader = IOFactory::createReader('Xlsx');
         $reader->setLoadAllSheets();
         $spreadsheet = $reader->load($url);
         $worksheet = $spreadsheet->getActiveSheet(); //Selecting The Active Sheet
         $highest_row = $worksheet->getHighestRow();
-        $highest_col = "H";
+        $highest_col = 'H';
 
-        $highest_cell = $highest_col . $highest_row;
-        $rang = "A2:" . $highest_cell; // Selecting The Cell Range
+        $highest_cell = $highest_col.$highest_row;
+        $rang = 'A2:'.$highest_cell; // Selecting The Cell Range
 
         $dataToArray = $spreadsheet->getActiveSheet()->rangeToArray(
             $rang, // The worksheet range that we want to retrieve
-            NULL, // Value that should be returned for empty cells
-            TRUE, // Should formulas be calculated (the equivalent of getCalculatedValue() for each cell)
-            TRUE, // Should values be formatted (the equivalent of getFormattedValue() for each cell)
-            TRUE  // Should the array be indexed by cell row and cell column
+            null, // Value that should be returned for empty cells
+            true, // Should formulas be calculated (the equivalent of getCalculatedValue() for each cell)
+            true, // Should values be formatted (the equivalent of getFormattedValue() for each cell)
+            true  // Should the array be indexed by cell row and cell column
         );
-        $fields = ["e_tin", "tin_date", "name", "mobile", "address", "police_station", "old_tin", "circle_name"];
+        $fields = ['e_tin', 'tin_date', 'name', 'mobile', 'address', 'police_station', 'old_tin', 'circle_name'];
         $data = array_map(function ($row) use ($fields) {
             //Combining key value pair;
             return array_combine($fields, $row);
         }, $dataToArray);
 
         $this->excelData = array_map(function ($item) {
-            if (trim($item["tin_date"]) != null) {
-                $d = Carbon::createFromFormat("d/m/Y", $item["tin_date"]);
-                $item["tin_date"] = $d->format("d-M-Y");
+            if (trim($item['tin_date']) != null) {
+                $d = Carbon::createFromFormat('d/m/Y', $item['tin_date']);
+                $item['tin_date'] = $d->format('d-M-Y');
             }
+
             return $item;
         }, $data);
 
@@ -77,6 +82,7 @@ class ContactList extends Component
             $contacts = array_map(function ($row) {
                 $row['created_at'] = now();
                 $row['updated_at'] = now();
+
                 return $row;
             }, $this->excelData);
             Contact::insert($contacts);

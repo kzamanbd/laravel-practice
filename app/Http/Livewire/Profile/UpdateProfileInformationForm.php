@@ -16,24 +16,19 @@ class UpdateProfileInformationForm extends Component
 
     /**
      * The component's state.
-     *
-     * @var array
      */
     public array $state = [];
 
     /**
      * The state validation.
-     *
-     * @var array
      */
     protected array $rules = [
         'state.name' => 'required|string',
         'state.email' => 'required|email',
     ];
+
     /**
      * The state validation Attributes.
-     *
-     * @var array
      */
     protected array $validationAttributes = [
         'state.name' => 'name',
@@ -85,8 +80,6 @@ class UpdateProfileInformationForm extends Component
 
     /**
      * Render the component.
-     *
-     * @return View
      */
     public function render(): View
     {

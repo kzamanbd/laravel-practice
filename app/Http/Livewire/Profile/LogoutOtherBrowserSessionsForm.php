@@ -19,15 +19,11 @@ class LogoutOtherBrowserSessionsForm extends Component
 {
     /**
      * Indicates if logout is being confirmed.
-     *
-     * @var bool
      */
     public bool $confirmingLogout = false;
 
     /**
      * The user's current password.
-     *
-     * @var string
      */
     public string $password = '';
 
@@ -48,14 +44,13 @@ class LogoutOtherBrowserSessionsForm extends Component
     /**
      * Log out from other browser sessions.
      *
-     * @param StatefulGuard $guard
      * @return void
      */
     public function logoutOtherBrowserSessions(StatefulGuard $guard)
     {
         $this->resetErrorBag();
 
-        if (!Hash::check($this->password, Auth::user()->password)) {
+        if (! Hash::check($this->password, Auth::user()->password)) {
             throw ValidationException::withMessages([
                 'password' => [__('This password does not match our records.')],
             ]);
@@ -94,8 +89,6 @@ class LogoutOtherBrowserSessionsForm extends Component
 
     /**
      * Get the current sessions.
-     *
-     * @return Collection
      */
     public function getSessionsProperty(): Collection
     {
@@ -110,7 +103,7 @@ class LogoutOtherBrowserSessionsForm extends Component
                 ->orderBy('last_activity', 'desc')
                 ->get()
         )->map(function ($session) {
-            return (object)[
+            return (object) [
                 'agent' => $this->createAgent($session),
                 'ip_address' => $session->ip_address,
                 'is_current_device' => $session->id === request()->session()->getId(),
@@ -122,8 +115,7 @@ class LogoutOtherBrowserSessionsForm extends Component
     /**
      * Create a new agent instance from the given session.
      *
-     * @param mixed $session
-     * @return Agent
+     * @param  mixed  $session
      */
     protected function createAgent($session): Agent
     {
@@ -134,8 +126,6 @@ class LogoutOtherBrowserSessionsForm extends Component
 
     /**
      * Render the component.
-     *
-     * @return View
      */
     public function render(): View
     {

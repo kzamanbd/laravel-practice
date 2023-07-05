@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Services\RoleService;
-
 
 use App\Models\User;
 use App\Services\Contracts\RoleServiceContract;
@@ -24,9 +22,6 @@ abstract class BaseRoleService implements RoleServiceContract
 
     /**
      * Create a new role
-     *
-     * @param FormRequest $request
-     * @return Role
      */
     public function createRole(FormRequest $request): Role
     {
@@ -35,9 +30,6 @@ abstract class BaseRoleService implements RoleServiceContract
 
     /**
      * Role by id
-     *
-     * @param int $id
-     * @return Role
      */
     public function roleDetailsById(int $id): Role
     {
@@ -46,23 +38,16 @@ abstract class BaseRoleService implements RoleServiceContract
 
     /**
      * Update role by id
-     *
-     * @param FormRequest $request
-     * @param int $id
-     * @return Role
      */
     public function updateRoleById(FormRequest $request, int $id): Role
     {
         $role = Role::findOrFail($id);
+
         return $this->updateRoleByRoleInstance($request, $role);
     }
 
     /**
      * Update role by role instance
-     *
-     * @param FormRequest $request
-     * @param Role $role
-     * @return Role
      */
     public function updateRoleByRoleInstance(FormRequest $request, Role $role): Role
     {
@@ -72,8 +57,6 @@ abstract class BaseRoleService implements RoleServiceContract
     /**
      * Permanently delete role by id
      *
-     * @param int $id
-     * @return bool
      * @throws \Exception
      */
     public function permanentlyDeleteRoleById(int $id): bool
@@ -83,10 +66,6 @@ abstract class BaseRoleService implements RoleServiceContract
 
     /**
      * Sync permissions to role
-     *
-     * @param Role $role
-     * @param array $permissions
-     * @return Role
      */
     public function syncPermissionsToRole(Role $role, array $permissions): Role
     {
@@ -95,10 +74,6 @@ abstract class BaseRoleService implements RoleServiceContract
 
     /**
      * Sync roles to user by user instance
-     *
-     * @param User $user
-     * @param array $roles
-     * @return User
      */
     public function syncRoleToUserByUserInstance(User $user, array $roles): User
     {
@@ -109,9 +84,8 @@ abstract class BaseRoleService implements RoleServiceContract
     /**
      * Sync roles to user by user id
      *
-     * @param int $id User id
-     * @param array $roles Roles
-     * @return User
+     * @param  int  $id User id
+     * @param  array  $roles Roles
      */
     public function syncRoleToUserByUserId(int $id, array $roles): User
     {
@@ -119,6 +93,4 @@ abstract class BaseRoleService implements RoleServiceContract
 
         return $this->syncRoleToUserByUserInstance($user, $roles);
     }
-
-
 }

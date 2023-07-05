@@ -11,8 +11,6 @@ class FeatureSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
     public function run(): void
     {
@@ -29,6 +27,7 @@ class FeatureSeeder extends Seeder
             $feature['slug'] = $feature['slug'] ?? Str::slug($feature['name']);
             // progress
             $this->command->getOutput()->progressAdvance();
+
             return $feature;
         })->toArray();
 
