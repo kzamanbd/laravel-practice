@@ -41,35 +41,20 @@ Route::view('/', 'welcome');
 Route::view('/map', 'google-map');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-
     Route::view('dashboard', 'dashboard')->name('dashboard');
-
-    Route::get('contacts', ContactList::class)->name('contacts.list');
     Route::view('api-tokens', 'api.index')->name('api.tokens');
-
-    //user
+    Route::view('profile', 'user-profile')->name('current-user.show');
+    Route::get('contacts', ContactList::class)->name('contacts.list');
     Route::get('users', UserList::class)->name('user.list');
     Route::get('user/{id}/view', [UserController::class, 'show'])->name('user.show');
-    //role
     Route::get('roles', RoleList::class)->name('role.list');
     Route::get('role/{id}/view', [RoleController::class, 'show'])->name('role.show');
-    //generate permission
     Route::get('generate-permission', [PermissionController::class, 'generateAllPermissions'])->name('generate.permission');
-
-    //current user
-    Route::view('profile', 'user-profile')->name('current-user.show');
     Route::get('send-notification', [HomeController::class, 'sendAccountVerificationMail'])->name('send.notification');
-    // browser session
     Route::get('browser-session', BrowserSessionManager::class)->name('browser-session');
-
     Route::get('log-viewer', [LogViewerController::class, 'getLogFile'])->name('log-viewer');
     Route::get('log-viewer/{file}', [LogViewerController::class, 'getLogDetail']);
-    Route::get('log-viewer/download/{file}', [LogViewerController::class, 'downloadLogs']);
-    Route::get('log-viewer/clear/{file}', [LogViewerController::class, 'clearLogs']);
-    Route::get('log-viewer/delete/{file}', [LogViewerController::class, 'deleteLogs']);
-    Route::post('log-viewer/bulk-action', [LogViewerController::class, 'bulkAction']);
 });
-
 
 Route::get('/facade', function () {
     return Math::addition(10, 2);

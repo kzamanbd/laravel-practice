@@ -6,20 +6,13 @@ use App\Services\LogViewer;
 
 class LogViewerController extends Controller
 {
-    protected LogViewer $logViewer;
-
-    public function __construct(LogViewer $logViewer)
+    public function getLogFile(LogViewer $logViewer)
     {
-        $this->logViewer = $logViewer;
+        return $logViewer->getLogFile();
     }
 
-    public function getLogFile()
+    public function getLogDetail(LogViewer $logViewer, $file)
     {
-        return $this->logViewer->getLogFile();
-    }
-
-    public function getLogDetail($file)
-    {
-        return $this->logViewer->getLogDetail($file);
+        return $logViewer->getLogDetail($file);
     }
 }
