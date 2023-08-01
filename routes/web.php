@@ -1,5 +1,6 @@
 <?php
 
+use App\Facades\Math;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LogViewerController;
 use App\Http\Controllers\PermissionController;
@@ -34,7 +35,7 @@ Route::get('storage', function () {
     return 'Storage Link Created';
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 Route::view('/', 'welcome');
 Route::view('/map', 'google-map');
@@ -67,4 +68,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('log-viewer/clear/{file}', [LogViewerController::class, 'clearLogs']);
     Route::get('log-viewer/delete/{file}', [LogViewerController::class, 'deleteLogs']);
     Route::post('log-viewer/bulk-action', [LogViewerController::class, 'bulkAction']);
+});
+
+
+Route::get('/facade', function () {
+    return Math::addition(10, 2);
 });
