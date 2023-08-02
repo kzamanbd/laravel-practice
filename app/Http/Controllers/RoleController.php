@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Exceptions\PermissionForPropertyIsNotDeclaredInControllerException;
+use App\Exceptions\PermissionForPropertyException;
 use App\Services\FeatureService\FeatureService;
 use App\Services\PermissionService\PermissionService;
 use App\Services\RoleService\RoleService;
@@ -15,7 +15,7 @@ class RoleController extends Controller
     protected string $permission_for = 'roles';
 
     /**
-     * @throws PermissionForPropertyIsNotDeclaredInControllerException
+     * @throws PermissionForPropertyException
      */
     public function show($id, RoleService $roleService, FeatureService $featureService, PermissionService $permissionService): Application|Factory|View|\Illuminate\Foundation\Application
     {

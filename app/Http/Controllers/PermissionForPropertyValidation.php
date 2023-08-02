@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Exceptions\PermissionForPropertyIsNotDeclaredInControllerException;
+use App\Exceptions\PermissionForPropertyException;
 
 trait PermissionForPropertyValidation
 {
     /**
      * Has permission for access controller method
      *
-     * @throws PermissionForPropertyIsNotDeclaredInControllerException
+     * @throws PermissionForPropertyException
      */
     protected function hasPermission(string $permissionType): void
     {
         // get permission name
         $permission_name = $this->getPermissionName($permissionType);
 
-        if (! auth()->user()->can($permission_name)) {
+        if (!auth()->user()->can($permission_name)) {
             abort(401);
         }
     }
@@ -24,19 +24,19 @@ trait PermissionForPropertyValidation
     /**
      * Get Permission name
      *
-     * @throws PermissionForPropertyIsNotDeclaredInControllerException
+     * @throws PermissionForPropertyException
      */
     protected function getPermissionName(string $permissionType): string
     {
-        if (! property_exists($this, 'permission_for')) {
-            throw new PermissionForPropertyIsNotDeclaredInControllerException($this->generateErrorMessage());
+        if (!property_exists($this, 'permission_for')) {
+            throw new PermissionForPropertyException($this->generateErrorMessage());
         }
 
         return str_contains($permissionType, '-')
             ?
-            $this->permission_for.'_'.$permissionType
+            $this->permission_for . '_' . $permissionType
             :
-            $this->permission_for.'-'.$permissionType;
+            $this->permission_for . '-' . $permissionType;
     }
 
     /**
@@ -44,6 +44,6 @@ trait PermissionForPropertyValidation
      */
     private function generateErrorMessage(): string
     {
-        return 'permission_for property is not declared on'.get_class($this);
+        return 'permission_for property is not declared on' . get_class($this);
     }
 }

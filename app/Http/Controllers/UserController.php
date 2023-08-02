@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Exceptions\PermissionForPropertyIsNotDeclaredInControllerException;
+use App\Exceptions\PermissionForPropertyException;
 use App\Services\UserService\UserService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Str;
@@ -15,7 +15,7 @@ class UserController extends Controller
     /**
      * @return View
      *
-     * @throws PermissionForPropertyIsNotDeclaredInControllerException
+     * @throws PermissionForPropertyException
      */
     public function show($id, UserService $userService)
     {

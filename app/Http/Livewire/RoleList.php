@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Exceptions\PermissionForPropertyIsNotDeclaredInControllerException;
+use App\Exceptions\PermissionForPropertyException;
 use App\Http\Controllers\PermissionForPropertyValidation;
 use App\Services\FeatureService\FeatureService;
 use App\Services\PermissionService\PermissionService;
@@ -76,7 +76,7 @@ class RoleList extends Component
     public function getRolesProperty()
     {
         return Role::query()
-            ->where('name', 'like', '%'.$this->searchKey.'%')
+            ->where('name', 'like', '%' . $this->searchKey . '%')
             ->orderBy($this->sortColumnName, $this->sortDirection)
             ->paginate($this->perPage);
     }
@@ -136,7 +136,7 @@ class RoleList extends Component
         $this->hasPermission('update');
 
         $this->validate([
-            'name' => 'required|string|max:255|unique:roles,name,'.$this->roleId,
+            'name' => 'required|string|max:255|unique:roles,name,' . $this->roleId,
             'description' => 'nullable|string',
             'permissions' => 'nullable|array',
         ]);
@@ -165,7 +165,7 @@ class RoleList extends Component
     }
 
     /**
-     * @throws PermissionForPropertyIsNotDeclaredInControllerException
+     * @throws PermissionForPropertyException
      */
     public function deleteConfirmed(): void
     {
@@ -175,7 +175,7 @@ class RoleList extends Component
     }
 
     /**
-     * @throws PermissionForPropertyIsNotDeclaredInControllerException
+     * @throws PermissionForPropertyException
      */
     public function render(): View
     {

@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Exceptions\PermissionForPropertyIsNotDeclaredInControllerException;
+use App\Exceptions\PermissionForPropertyException;
 use App\Exports\UserExport;
 use App\Http\Controllers\PermissionForPropertyValidation;
 use App\Models\User;
@@ -98,7 +98,7 @@ class UserList extends Component
     }
 
     /**
-     * @throws PermissionForPropertyIsNotDeclaredInControllerException
+     * @throws PermissionForPropertyException
      */
     public function create(): void
     {
@@ -108,7 +108,7 @@ class UserList extends Component
     }
 
     /**
-     * @throws PermissionForPropertyIsNotDeclaredInControllerException
+     * @throws PermissionForPropertyException
      */
     public function store(): void
     {
@@ -128,7 +128,7 @@ class UserList extends Component
     }
 
     /**
-     * @throws PermissionForPropertyIsNotDeclaredInControllerException
+     * @throws PermissionForPropertyException
      */
     public function editItem($id): void
     {
@@ -145,13 +145,13 @@ class UserList extends Component
     }
 
     /**
-     * @throws PermissionForPropertyIsNotDeclaredInControllerException
+     * @throws PermissionForPropertyException
      */
     public function update(): void
     {
         $this->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,'.$this->userId,
+            'email' => 'required|email|unique:users,email,' . $this->userId,
             'roles' => 'nullable|array',
         ]);
 
@@ -179,7 +179,7 @@ class UserList extends Component
     }
 
     /**
-     * @throws PermissionForPropertyIsNotDeclaredInControllerException
+     * @throws PermissionForPropertyException
      */
     public function deleteConfirmed(): void
     {
@@ -201,7 +201,7 @@ class UserList extends Component
     }
 
     /**
-     * @throws PermissionForPropertyIsNotDeclaredInControllerException
+     * @throws PermissionForPropertyException
      */
     public function render(): View
     {
