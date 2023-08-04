@@ -63,6 +63,18 @@ services:
         networks:
             - laravel-network
 
+    # Composer
+    composer:
+        image: composer:latest
+        volumes:
+            - ./:/var/www/html:cached
+        working_dir: /var/www/html
+        command: composer install
+        depends_on:
+            - laravel-app
+        networks:
+            - laravel-network
+
     # Nginx server
     nginx-server:
         image: nginx:alpine
