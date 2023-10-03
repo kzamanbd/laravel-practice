@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Services\Calculator;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -12,8 +11,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        // bind the Calculator class to the Math interface
-        $this->app->bind('Math', Calculator::class);
+        //
     }
 
     /**

@@ -23,19 +23,19 @@
                             </div>
 
                             <div class="flex items-center space-x-4">
-                                <x-button color="light" type="button">
+                                <x-primary-button color="light" type="button">
                                     csv
-                                </x-button>
-                                <x-button color="light" type="button">
+                                </x-primary-button>
+                                <x-primary-button color="light" type="button">
                                     Xslx
-                                </x-button>
-                                <x-button color="light" type="button">
+                                </x-primary-button>
+                                <x-primary-button color="light" type="button">
                                     PDF
-                                </x-button>
+                                </x-primary-button>
 
-                                <x-button type="button" wire:click="create">
+                                <x-primary-button type="button" wire:click="$dispatch('open-modal', 'role-modal')">
                                     Create
-                                </x-button>
+                                </x-primary-button>
                             </div>
                         </div>
 
@@ -139,14 +139,12 @@
 
     {{-- role create or update modal --}}
 
-    <x-dialog-modal wire:model="openModal" maxWidth="3xl">
+    <x-dialog-modal name="role-modal" maxWidth="3xl">
         <x-slot name="title">
             {{ $editableMode ? 'Update' : 'Create' }} Role
         </x-slot>
 
         <x-slot name="content">
-            <!-- Validation Errors -->
-            <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
             <div class="form-group">
                 <label for="grid-first-name1" class="form-label">
@@ -199,14 +197,14 @@
         </x-slot>
 
         <x-slot name="footer">
-            <x-button color="danger" wire:click="$toggle('openModal')" wire:loading.attr="disabled">
+            <x-primary-button color="danger" wire:click="$dispatch('close')" wire:loading.attr="disabled">
                 {{ __('Cancel') }}
-            </x-button>
+            </x-primary-button>
 
-            <x-button wire:click="{{ $editableMode ? 'update' : 'store' }}" class="ml-3"
+            <x-primary-button wire:click="{{ $editableMode ? 'update' : 'store' }}" class="ml-3"
                 wire:loading.attr="disabled">
                 {{ $editableMode ? 'Update' : 'Create' }}
-            </x-button>
+            </x-primary-button>
         </x-slot>
     </x-dialog-modal>
 

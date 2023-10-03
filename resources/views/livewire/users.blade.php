@@ -2,7 +2,7 @@
     <x-slot name="header">
         <h2 class="font-semibold flex justify-between text-xl text-gray-800 leading-tight">
             <span>Users List</span>
-            <a href="{{ route('send.notification') }}">Send Notification</a>
+            <a href="#">Send Notification</a>
         </h2>
     </x-slot>
 
@@ -26,21 +26,21 @@
                             </div>
 
                             <div class="flex items-center space-x-4">
-                                <x-button color="light" type="button" wire:loading.attr="disabled"
+                                <x-primary-button color="light" type="button" wire:loading.attr="disabled"
                                     wire:click="exportExcel('csv')">
                                     csv
-                                </x-button>
-                                <x-button color="light" type="button" wire:loading.attr="disabled"
+                                </x-primary-button>
+                                <x-primary-button color="light" type="button" wire:loading.attr="disabled"
                                     wire:click="exportExcel('xlsx')">
                                     Xslx
-                                </x-button>
-                                <x-button color="light" type="button">
+                                </x-primary-button>
+                                <x-primary-button color="light" type="button">
                                     PDF
-                                </x-button>
+                                </x-primary-button>
 
-                                <x-button type="button" wire:click="create">
+                                <x-primary-button type="button" wire:click="$dispatch('open-modal', 'create-modal')">
                                     Create
-                                </x-button>
+                                </x-primary-button>
                             </div>
                         </div>
 
@@ -227,17 +227,12 @@
         </div>
     </div>
 
-    {{-- user create or update modal --}}
-
-    <x-dialog-modal wire:model="openModal" maxWidth="3xl">
+    <x-dialog-modal name="create-modal" maxWidth="3xl">
         <x-slot name="title">
             {{ $editableMode ? 'Update' : 'Create' }} User
         </x-slot>
 
         <x-slot name="content">
-            <!-- Validation Errors -->
-            <x-auth-validation-errors class="mb-4" :errors="$errors" />
-
             <div class="flex flex-wrap mb-6">
                 <div class="w-full md:w-1/2 pr-4 mb-6 md:mb-0">
                     <label class="form-label">
@@ -295,14 +290,14 @@
         </x-slot>
 
         <x-slot name="footer">
-            <x-button color="danger" wire:click="$toggle('openModal')" wire:loading.attr="disabled">
+            <x-primary-button color="danger" wire:click="$dispatch('close')" wire:loading.attr="disabled">
                 {{ __('Cancel') }}
-            </x-button>
+            </x-primary-button>
 
-            <x-button wire:click="{{ $editableMode ? 'update' : 'store' }}" class="ml-3"
+            <x-primary-button wire:click="{{ $editableMode ? 'update' : 'store' }}" class="ml-3"
                 wire:loading.attr="disabled">
                 {{ $editableMode ? 'Update' : 'Create' }}
-            </x-button>
+            </x-primary-button>
         </x-slot>
     </x-dialog-modal>
 </div>

@@ -14,9 +14,7 @@ class ContactSeeder extends Seeder
      */
     public function run()
     {
-        for ($i = 0; $i < 10; $i++) {
-            self::contactSeeder();
-        }
+        self::contactSeeder();
     }
 
     public function contactSeeder()
