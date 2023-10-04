@@ -7,7 +7,6 @@ use Livewire\Component;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Jenssegers\Agent\Agent;
-use Livewire\Attributes\Layout;
 
 class BrowserSession extends Component
 {
@@ -71,7 +70,6 @@ class BrowserSession extends Component
         });
     }
 
-    #[Layout('layouts.app')]
     public function render()
     {
         return view('livewire.browser-session');

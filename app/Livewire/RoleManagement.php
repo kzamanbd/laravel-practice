@@ -7,11 +7,10 @@ use App\Http\Controllers\PermissionForPropertyValidation;
 use App\Services\FeatureService\FeatureService;
 use App\Services\PermissionService\PermissionService;
 use Illuminate\Contracts\View\View;
-use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Spatie\Permission\Models\Role;
 
-class RoleList extends Component
+class RoleManagement extends Component
 {
     use PermissionForPropertyValidation;
 
@@ -175,7 +174,6 @@ class RoleList extends Component
         Role::destroy($this->roleId);
     }
 
-    #[Layout('layouts.app')]
     public function render(): View
     {
         $this->hasPermission('view');

@@ -13,9 +13,8 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
 use Spatie\Permission\Models\Role;
-use Livewire\Attributes\Layout;
 
-class UserList extends Component
+class UserManagement extends Component
 {
     use WithPagination, PermissionForPropertyValidation;
 
@@ -202,7 +201,6 @@ class UserList extends Component
     }
 
 
-    #[Layout('layouts.app')]
     public function render(): View
     {
         // check permission

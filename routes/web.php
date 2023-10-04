@@ -4,9 +4,9 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Livewire\ApiTokenManager;
 use App\Livewire\BrowserSession;
-use App\Livewire\ContactList;
-use App\Livewire\RoleList;
-use App\Livewire\UserList;
+use App\Livewire\ContactManagement;
+use App\Livewire\RoleManagement;
+use App\Livewire\UserManagement;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,10 +27,10 @@ Route::view('profile', 'profile')->middleware(['auth'])->name('profile');
 
 Route::get('browser-session', BrowserSession::class)->name('browser-session');
 Route::get('api-tokens', ApiTokenManager::class)->name('api.tokens');
-Route::get('contacts', ContactList::class)->name('contacts');
-Route::get('users', UserList::class)->name('user.list');
+Route::get('contacts', ContactManagement::class)->name('contacts');
+Route::get('users', UserManagement::class)->name('user.list');
 Route::get('user/{id}/view', [UserController::class, 'show'])->name('user.show');
-Route::get('roles', RoleList::class)->name('role.list');
+Route::get('roles', RoleManagement::class)->name('role.list');
 Route::get('role/{id}/view', [RoleController::class, 'show'])->name('role.show');
 
 require __DIR__ . '/auth.php';

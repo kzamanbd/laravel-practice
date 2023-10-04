@@ -5,7 +5,6 @@ namespace App\Livewire;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
-use Livewire\Attributes\Layout;
 
 class ApiTokenManager extends Component
 {
@@ -213,7 +212,6 @@ class ApiTokenManager extends Component
         return Auth::user();
     }
 
-    #[Layout('layouts.app')]
     public function render()
     {
         return view('livewire.api-token-manager');

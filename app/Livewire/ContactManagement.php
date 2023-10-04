@@ -7,14 +7,13 @@ use App\Models\Contact;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
-use Livewire\Attributes\Layout;
 use Livewire\Features\SupportFileUploads\WithFileUploads;
 use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
-class ContactList extends Component
+class ContactManagement extends Component
 {
 
     use WithFileUploads, WithPagination;
@@ -103,7 +102,6 @@ class ContactList extends Component
         return (count($this->excelData) > 0) ? [] : Contact::query()->paginate($this->perPage);
     }
 
-    #[Layout('layouts.app')]
     public function render()
     {
         return view('livewire.contact-list');
