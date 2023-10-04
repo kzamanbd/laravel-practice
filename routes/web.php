@@ -21,16 +21,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::view('/', 'welcome');
+
 Route::view('dashboard', 'dashboard')->middleware(['auth', 'verified'])->name('dashboard');
-Route::view('profile', 'profile')->middleware(['auth'])->name('profile');
-
-
-Route::get('browser-session', BrowserSession::class)->name('browser-session');
-Route::get('api-tokens', ApiTokenManager::class)->name('api.tokens');
-Route::get('contacts', ContactManagement::class)->name('contacts');
-Route::get('users', UserManagement::class)->name('user.list');
-Route::get('user/{id}/view', [UserController::class, 'show'])->name('user.show');
-Route::get('roles', RoleManagement::class)->name('role.list');
-Route::get('role/{id}/view', [RoleController::class, 'show'])->name('role.show');
+// auth route group
+Route::middleware(['auth'])->group(function () {
+    Route::view('profile', 'profile')->name('profile');
+    Route::get('browser-session', BrowserSession::class)->name('browser-session');
+    Route::get('api-tokens', ApiTokenManager::class)->name('api.tokens');
+    Route::get('contacts', ContactManagement::class)->name('contacts');
+    Route::get('users', UserManagement::class)->name('user.list');
+    Route::get('user/{id}/view', [UserController::class, 'show'])->name('user.show');
+    Route::get('roles', RoleManagement::class)->name('role.list');
+    Route::get('role/{id}/view', [RoleController::class, 'show'])->name('role.show');
+});
 
 require __DIR__ . '/auth.php';
