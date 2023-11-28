@@ -73,3 +73,4 @@ Route::any('basic-auth', function (Request $request) {
     ];
 });
 Route::get('test-database-transactions', [HomeController::class, 'testDatabaseTransactions']);
+Route::post('upload-base64', [HomeController::class, 'uploadBase64'])->name('upload.base64');

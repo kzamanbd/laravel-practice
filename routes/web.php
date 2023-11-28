@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Livewire\ApiTokenManager;
@@ -33,6 +34,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('user/{id}/view', [UserController::class, 'show'])->name('user.show');
     Route::get('roles', RoleManagement::class)->name('role.list');
     Route::get('role/{id}/view', [RoleController::class, 'show'])->name('role.show');
+
+    Route::post('upload-base64', [HomeController::class, 'uploadBase64'])->name('upload.base64');
 });
 
 require __DIR__ . '/auth.php';
