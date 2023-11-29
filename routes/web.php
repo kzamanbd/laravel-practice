@@ -7,6 +7,7 @@ use App\Livewire\ApiTokenManager;
 use App\Livewire\BrowserSession;
 use App\Livewire\ContactManagement;
 use App\Livewire\RoleManagement;
+use App\Livewire\UserDashboard;
 use App\Livewire\UserManagement;
 use Illuminate\Support\Facades\Route;
 
@@ -23,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
 
-Route::view('dashboard', 'dashboard')->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('dashboard', UserDashboard::class)->middleware(['auth', 'verified'])->name('dashboard');
 // auth route group
 Route::middleware(['auth'])->group(function () {
     Route::view('profile', 'profile')->name('profile');
