@@ -31,15 +31,9 @@ class UserDashboard extends Component
             true  // Should the array be indexed by cell row and cell column
         );
 
-
         $fields = ['sl', 'region', 'blank_field', 'target_share', 'formula'];
 
-        // return $dataToArray;
-
-        $data = array_map(function ($row) use ($fields) {
-            //Combining key value pair;
-            return array_combine($fields, $row);
-        }, $dataToArray);
+        $data = array_map(fn ($row) => array_combine($fields, $row), $dataToArray);
 
         dd($data);
     }
