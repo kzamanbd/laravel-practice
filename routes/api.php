@@ -5,7 +5,6 @@ use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\CommentController;
 use App\Http\Controllers\API\HomeController;
 use App\Http\Controllers\API\PostController;
-use App\Http\Controllers\NotifierController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -50,7 +49,7 @@ Route::post('comment', [CommentController::class, 'store']);
 Route::post('comment', [CommentController::class, 'destroy']);
 
 // upload-image-by-cropper js
-Route::post('upload-image-by-croperjs', [HomeController::class, 'uploadImage']);
+Route::post('upload-image', [HomeController::class, 'uploadImage']);
 Route::post('upload-docs-file', [HomeController::class, 'uploadDocsFile']);
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -58,11 +57,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('get-user-detail/{id}', [HomeController::class, 'user']);
 });
 
-Route::get('get-notification', [NotifierController::class, 'getNotification']);
-Route::post('store-notification', [NotifierController::class, 'store']);
-Route::post('sync-offline-message', [NotifierController::class, 'syncOfflineMessage']);
-
-Route::get('update-sender-number', [NotifierController::class, 'updateSenderNumber']);
 Route::any('basic-auth', function (Request $request) {
     return [
         $request->getUser(),

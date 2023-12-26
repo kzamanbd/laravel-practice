@@ -19,12 +19,12 @@ class AssignRolePermissionSeeder extends Seeder
         // permissions
         $permissions = Permission::all()->pluck('id');
         // admin roles
-        $admin_role = Role::whereName('Admin')->first();
+        $adminRole = Role::whereName('Admin')->first();
         // give all permission to admin
-        $admin_role->givePermissionTo($permissions);
+        $adminRole->givePermissionTo($permissions);
         // first user
         $user = User::first();
         // set admin role to first user
-        $user->assignRole($admin_role->id);
+        $user->assignRole($adminRole->id);
     }
 }

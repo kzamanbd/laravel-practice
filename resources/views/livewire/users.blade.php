@@ -8,213 +8,164 @@
 
     <div class="py-5">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-
-            <div class="bg-white shadow-xl sm:rounded-lg">
-                <div class="bg-white shadow-sm sm:rounded-lg p-5">
-                    <div class="flex justify-between">
-                        <div class="flex items-center space-x-4">
-                            <div class="flex items-center">
-                                <label for="perPage" class="text-sm text-gray-600">Show</label>
-                                <select wire:model="perPage" id="perPage"
-                                    class="mx-2 form-control min-w-[80px] px-4 py-1.5">
-                                    <option value="10">10</option>
-                                    <option value="15">15</option>
-                                    <option value="25">25</option>
-                                    <option value="50">50</option>
-                                </select>
-                                <label for="perPage" class="text-sm text-gray-600">entries</label>
-                            </div>
-
-                            <div class="flex items-center space-x-4">
-                                <x-primary-button color="light" type="button" wire:loading.attr="disabled"
-                                    wire:click="exportExcel('csv')">
-                                    csv
-                                </x-primary-button>
-                                <x-primary-button color="light" type="button" wire:loading.attr="disabled"
-                                    wire:click="exportExcel('xlsx')">
-                                    Xslx
-                                </x-primary-button>
-                                <x-primary-button color="light" type="button">
-                                    PDF
-                                </x-primary-button>
-
-                                <x-primary-button type="button" wire:click="$dispatch('open-modal', 'create-modal')">
-                                    Create
-                                </x-primary-button>
-                            </div>
+            <div class="bg-white shadow-sm sm:rounded-lg p-5">
+                <div class="flex justify-between">
+                    <div class="flex items-center space-x-4">
+                        <div class="flex items-center">
+                            <label for="perPage" class="text-sm text-gray-600">Show</label>
+                            <select wire:model.live="perPage" id="perPage"
+                                class="mx-2 form-control min-w-[80px] px-4 py-1.5">
+                                <option value="10">10</option>
+                                <option value="15">15</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                            </select>
+                            <label for="perPage" class="text-sm text-gray-600">entries</label>
                         </div>
 
-                        <x-search-input wire:model.debounce.500ms="searchKey" />
+                        <div class="flex items-center space-x-4">
+                            <x-primary-button color="light" type="button" wire:loading.attr="disabled"
+                                wire:click="exportExcel('csv')">
+                                csv
+                            </x-primary-button>
+                            <x-primary-button color="light" type="button" wire:loading.attr="disabled"
+                                wire:click="exportExcel('xlsx')">
+                                Xslx
+                            </x-primary-button>
+                            <x-primary-button color="light" type="button">
+                                PDF
+                            </x-primary-button>
+
+                            <x-primary-button type="button" wire:click="$dispatch('open-modal', 'create-modal')">
+                                Create
+                            </x-primary-button>
+                        </div>
                     </div>
 
-                    <div class="flex flex-col">
-                        <div class="py-2 align-middle inline-block w-full">
-                            <div class="border border-1 border-gray-200 rounded">
-                                <table class="w-full leading-normal p-2">
-                                    <thead>
-                                        <tr>
-                                            <th
-                                                class="w-6 px-3 py-3 border-b-2 border-gray-200 bg-gray-100 font-semibold text-gray-600 uppercase tracking-wider">
-                                                <label class="inline-flex items-center">
-                                                    <x-checkbox wire:model="selectedPage" type="checkbox" />
-                                                    <span class="ml-2 text-gray-700">SL</span>
-                                                </label>
-                                            </th>
-                                            <th
-                                                class="text-left px-3 py-3 border-b-2 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <x-search-input wire:model.live.debounce.500ms="searchKey" />
+                </div>
+
+                <div class="flex flex-col">
+                    <div class="py-2 align-middle inline-block w-full">
+                        <div class="border border-1 border-gray-200 rounded">
+                            <table class="w-full leading-normal p-2">
+                                <thead>
+                                    <tr>
+                                        <th width="10%"
+                                            class="text-left px-3 py-3 border-b-2 border-gray-200 bg-gray-100 font-semibold text-gray-600 uppercase tracking-wider">
+                                            <label class="inline-flex items-center">
+                                                <x-checkbox wire:model.live="selectedPage" type="checkbox" />
+                                                <span class="ml-2 text-gray-700">SL</span>
+                                            </label>
+                                        </th>
+                                        <th width="30%"
+                                            class="text-left px-3 py-3 border-b-2 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                            <button class="flex items-center" type="button"
+                                                wire:click.prevent="sortBy('name')">
                                                 <span>Name</span>
-                                                <button type="button" wire:click.prevent="sortBy('name')">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="ml-1 w-3 h-3"
-                                                        aria-hidden="true" fill="currentColor" viewBox="0 0 320 512">
-                                                        <path
-                                                            d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z" />
-                                                    </svg>
-                                                </button>
-                                            </th>
-                                            <th
-                                                class="text-left px-3 py-3 border-b-2 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="ml-1 w-3 h-3"
+                                                    aria-hidden="true" fill="currentColor" viewBox="0 0 320 512">
+                                                    <path
+                                                        d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z" />
+                                                </svg>
+                                            </button>
+                                        </th>
+                                        <th width="20%"
+                                            class="text-left px-3 py-3 border-b-2 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                            <button class="flex items-center" type="button"
+                                                wire:click.prevent="sortBy('email')">
                                                 <span>Email</span>
-                                                <button type="button" wire:click.prevent="sortBy('email')">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="ml-1 w-3 h-3"
-                                                        aria-hidden="true" fill="currentColor" viewBox="0 0 320 512">
-                                                        <path
-                                                            d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z" />
-                                                    </svg>
-                                                </button>
-                                            </th>
-                                            <th
-                                                class="text-left px-3 py-3 border-b-2 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                                Roles
-                                            </th>
-                                            <th
-                                                class="text-center px-3 py-3 border-b-2 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                                Action
-                                            </th>
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="ml-1 w-3 h-3"
+                                                    aria-hidden="true" fill="currentColor" viewBox="0 0 320 512">
+                                                    <path
+                                                        d="M27.66 224h264.7c24.6 0 36.89-29.78 19.54-47.12l-132.3-136.8c-5.406-5.406-12.47-8.107-19.53-8.107c-7.055 0-14.09 2.701-19.45 8.107L8.119 176.9C-9.229 194.2 3.055 224 27.66 224zM292.3 288H27.66c-24.6 0-36.89 29.77-19.54 47.12l132.5 136.8C145.9 477.3 152.1 480 160 480c7.053 0 14.12-2.703 19.53-8.109l132.3-136.8C329.2 317.8 316.9 288 292.3 288z" />
+                                                </svg>
+                                            </button>
+                                        </th>
+                                        <th width="20%"
+                                            class="text-left px-3 py-3 border-b-2 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                            Roles
+                                        </th>
+                                        <th width="20%"
+                                            class="text-center px-3 py-3 border-b-2 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                            Action
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (count($selectedItem))
+                                        <tr class="border-b border-gray-200 on-parent-hover-show">
+                                            <td colspan="5" class="text-center px-3 py-2">
+                                                You have selected <strong>{{ count($selectedItem) }}</strong> users.
+                                                <button class="text-red-500 hover:text-red-700">Delete</button> them?
+                                            </td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        @forelse($this->users as $user)
-                                            <tr class="border-b border-gray-200 on-parent-hover-show">
-                                                <td class="px-3 py-2 text-sm">
-                                                    <label class="inline-flex items-center">
-                                                        <x-checkbox wire:model="selectedItem" type="checkbox"
-                                                            name="select" value="{{ $user->id }}" />
-                                                        <span
-                                                            class="ml-2 text-gray-700">{{ $loop->index + $this->users->firstItem() }}</span>
-                                                    </label>
-                                                </td>
-                                                <td class="px-3 py-2 text-sm">
-                                                    <a href="{{ route('user.show', $user->id) }}"
-                                                        class="flex items-center no-underline hover:underline">
-                                                        <div class="flex-shrink-0 w-10 h-10 hidden sm:table-cell">
-                                                            <img class="w-full h-full rounded-full"
-                                                                src="https://ui-avatars.com/api/?name={{ $user->name }}&color=7F9CF5&background=EBF4FF"
-                                                                alt="" />
-                                                        </div>
-                                                        <div class="ml-3 d-flex items-center">
-                                                            <span class="text-gray-900 whitespace-no-wrap m-0">
-                                                                {{ $user->name }}
-                                                            </span>
-                                                        </div>
+                                    @endif
+                                    @forelse($this->users as $user)
+                                        <tr class="border-b border-gray-200 on-parent-hover-show">
+                                            <td class="px-3 py-2 text-sm">
+                                                <label class="inline-flex items-center">
+                                                    <x-checkbox wire:model.live="selectedItem" type="checkbox"
+                                                        name="select" value="{{ $user->id }}" />
+                                                    <span
+                                                        class="ml-2 text-gray-700">{{ $loop->index + $this->users->firstItem() }}</span>
+                                                </label>
+                                            </td>
+                                            <td class="px-3 py-2 text-sm">
+                                                <a href="{{ route('user.show', $user->id) }}"
+                                                    class="flex items-center no-underline hover:underline">
+                                                    <div class="flex-shrink-0 w-10 h-10 hidden sm:table-cell">
+                                                        <img class="w-full h-full rounded-full"
+                                                            src="https://ui-avatars.com/api/?name={{ $user->name }}&color=7F9CF5&background=EBF4FF"
+                                                            alt="" />
+                                                    </div>
+                                                    <div class="ml-3 d-flex items-center">
+                                                        <span class="text-gray-900 whitespace-no-wrap m-0">
+                                                            {{ $user->name }}
+                                                        </span>
+                                                    </div>
+                                                </a>
+                                            </td>
+                                            <td class="px-3 py-2 text-sm">
+                                                <span class="text-gray-900 whitespace-no-wrap">
+                                                    {{ $user->email }}
+                                                </span>
+                                            </td>
+                                            <td class="px-3 py-2 text-sm">
+                                                <span class="text-gray-900 whitespace-no-wrap">
+                                                    {{ count($user->roles) > 0 ? $user->roles->pluck('name')->join(', ') : 'No Role' }}
+                                                </span>
+                                            </td>
+
+                                            <td class="px-3 py-2 text-sm text-center">
+
+                                                <div class="inline-flex rounded-md shadow-sm" role="group">
+                                                    <button type="button" wire:click="editItem({{ $user->id }})"
+                                                        class="px-2 py-1 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+                                                        Edit
+                                                    </button>
+                                                    <a wire:navigate href="{{ route('user.show', $user->id) }}"
+                                                        class="px-2 py-1 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+                                                        View
                                                     </a>
-                                                </td>
-                                                <td class="px-3 py-2 text-sm">
-                                                    <span class="text-gray-900 whitespace-no-wrap">
-                                                        {{ $user->email }}
-                                                    </span>
-                                                </td>
-                                                <td class="px-3 py-2 text-sm">
-                                                    <span class="text-gray-900 whitespace-no-wrap">
-                                                        {{ count($user->roles) > 0 ? $user->roles->pluck('name')->join(', ') : 'No Role' }}
-                                                    </span>
-                                                </td>
-
-                                                <td class="px-3 py-2 text-sm text-center">
-
-                                                    <div class="inline-flex rounded-md shadow-sm" role="group">
-                                                        <button type="button"
-                                                            wire:click.prevent="editItem({{ $user->id }})"
-                                                            class="px-2 py-1 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
-                                                            Edit
-                                                        </button>
-                                                        <a wire:navigate href="{{ route('user.show', $user->id) }}"
-                                                            class="px-2 py-1 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
-                                                            View
-                                                        </a>
-                                                        <button type="button"
-                                                            class="px-2 py-1 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-md hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
-                                                            Delete
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        @empty
-                                            <tr>
-                                                <td colspan="5" class="text-center px-3 py-2">
-                                                    <div class="flex items-center justify-center">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="200"
-                                                            height="200" viewBox="0 0 200 200">
-                                                            <g id="Group_2280" data-name="Group 2280"
-                                                                transform="translate(-860 -403)">
-                                                                <circle id="Ellipse_495" data-name="Ellipse 495"
-                                                                    cx="100" cy="100" r="100"
-                                                                    transform="translate(860 403)" fill="#eff0f5" />
-                                                                <g id="Group_2279" data-name="Group 2279"
-                                                                    transform="translate(-16.503 -16.363)">
-                                                                    <g id="Group_2278" data-name="Group 2278"
-                                                                        transform="translate(932 475)">
-                                                                        <path id="Path_7062" data-name="Path 7062"
-                                                                            d="M27.716.2V34.736H.2v54.19H64.5v0H89.207V.2ZM19.574,83.311H8.062V77.7H19.574Zm0-12.354H8.062V65.341H19.574Zm0-12.635H8.062V52.706H19.574Zm0-12.354H8.062V40.351H19.574ZM43.44,83.311H31.928V77.7H43.44Zm0-12.354H31.928V65.341H43.44Zm0-12.635H31.928V52.706H43.44Zm0-12.354H31.928V40.351H43.44ZM83.311,64.779H51.021V34.736H33.332V5.816H83.591V64.779Z"
-                                                                            transform="translate(-0.2 -0.2)"
-                                                                            fill="#9aa3ab" />
-                                                                        <rect id="Rectangle_2574"
-                                                                            data-name="Rectangle 2574" width="11.512"
-                                                                            height="5.616"
-                                                                            transform="translate(63.175 11.793)"
-                                                                            fill="#9aa3ab" />
-                                                                        <rect id="Rectangle_2575"
-                                                                            data-name="Rectangle 2575" width="11.512"
-                                                                            height="5.616"
-                                                                            transform="translate(63.175 25.27)"
-                                                                            fill="#9aa3ab" />
-                                                                        <rect id="Rectangle_2576"
-                                                                            data-name="Rectangle 2576" width="11.512"
-                                                                            height="5.616"
-                                                                            transform="translate(63.175 39.028)"
-                                                                            fill="#9aa3ab" />
-                                                                        <rect id="Rectangle_2577"
-                                                                            data-name="Rectangle 2577" width="11.512"
-                                                                            height="5.616"
-                                                                            transform="translate(63.175 52.506)"
-                                                                            fill="#9aa3ab" />
-                                                                        <rect id="Rectangle_2578"
-                                                                            data-name="Rectangle 2578" width="11.512"
-                                                                            height="5.616"
-                                                                            transform="translate(41.275 11.793)"
-                                                                            fill="#9aa3ab" />
-                                                                        <rect id="Rectangle_2579"
-                                                                            data-name="Rectangle 2579" width="11.512"
-                                                                            height="5.616"
-                                                                            transform="translate(41.275 25.27)"
-                                                                            fill="#9aa3ab" />
-                                                                    </g>
-                                                                    <path id="Path_7063" data-name="Path 7063"
-                                                                        d="M7.756,20.524h5.211V12.968h7.556V7.756H12.968V.2H7.756V7.756H.2v5.211H7.756Z"
-                                                                        transform="translate(988.803 541.64)"
-                                                                        fill="#eff0f5" />
-                                                                </g>
-                                                            </g>
-                                                        </svg>
-                                                    </div>
-                                                    <div class="text-gray-700 pt-2">No data found</div>
-                                                </td>
-                                            </tr>
-                                        @endforelse
-                                    </tbody>
-                                </table>
-                                <div class="p-2">
-                                    {{ $this->users->links() }}
-                                </div>
+                                                    <button type="button"
+                                                        class="px-2 py-1 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-md hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+                                                        Delete
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="5" class="text-center px-3 py-2">
+                                                <x-empty-state />
+                                            </td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
+                            <div class="p-2">
+                                {{ $this->users->links() }}
                             </div>
                         </div>
                     </div>
