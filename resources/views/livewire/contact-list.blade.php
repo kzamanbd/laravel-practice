@@ -58,29 +58,29 @@
                             <table class="w-full leading-normal">
                                 <thead>
                                     <tr>
-                                        <th
+                                        <th width="5%"
                                             class="text-left px-3 py-3 border-b-2 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                             SL
                                         </th>
-                                        <th
+                                        <th width="20%"
                                             class="text-left px-3 py-3 border-b-2 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                             Name
                                         </th>
-                                        <th
-                                            class="text-left px-3 py-3 border-b-2 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                        <th width="15%"
+                                            class="text-center  px-3 py-3 border-b-2 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                             Mobile
                                         </th>
-                                        <th
-                                            class="text-left px-3 py-3 border-b-2 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                        <th width="15%"
+                                            class="text-center px-3 py-3 border-b-2 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                             E-TIN
                                         </th>
 
-                                        <th
-                                            class="text-left px-3 py-3 border-b-2 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                        <th width="15%"
+                                            class="text-center  px-3 py-3 border-b-2 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                             TIN Date
                                         </th>
 
-                                        <th
+                                        <th width="30%"
                                             class="text-left px-3 py-3 border-b-2 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                             Address
                                         </th>
@@ -93,16 +93,16 @@
                                                 <td class="px-3 py-2 text-sm">
                                                     {{ $loop->iteration }}.
                                                 </td>
-                                                <td class="px-3 py-2 text-sm">
+                                                <td class="text-left px-3 py-2 text-sm">
                                                     {{ $item['name'] ?? 'N/A' }}
                                                 </td>
-                                                <td class="px-3 py-2 text-sm">
+                                                <td class="text-center px-3 py-2 text-sm">
                                                     {{ $item['mobile'] ? \Illuminate\Support\Str::substr($item['mobile'], -11) : 'N/A' }}
                                                 </td>
-                                                <td class="px-3 py-2 text-sm">
+                                                <td class="text-center px-3 py-2 text-sm">
                                                     {{ $item['e_tin'] ?? 'N/A' }}
                                                 </td>
-                                                <td class="px-3 py-2 text-sm">
+                                                <td class="text-center px-3 py-2 text-sm">
                                                     {{ $item['tin_date'] ?? 'N/A' }}
                                                 </td>
                                                 <td class="px-3 py-2 text-sm">
@@ -119,13 +119,13 @@
                                                 <td class="px-3 py-2 text-sm">
                                                     {{ $item->name ?? 'N/A' }}
                                                 </td>
-                                                <td class="px-3 py-2 text-sm">
+                                                <td class="text-center px-3 py-2 text-sm">
                                                     {{ $item->mobile ? \Illuminate\Support\Str::substr($item->mobile, -11) : 'N/A' }}
                                                 </td>
-                                                <td class="px-3 py-2 text-sm">
+                                                <td class="text-center px-3 py-2 text-sm">
                                                     {{ $item->e_tin ?? 'N/A' }}
                                                 </td>
-                                                <td class="px-3 py-2 text-sm">
+                                                <td class="text-center px-3 py-2 text-sm">
                                                     {{ $item->tin_date ?? 'N/A' }}
                                                 </td>
                                                 <td class="px-3 py-2 text-sm">

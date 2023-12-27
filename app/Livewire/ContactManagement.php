@@ -2,13 +2,13 @@
 
 namespace App\Livewire;
 
+use Carbon\Carbon;
 use App\Exports\ContactExport;
 use App\Models\Contact;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
-use Livewire\Features\SupportFileUploads\WithFileUploads;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\Storage;
+use Livewire\WithFileUploads;
 use Maatwebsite\Excel\Facades\Excel;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -18,18 +18,20 @@ class ContactManagement extends Component
 
     use WithFileUploads, WithPagination;
 
-    public int $perPage = 25;
+    public int $perPage = 20;
 
     public $excelFile;
 
     public array $excelData = [];
     public string $searchKey;
 
+    protected $rules = [
+        'excelFile' => 'nullable|file|mimes:xlsx',
+    ];
+
     public function upload(): void
     {
-        $this->validate([
-            'excelFile' => 'nullable|file|mimes:xlsx',
-        ]);
+        $this->validate();
 
         if ($this->excelFile) {
             $path = Storage::put('documents', $this->excelFile);
@@ -91,9 +93,9 @@ class ContactManagement extends Component
         $filename = "contacts-$date.$type";
 
         if ($type == 'csv') {
-            return Excel::download(new ContactExport, $filename, \Maatwebsite\Excel\Excel::CSV);
+            return Excel::download(new ContactExport, $filename, 'Csv');
         } else {
-            return Excel::download(new ContactExport, $filename, \Maatwebsite\Excel\Excel::XLSX);
+            return Excel::download(new ContactExport, $filename, 'Xlsx');
         }
     }
 
