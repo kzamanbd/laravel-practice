@@ -194,9 +194,9 @@ class UserManagement extends Component
         $filename = "users-{$date}.$type";
 
         if ($type == 'csv') {
-            return Excel::download(new UserExport, $filename, \Maatwebsite\Excel\Excel::CSV);
+            return Excel::download(new UserExport, $filename, 'Csv');
         } else {
-            return Excel::download(new UserExport, $filename, \Maatwebsite\Excel\Excel::XLSX);
+            return Excel::download(new UserExport, $filename, 'Xlsx');
         }
     }
 
