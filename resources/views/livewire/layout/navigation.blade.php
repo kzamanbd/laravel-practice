@@ -39,6 +39,10 @@ new class extends Component {
                     <x-nav-link :href="route('contacts')" :active="request()->routeIs('contacts')" wire:navigate>
                         {{ __('Contacts') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('contacts')" :active="request()->routeIs('posts')" wire:navigate>
+                        {{ __('Posts') }}
+                    </x-nav-link>
+
                     <div class="hidden sm:flex sm:items-center sm:ml-6">
                         <x-dropdown align="right" width="48">
                             <x-slot name="trigger">

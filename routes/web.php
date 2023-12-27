@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Livewire\ApiTokenManager;
 use App\Livewire\BrowserSession;
 use App\Livewire\ContactManagement;
+use App\Livewire\PostManagement;
 use App\Livewire\RoleManagement;
 use App\Livewire\UserDashboard;
 use App\Livewire\UserManagement;
@@ -35,6 +36,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('user/{id}/view', [UserController::class, 'show'])->name('user.show');
     Route::get('roles', RoleManagement::class)->name('role.list');
     Route::get('role/{id}/view', [RoleController::class, 'show'])->name('role.show');
+    Route::get('posts', PostManagement::class)->name('posts');
 
     Route::post('upload-base64', [HomeController::class, 'uploadBase64'])->name('upload.base64');
 });
