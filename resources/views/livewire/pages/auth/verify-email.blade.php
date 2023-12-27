@@ -2,32 +2,26 @@
 
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Auth;
 
 new #[Layout('layouts.guest')] class extends Component {
     public function sendVerification(): void
     {
-        if (
-            auth()
-                ->user()
-                ->hasVerifiedEmail()
-        ) {
+        if (Auth::user()->hasVerifiedEmail()) {
             $this->redirect(session('url.intended', RouteServiceProvider::HOME), navigate: true);
 
             return;
         }
 
-        auth()
-            ->user()
-            ->sendEmailVerificationNotification();
+        Auth::user()->sendEmailVerificationNotification();
 
         session()->flash('status', 'verification-link-sent');
     }
 
     public function logout(): void
     {
-        auth()
-            ->guard('web')
-            ->logout();
+        Auth::guard('web')->logout();
 
         session()->invalidate();
         session()->regenerateToken();
