@@ -27,7 +27,7 @@ Route::view('/', 'welcome');
 
 Route::get('dashboard', UserDashboard::class)->middleware(['auth', 'verified'])->name('dashboard');
 // auth route group
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('profile', 'profile')->name('profile');
     Route::get('browser-session', BrowserSession::class)->name('browser-session');
     Route::get('api-tokens', ApiTokenManager::class)->name('api.tokens');
