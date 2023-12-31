@@ -33,6 +33,8 @@ class UserManagement extends Component
 
     public $selectedItem = [];
 
+    protected $queryString = ['searchKey'];
+
     protected $listeners = [
         'deleteConfirmed' => 'deleteConfirmed',
     ];
@@ -171,21 +173,17 @@ class UserManagement extends Component
 
     public function deleteItem($id): void
     {
-        $this->dispatch('confirm-modal', [
-            'action' => 'deleteUserConfirmed',
-            'message' => 'Are you sure you want to delete this user?',
-            'id' => $id,
-        ]);
+        $this->dispatch('confirm-modal', action: 'deleteUserConfirmed', data: ['userId' => $id]);
         $this->userId = $id;
     }
 
     #[On('deleteUserConfirmed')]
     public function deleteConfirmed(): void
     {
-        dd('deleteUserConfirmed');
         // check permission
         $this->hasPermission('delete');
         User::destroy($this->userId);
+        $this->dispatch('notify', 'User deleted successfully');
     }
 
     public function exportExcel(string $type = 'xlsx')

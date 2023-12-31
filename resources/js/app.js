@@ -5,10 +5,7 @@ document.addEventListener("livewire:init", () => {
         const modalData = Array.isArray(event) ? event[0] : event;
         console.log(modalData);
         if (confirm(modalData.message || "Are you sure?")) {
-            Livewire.dispatch(modalData.action, {
-                ...modalData,
-                confirm: true,
-            });
+            Livewire.dispatch(modalData.action);
         }
     });
 });
