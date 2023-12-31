@@ -149,6 +149,7 @@
                                                         View
                                                     </a>
                                                     <button type="button"
+                                                        wire:click="deleteItem({{ $user->id }})"
                                                         class="px-2 py-1 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-md hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
                                                         Delete
                                                     </button>
@@ -174,12 +175,10 @@
         </div>
     </div>
 
-    <x-dialog-modal name="create-modal" maxWidth="3xl">
-        <x-slot name="title">
-            {{ $editableMode ? 'Update' : 'Create' }} User
-        </x-slot>
+    <x-modal name="create-modal" maxWidth="3xl" title="{{ $editableMode ? 'Update' : 'Create' }} User">
 
-        <x-slot name="content">
+        <form class="p-6" wire:submit="store">
+
             <div class="flex flex-wrap mb-6">
                 <div class="w-full md:w-1/2 pr-4 mb-6 md:mb-0">
                     <label class="form-label">
@@ -217,7 +216,7 @@
 
 
             <!-- component -->
-            <div class="block">
+            <div class="mb-4">
                 <h2 class="text-gray-700 text-2xl mt-3 text-center text-uppercase">Roles</h2>
                 <div class="mt-2 grid grid-cols-3 gap-2">
                     @foreach ($this->rolesList as $role)
@@ -234,17 +233,17 @@
             </div>
 
 
-        </x-slot>
 
-        <x-slot name="footer">
-            <x-primary-button color="danger" wire:click="$dispatch('close')" wire:loading.attr="disabled">
-                {{ __('Cancel') }}
-            </x-primary-button>
+            <div class="flex justify-end">
+                <x-primary-button color="danger" type="button" wire:click="$dispatch('close')"
+                    wire:loading.attr="disabled">
+                    {{ __('Cancel') }}
+                </x-primary-button>
 
-            <x-primary-button wire:click="{{ $editableMode ? 'update' : 'store' }}" class="ml-3"
-                wire:loading.attr="disabled">
-                {{ $editableMode ? 'Update' : 'Create' }}
-            </x-primary-button>
-        </x-slot>
-    </x-dialog-modal>
+                <x-primary-button class="ml-3" wire:loading.attr="disabled">
+                    {{ $editableMode ? 'Update' : 'Create' }}
+                </x-primary-button>
+            </div>
+        </form>
+    </x-modal>
 </div>

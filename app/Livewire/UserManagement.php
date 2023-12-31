@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
@@ -20,25 +21,7 @@ class UserManagement extends Component
 
     protected string $permission_for = 'users';
 
-    public $openModal = false;
-
-    public $name;
-
-    public $email;
-
-    public $password;
-
-    public $password_confirmation;
-
-    public $roles = [];
-
-    public $editableMode = false;
-
-    public $userId;
-
     public $searchKey;
-
-    protected $queryString = ['searchKey' => ['except' => '']];
 
     public $sortColumnName = 'created_at';
 
@@ -60,6 +43,19 @@ class UserManagement extends Component
         'password' => 'required|confirmed|min:8',
         'roles' => 'nullable|array',
     ];
+
+    public $userId;
+
+    public $name;
+
+    public $email;
+
+    public $password;
+
+    public $password_confirmation;
+
+    public $roles = [];
+    public $editableMode = false;
 
     public function updatedSelectedPage($value): void
     {
@@ -104,7 +100,6 @@ class UserManagement extends Component
     {
         // check permission
         $this->hasPermission('create');
-        $this->openModal = true;
     }
 
     /**
@@ -112,6 +107,10 @@ class UserManagement extends Component
      */
     public function store(): void
     {
+        if ($this->editableMode) {
+            $this->update();
+            return;
+        }
         $this->validate();
         // check permission
         $this->hasPermission('create');
@@ -139,7 +138,6 @@ class UserManagement extends Component
         $this->name = $user->name;
         $this->email = $user->email;
         $this->roles = $user->roles->pluck('id')->toArray();
-        $this->openModal = true;
         $this->editableMode = true;
         $this->userId = $id;
     }
@@ -167,22 +165,24 @@ class UserManagement extends Component
         $user->save();
         // assign role
         $user->syncRoles($this->roles);
-        $this->reset();
         $this->editableMode = false;
-        $this->openModal = false;
+        $this->reset();
     }
 
     public function deleteItem($id): void
     {
-        $this->dispatchBrowserEvent('show-delete-confirmation');
+        $this->dispatch('confirm-modal', [
+            'action' => 'deleteUserConfirmed',
+            'message' => 'Are you sure you want to delete this user?',
+            'id' => $id,
+        ]);
         $this->userId = $id;
     }
 
-    /**
-     * @throws PermissionForPropertyException
-     */
+    #[On('deleteUserConfirmed')]
     public function deleteConfirmed(): void
     {
+        dd('deleteUserConfirmed');
         // check permission
         $this->hasPermission('delete');
         User::destroy($this->userId);
@@ -195,9 +195,9 @@ class UserManagement extends Component
 
         if ($type == 'csv') {
             return Excel::download(new UserExport, $filename, 'Csv');
-        } else {
-            return Excel::download(new UserExport, $filename, 'Xlsx');
         }
+
+        return Excel::download(new UserExport, $filename, 'Xlsx');
     }
 
 
