@@ -1,7 +1,0 @@
-.git
-.github
-.docker
-vendor
-node_modules
-npm-debug.log
-docker-compose.yml
