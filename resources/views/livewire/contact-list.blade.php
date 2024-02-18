@@ -148,12 +148,8 @@
         </div>
     </div>
 
-    <x-dialog-modal name="upload-modal" maxWidth="3xl">
-        <x-slot name="title">
-            Upload File
-        </x-slot>
-
-        <x-slot name="content">
+    <x-modal name="upload-modal" maxWidth="3xl" title="Upload File">
+        <form class="p-4">
             <div x-data="{ fileName: null }" class="flex justify-center items-center w-full">
                 <label for="dropzone-file"
                     class="flex flex-col justify-center items-center w-full h-64 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
@@ -179,17 +175,16 @@
                 <a href="{{ asset('docs/excel-format.xlsx') }}" download class="underline">Simple file download</a>
             </div>
 
-        </x-slot>
-        +
-        <x-slot name="footer">
-            <x-secondary-button color="danger" x-on:click="$dispatch('close')" wire:loading.attr="disabled">
-                {{ __('Cancel') }}
-            </x-secondary-button>
+            <div class="flex justify-end" name="footer">
+                <x-secondary-button color="danger" x-on:click="$dispatch('close')" wire:loading.attr="disabled">
+                    {{ __('Cancel') }}
+                </x-secondary-button>
 
-            <x-primary-button class="ml-3" wire:loading.attr="disabled" wire:click="upload">
-                Upload
-            </x-primary-button>
-        </x-slot>
-    </x-dialog-modal>
+                <x-primary-button class="ml-3" wire:loading.attr="disabled" wire:click="upload">
+                    Upload
+                </x-primary-button>
+            </div>
+        </form>
+    </x-modal>
 
 </div>

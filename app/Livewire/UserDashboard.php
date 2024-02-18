@@ -2,12 +2,13 @@
 
 namespace App\Livewire;
 
+use JetBrains\PhpStorm\NoReturn;
 use Livewire\Component;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class UserDashboard extends Component
 {
-    public function uploadExcel()
+    public function uploadExcel(): void
     {
         $path = public_path('docs/national-target-dec-2023.xlsx');
 
@@ -19,7 +20,7 @@ class UserDashboard extends Component
         $highest_col = 'E';
 
         $highest_cell = $highest_col . $highest_row;
-        $rang = 'A9:' . $highest_cell; // Selecting The Cell Range
+        $rang = 'A1:' . $highest_cell; // Selecting The Cell Range
 
         // get data and cell formulas active sheet
 
@@ -33,10 +34,12 @@ class UserDashboard extends Component
 
         $fields = ['sl', 'region', 'blank_field', 'target_share', 'formula'];
 
-        $data = array_map(fn ($row) => array_combine($fields, $row), $dataToArray);
+        $data = array_map(fn($row) => array_combine($fields, $row), $dataToArray);
 
         dd($data);
     }
+
+
     public function render()
     {
         return view('livewire.user-dashboard');

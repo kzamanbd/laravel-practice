@@ -11,6 +11,7 @@ use App\Livewire\RoleManagement;
 use App\Livewire\UserDashboard;
 use App\Livewire\UserManagement;
 use Illuminate\Support\Facades\Route;
+use Maatwebsite\Excel\Facades\Excel;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,3 +43,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 require __DIR__ . '/auth.php';
+
+Route::get('test', function () {
+    $path = public_path('docs/TargetSetup.xlsx');
+    // get all sheets
+    $response = [];
+    $sheets = Excel::toCollection(new \App\Imports\TargetSetup, $path);
+    foreach ($sheets as $sheet) {
+        $response[] = $sheet;
+    }
+
+
+    return $response;
+});
