@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Livewire\ApiTokenManager;
 use App\Livewire\BrowserSession;
 use App\Livewire\ContactManagement;
+use App\Livewire\GenerateRoute;
 use App\Livewire\PostManagement;
 use App\Livewire\RoleManagement;
 use App\Livewire\UserDashboard;
@@ -40,6 +41,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('posts', PostManagement::class)->name('posts');
 
     Route::post('upload-base64', [HomeController::class, 'uploadBase64'])->name('upload.base64');
+    Route::get('generate-route', GenerateRoute::class)->name('generate.route');
 });
 
 require __DIR__ . '/auth.php';
@@ -52,7 +54,6 @@ Route::get('test', function () {
     foreach ($sheets as $sheet) {
         $response[] = $sheet;
     }
-
-
     return $response;
 });
+
