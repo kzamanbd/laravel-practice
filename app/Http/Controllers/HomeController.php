@@ -23,7 +23,6 @@ class HomeController extends Controller
 
     public function uploadBase64(Request $request)
     {
-
         try {
             $file = $request->file('file');
             $filename = $file->getClientOriginalName();

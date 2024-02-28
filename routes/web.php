@@ -3,6 +3,7 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Imports\TargetSetup;
 use App\Livewire\ApiTokenManager;
 use App\Livewire\BrowserSession;
 use App\Livewire\ContactManagement;
@@ -50,7 +51,7 @@ Route::get('test', function () {
     $path = public_path('docs/TargetSetup.xlsx');
     // get all sheets
     $response = [];
-    $sheets = Excel::toCollection(new \App\Imports\TargetSetup, $path);
+    $sheets = Excel::toCollection(new TargetSetup, $path);
     foreach ($sheets as $sheet) {
         $response[] = $sheet;
     }
