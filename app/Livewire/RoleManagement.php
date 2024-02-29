@@ -91,13 +91,17 @@ class RoleManagement extends Component
         return $permissionService->permissions();
     }
 
-    public function create()
+    public function create(): void
     {
         $this->openModal = true;
     }
 
-    public function store()
+    public function store(): void
     {
+        if ($this->editableMode) {
+            $this->update();
+            return;
+        }
         // check permission
         $this->hasPermission('create');
 
@@ -119,7 +123,7 @@ class RoleManagement extends Component
         $this->openModal = false;
     }
 
-    public function editItem($id)
+    public function editItem($id): void
     {
         $this->roleId = $id;
         $this->openModal = true;
@@ -130,7 +134,7 @@ class RoleManagement extends Component
         $this->permissions = $role->permissions->pluck('id')->toArray();
     }
 
-    public function update()
+    public function update(): void
     {
         // check permission
         $this->hasPermission('update');

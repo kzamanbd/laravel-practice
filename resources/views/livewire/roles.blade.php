@@ -136,12 +136,9 @@
 
     {{-- role create or update modal --}}
 
-    <x-dialog-modal name="role-modal" maxWidth="3xl">
-        <x-slot name="title">
-            {{ $editableMode ? 'Update' : 'Create' }} Role
-        </x-slot>
+    <x-modal name="role-modal" maxWidth="3xl" title="{{ $editableMode ? 'Update' : 'Create' }}">
 
-        <x-slot name="content">
+        <form class="p-6" wire:submit="store">
 
             <div class="form-group">
                 <label for="grid-first-name1" class="form-label">
@@ -159,7 +156,7 @@
 
 
 
-            <div class="mt-4">
+            <div class="my-4">
                 <h1
                     class="focus:outline-none text-lg font-bold text-gray-800 dark:text-gray-100 leading-5 pt-2 mb-4 text-center flex items-center justify-center">
                     <span>Permissions</span>
@@ -168,7 +165,7 @@
 
                 <div class="space-y-4 h-96 overflow-y-auto">
                     @foreach ($this->features as $feature)
-                        <div class="form-control" x-data="roleList">
+                        <div class="form-control">
                             <label class="flex items-center mb-2">
                                 <x-checkbox x-ref="selectAllPermissions" x-on:click="checkedAllPermission"
                                     x-bind:checked="isAllChecked" />
@@ -190,61 +187,16 @@
                     @endforeach
                 </div>
             </div>
+            <div class="flex justify-end">
+                <x-primary-button color="danger" type="button" wire:click="$dispatch('close')"
+                    wire:loading.attr="disabled">
+                    {{ __('Cancel') }}
+                </x-primary-button>
 
-        </x-slot>
-
-        <x-slot name="footer">
-            <x-primary-button color="danger" wire:click="$dispatch('close')" wire:loading.attr="disabled">
-                {{ __('Cancel') }}
-            </x-primary-button>
-
-            <x-primary-button wire:click="{{ $editableMode ? 'update' : 'store' }}" class="ml-3"
-                wire:loading.attr="disabled">
-                {{ $editableMode ? 'Update' : 'Create' }}
-            </x-primary-button>
-        </x-slot>
-    </x-dialog-modal>
-
-
-    <x-slot name="script">
-        <script type="text/javascript">
-            document.addEventListener('alpine:init', () => {
-                // alpine data
-                Alpine.data('roleList', () => ({
-                    init() {
-                        let checked = true
-                        const children = this.$refs.permissions.children
-                        for (let i = 0; i < children.length; i++) {
-                            if (!children[i].firstChild.checked) {
-                                checked = false;
-                                break;
-                            }
-                        }
-                        this.isAllChecked = checked
-                    },
-                    checkedAllPermission(event) {
-                        const children = event.target.parentElement.nextElementSibling.children;
-                        for (let i = 0; i < children.length; i++) {
-                            children[i].children[0].checked = event.target.checked
-                        }
-                    },
-                    checkedSinglePermission(event) {
-                        let allChecked = true
-                        const allPermissions = event.target.parentElement.parentElement.children
-                        for (let i = 0; i < allPermissions.length; i++) {
-                            const checkbox = allPermissions[i].children[0]
-                            if (!checkbox.checked) {
-                                allChecked = false
-                                break
-                            }
-                        }
-                        this.$refs.selectAllPermissions.checked = allChecked
-                    },
-                    isAllChecked: false
-                }));
-            });
-        </script>
-
-    </x-slot>
-
+                <x-primary-button class="ml-3" wire:loading.attr="disabled">
+                    Save
+                </x-primary-button>
+            </div>
+        </form>
+    </x-modal>
 </div>

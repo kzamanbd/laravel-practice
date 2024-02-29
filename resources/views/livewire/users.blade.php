@@ -240,7 +240,7 @@
                 </x-primary-button>
 
                 <x-primary-button class="ml-3" wire:loading.attr="disabled">
-                    {{ $editableMode ? 'Update' : 'Create' }}
+                    Save
                 </x-primary-button>
             </div>
         </form>
