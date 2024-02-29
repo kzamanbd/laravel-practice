@@ -167,16 +167,14 @@
                     @foreach ($this->features as $feature)
                         <div class="form-control">
                             <label class="flex items-center mb-2">
-                                <x-checkbox x-ref="selectAllPermissions" x-on:click="checkedAllPermission"
-                                    x-bind:checked="isAllChecked" />
+                                <x-checkbox />
                                 <span class="ml-2">{{ $feature->name }}</span>
                             </label>
-                            <div class="flex items-center space-x-2" x-ref="permissions">
+                            <div class="flex items-center space-x-2">
                                 @foreach ($this->permissionsList as $permission)
                                     @continue(\Illuminate\Support\Str::of($permission->name)->beforeLast('-') != $feature->slug)
                                     <label class="block">
-                                        <x-checkbox value="{{ $permission->id }}" wire:model="permissions"
-                                            x-on:click="checkedSinglePermission" />
+                                        <x-checkbox value="{{ $permission->id }}" wire:model="permissions" />
                                         <span class="mr-2 ml-1 text-gray-700">
                                             {{ \Illuminate\Support\Str::of($permission->name)->afterLast('-')->replace('_', ' ')->ucfirst() }}
                                         </span>
