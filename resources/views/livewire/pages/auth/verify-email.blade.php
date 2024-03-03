@@ -1,30 +1,34 @@
 <?php
 
+use App\Livewire\Actions\Logout;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Support\Facades\Auth;
 
 new #[Layout('layouts.guest')] class extends Component {
+    /**
+     * Send an email verification notification to the user.
+     */
     public function sendVerification(): void
     {
         if (Auth::user()->hasVerifiedEmail()) {
-            $this->redirect(session('url.intended', RouteServiceProvider::HOME), navigate: true);
+            $this->redirect(session('url.intended', route('dashboard', absolute: false)), navigate: true);
 
             return;
         }
 
         Auth::user()->sendEmailVerificationNotification();
 
-        session()->flash('status', 'verification-link-sent');
+        Session::flash('status', 'verification-link-sent');
     }
 
-    public function logout(): void
+    /**
+     * Log the current user out of the application.
+     */
+    public function logout(Logout $logout): void
     {
-        Auth::guard('web')->logout();
-
-        session()->invalidate();
-        session()->regenerateToken();
+        $logout();
 
         $this->redirect('/', navigate: true);
     }

@@ -1,5 +1,4 @@
 import forms from "@tailwindcss/forms";
-import typography from "@tailwindcss/typography";
 import colors from "tailwindcss/colors";
 import defaultTheme from "tailwindcss/defaultTheme";
 
@@ -56,5 +55,5 @@ export default {
         },
     },
 
-    plugins: [forms, typography],
+    plugins: [forms],
 };
