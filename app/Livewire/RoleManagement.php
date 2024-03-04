@@ -2,7 +2,7 @@
 
 namespace App\Livewire;
 
-use App\Exceptions\PermissionForPropertyException;
+use App\Http\Controllers\PermissionForPropertyException;
 use App\Http\Controllers\PermissionForPropertyValidation;
 use App\Services\FeatureService\FeatureService;
 use App\Services\PermissionService\PermissionService;

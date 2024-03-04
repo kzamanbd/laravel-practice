@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Exceptions\PermissionForPropertyException;
-
 trait PermissionForPropertyValidation
 {
     /**

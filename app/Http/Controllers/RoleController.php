@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Exceptions\PermissionForPropertyException;
 use App\Services\FeatureService\FeatureService;
 use App\Services\PermissionService\PermissionService;
 use App\Services\RoleService\RoleService;

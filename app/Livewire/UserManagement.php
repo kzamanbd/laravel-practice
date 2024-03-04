@@ -2,8 +2,8 @@
 
 namespace App\Livewire;
 
-use App\Exceptions\PermissionForPropertyException;
 use App\Exports\UserExport;
+use App\Http\Controllers\PermissionForPropertyException;
 use App\Http\Controllers\PermissionForPropertyValidation;
 use App\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
