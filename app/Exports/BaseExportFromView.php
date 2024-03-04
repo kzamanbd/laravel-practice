@@ -15,7 +15,6 @@ abstract class BaseExportFromView implements FromView, ShouldAutoSize, WithEvent
 
     public function registerEvents(): array
     {
-        // after sheet rows grouping
         return [
             AfterSheet::class => function (AfterSheet $event) {
                 if (isset($this->freezePane)) {

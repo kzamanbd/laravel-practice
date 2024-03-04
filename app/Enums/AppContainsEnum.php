@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-class AppContainsEnum
+enum AppContainsEnum: string
 {
     // religion code key for code elements
     const RELIGION_CODE_KEY = 'RELIGION';

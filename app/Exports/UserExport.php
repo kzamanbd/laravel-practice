@@ -3,7 +3,6 @@
 namespace App\Exports;
 
 use App\Models\User;
-use Dompdf\Dompdf;
 use Illuminate\Contracts\View\View;
 
 class UserExport extends BaseExportFromView
@@ -17,16 +16,5 @@ class UserExport extends BaseExportFromView
         return view('exports.users', [
             'users' => User::query()->latest()->get(),
         ]);
-    }
-
-    public function pdf()
-    {
-        $dompdf = new Dompdf();
-        $dompdf->loadHtml($this->view());
-        $dompdf->setPaper('A4', 'landscape');
-        $dompdf->render();
-        $name = 'users-'.now()->format('Y-m-d').'.pdf';
-
-        return $dompdf->stream($name, ['Attachment' => false]);
     }
 }
