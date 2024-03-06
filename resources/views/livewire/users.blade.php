@@ -2,7 +2,6 @@
     <x-slot name="header">
         <h2 class="font-semibold flex justify-between text-xl text-gray-800 leading-tight">
             <span>Users List</span>
-            <a href="#">Send Notification</a>
         </h2>
     </x-slot>
 
@@ -24,12 +23,10 @@
                         </div>
 
                         <div class="flex items-center space-x-4">
-                            <x-primary-button color="light" type="button" wire:loading.attr="disabled"
-                                wire:click="exportExcel('csv')">
+                            <x-primary-button color="light" type="button" wire:click="exportExcel('csv')">
                                 csv
                             </x-primary-button>
-                            <x-primary-button color="light" type="button" wire:loading.attr="disabled"
-                                wire:click="exportExcel('xlsx')">
+                            <x-primary-button color="light" type="button" wire:click="exportExcel('xlsx')">
                                 Xslx
                             </x-primary-button>
                             <x-primary-button color="light" type="button">
@@ -38,6 +35,9 @@
 
                             <x-primary-button type="button" wire:click="$dispatch('open-modal', 'create-modal')">
                                 Create
+                            </x-primary-button>
+                            <x-primary-button color="light" type="button" wire:click="sendNotification">
+                                Send Notification
                             </x-primary-button>
                         </div>
                     </div>
@@ -234,12 +234,11 @@
 
 
             <div class="flex justify-end">
-                <x-primary-button color="danger" type="button" wire:click="$dispatch('close')"
-                    wire:loading.attr="disabled">
+                <x-primary-button color="danger" type="button" wire:click="$dispatch('close')">
                     {{ __('Cancel') }}
                 </x-primary-button>
 
-                <x-primary-button class="ml-3" wire:loading.attr="disabled">
+                <x-primary-button class="ml-3">
                     Save
                 </x-primary-button>
             </div>

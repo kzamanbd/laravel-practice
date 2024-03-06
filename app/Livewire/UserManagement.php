@@ -5,10 +5,12 @@ namespace App\Livewire;
 use App\Exports\UserExport;
 use App\Http\Controllers\PermissionForPropertyException;
 use App\Http\Controllers\PermissionForPropertyValidation;
+use App\Mail\AccountVerification;
 use App\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -93,6 +95,17 @@ class UserManagement extends Component
     public function getRolesListProperty(): Collection
     {
         return Role::all();
+    }
+
+
+    public function sendNotification(): void
+    {
+        $users = User::query()->limit(5)->get();
+        foreach ($users as $user) {
+            Mail::to($user->email)->queue(new AccountVerification($user));
+        }
+
+        $this->dispatch('success', 'Notification successfully send.');
     }
 
     /**

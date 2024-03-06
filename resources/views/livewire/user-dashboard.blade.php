@@ -23,7 +23,7 @@
                     </div>
                 </form>
 
-                <x-primary-button wire:click="uploadExcel" wire:loading.attr="disabled">
+                <x-primary-button wire:click="uploadExcel">
                     Upload Excel With Formula
                 </x-primary-button>
             </div>
