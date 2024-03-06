@@ -24,12 +24,10 @@
                         </div>
 
                         <div class="flex items-center space-x-4">
-                            <x-primary-button color="light" type="button" wire:loading.attr="disabled"
-                                wire:click="exportExcel('csv')">
+                            <x-primary-button color="light" type="button" wire:click="exportExcel('csv')">
                                 csv
                             </x-primary-button>
-                            <x-primary-button color="light" type="button" wire:loading.attr="disabled"
-                                wire:click="exportExcel('xlsx')">
+                            <x-primary-button color="light" type="button" wire:click="exportExcel('xlsx')">
                                 Xslx
                             </x-primary-button>
                             <x-primary-button color="light" type="button">
@@ -176,11 +174,11 @@
             </div>
 
             <div class="flex justify-end" name="footer">
-                <x-secondary-button color="danger" x-on:click="$dispatch('close')" wire:loading.attr="disabled">
+                <x-secondary-button color="danger" x-on:click="$dispatch('close')">
                     {{ __('Cancel') }}
                 </x-secondary-button>
 
-                <x-primary-button class="ml-3" wire:loading.attr="disabled" wire:click="upload">
+                <x-primary-button class="ml-3" wire:click="upload">
                     Upload
                 </x-primary-button>
             </div>

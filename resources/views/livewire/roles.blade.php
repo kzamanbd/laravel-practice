@@ -186,12 +186,11 @@
                 </div>
             </div>
             <div class="flex justify-end">
-                <x-primary-button color="danger" type="button" wire:click="$dispatch('close')"
-                    wire:loading.attr="disabled">
+                <x-primary-button color="danger" type="button" wire:click="$dispatch('close')">
                     {{ __('Cancel') }}
                 </x-primary-button>
 
-                <x-primary-button class="ml-3" wire:loading.attr="disabled">
+                <x-primary-button class="ml-3">
                     Save
                 </x-primary-button>
             </div>
