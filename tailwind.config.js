@@ -2,7 +2,7 @@ import forms from "@tailwindcss/forms";
 import colors from "tailwindcss/colors";
 import defaultTheme from "tailwindcss/defaultTheme";
 
-const primary = colors.sky;
+const primary = colors.indigo;
 
 /** @type {import('tailwindcss').Config} */
 export default {
