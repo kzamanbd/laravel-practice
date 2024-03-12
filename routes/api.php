@@ -7,6 +7,7 @@ use App\Http\Controllers\API\HomeController;
 use App\Http\Controllers\API\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Middleware\Authenticate;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -31,7 +32,7 @@ Route::prefix('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'logout']);
 });
 
-Route::get('init-app', [HomeController::class, 'initApp']);
+Route::get('app', [HomeController::class, 'initApp']);
 //get category
 Route::get('category', [CategoryController::class, 'index']);
 //get post
