@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
 
+
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware(Authenticate::using('sanctum'));
@@ -33,13 +34,9 @@ Route::prefix('auth')->group(function () {
 });
 
 Route::get('app', [HomeController::class, 'initApp']);
-//get category
 Route::get('category', [CategoryController::class, 'index']);
-//get post
 Route::get('posts', [PostController::class, 'posts']);
 Route::get('post/{slug}', [PostController::class, 'show']);
-
-// comment route
 Route::post('comment', [CommentController::class, 'store']);
 Route::post('comment', [CommentController::class, 'destroy']);
 
