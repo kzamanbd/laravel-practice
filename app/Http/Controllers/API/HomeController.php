@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
 use App\Models\Blob;
 use App\Models\Category;
 use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Throwable;
 
@@ -73,9 +73,7 @@ class HomeController extends Controller
     public function testDatabaseTransactions()
     {
 
-        DB::beginTransaction();
-
-        try {
+        DB::beginTransaction(function () {
             $category = Category::query()->create([
                 'name' => 'Test Category',
                 'slug' => 'test-category',
@@ -89,14 +87,12 @@ class HomeController extends Controller
             DB::commit();
 
             return [$user, $category];
-        } catch (Throwable $e) {
-            DB::rollBack();
+        }, 5);
 
-            return response()->json([
-                'status' => 'Failed',
-                'message' => $e->getMessage(),
-            ]);
-        }
+        return response()->json([
+            'success' => true,
+            'message' => 'Database transaction success',
+        ], 200);
     }
     public function uploadBase64(Request $request)
     {
