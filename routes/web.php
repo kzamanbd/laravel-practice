@@ -33,7 +33,7 @@ Route::get('dashboard', UserDashboard::class)->middleware(['auth', 'verified'])-
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('profile', 'profile')->name('profile');
     Route::get('browser-session', BrowserSession::class)->name('browser-session');
-    Route::get('api-tokens', ApiTokenManager::class)->name('api.tokens');
+    Route::get('tokens', ApiTokenManager::class)->name('api.tokens');
     Route::get('contacts', ContactManagement::class)->name('contacts');
     Route::get('users', UserManagement::class)->name('user.list');
     Route::get('user/{id}/view', [UserController::class, 'show'])->name('user.show');
@@ -57,4 +57,3 @@ Route::get('test', function () {
     }
     return $response;
 });
-

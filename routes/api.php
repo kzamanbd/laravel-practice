@@ -24,13 +24,13 @@ Route::get('/', function () {
 });
 
 Route::prefix('auth')->group(function () {
-    //get current user
-    Route::get('current-user', [AuthenticatedSessionController::class, 'currentUser']);
     //login routes
     Route::post('login', [AuthenticatedSessionController::class, 'login']);
     Route::post('register', [AuthenticatedSessionController::class, 'register']);
+    //get current user
+    Route::get('current-user', [AuthenticatedSessionController::class, 'currentUser'])->middleware('auth:sanctum');
     //logout
-    Route::post('logout', [AuthenticatedSessionController::class, 'logout']);
+    Route::post('logout', [AuthenticatedSessionController::class, 'logout'])->middleware('auth:sanctum');
 });
 
 Route::get('app', [HomeController::class, 'initApp']);

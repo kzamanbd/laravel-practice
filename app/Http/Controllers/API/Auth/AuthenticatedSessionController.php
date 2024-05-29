@@ -11,12 +11,11 @@ use Illuminate\Validation\ValidationException;
 
 class AuthenticatedSessionController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:sanctum')->only(['currentUser', 'logout']);
-    }
 
-    //current user
+    /**
+     * Current User
+     * @operationId current-user
+     */
     public function currentUser(Request $request)
     {
         $user = $request->user();
@@ -25,7 +24,8 @@ class AuthenticatedSessionController extends Controller
     }
 
     /**
-     * @throws ValidationException
+     * Login
+     * @operationId login
      */
     public function login(Request $request): JsonResponse
     {
@@ -36,8 +36,17 @@ class AuthenticatedSessionController extends Controller
         } elseif ($request->input('strategy') == 'google') {
             return $this->loginWithGoogle($request);
         } else {
+
             $this->validate($request, [
+                /**
+                 * @var string
+                 * @example kzamanbn@gmail.com
+                 */
                 'email' => 'required',
+                /**
+                 * @var string
+                 * @example password
+                 */
                 'password' => 'required|min:6',
             ]);
 
@@ -57,7 +66,6 @@ class AuthenticatedSessionController extends Controller
                 return response()->json(['message' => 'Unauthorized'], 401);
             }
         }
-
     }
 
     private function loginWithGithub($userData)
@@ -73,7 +81,7 @@ class AuthenticatedSessionController extends Controller
         if ($user == null) {
             $user = User::create([
                 'name' => $userData->name,
-                'email' => $userData->login.'@github.com',
+                'email' => $userData->login . '@github.com',
                 'username' => $userData->login,
                 'github_id' => $userData->id,
                 'email_verified_at' => now(),
@@ -99,11 +107,6 @@ class AuthenticatedSessionController extends Controller
         }
 
         if ($user == null) {
-            //Uploading Photo From Facebook URL
-            // $contents = file_get_contents($userData->picture["data"]["url"]);
-            // $name = "images/member" . $this->memberId() . "_" . uniqid() . ".jpg";
-            // Storage::disk("public")->put($name, $contents);
-
             $user = User::create([
                 'name' => $userData->name,
                 'email' => $userData->email,
@@ -142,7 +145,8 @@ class AuthenticatedSessionController extends Controller
     }
 
     /**
-     * @throws ValidationException
+     * Register
+     * @operationId register
      */
     public function register(Request $request): JsonResponse
     {
@@ -177,6 +181,11 @@ class AuthenticatedSessionController extends Controller
     {
         return $request->only('email', 'password');
     }
+
+    /**
+     * Logout
+     * @operationId logout
+     */
 
     public function logout(Request $request): JsonResponse
     {
