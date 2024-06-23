@@ -18,6 +18,7 @@
         "livewire/livewire": "^3.4",
         "livewire/volt": "^1.0",
         "maatwebsite/excel": "^3.1",
+        "predis/predis": "^2.2",
         "spatie/laravel-permission": "^6.4",
         "yajra/laravel-oci8": "^11.3"
     },
