@@ -22,7 +22,7 @@
                     <div class="col-span-6 sm:col-span-4">
                         <x-input-label for="name" value="{{ __('Token Name') }}" />
                         <x-text-input id="name" type="text" class="mt-1 block w-full"
-                            wire:model.defer="createApiTokenForm.name" autofocus />
+                            wire:model="createApiTokenForm.name" autofocus />
                         <x-input-error :messages="$errors->get('createApiTokenForm.name')" class="mt-2" />
                     </div>
 
@@ -125,7 +125,8 @@
                         @showing-token-modal.window="setTimeout(() => $refs.plaintextToken.select(), 250)" />
 
 
-                    <x-secondary-button wire:click="$dispatch('close')" wire:loading.attr="disabled">
+                    <x-secondary-button wire:click="$dispatch('close-modal','displayingToken')"
+                        wire:loading.attr="disabled">
                         {{ __('Close') }}
                     </x-secondary-button>
                 </div>
@@ -149,7 +150,8 @@
                     </div>
 
 
-                    <x-secondary-button wire:click="$dispatch('close')" wire:loading.attr="disabled">
+                    <x-secondary-button wire:click="$dispatch('close-modal','managingApiTokenPermissions')"
+                        wire:loading.attr="disabled">
                         {{ __('Cancel') }}
                     </x-secondary-button>
 
@@ -170,7 +172,8 @@
                         {{ __('Are you sure you would like to delete this API token?') }}
                     </h2>
 
-                    <x-secondary-button wire:click="$dispatch('close')" wire:loading.attr="disabled">
+                    <x-secondary-button wire:click="$dispatch('close-modal','confirmingApiTokenDeletion')"
+                        wire:loading.attr="disabled">
                         {{ __('Cancel') }}
                     </x-secondary-button>
 

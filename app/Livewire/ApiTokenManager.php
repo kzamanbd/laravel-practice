@@ -37,13 +37,6 @@ class ApiTokenManager extends Component
     public $plainTextToken;
 
     /**
-     * Indicates if the user is currently managing an API token's permissions.
-     *
-     * @var bool
-     */
-    public $managingApiTokenPermissions = false;
-
-    /**
      * The token that is currently having its permissions managed.
      *
      * @var \Laravel\Sanctum\PersonalAccessToken|null
@@ -58,13 +51,6 @@ class ApiTokenManager extends Component
     public $updateApiTokenForm = [
         'permissions' => [],
     ];
-
-    /**
-     * Indicates if the application is confirming if an API token should be deleted.
-     *
-     * @var bool
-     */
-    public $confirmingApiTokenDeletion = false;
 
     /**
      * The ID of the API token being deleted.
@@ -163,7 +149,7 @@ class ApiTokenManager extends Component
             'abilities' => $this->updateApiTokenForm['permissions'],
         ])->save();
 
-        $this->managingApiTokenPermissions = false;
+        $this->dispatch('close-modal', 'managingApiTokenPermissions');
     }
 
     /**
@@ -190,7 +176,7 @@ class ApiTokenManager extends Component
 
         $this->user->load('tokens');
 
-        $this->confirmingApiTokenDeletion = false;
+        $this->dispatch('close-modal', 'confirmingApiTokenDeletion');
 
         $this->managingPermissionsFor = null;
     }
