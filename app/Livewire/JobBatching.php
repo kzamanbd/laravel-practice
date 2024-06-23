@@ -2,9 +2,15 @@
 
 namespace App\Livewire;
 
+use App\Jobs\ExportCsvChunk;
+use Illuminate\Bus\Batch;
+use Illuminate\Support\Facades\Bus;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Throwable;
 
 class JobBatching extends Component
 {
@@ -18,6 +24,27 @@ class JobBatching extends Component
         $this->validateOnly('file');
         dd($this->file->getRealPath());
     }
+
+    public function downloadContacts()
+    {
+        $filename = 'contacts/export_' . now()->timestamp . '.csv';
+
+        // Initialize the CSV file with headers
+        Storage::put($filename, implode(',', ['ID', 'Name', 'Mobile', 'TIN Date', 'E-TIN', 'OLD TIN']) . "\n"); // Replace with actual columns
+
+        // Fetch data in chunks and create batch jobs
+
+        $batches = [];
+        DB::table('users')->latest()->chunk(1000, function ($rows) use (&$jobs, $filename) {
+            $batches[] = new ExportCsvChunk($rows->toArray(), $filename);
+        });
+
+        // Dispatch the batch of jobs
+        $batch = Bus::batch($batches)->dispatch();
+
+        dd(['message' => 'CSV export batch job has been dispatched.', 'batch_id' => $batch->id]);
+    }
+
     public function render()
     {
         return view('livewire.job-batching');
