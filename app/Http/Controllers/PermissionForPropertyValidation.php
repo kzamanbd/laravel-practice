@@ -14,9 +14,7 @@ trait PermissionForPropertyValidation
         // get permission name
         $permission_name = $this->getPermissionName($permissionType);
 
-        if (!auth()->user()->can($permission_name)) {
-            abort(401);
-        }
+        abort_if(!auth()->user()->can($permission_name), 401);
     }
 
     /**
