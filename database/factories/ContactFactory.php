@@ -11,13 +11,13 @@ class ContactFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'mobile' => $this->faker->word(),
+            'mobile' => $this->faker->phoneNumber(),
             'address' => $this->faker->address(),
-            'e_tin' => $this->faker->word(),
-            'old_tin' => $this->faker->word(),
-            'tin_date' => $this->faker->word(),
-            'police_station' => $this->faker->word(),
-            'circle_name' => $this->faker->name(),
+            'e_tin' => strtoupper(substr(uniqid() . uniqid(), 0, 12)),
+            'old_tin' => strtoupper(substr(uniqid() . uniqid(), 0, 12)),
+            'tin_date' => $this->faker->date(),
+            'police_station' => $this->faker->address(),
+            'circle_name' => $this->faker->address(),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ];
