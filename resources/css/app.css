@@ -5,6 +5,9 @@
 @tailwind utilities;
 
 @layer components {
+    .dark--text {
+        @apply text-gray-700 dark:text-[#6D7993];
+    }
     /* Form components */
     .form-group {
         @apply mb-2;
