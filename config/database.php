@@ -109,6 +109,18 @@ return [
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
 
+        'oracle' => [
+            'driver' => 'oracle',
+            'host' => '203.188.245.58',
+            'port' => '2500',
+            'database' => 'JERPDEV',
+            'service_name' => 'JERPDEV',
+            'username' => 'JERP',
+            'password' => 'JERP',
+            'charset' => 'AL32UTF8',
+            'prefix' => '',
+        ],
+
     ],
 
     /*

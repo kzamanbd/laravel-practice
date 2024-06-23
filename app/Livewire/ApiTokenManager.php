@@ -30,13 +30,6 @@ class ApiTokenManager extends Component
     ];
 
     /**
-     * Indicates if the plain text token is being displayed to the user.
-     *
-     * @var bool
-     */
-    public $displayingToken = false;
-
-    /**
      * The plain text token value.
      *
      * @var string|null
@@ -123,7 +116,7 @@ class ApiTokenManager extends Component
         $this->createApiTokenForm['name'] = '';
         $this->createApiTokenForm['permissions'] = self::$defaultPermissions;
 
-        $this->emit('created');
+        $this->dispatch('created');
     }
 
     /**
@@ -134,11 +127,11 @@ class ApiTokenManager extends Component
      */
     protected function displayTokenValue($token)
     {
-        $this->displayingToken = true;
+        $this->dispatch('open-modal', 'displayingToken');
 
         $this->plainTextToken = explode('|', $token->plainTextToken, 2)[1];
 
-        $this->dispatchBrowserEvent('showing-token-modal');
+        $this->dispatch('showing-token-modal');
     }
 
     /**
@@ -149,7 +142,7 @@ class ApiTokenManager extends Component
      */
     public function manageApiTokenPermissions($tokenId)
     {
-        $this->managingApiTokenPermissions = true;
+        $this->dispatch('open-modal', 'managingApiTokenPermissions');
 
         $this->managingPermissionsFor = $this->user->tokens()->where(
             'id',
@@ -181,7 +174,7 @@ class ApiTokenManager extends Component
      */
     public function confirmApiTokenDeletion($tokenId)
     {
-        $this->confirmingApiTokenDeletion = true;
+        $this->dispatch('open-modal', 'confirmingApiTokenDeletion');
 
         $this->apiTokenIdBeingDeleted = $tokenId;
     }

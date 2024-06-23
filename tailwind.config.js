@@ -2,7 +2,42 @@ import forms from "@tailwindcss/forms";
 import colors from "tailwindcss/colors";
 import defaultTheme from "tailwindcss/defaultTheme";
 
-const primary = colors.indigo;
+const primary = colors.green;
+const colorConfig = {
+    dark: {
+        ...colors.slate,
+        DEFAULT: "#1F2937",
+    },
+    white: {
+        DEFAULT: "#FFFFFF",
+        light: "#E0E6ED",
+    },
+    light: "#F5F8FA",
+    primary: {
+        ...primary,
+        DEFAULT: "#00A76F",
+    },
+    info: {
+        ...colors.indigo,
+        DEFAULT: colors.indigo[500],
+    },
+    danger: {
+        ...colors.rose,
+        DEFAULT: colors.rose[500],
+    },
+    success: {
+        ...colors.emerald,
+        DEFAULT: colors.emerald[500],
+    },
+    warning: {
+        ...colors.amber,
+        DEFAULT: colors.amber[500],
+    },
+    secondary: {
+        ...colors.gray,
+        DEFAULT: colors.gray[400],
+    },
+};
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -19,32 +54,7 @@ export default {
     theme: {
         themeVariants: ["dark", "light"],
         extend: {
-            colors: {
-                dark: {
-                    primary: "#1E1E2D",
-                    secondary: "#151521",
-                },
-                light: {
-                    gray: "#F5F8FA",
-                },
-                primary: {
-                    100: primary[100],
-                    200: primary[200],
-                    300: primary[300],
-                    400: primary[400],
-                    500: primary[500],
-                    600: primary[600],
-                    700: primary[700],
-                    800: primary[800],
-                    900: primary[900],
-                    DEFAULT: primary[500],
-                },
-                info: "#56B6F7",
-                danger: colors.red[500],
-                success: colors.green[600],
-                warning: colors.yellow[500],
-                secondary: primary[300],
-            },
+            colors: colorConfig,
             maxHeight: {
                 0: "0",
                 xl: "36rem",

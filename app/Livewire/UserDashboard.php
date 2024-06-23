@@ -2,7 +2,6 @@
 
 namespace App\Livewire;
 
-use JetBrains\PhpStorm\NoReturn;
 use Livewire\Component;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
@@ -34,7 +33,7 @@ class UserDashboard extends Component
 
         $fields = ['sl', 'region', 'blank_field', 'target_share', 'formula'];
 
-        $data = array_map(fn($row) => array_combine($fields, $row), $dataToArray);
+        $data = array_map(fn ($row) => array_combine($fields, $row), $dataToArray);
 
         dd($data);
     }

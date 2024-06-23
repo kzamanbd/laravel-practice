@@ -28,11 +28,16 @@ class GenerateRoute extends Component
                 $route = explode('::', $route);
                 $method = $route[0];
                 $path = $route[1];
-                $function = explode('@', $path)[1];
+                $function = explode('@', explode('->', $path)[0])[1];
                 $url = explode(',', explode('@', $path)[0])[0];
                 $class = explode(',', explode('@', $path)[0])[1];
                 // make route this format Route::get('get-question-check-temp', [CheckTempController::class, 'get_question_check_temp']);
-                $name = $method . '::' . trim($url) . ', [\App\Http\Controllers\\' . trim(str_replace('\'', '', $class)) . '::class, \'' . trim(str_replace(')', '', $function)) . ']);';
+                $name = $method . '::' . trim($url) . ', [\App\Http\Controllers\\' . trim(str_replace('\'', '', $class)) . '::class, \'' . trim(str_replace(')', '', $function)) . '])';
+                if (isset(explode('->', $path)[1])) {
+                    $name .= '->' . explode('->', $path)[1] > ';';
+                } else {
+                    $name .= ';';
+                }
                 $this->routes[] = $name;
             }
         } catch (\Exception $e) {
