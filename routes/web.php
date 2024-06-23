@@ -8,10 +8,12 @@ use App\Livewire\ApiTokenManager;
 use App\Livewire\BrowserSession;
 use App\Livewire\ContactManagement;
 use App\Livewire\GenerateRoute;
+use App\Livewire\JobBatching;
 use App\Livewire\PostManagement;
 use App\Livewire\RoleManagement;
 use App\Livewire\UserDashboard;
 use App\Livewire\UserManagement;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -43,6 +45,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::post('upload-base64', [HomeController::class, 'uploadBase64'])->name('upload.base64');
     Route::get('generate-route', GenerateRoute::class)->name('generate.route');
+    Route::get('job-batching', JobBatching::class)->name('job-batching');
 });
 
 require __DIR__ . '/auth.php';
@@ -56,4 +59,28 @@ Route::get('test', function () {
         $response[] = $sheet;
     }
     return $response;
+});
+
+Route::get('sms', function () {
+    try {
+        $url = "https://gpcmp.grameenphone.com/ecmapigw/webresources/ecmapigw.v2";
+
+        $data = [
+            "username" => "NIPROJPADMN",
+            "password" => "JERP_(2024@Bd", //"Ekram@111",
+            "apicode" => "1",
+            "msisdn" => "01716724245",
+            "countrycode" => "880",
+            "cli" => "NIPRO JMI",
+            "messagetype" => "1",
+            "message" => "Test my MSG from API",
+            "messageid" => "0"
+        ];
+
+        $response = Http::post($url, $data);
+
+        dd($response->json());
+    } catch (\Throwable $th) {
+        dd($th);
+    }
 });

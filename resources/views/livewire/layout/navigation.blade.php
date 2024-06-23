@@ -41,6 +41,9 @@ new class extends Component {
                     <x-nav-link :href="route('posts')" :active="request()->routeIs('posts')" wire:navigate>
                         {{ __('Posts') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('job-batching')" :active="request()->routeIs('job-batching')" wire:navigate>
+                        {{ __('Job Batching') }}
+                    </x-nav-link>
 
                     <div class="hidden sm:flex sm:items-center sm:ml-6">
                         <x-dropdown align="right" width="48">

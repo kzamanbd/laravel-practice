@@ -1,4 +1,6 @@
 <div>
+    <x-slot name="title">Users</x-slot>
+
     <x-slot name="header">
         <h2 class="font-semibold flex justify-between text-xl text-gray-800 leading-tight">
             <span>Users List</span>

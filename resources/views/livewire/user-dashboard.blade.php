@@ -20,6 +20,7 @@
                                 {{ __('Upload') }}
                             </x-primary-button>
                         </div>
+                        <x-input-error :messages="$errors->get('file')" />
                     </div>
                 </form>
 

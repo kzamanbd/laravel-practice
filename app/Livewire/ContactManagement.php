@@ -29,7 +29,7 @@ class ContactManagement extends Component
         'excelFile' => 'nullable|file|mimes:xlsx',
     ];
 
-    public function upload(): void
+    public function uploadHandler(): void
     {
         $this->validate();
 
@@ -71,6 +71,8 @@ class ContactManagement extends Component
 
             return $item;
         }, $data);
+
+        $this->dispatch('close-modal', 'upload-modal');
     }
 
     public function confirmToImport(): void
