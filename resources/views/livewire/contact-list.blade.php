@@ -55,6 +55,11 @@
                 <div class="flex flex-col">
                     <div class="py-2 align-middle inline-block w-full">
                         <div class="border border-1 border-gray-200 rounded">
+                            @if (empty($excelData))
+                                <div class="p-2">
+                                    {{ $this->contacts->links() }}
+                                </div>
+                            @endif
                             <table class="w-full leading-normal">
                                 <thead>
                                     <tr>
@@ -136,11 +141,6 @@
                                     @endif
                                 </tbody>
                             </table>
-                            @if (empty($excelData))
-                                <div class="p-2">
-                                    {{ $this->contacts->links() }}
-                                </div>
-                            @endif
                         </div>
                     </div>
                 </div>

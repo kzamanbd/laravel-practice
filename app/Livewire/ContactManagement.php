@@ -103,7 +103,7 @@ class ContactManagement extends Component
 
     public function getContactsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator|array
     {
-        return (count($this->excelData) > 0) ? [] : Contact::query()->paginate($this->perPage);
+        return (count($this->excelData) > 0) ? [] : Contact::query()->latest()->paginate($this->perPage);
     }
 
     public function render()

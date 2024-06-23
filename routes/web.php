@@ -30,9 +30,8 @@ use Maatwebsite\Excel\Facades\Excel;
 
 Route::view('/', 'welcome');
 
-Route::get('dashboard', UserDashboard::class)->middleware(['auth', 'verified'])->name('dashboard');
-// auth route group
 Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('dashboard', UserDashboard::class)->name('dashboard');
     Route::view('profile', 'profile')->name('profile');
     Route::get('browser-session', BrowserSession::class)->name('browser-session');
     Route::get('tokens', ApiTokenManager::class)->name('api.tokens');
