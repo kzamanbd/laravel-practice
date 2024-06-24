@@ -14,7 +14,7 @@ class RowGroupingExport extends BaseExportFromView
 
     public function view(): View
     {
-        return view('exports.users', [
+        return view('lara-permission::exports.users', [
             'users' => User::query()->latest()->get(),
         ]);
     }

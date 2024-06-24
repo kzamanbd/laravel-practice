@@ -50,6 +50,9 @@
                 <div class="flex flex-col">
                     <div class="py-2 align-middle inline-block w-full">
                         <div class="border border-1 border-gray-200 rounded">
+                            <div class="p-2">
+                                {{ $this->users->links('lara-permission::tailwind') }}
+                            </div>
                             <table class="w-full leading-normal p-2">
                                 <thead>
                                     <tr>
@@ -166,9 +169,6 @@
                                     @endforelse
                                 </tbody>
                             </table>
-                            <div class="p-2">
-                                {{ $this->users->links() }}
-                            </div>
                         </div>
                     </div>
                 </div>
