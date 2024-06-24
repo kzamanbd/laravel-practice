@@ -1,8 +1,8 @@
 <?php
 
-namespace Draftscripts\Permission\Contracts;
+namespace DraftScripts\Permission\Contracts;
 
-use Draftscripts\Permission\Models\User;
+use DraftScripts\Permission\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Http\FormRequest;

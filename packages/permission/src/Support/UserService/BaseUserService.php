@@ -1,9 +1,9 @@
 <?php
 
-namespace Draftscripts\Permission\Support\UserService;
+namespace DraftScripts\Permission\Support\UserService;
 
-use Draftscripts\Permission\Contracts\UserServiceContract;
-use Draftscripts\Permission\Models\User;
+use DraftScripts\Permission\Contracts\UserServiceContract;
+use DraftScripts\Permission\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Http\FormRequest;
@@ -148,7 +148,6 @@ abstract class BaseUserService implements UserServiceContract
      */
     public function updateUserAvatarByUserInstance(User $user, UploadedFile $file)
     {
-
     }
 
     /**

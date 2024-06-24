@@ -42,7 +42,7 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/",
-            "Draftscripts\\Permission\\": "packages/permission/src/"
+            "DraftScripts\\Permission\\": "packages/permission/src/"
         }
     },
     "scripts": {

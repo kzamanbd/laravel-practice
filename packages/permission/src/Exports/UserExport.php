@@ -1,6 +1,6 @@
 <?php
 
-namespace Draftscripts\Permission\Exports;
+namespace DraftScripts\Permission\Exports;
 
 use App\Models\User;
 use Illuminate\Contracts\View\View;

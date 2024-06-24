@@ -1,10 +1,10 @@
 <?php
 
-namespace Draftscripts\Permission\Support\PermissionService;
+namespace DraftScripts\Permission\Support\PermissionService;
 
-use Draftscripts\Permission\Contracts\PermissionServiceContract;
-use Draftscripts\Permission\Support\FeatureService\FeatureService;
-use Draftscripts\Permission\Models\Feature;
+use DraftScripts\Permission\Contracts\PermissionServiceContract;
+use DraftScripts\Permission\Support\FeatureService\FeatureService;
+use DraftScripts\Permission\Models\Feature;
 use Illuminate\Database\Eloquent\Collection;
 use Spatie\Permission\Models\Permission;
 
@@ -43,7 +43,7 @@ abstract class BasePermissionService implements PermissionServiceContract
             // has excepted permissions
             if (count($excepted_permissions)) {
                 $permissions = $permissions->filter(function ($description, $_permission) use ($excepted_permissions) {
-                    return ! in_array($_permission, $excepted_permissions);
+                    return !in_array($_permission, $excepted_permissions);
                 });
             }
 
@@ -60,7 +60,7 @@ abstract class BasePermissionService implements PermissionServiceContract
                 // check permission exists or not
                 $has_permission = $this->checkPermissionExists($name);
 
-                if (! $has_permission) {
+                if (!$has_permission) {
                     // create permission
                     $this->createSinglePermission($name, (string) $description);
                 }
@@ -130,7 +130,7 @@ abstract class BasePermissionService implements PermissionServiceContract
      */
     protected function generatedPermissionName(string $featureName, string $permissionName): string
     {
-        return str_replace(' ', '_', strtolower($featureName)).'-'.$permissionName;
+        return str_replace(' ', '_', strtolower($featureName)) . '-' . $permissionName;
     }
 
     /**

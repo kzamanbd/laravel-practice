@@ -1,6 +1,6 @@
 <?php
 
-namespace Draftscripts\Permission\Mail;
+namespace DraftScripts\Permission\Mail;
 
 use App\Models\User;
 use Illuminate\Bus\Queueable;

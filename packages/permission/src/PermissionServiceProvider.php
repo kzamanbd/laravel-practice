@@ -1,11 +1,11 @@
 <?php
 
-namespace Draftscripts\Permission;
+namespace DraftScripts\Permission;
 
-use Draftscripts\Permission\Livewire\PermissionDashboard;
-use Draftscripts\Permission\Livewire\RoleManagement;
-use Draftscripts\Permission\Livewire\UserDetail;
-use Draftscripts\Permission\Livewire\UserManagement;
+use DraftScripts\Permission\Livewire\PermissionDashboard;
+use DraftScripts\Permission\Livewire\RoleManagement;
+use DraftScripts\Permission\Livewire\UserDetail;
+use DraftScripts\Permission\Livewire\UserManagement;
 use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Routing\Router;
@@ -24,15 +24,16 @@ class PermissionServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/lara-permission.php', 'lara-permission'
+            __DIR__ . '/../config/lara-permission.php',
+            'lara-permission'
         );
 
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/features.php', 'lara-features'
+            __DIR__ . '/../config/features.php',
+            'lara-features'
         );
 
         $this->app->singleton(LaraPermission::class);
-
     }
 
     /**
@@ -56,7 +57,7 @@ class PermissionServiceProvider extends ServiceProvider
     protected function registerAuthorization(): void
     {
         $this->callAfterResolving(Gate::class, function (Gate $gate, Application $app) {
-            $gate->define('viewPermission', fn($user = null) => $app->environment('local'));
+            $gate->define('viewPermission', fn ($user = null) => $app->environment('local'));
         });
     }
 
@@ -86,9 +87,9 @@ class PermissionServiceProvider extends ServiceProvider
 
         $this->callAfterResolving('livewire', function (LivewireManager $livewire, Application $app) {
             $middleware = collect($app->make('config')->get('lara-permission.middleware')) // @phpstan-ignore argument.templateType, argument.templateType
-            ->map(fn($middleware) => is_string($middleware)
-                ? Str::before($middleware, ':')
-                : $middleware)
+                ->map(fn ($middleware) => is_string($middleware)
+                    ? Str::before($middleware, ':')
+                    : $middleware)
                 ->all();
 
             $livewire->addPersistentMiddleware($middleware);

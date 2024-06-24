@@ -5,5 +5,5 @@
 return [
     App\Providers\AppServiceProvider::class,
     App\Providers\VoltServiceProvider::class,
-    \Draftscripts\Permission\PermissionServiceProvider::class
+    \DraftScripts\Permission\PermissionServiceProvider::class
 ];

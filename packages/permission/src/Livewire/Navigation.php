@@ -1,6 +1,6 @@
 <?php
 
-namespace Draftscripts\Permission\Livewire;
+namespace DraftScripts\Permission\Livewire;
 
 use App\Livewire\Actions\Logout;
 use Illuminate\Contracts\View\View;

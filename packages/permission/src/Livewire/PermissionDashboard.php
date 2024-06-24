@@ -1,10 +1,10 @@
 <?php
 
-namespace Draftscripts\Permission\Livewire;
+namespace DraftScripts\Permission\Livewire;
 
-use Draftscripts\Permission\Models\Feature;
-use Draftscripts\Permission\Models\User;
-use Draftscripts\Permission\Support\PermissionService\PermissionService;
+use DraftScripts\Permission\Models\Feature;
+use DraftScripts\Permission\Models\User;
+use DraftScripts\Permission\Support\PermissionService\PermissionService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;

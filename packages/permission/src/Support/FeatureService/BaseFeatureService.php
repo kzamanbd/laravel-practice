@@ -1,11 +1,11 @@
 <?php
 
-namespace Draftscripts\Permission\Support\FeatureService;
+namespace DraftScripts\Permission\Support\FeatureService;
 
 
-use Draftscripts\Permission\Contracts\FeatureServiceContract;
-use Draftscripts\Permission\Support\PermissionService\PermissionService;
-use Draftscripts\Permission\Models\Feature;
+use DraftScripts\Permission\Contracts\FeatureServiceContract;
+use DraftScripts\Permission\Support\PermissionService\PermissionService;
+use DraftScripts\Permission\Models\Feature;
 use Illuminate\Support\Collection;
 
 abstract class BaseFeatureService implements FeatureServiceContract
@@ -80,7 +80,7 @@ abstract class BaseFeatureService implements FeatureServiceContract
         $all_features = collect($this->allFeatureItems());
 
         return $all_features->filter(function ($feature, $index) use ($created_features) {
-            return ! in_array($index, $created_features);
+            return !in_array($index, $created_features);
         })->toArray();
     }
 }

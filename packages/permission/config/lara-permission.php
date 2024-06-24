@@ -63,7 +63,7 @@ return [
 
     'middleware' => [
         'web',
-        \Draftscripts\Permission\Http\Middleware\Authorize::class,
+        \DraftScripts\Permission\Http\Middleware\Authorize::class,
         'auth:web'
     ],
 ];

@@ -1,8 +1,8 @@
 <?php
 
-namespace Draftscripts\Permission\Livewire;
+namespace DraftScripts\Permission\Livewire;
 
-use Draftscripts\Permission\Support\UserService\UserService;
+use DraftScripts\Permission\Support\UserService\UserService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Str;
 use Spatie\Permission\Models\Permission;
@@ -27,7 +27,6 @@ class UserDetail extends PermissionLayout
 
                 return $permission;
             })->groupBy('feature');
-
         } catch (\Exception $exception) {
 
             $this->dispatch('error', $exception->getMessage());

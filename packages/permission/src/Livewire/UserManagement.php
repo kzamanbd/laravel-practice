@@ -1,10 +1,10 @@
 <?php
 
-namespace Draftscripts\Permission\Livewire;
+namespace DraftScripts\Permission\Livewire;
 
-use Draftscripts\Permission\Exports\UserExport;
-use Draftscripts\Permission\Mail\AccountVerification;
-use Draftscripts\Permission\Models\User;
+use DraftScripts\Permission\Exports\UserExport;
+use DraftScripts\Permission\Mail\AccountVerification;
+use DraftScripts\Permission\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
@@ -167,7 +167,6 @@ class UserManagement extends PermissionLayout
         } catch (\Exception $exception) {
             $this->dispatch('error', $exception->getMessage());
         }
-
     }
 
     public function deleteItem($id): void

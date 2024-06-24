@@ -1,6 +1,6 @@
 <?php
 
-namespace Draftscripts\Permission;
+namespace DraftScripts\Permission;
 
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Arr;
@@ -60,7 +60,8 @@ class LaraPermission
     {
         if (
             ($livewire = @file_get_contents(__DIR__ . '/../../../livewire/livewire/dist/livewire.js')) === false &&
-            ($livewire = @file_get_contents(__DIR__ . '/../vendor/livewire/livewire/dist/livewire.js')) === false) {
+            ($livewire = @file_get_contents(__DIR__ . '/../vendor/livewire/livewire/dist/livewire.js')) === false
+        ) {
             throw new RuntimeException('Unable to load the Livewire JavaScript.');
         }
 

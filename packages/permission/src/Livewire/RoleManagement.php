@@ -1,9 +1,9 @@
 <?php
 
-namespace Draftscripts\Permission\Livewire;
+namespace DraftScripts\Permission\Livewire;
 
-use Draftscripts\Permission\Support\FeatureService\FeatureService;
-use Draftscripts\Permission\Support\PermissionService\PermissionService;
+use DraftScripts\Permission\Support\FeatureService\FeatureService;
+use DraftScripts\Permission\Support\PermissionService\PermissionService;
 use Illuminate\Contracts\View\View;
 use Spatie\Permission\Models\Role;
 

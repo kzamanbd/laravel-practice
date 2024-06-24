@@ -1,6 +1,6 @@
 <?php
 
-namespace Draftscripts\Permission\Http\Middleware;
+namespace DraftScripts\Permission\Http\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Access\Gate;

@@ -1,10 +1,10 @@
 <?php
 
-namespace Draftscripts\Permission\Support\RoleService;
+namespace DraftScripts\Permission\Support\RoleService;
 
 
-use Draftscripts\Permission\Contracts\RoleServiceContract;
-use Draftscripts\Permission\Models\User;
+use DraftScripts\Permission\Contracts\RoleServiceContract;
+use DraftScripts\Permission\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Http\FormRequest;
 use Spatie\Permission\Models\Role;

@@ -18,10 +18,10 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
         <!-- Scripts -->
-        {!! (new \Draftscripts\Permission\LaraPermission)->css() !!}
+        {!! (new \DraftScripts\Permission\LaraPermission)->css() !!}
         @livewireStyles
 
-        {!! (new \Draftscripts\Permission\LaraPermission)->js() !!}
+        {!! (new \DraftScripts\Permission\LaraPermission)->js() !!}
         @livewireScriptConfig
     </head>
 

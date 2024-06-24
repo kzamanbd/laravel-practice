@@ -10,16 +10,16 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Draftscripts\\Permission\\": "src/"
+            "DraftScripts\\Permission\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Draftscripts\\Permission\\PermissionServiceProvider"
+                "DraftScripts\\Permission\\PermissionServiceProvider"
             ],
             "aliases": {
-                "LaraPermission": "Draftscripts\\Permission\\Facades\\LaraPermission"
+                "LaraPermission": "DraftScripts\\Permission\\Facades\\LaraPermission"
             }
         }
     },

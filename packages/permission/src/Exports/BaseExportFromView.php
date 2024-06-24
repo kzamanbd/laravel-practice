@@ -1,6 +1,6 @@
 <?php
 
-namespace Draftscripts\Permission\Exports;
+namespace DraftScripts\Permission\Exports;
 
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
