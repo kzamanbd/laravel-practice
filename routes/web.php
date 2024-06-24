@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
-use App\Http\Controllers\UserController;
 use App\Imports\TargetSetup;
 use App\Livewire\ApiTokenManager;
 use App\Livewire\BrowserSession;
@@ -34,7 +33,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('browser-session', BrowserSession::class)->name('browser-session');
     Route::get('tokens', ApiTokenManager::class)->name('api.tokens');
     Route::get('contacts', ContactManagement::class)->name('contacts');
-    Route::get('user/{id}/view', [UserController::class, 'show'])->name('user.show');
     Route::get('role/{id}/view', [RoleController::class, 'show'])->name('role.show');
     Route::get('posts', PostManagement::class)->name('posts');
 
