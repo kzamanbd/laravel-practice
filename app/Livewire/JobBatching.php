@@ -28,14 +28,8 @@ class JobBatching extends Component
     public function downloadContacts()
     {
         $filename = 'contacts/export_' . now()->timestamp . '.csv';
-
-        // Initialize the CSV file with headers
-        Storage::put($filename, implode(',', ['ID', 'Name', 'Mobile', 'TIN Date', 'E-TIN', 'OLD TIN']) . "\n"); // Replace with actual columns
-
-        // Fetch data in chunks and create batch jobs
-
         $batches = [];
-        DB::table('users')->latest()->chunk(1000, function ($rows) use (&$jobs, $filename) {
+        DB::table('contacts')->latest()->chunk(10000, function ($rows) use (&$batches, $filename) {
             $batches[] = new ExportCsvChunk($rows->toArray(), $filename);
         });
 

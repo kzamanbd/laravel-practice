@@ -1,0 +1,15 @@
+{
+    "name": "draftscripts/permission",
+    "description": "Laravel Permission",
+    "type": "library",
+    "require": {
+        "spatie/laravel-permission": "^6.9"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Draftscripts\\Permission\\": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}

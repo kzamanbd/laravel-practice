@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Exports\JobBatchingChunk;
 use Illuminate\Bus\Batchable;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -9,6 +10,9 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\Excel\Writer;
 
 class ExportCsvChunk implements ShouldQueue
@@ -36,15 +40,6 @@ class ExportCsvChunk implements ShouldQueue
      */
     public function handle()
     {
-        // Create a CSV writer instance
-        $csv = Writer::createFromString('');
-
-        // Insert rows
-        foreach ($this->data as $row) {
-            $csv->insertOne((array)$row);
-        }
-
-        // Append CSV data to file
-        Storage::append($this->filename, $csv->toString());
+        Excel::store(new JobBatchingChunk($this->data), $this->filename, 'public', \Maatwebsite\Excel\Excel::CSV);
     }
 }
