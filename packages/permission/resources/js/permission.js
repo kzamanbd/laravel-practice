@@ -1,25 +1,20 @@
 import "./bootstrap";
-
-document.addEventListener("livewire:init", () => {
-    Livewire.on("confirm-modal", (event) => {
-        const modalData = Array.isArray(event) ? event[0] : event;
-        console.log(modalData);
-        if (confirm(modalData.message || "Are you sure?")) {
-            Livewire.dispatch(modalData.action);
-        }
-    });
-});
-
 import Toastify from "toastify-js";
 
 window.Toastify = Toastify;
 
+document.addEventListener("livewire:init", () => {
+    window.Livewire.on("confirm-modal", (event) => {
+        const modalData = Array.isArray(event) ? event[0] : event;
+        if (confirm(modalData.message || "Are you sure?")) {
+            window.Livewire.dispatch(modalData.action);
+        }
+    });
+});
+
 const toast = (message, type = "success") => {
     const types = {
-        success: "#10B981",
-        error: "#EF4444",
-        warning: "#F59E0B",
-        info: "#3B82F6",
+        success: "#10B981", error: "#EF4444", warning: "#F59E0B", info: "#3B82F6",
     };
 
     Toastify({

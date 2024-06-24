@@ -167,7 +167,7 @@ class UserManagement extends Component
     public function deleteConfirmed(): void
     {
         User::destroy($this->userId);
-        $this->dispatch('notify', 'User deleted successfully');
+        $this->dispatch('success', 'User deleted successfully');
     }
 
     public function exportExcel(string $type = 'xlsx')

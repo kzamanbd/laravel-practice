@@ -63,7 +63,7 @@ new class extends Component {
                             </x-slot>
 
                             <x-slot name="content">
-                                <x-dropdown-link :href="route('user.list')" wire:navigate>
+                                <x-dropdown-link :href="route('lara-permission.users')" wire:navigate>
                                     Users List
                                 </x-dropdown-link>
                                 <x-dropdown-link :href="route('role.list')" wire:navigate>
