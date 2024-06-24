@@ -60,7 +60,7 @@ class PermissionServiceProvider extends ServiceProvider
                     'prefix' => $app->make('config')->get('lara-permission.path', 'permission'),
                     'middleware' => $app->make('config')->get('lara-permission.middleware'),
                 ], function (Router $router) {
-                    $router->get('/users', UserManagement::class)->name('lara-permission.users');
+                     $router->get('/users', UserManagement::class)->name('lara-permission.users');
                 });
             }
         });
@@ -81,6 +81,7 @@ class PermissionServiceProvider extends ServiceProvider
 
             $livewire->addPersistentMiddleware($middleware);
             $livewire->component('lara-permission.navigation', Livewire\Navigation::class);
+            $livewire->component('lara-permission.users', Livewire\UserManagement::class);
         });
     }
 
