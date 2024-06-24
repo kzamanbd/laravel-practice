@@ -2,10 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Feature;
-use App\Services\PermissionService\PermissionService;
 use Illuminate\Database\Seeder;
-use Spatie\Permission\Models\Permission;
 
 class PermissionSeeder extends Seeder
 {
@@ -18,7 +15,7 @@ class PermissionSeeder extends Seeder
      */
     public function run()
     {
-        (new PermissionService())->generateAllPermissions();
+
     }
 
     /**

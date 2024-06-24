@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Services\Contracts;
+namespace Draftscripts\Permission\Contracts;
 
-use App\Models\Feature;
+
+use Draftscripts\Permission\Models\Feature;
 use Illuminate\Support\Collection;
 
 interface FeatureServiceContract

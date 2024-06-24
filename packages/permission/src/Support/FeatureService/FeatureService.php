@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\FeatureService;
+namespace Draftscripts\Permission\Support\FeatureService;
 
 class FeatureService extends BaseFeatureService
 {

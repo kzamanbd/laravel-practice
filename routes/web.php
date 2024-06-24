@@ -10,7 +10,6 @@ use App\Livewire\ContactManagement;
 use App\Livewire\GenerateRoute;
 use App\Livewire\JobBatching;
 use App\Livewire\PostManagement;
-use App\Livewire\RoleManagement;
 use App\Livewire\UserDashboard;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
@@ -36,7 +35,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('tokens', ApiTokenManager::class)->name('api.tokens');
     Route::get('contacts', ContactManagement::class)->name('contacts');
     Route::get('user/{id}/view', [UserController::class, 'show'])->name('user.show');
-    Route::get('roles', RoleManagement::class)->name('role.list');
     Route::get('role/{id}/view', [RoleController::class, 'show'])->name('role.show');
     Route::get('posts', PostManagement::class)->name('posts');
 

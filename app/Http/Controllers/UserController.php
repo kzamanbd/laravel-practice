@@ -19,7 +19,7 @@ class UserController extends Controller
     public function show($id, UserService $userService)
     {
         // check permission
-        $this->hasPermission('show');
+        // $this->hasPermission('show');
         //get user
         $user = $userService->userDetailsById($id);
 

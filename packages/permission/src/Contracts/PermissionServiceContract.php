@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Contracts;
+namespace Draftscripts\Permission\Contracts;
 
 use Illuminate\Database\Eloquent\Collection;
 use Spatie\Permission\Models\Permission;

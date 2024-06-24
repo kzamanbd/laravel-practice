@@ -16,7 +16,6 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        //
         $roles = ['Admin', 'User', 'Editor'];
 
         foreach ($roles as $role) {
@@ -28,7 +27,7 @@ class RoleSeeder extends Seeder
                 'updated_at' => now(),
             ];
 
-            array_push($this->roles, $r);
+            $this->roles[] = $r;
         }
 
         Role::insert($this->roles);

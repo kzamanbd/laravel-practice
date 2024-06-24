@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Services\Contracts;
+namespace Draftscripts\Permission\Contracts;
 
-use App\Models\User;
+
+use Draftscripts\Permission\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Http\FormRequest;
 use Spatie\Permission\Models\Role;

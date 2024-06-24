@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Services\PermissionService;
+namespace Draftscripts\Permission\Support\PermissionService;
 
-use App\Models\Feature;
-use App\Services\Contracts\PermissionServiceContract;
-use App\Services\FeatureService\FeatureService;
+use Draftscripts\Permission\Contracts\PermissionServiceContract;
+use Draftscripts\Permission\Support\FeatureService\FeatureService;
+use Draftscripts\Permission\Models\Feature;
 use Illuminate\Database\Eloquent\Collection;
 use Spatie\Permission\Models\Permission;
 
@@ -15,7 +15,7 @@ abstract class BasePermissionService implements PermissionServiceContract
      */
     public function permissionsFromConfig(): array
     {
-        return config('features.default_permissions');
+        return config('lara-features.default_permissions');
     }
 
     /**
@@ -95,7 +95,7 @@ abstract class BasePermissionService implements PermissionServiceContract
      */
     public function exceptedFeaturePermissions(string $feature_slug): array
     {
-        return config('features.available')[$feature_slug]['except_permissions'] ?? [];
+        return config('lara-features.available')[$feature_slug]['except_permissions'] ?? [];
     }
 
     /**
@@ -103,7 +103,7 @@ abstract class BasePermissionService implements PermissionServiceContract
      */
     public function additionalFeaturePermissions(string $feature_slug): array
     {
-        return config('features.available')[$feature_slug]['additional_permissions'] ?? [];
+        return config('lara-features.available')[$feature_slug]['additional_permissions'] ?? [];
     }
 
     /**

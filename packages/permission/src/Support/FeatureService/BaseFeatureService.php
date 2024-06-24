@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Services\FeatureService;
+namespace Draftscripts\Permission\Support\FeatureService;
 
-use App\Models\Feature;
-use App\Services\Contracts\FeatureServiceContract;
-use App\Services\PermissionService\PermissionService;
+
+use Draftscripts\Permission\Contracts\FeatureServiceContract;
+use Draftscripts\Permission\Support\PermissionService\PermissionService;
+use Draftscripts\Permission\Models\Feature;
 use Illuminate\Support\Collection;
 
 abstract class BaseFeatureService implements FeatureServiceContract
@@ -66,7 +67,7 @@ abstract class BaseFeatureService implements FeatureServiceContract
      */
     public function allFeatureItems(): array
     {
-        return config('features.available');
+        return config('lara-features.available');
     }
 
     /**

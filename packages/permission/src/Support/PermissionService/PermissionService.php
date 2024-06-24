@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Services\PermissionService;
+namespace Draftscripts\Permission\Support\PermissionService;
 
-use App\Models\User;
+
+use Draftscripts\Permission\Models\User;
 
 class PermissionService extends BasePermissionService
 {

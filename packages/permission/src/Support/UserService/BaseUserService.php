@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Services\UserService;
+namespace Draftscripts\Permission\Support\UserService;
 
-use App\Models\User;
-use App\Services\Contracts\UserServiceContract;
+use Draftscripts\Permission\Contracts\UserServiceContract;
+use Draftscripts\Permission\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Http\FormRequest;

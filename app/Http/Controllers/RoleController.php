@@ -19,7 +19,7 @@ class RoleController extends Controller
     public function show($id, RoleService $roleService, FeatureService $featureService, PermissionService $permissionService): Application|Factory|View|\Illuminate\Foundation\Application
     {
         // check permission
-        $this->hasPermission('show');
+        // $this->hasPermission('show');
         // get role details
         $role = $roleService->roleDetailsById($id);
 

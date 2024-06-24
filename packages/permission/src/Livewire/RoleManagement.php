@@ -1,21 +1,18 @@
 <?php
 
-namespace App\Livewire;
+namespace Draftscripts\Permission\Livewire;
 
 use App\Http\Controllers\PermissionForPropertyException;
-use App\Http\Controllers\PermissionForPropertyValidation;
-use App\Services\FeatureService\FeatureService;
-use App\Services\PermissionService\PermissionService;
+use Draftscripts\Permission\Support\FeatureService\FeatureService;
+use Draftscripts\Permission\Support\PermissionService\PermissionService;
 use Illuminate\Contracts\View\View;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Spatie\Permission\Models\Role;
 
+#[Layout('lara-permission::components.app')]
 class RoleManagement extends Component
 {
-    use PermissionForPropertyValidation;
-
-    protected string $permission_for = 'roles';
-
     public $openModal = false;
 
     public $editableMode = false;
@@ -102,8 +99,6 @@ class RoleManagement extends Component
             $this->update();
             return;
         }
-        // check permission
-        $this->hasPermission('create');
 
         $this->validate();
 
@@ -136,8 +131,6 @@ class RoleManagement extends Component
 
     public function update(): void
     {
-        // check permission
-        $this->hasPermission('update');
 
         $this->validate([
             'name' => 'required|string|max:255|unique:roles,name,' . $this->roleId,
@@ -168,20 +161,13 @@ class RoleManagement extends Component
         $this->roleId = $id;
     }
 
-    /**
-     * @throws PermissionForPropertyException
-     */
     public function deleteConfirmed(): void
     {
-        // check permission
-        $this->hasPermission('delete');
         Role::destroy($this->roleId);
     }
 
     public function render(): View
     {
-        $this->hasPermission('view');
-
-        return view('livewire.roles');
+        return view('lara-permission::livewire.roles');
     }
 }
