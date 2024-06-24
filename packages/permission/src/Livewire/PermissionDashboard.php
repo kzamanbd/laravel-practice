@@ -8,13 +8,10 @@ use Draftscripts\Permission\Support\PermissionService\PermissionService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
-use Livewire\Attributes\Layout;
-use Livewire\Component;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
-#[Layout('lara-permission::components.app')]
-class PermissionDashboard extends Component
+class PermissionDashboard extends PermissionLayout
 {
     /**
      * @return void

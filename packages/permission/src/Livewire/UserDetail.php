@@ -5,12 +5,10 @@ namespace Draftscripts\Permission\Livewire;
 use Draftscripts\Permission\Support\UserService\UserService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Str;
-use Livewire\Attributes\Layout;
-use Livewire\Component;
 use Spatie\Permission\Models\Permission;
 
-#[Layout('lara-permission::components.app')]
-class UserDetail extends Component
+
+class UserDetail extends PermissionLayout
 {
     public $user;
     public $features_permissions;

@@ -2,16 +2,12 @@
 
 namespace Draftscripts\Permission\Livewire;
 
-use App\Http\Controllers\PermissionForPropertyException;
 use Draftscripts\Permission\Support\FeatureService\FeatureService;
 use Draftscripts\Permission\Support\PermissionService\PermissionService;
 use Illuminate\Contracts\View\View;
-use Livewire\Attributes\Layout;
-use Livewire\Component;
 use Spatie\Permission\Models\Role;
 
-#[Layout('lara-permission::components.app')]
-class RoleManagement extends Component
+class RoleManagement extends PermissionLayout
 {
     public $openModal = false;
 

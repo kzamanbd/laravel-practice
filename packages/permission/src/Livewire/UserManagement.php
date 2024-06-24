@@ -16,8 +16,7 @@ use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
 use Spatie\Permission\Models\Role;
 
-#[Layout('lara-permission::components.app')]
-class UserManagement extends Component
+class UserManagement extends PermissionLayout
 {
     use WithPagination;
 
