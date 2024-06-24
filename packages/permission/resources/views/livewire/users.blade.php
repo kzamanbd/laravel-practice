@@ -25,20 +25,24 @@
                         </div>
 
                         <div class="flex items-center space-x-4">
-                            <x-lara-permission::primary-button color="light" type="button" wire:click="exportExcel('csv')">
+                            <x-lara-permission::primary-button color="light" type="button"
+                                wire:click="exportExcel('csv')">
                                 csv
                             </x-lara-permission::primary-button>
-                            <x-lara-permission::primary-button color="light" type="button" wire:click="exportExcel('xlsx')">
+                            <x-lara-permission::primary-button color="light" type="button"
+                                wire:click="exportExcel('xlsx')">
                                 Xslx
                             </x-lara-permission::primary-button>
                             <x-lara-permission::primary-button color="light" type="button">
                                 PDF
                             </x-lara-permission::primary-button>
 
-                            <x-lara-permission::primary-button type="button" wire:click="$dispatch('open-modal', 'create-modal')">
+                            <x-lara-permission::primary-button type="button"
+                                wire:click="$dispatch('open-modal', 'create-modal')">
                                 Create
                             </x-lara-permission::primary-button>
-                            <x-lara-permission::primary-button color="light" type="button" wire:click="sendNotification">
+                            <x-lara-permission::primary-button color="light" type="button"
+                                wire:click="sendNotification">
                                 Send Notification
                             </x-lara-permission::primary-button>
                         </div>
@@ -102,7 +106,8 @@
                                         <tr class="border-b border-gray-200 on-parent-hover-show">
                                             <td colspan="5" class="text-center px-3 py-2">
                                                 You have selected <strong>{{ count($selectedItem) }}</strong> users.
-                                                <button class="text-red-500 hover:text-red-700">Delete</button> them?
+                                                <button class="text-red-500 hover:text-red-700">Delete</button>
+                                                them?
                                             </td>
                                         </tr>
                                     @endif
@@ -117,7 +122,7 @@
                                                 </label>
                                             </td>
                                             <td class="px-3 py-2 text-sm">
-                                                <a href="{{ route('user.show', $user->id) }}"
+                                                <a href="#"
                                                     class="flex items-center no-underline hover:underline">
                                                     <div class="flex-shrink-0 w-10 h-10 hidden sm:table-cell">
                                                         <img class="w-full h-full rounded-full"
@@ -148,7 +153,7 @@
                                                         class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
                                                         Edit
                                                     </button>
-                                                    <a wire:navigate href="{{ route('user.show', $user->id) }}"
+                                                    <a wire:navigate href="#"
                                                         class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
                                                         View
                                                     </a>
@@ -176,7 +181,8 @@
         </div>
     </div>
 
-    <x-lara-permission::modal name="create-modal" maxWidth="3xl" title="{{ $editableMode ? 'Update' : 'Create' }} User">
+    <x-lara-permission::modal name="create-modal" maxWidth="3xl"
+        title="{{ $editableMode ? 'Update' : 'Create' }} User">
 
         <form class="p-6" wire:submit="store">
 
@@ -185,7 +191,7 @@
                     <label class="form-label">
                         Name
                     </label>
-                    <input wire:model="name" class="form-control"type="text" placeholder="Jane" required />
+                    <input wire:model="name" class="form-control" type="text" placeholder="Jane" required />
                 </div>
                 <div class="w-full md:w-1/2 px-3">
                     <label class="form-label">
@@ -232,7 +238,6 @@
                     @endforeach
                 </div>
             </div>
-
 
 
             <div class="flex justify-end">

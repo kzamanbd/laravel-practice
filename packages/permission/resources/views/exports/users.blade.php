@@ -1,4 +1,4 @@
-<x-report-layout>
+<x-lara-permission::report-layout>
     <x-slot name="title">User List</x-slot>
     <table>
         <thead>
@@ -31,4 +31,4 @@
             @endforeach
         </tbody>
     </table>
-</x-report-layout>
+</x-lara-permission::report-layout>

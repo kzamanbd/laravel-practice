@@ -39,6 +39,9 @@ class PermissionServiceProvider extends ServiceProvider
         $this->registerResources();
         $this->registerComponents();
         $this->registerPublishing();
+
+         // Load migrations from the specified path
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
     }
 
     /**
