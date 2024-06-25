@@ -62,4 +62,4 @@ docker logs -f <container-name>
 
 ## Developed by Zaman
 
-![Zaman](https://assets.gitlab-static.net/uploads/-/system/user/avatar/7189772/avatar.png?width=90)
+![Zaman](https://avatars.githubusercontent.com/u/53174140?v=4)
