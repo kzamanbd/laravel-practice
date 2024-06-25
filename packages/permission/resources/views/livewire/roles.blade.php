@@ -34,7 +34,8 @@
                                 PDF
                             </x-lara-permission::button>
 
-                            <x-lara-permission::button type="button" wire:click="$dispatch('open-modal', 'role-modal')">
+                            <x-lara-permission::button type="button"
+                                wire:click="$dispatch('open-modal', 'role-modal')">
                                 Create
                             </x-lara-permission::button>
                         </div>
@@ -106,21 +107,23 @@
                                             </td>
                                             <td class="px-3 py-2 text-center">
                                                 <div class="inline-flex rounded-md shadow-sm" role="group">
-                                                    <button type="button" wire:click="editItem({{ $role->id }})"
-                                                        class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+                                                    <x-lara-permission::button
+                                                        wire:click="editItem({{ $role->id }})"
+                                                        class="rounded-r-none">
                                                         Edit
-                                                    </button>
-                                                    @if(Route::has('lara-permission.role.show'))
-                                                        <a wire:navigate href="{{ route('lara-permission.role.show', $role->id) }}"
-                                                            class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+                                                    </x-lara-permission::button>
+                                                    @if (Route::has('lara-permission.role.show'))
+                                                        <x-lara-permission::button as="a" wire:navigate
+                                                            href="{{ route('lara-permission.role.show', $role->id) }}"
+                                                            class="rounded-none">
                                                             View
-                                                        </a>
+                                                        </x-lara-permission::button>
                                                     @endif
-                                                    <button type="button"
+                                                    <x-lara-permission::button color="danger"
                                                         wire:click="deleteItem({{ $role->id }})"
-                                                        class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-md hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+                                                        class="rounded-l-none">
                                                         Delete
-                                                    </button>
+                                                    </x-lara-permission::button>
                                                 </div>
                                             </td>
                                         </tr>
@@ -174,7 +177,8 @@
                                 @foreach ($this->permissionsList as $permission)
                                     @continue(\Illuminate\Support\Str::of($permission->name)->beforeLast('-') != $feature->slug)
                                     <label class="block">
-                                        <x-lara-permission::box-input value="{{ $permission->id }}" wire:model="permissions" />
+                                        <x-lara-permission::box-input value="{{ $permission->id }}"
+                                            wire:model="permissions" />
                                         <span class="mr-2 ml-1 text-gray-700">
                                             {{ \Illuminate\Support\Str::of($permission->name)->afterLast('-')->replace('_', ' ')->ucfirst() }}
                                         </span>
@@ -186,7 +190,8 @@
                 </div>
             </div>
             <div class="flex justify-end">
-                <x-lara-permission::button color="danger" type="button" wire:click="$dispatch('close-modal', 'role-modal')">
+                <x-lara-permission::button color="danger" type="button"
+                    wire:click="$dispatch('close-modal', 'role-modal')">
                     {{ __('Cancel') }}
                 </x-lara-permission::button>
 

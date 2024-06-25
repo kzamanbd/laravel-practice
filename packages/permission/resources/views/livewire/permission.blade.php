@@ -12,11 +12,11 @@
             <div class="bg-white shadow-sm sm:rounded-lg p-5">
                 <div class="flex justify-between">
                     <div class="flex items-center space-x-4">
-                        <x-lara-permission::button  type="button" wire:click="syncPermission">
+                        <x-lara-permission::button type="button" wire:click="syncPermission">
                             Sync Permission
                         </x-lara-permission::button>
 
-                        <x-lara-permission::button  type="button" wire:click="syncFeature">
+                        <x-lara-permission::button type="button" wire:click="syncFeature">
                             Sync Feature
                         </x-lara-permission::button>
 

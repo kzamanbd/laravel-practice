@@ -5,6 +5,7 @@ namespace DraftScripts\Permission\Livewire;
 use DraftScripts\Permission\Support\FeatureService\FeatureService;
 use DraftScripts\Permission\Support\PermissionService\PermissionService;
 use Illuminate\Contracts\View\View;
+use Livewire\Attributes\On;
 use Spatie\Permission\Models\Role;
 
 class RoleManagement extends PermissionLayout
@@ -151,10 +152,11 @@ class RoleManagement extends PermissionLayout
 
     public function deleteItem($id): void
     {
-        $this->dispatch('show-delete-confirmation');
+        $this->dispatch('confirm-modal', action: 'deleteRoleConfirmed', data: ['role_id' => $id]);
         $this->roleId = $id;
     }
 
+    #[On('deleteRoleConfirmed')]
     public function deleteConfirmed(): void
     {
         Role::destroy($this->roleId);

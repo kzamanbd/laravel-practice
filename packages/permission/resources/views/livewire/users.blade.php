@@ -25,12 +25,10 @@
                         </div>
 
                         <div class="flex items-center space-x-4">
-                            <x-lara-permission::button color="light" type="button"
-                                wire:click="exportExcel('csv')">
+                            <x-lara-permission::button color="light" type="button" wire:click="exportExcel('csv')">
                                 csv
                             </x-lara-permission::button>
-                            <x-lara-permission::button color="light" type="button"
-                                wire:click="exportExcel('xlsx')">
+                            <x-lara-permission::button color="light" type="button" wire:click="exportExcel('xlsx')">
                                 Xslx
                             </x-lara-permission::button>
                             <x-lara-permission::button color="light" type="button">
@@ -41,8 +39,7 @@
                                 wire:click="$dispatch('open-modal', 'create-modal')">
                                 Create
                             </x-lara-permission::button>
-                            <x-lara-permission::button color="light" type="button"
-                                wire:click="sendNotification">
+                            <x-lara-permission::button color="light" type="button" wire:click="sendNotification">
                                 Send Notification
                             </x-lara-permission::button>
                         </div>
@@ -149,21 +146,23 @@
 
                                             <td class="px-3 py-2 text-sm text-center">
                                                 <div class="inline-flex rounded-md shadow-sm" role="group">
-                                                    <button type="button" wire:click="editItem({{ $user->id }})"
-                                                        class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+                                                    <x-lara-permission::button
+                                                        wire:click="editItem({{ $user->id }})"
+                                                        class="rounded-r-none" color="light">
                                                         Edit
-                                                    </button>
-                                                    @if(Route::has('lara-permission.user.show'))
-                                                        <a wire:navigate href="{{ route('lara-permission.user.show', $user->id) }}"
-                                                            class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+                                                    </x-lara-permission::button>
+                                                    @if (Route::has('lara-permission.user.show'))
+                                                        <x-lara-permission::button as="a" wire:navigate
+                                                            href="{{ route('lara-permission.user.show', $user->id) }}"
+                                                            class="rounded-none">
                                                             View
-                                                        </a>
+                                                        </x-lara-permission::button>
                                                     @endif
-                                                    <button type="button"
+                                                    <x-lara-permission::button color="danger"
                                                         wire:click="deleteItem({{ $user->id }})"
-                                                        class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-md hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
+                                                        class="rounded-l-none">
                                                         Delete
-                                                    </button>
+                                                    </x-lara-permission::button>
                                                 </div>
                                             </td>
                                         </tr>
@@ -244,7 +243,8 @@
 
 
             <div class="flex justify-end">
-                <x-lara-permission::button color="danger" type="button" wire:click="$dispatch('close-modal', 'create-modal')">
+                <x-lara-permission::button color="danger" type="button"
+                    wire:click="$dispatch('close-modal', 'create-modal')">
                     {{ __('Cancel') }}
                 </x-lara-permission::button>
 
