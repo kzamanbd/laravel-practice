@@ -44,6 +44,19 @@ class RoleManagement extends PermissionLayout
         'deleteConfirmed' => 'deleteConfirmed',
     ];
 
+    /**
+     * @return void
+     */
+    public function syncPermission(PermissionService $permissionService): void
+    {
+        try {
+            $permissionService->generateAllPermissions();
+            $this->dispatch('success', 'Permissions synced successfully.');
+        } catch (\Exception $e) {
+            $this->dispatch('error', $e->getMessage());
+        }
+    }
+
     public function updatedSelectedPage($value): void
     {
         $this->selectedItem = $value ? $this->roles->pluck('id')->toArray() : [];

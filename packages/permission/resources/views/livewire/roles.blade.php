@@ -169,13 +169,15 @@
 
 
             <div class="my-4">
-                <h1
+                <div
+                    role="button"
+                    wire:click="syncPermission"
                     class="focus:outline-none text-lg font-bold text-gray-800 dark:text-gray-100 leading-5 pt-2 mb-4 text-center flex items-center justify-center">
                     <span>Permissions</span>
-                    <span class="material-icons cursor-pointer">sync</span>
-                </h1>
+                    <span class="material-icons cursor-pointer" wire:loading.class="animate-spin" wire:target="syncPermission">sync</span>
+                </div>
 
-                <div class="space-y-4 h-96 overflow-y-auto">
+                <div class="space-y-4 max-h-96 overflow-y-auto">
                     @foreach ($this->features as $feature)
                         <div class="form-control p-4">
                             <label class="flex items-center mb-4">

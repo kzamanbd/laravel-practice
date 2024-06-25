@@ -2,7 +2,8 @@
 
 namespace DraftScripts\Permission\Mail;
 
-use App\Models\User;
+
+use DraftScripts\Permission\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -38,7 +39,7 @@ class AccountVerification extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.account-verification',
+            view: 'lara-permission::emails.account-verification',
         );
     }
 
