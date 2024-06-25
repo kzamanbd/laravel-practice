@@ -26,7 +26,7 @@ class UserManagement extends PermissionLayout
 
     public $sortDirection = 'desc';
 
-    public $perPage = 25;
+    public $perPage = 15;
 
     public $selectedPage = false;
 

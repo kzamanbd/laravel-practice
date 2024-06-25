@@ -70,6 +70,10 @@
                                         </th>
                                         <th
                                             class="text-left px-3 py-3 border-b-2 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                           Total Permission Grant
+                                        </th>
+                                        <th
+                                            class="text-left px-3 py-3 border-b-2 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                             Description
                                         </th>
                                         <th
@@ -99,6 +103,11 @@
                                                         </span>
                                                     </div>
                                                 </a>
+                                            </td>
+                                            <td class="px-3 py-2 text-sm">
+                                                <span class="text-gray-900 whitespace-no-wrap">
+                                                    {{count($role->permissions)}}
+                                                </span>
                                             </td>
                                             <td class="px-3 py-2 text-sm">
                                                 <span class="text-gray-900 whitespace-no-wrap">
@@ -168,8 +177,8 @@
 
                 <div class="space-y-4 h-96 overflow-y-auto">
                     @foreach ($this->features as $feature)
-                        <div class="form-control">
-                            <label class="flex items-center mb-2">
+                        <div class="form-control p-4">
+                            <label class="flex items-center mb-4">
                                 <x-lara-permission::box-input />
                                 <span class="ml-2">{{ $feature->name }}</span>
                             </label>
@@ -177,7 +186,7 @@
                                 @foreach ($this->permissionsList as $permission)
                                     @continue(\Illuminate\Support\Str::of($permission->name)->beforeLast('-') != $feature->slug)
                                     <label class="block">
-                                        <x-lara-permission::box-input value="{{ $permission->id }}"
+                                        <x-lara-permission::box-input value="{{ $permission->name }}"
                                             wire:model="permissions" />
                                         <span class="mr-2 ml-1 text-gray-700">
                                             {{ \Illuminate\Support\Str::of($permission->name)->afterLast('-')->replace('_', ' ')->ucfirst() }}
