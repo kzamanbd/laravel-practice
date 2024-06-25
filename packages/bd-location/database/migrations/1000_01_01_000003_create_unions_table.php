@@ -4,19 +4,20 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('divisions', function (Blueprint $table) {
+        Schema::create('unions', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('upazilla_id')->constrained('upazilas')->cascadeOnDelete();
             $table->string('name');
             $table->string('bn_name');
+            $table->string('url')->nullable();
             $table->timestamps();
         });
     }
@@ -26,8 +27,8 @@ return new class extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists('divisions');
+        Schema::dropIfExists('unions');
     }
 };
