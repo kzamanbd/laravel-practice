@@ -9,8 +9,6 @@ use Spatie\Permission\Models\Role;
 
 class RoleManagement extends PermissionLayout
 {
-    public $openModal = false;
-
     public $editableMode = false;
 
     public $name;
@@ -86,7 +84,7 @@ class RoleManagement extends PermissionLayout
 
     public function create(): void
     {
-        $this->openModal = true;
+        $this->dispatch('open-modal', 'role-modal');
     }
 
     public function store(): void
@@ -111,13 +109,13 @@ class RoleManagement extends PermissionLayout
 
         // reset form
         $this->reset();
-        $this->openModal = false;
+        $this->dispatch('close-modal', 'role-modal');
     }
 
     public function editItem($id): void
     {
+        $this->dispatch('open-modal', 'role-modal');
         $this->roleId = $id;
-        $this->openModal = true;
         $this->editableMode = true;
         $role = Role::with('permissions')->findOrFail($id);
         $this->name = $role->name;
@@ -147,13 +145,13 @@ class RoleManagement extends PermissionLayout
 
         // reset form
         $this->reset();
-        $this->openModal = false;
+        $this->dispatch('close-modal', 'role-modal');
         $this->editableMode = false;
     }
 
     public function deleteItem($id): void
     {
-        $this->dispatchBrowserEvent('show-delete-confirmation');
+        $this->dispatch('show-delete-confirmation');
         $this->roleId = $id;
     }
 

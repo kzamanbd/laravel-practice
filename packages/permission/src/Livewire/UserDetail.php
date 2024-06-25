@@ -22,7 +22,7 @@ class UserDetail extends PermissionLayout
             $permissions = $this->user->getAllPermissions();
 
             // manipulate feature permissions
-            $this->features_permissions = $permissions->map(function (Permission $permission) {
+            $this->features_permissions = collect($permissions)->map(function (Permission $permission) {
                 $permission['feature'] = (string)Str::of($permission->name)->before('-')->replace('_', ' ')->ucfirst();
 
                 return $permission;

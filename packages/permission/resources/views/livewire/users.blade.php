@@ -25,26 +25,26 @@
                         </div>
 
                         <div class="flex items-center space-x-4">
-                            <x-lara-permission::primary-button color="light" type="button"
+                            <x-lara-permission::button color="light" type="button"
                                 wire:click="exportExcel('csv')">
                                 csv
-                            </x-lara-permission::primary-button>
-                            <x-lara-permission::primary-button color="light" type="button"
+                            </x-lara-permission::button>
+                            <x-lara-permission::button color="light" type="button"
                                 wire:click="exportExcel('xlsx')">
                                 Xslx
-                            </x-lara-permission::primary-button>
-                            <x-lara-permission::primary-button color="light" type="button">
+                            </x-lara-permission::button>
+                            <x-lara-permission::button color="light" type="button">
                                 PDF
-                            </x-lara-permission::primary-button>
+                            </x-lara-permission::button>
 
-                            <x-lara-permission::primary-button type="button"
+                            <x-lara-permission::button type="button"
                                 wire:click="$dispatch('open-modal', 'create-modal')">
                                 Create
-                            </x-lara-permission::primary-button>
-                            <x-lara-permission::primary-button color="light" type="button"
+                            </x-lara-permission::button>
+                            <x-lara-permission::button color="light" type="button"
                                 wire:click="sendNotification">
                                 Send Notification
-                            </x-lara-permission::primary-button>
+                            </x-lara-permission::button>
                         </div>
                     </div>
 
@@ -244,13 +244,13 @@
 
 
             <div class="flex justify-end">
-                <x-lara-permission::primary-button color="danger" type="button" wire:click="$dispatch('close-modal', 'create-modal')">
+                <x-lara-permission::button color="danger" type="button" wire:click="$dispatch('close-modal', 'create-modal')">
                     {{ __('Cancel') }}
-                </x-lara-permission::primary-button>
+                </x-lara-permission::button>
 
-                <x-lara-permission::primary-button class="ml-3">
+                <x-lara-permission::button class="ml-3">
                     Save
-                </x-lara-permission::primary-button>
+                </x-lara-permission::button>
             </div>
         </form>
     </x-lara-permission::modal>

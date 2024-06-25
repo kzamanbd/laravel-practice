@@ -12,21 +12,21 @@
             <div class="bg-white shadow-sm sm:rounded-lg p-5">
                 <div class="flex justify-between">
                     <div class="flex items-center space-x-4">
-                        <x-lara-permission::primary-button  type="button" wire:click="syncPermission">
+                        <x-lara-permission::button  type="button" wire:click="syncPermission">
                             Sync Permission
-                        </x-lara-permission::primary-button>
+                        </x-lara-permission::button>
 
-                        <x-lara-permission::primary-button  type="button" wire:click="syncFeature">
+                        <x-lara-permission::button  type="button" wire:click="syncFeature">
                             Sync Feature
-                        </x-lara-permission::primary-button>
+                        </x-lara-permission::button>
 
-                        <x-lara-permission::primary-button type="button" wire:click="syncRole">
+                        <x-lara-permission::button type="button" wire:click="syncRole">
                             Sync Role
-                        </x-lara-permission::primary-button>
+                        </x-lara-permission::button>
 
-                        <x-lara-permission::primary-button type="button" wire:click="assignPermission">
+                        <x-lara-permission::button type="button" wire:click="assignPermission">
                             Assign Permission
-                        </x-lara-permission::primary-button>
+                        </x-lara-permission::button>
                     </div>
                 </div>
             </div>
