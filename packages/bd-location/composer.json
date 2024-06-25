@@ -1,0 +1,18 @@
+{
+    "name": "draftscripts/bd-location",
+    "description": "Bangladesh GEO location",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "DraftScripts\\BdLocation\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "KAMRUZZAMAN",
+            "email": "kzamanbn@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
