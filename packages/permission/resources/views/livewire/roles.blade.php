@@ -109,7 +109,7 @@
                                                 <div class="inline-flex rounded-md shadow-sm" role="group">
                                                     <x-lara-permission::button
                                                         wire:click="editItem({{ $role->id }})"
-                                                        class="rounded-r-none">
+                                                        class="rounded-r-none" color="light">
                                                         Edit
                                                     </x-lara-permission::button>
                                                     @if (Route::has('lara-permission.role.show'))
