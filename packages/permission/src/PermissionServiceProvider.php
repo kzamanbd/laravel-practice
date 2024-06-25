@@ -3,6 +3,7 @@
 namespace DraftScripts\Permission;
 
 use DraftScripts\Permission\Livewire\PermissionDashboard;
+use DraftScripts\Permission\Livewire\RoleDetail;
 use DraftScripts\Permission\Livewire\RoleManagement;
 use DraftScripts\Permission\Livewire\UserDetail;
 use DraftScripts\Permission\Livewire\UserManagement;
@@ -74,6 +75,7 @@ class PermissionServiceProvider extends ServiceProvider
                     $router->get('/users', UserManagement::class)->name('lara-permission.users');
                     $router->get('/user/{id}/view', UserDetail::class)->name('lara-permission.user.show');
                     $router->get('/roles', RoleManagement::class)->name('lara-permission.roles');
+                    $router->get('/role/{id}/view', RoleDetail::class)->name('lara-permission.role.show');
                 });
             }
         });
@@ -99,6 +101,7 @@ class PermissionServiceProvider extends ServiceProvider
             $livewire->component('lara-permission.users', Livewire\UserManagement::class);
             $livewire->component('lara-permission.user-detail', Livewire\UserDetail::class);
             $livewire->component('lara-permission.roles', Livewire\RoleManagement::class);
+            $livewire->component('lara-permission.role-detail', Livewire\RoleDetail::class);
         });
     }
 

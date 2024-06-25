@@ -13,7 +13,7 @@ class UserDetail extends PermissionLayout
     public $user;
     public $features_permissions = [];
 
-    public function mount(UserService $userService, int $id)
+    public function mount(UserService $userService, int $id): void
     {
         $this->user = $userService->userDetailsById($id);
 
@@ -35,6 +35,6 @@ class UserDetail extends PermissionLayout
 
     public function render(): View
     {
-        return view('lara-permission::livewire.user-show');
+        return view('lara-permission::livewire.user-detail');
     }
 }

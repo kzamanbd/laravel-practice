@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\RoleController;
 use App\Imports\TargetSetup;
 use App\Livewire\ApiTokenManager;
 use App\Livewire\BrowserSession;
@@ -33,7 +32,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('browser-session', BrowserSession::class)->name('browser-session');
     Route::get('tokens', ApiTokenManager::class)->name('api.tokens');
     Route::get('contacts', ContactManagement::class)->name('contacts');
-    Route::get('role/{id}/view', [RoleController::class, 'show'])->name('role.show');
     Route::get('posts', PostManagement::class)->name('posts');
 
     Route::post('upload-base64', [HomeController::class, 'uploadBase64'])->name('upload.base64');
