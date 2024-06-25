@@ -2,17 +2,27 @@
     "name": "draftscripts/bd-location",
     "description": "Bangladesh GEO location",
     "license": "MIT",
-    "autoload": {
-        "psr-4": {
-            "DraftScripts\\BdLocation\\": "src/"
-        }
-    },
     "authors": [
         {
             "name": "KAMRUZZAMAN",
             "email": "kzamanbn@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
-    "require": {}
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "DraftScripts\\BdLocation\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "DraftScripts\\BdLocation\\BdLocationServiceProvider"
+            ],
+            "aliases": {
+                "BdLocation": "DraftScripts\\BdLocation\\Facades\\BdLocation"
+            }
+        }
+    },
+    "minimum-stability": "stable"
 }

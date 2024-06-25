@@ -218,7 +218,7 @@
                         placeholder="Confirm Password" />
                 </div>
             </div>
-            <div class="bg-purple-100 rounded border-l-4 border-purple-500 text-purple-700 p-5 mt-3" role="alert">
+            <div class="bg-primary-100 rounded border-l-4 border-primary-500 text-primary-700 p-5 mt-3" role="alert">
                 <p class="font-bold">Set user roles</p>
                 <p>Something not ideal might be happening.</p>
             </div>
@@ -229,10 +229,10 @@
                 <h2 class="text-gray-700 text-2xl mt-3 text-center text-uppercase">Roles</h2>
                 <div class="mt-2 grid grid-cols-3 gap-2">
                     @foreach ($this->rolesList as $role)
-                        <div class="rounded bg-purple-100 border border-1 border-purple-500 p-5">
+                        <div class="rounded bg-primary-100 border border-1 border-primary-500 p-5">
                             <label class="inline-flex items-center">
                                 <input type="checkbox" wire:model="roles" value="{{ $role->name }}"
-                                    class="form-checkbox h-4 w-4 text-purple-600 rounded" />
+                                    class="form-checkbox h-4 w-4 text-primary-600 rounded" />
                                 <span class="ml-2 text-gray-700">{{ $role->name }}</span>
                             </label>
                             <p class="text-sm">{{ $role->description }}</p>
