@@ -1,6 +1,7 @@
 {
     "name": "draftscripts/bd-location",
     "description": "Bangladesh GEO location",
+    "type": "library",
     "license": "MIT",
     "authors": [
         {
