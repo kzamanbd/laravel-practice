@@ -36,13 +36,14 @@
         "psr-4": {
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/"
+            "Database\\Seeders\\": "database/seeders/",
+            "DraftScripts\\Permission\\": "packages/permission/src/",
+            "DraftScripts\\BdLocation\\": "packages/bd-location/src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/",
-            "DraftScripts\\Permission\\": "packages/permission/src/"
+            "Tests\\": "tests/"
         }
     },
     "scripts": {
