@@ -1,7 +1,9 @@
 # An BD GEO Location Packages for Laravel
 
-[![Packagist Version](https://img.shields.io/packagist/v/draftscripts/permission)](https://github.com/draftscripts/permission)
-[![Total Downloads](https://img.shields.io/packagist/dt/draftscripts/permission)](https://github.com/draftscripts/permission)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/shawnveltman/laravel-openai.svg?style=flat-square)](https://packagist.org/packages/shawnveltman/laravel-openai)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/shawnveltman/laravel-openai/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/shawnveltman/laravel-openai/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/shawnveltman/laravel-openai/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/shawnveltman/laravel-openai/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
+[![Total Downloads](https://img.shields.io/packagist/dt/shawnveltman/laravel-openai.svg?style=flat-square)](https://packagist.org/packages/shawnveltman/laravel-openai)
 
 This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
 
@@ -14,35 +16,13 @@ We highly appreciate you sending us a postcard from your hometown, mentioning wh
 You can install the package via composer:
 
 ```bash
-composer require draftscripts/permission
+composer require draftscripts/bd-location
 ```
 
 You can publish and run the migrations with:
 
 ```bash
-php artisan vendor:publish --tag="lara-permission-migrations"
 php artisan migrate
-```
-
-You can publish the config file with (Optional):
-
-```bash
-php artisan vendor:publish --tag="lara-permission-config"
-```
-
-now you can visit permission route [/permission]
-
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="laravel-openai-views"
-```
-
-## Testing
-
-```bash
-composer test
 ```
 
 ## Changelog
@@ -56,6 +36,11 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 ## Security Vulnerabilities
 
 Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
+
+## Credits
+
+- [DraftScripts](https://github.com/draftscripts)
+- [All Contributors](../../contributors)
 
 ## License
 
