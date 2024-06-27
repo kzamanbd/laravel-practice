@@ -4,14 +4,11 @@ namespace DraftScripts\Permission\Livewire;
 
 use DraftScripts\Permission\Exports\UserExport;
 use DraftScripts\Permission\Mail\AccountVerification;
-use DraftScripts\Permission\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Mail;
-use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
-use Livewire\Component;
 use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
 use Spatie\Permission\Models\Role;
@@ -81,7 +78,8 @@ class UserManagement extends PermissionLayout
 
     public function getUsersProperty(): LengthAwarePaginator
     {
-        return User::with(['roles'])
+        $model = config('lara-permission.model');
+        return (new $model)::with(['roles'])
             ->where('id', '!=', auth()->id())
             ->where('name', 'like', "%{$this->searchKey}%")
             ->orWhere('email', 'like', "%{$this->searchKey}%")
@@ -97,7 +95,9 @@ class UserManagement extends PermissionLayout
 
     public function sendNotification(): void
     {
-        $users = User::query()->limit(5)->get();
+        $model = config('lara-permission.model');
+
+        $users = (new $model)::query()->limit(5)->get();
         foreach ($users as $user) {
             Mail::to($user->email)->queue(new AccountVerification($user));
         }
@@ -115,7 +115,8 @@ class UserManagement extends PermissionLayout
         $this->validate();
 
         try {
-            $user = new User;
+            $model = config('lara-permission.model');
+            $user = (new $model);
             $user->name = $this->name;
             $user->email = $this->email;
             $user->password = bcrypt($this->password);
@@ -134,7 +135,8 @@ class UserManagement extends PermissionLayout
     public function editItem($id): void
     {
         // fetch user
-        $user = User::find($id);
+        $model = config('lara-permission.model');
+        $user = (new $model)::find($id);
         $this->name = $user->name;
         $this->email = $user->email;
         $this->roles = $user->roles->pluck('name')->toArray();
@@ -152,7 +154,8 @@ class UserManagement extends PermissionLayout
         ]);
 
         try {
-            $user = User::find($this->userId);
+            $model = config('lara-permission.model');
+            $user = (new $model)::find($this->userId);
             $user->name = $this->name;
             $user->email = $this->email;
             if ($this->password) {
@@ -178,7 +181,8 @@ class UserManagement extends PermissionLayout
     #[On('deleteUserConfirmed')]
     public function deleteConfirmed(): void
     {
-        User::destroy($this->userId);
+        $model = config('lara-permission.model');
+        (new $model)::destroy($this->userId);
         $this->dispatch('success', 'User deleted successfully');
     }
 

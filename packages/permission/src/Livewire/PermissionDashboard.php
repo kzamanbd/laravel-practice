@@ -3,7 +3,6 @@
 namespace DraftScripts\Permission\Livewire;
 
 use DraftScripts\Permission\Models\Feature;
-use DraftScripts\Permission\Models\User;
 use DraftScripts\Permission\Support\PermissionService\PermissionService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\File;
@@ -101,7 +100,8 @@ class PermissionDashboard extends PermissionLayout
             // give all permission to admin
             $adminRole->givePermissionTo($permissions);
             // first user
-            $user = User::first();
+            $model = config('lara-permission.model');
+            $user = (new $model)::first();
             // set admin role to first user
             $user->assignRole($adminRole->id);
 

@@ -66,4 +66,5 @@ return [
         \DraftScripts\Permission\Http\Middleware\Authorize::class,
         'auth:web'
     ],
+    'model' => \DraftScripts\Permission\Models\User::class
 ];
