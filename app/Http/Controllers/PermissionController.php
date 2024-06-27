@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\PermissionService\PermissionService;
+use App\Actions\PermissionService\PermissionService;
 
 class PermissionController extends Controller
 {

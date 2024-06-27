@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\LogViewer;
+use App\Actions\LogViewer;
 
 class LogViewerController extends Controller
 {
