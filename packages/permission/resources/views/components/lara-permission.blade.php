@@ -28,7 +28,12 @@
 
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-            <livewire:lara-permission.navigation />
+            @if (View::exists('livewire.layout.navigation'))
+                <livewire:layout.navigation />
+            @else
+                <livewire:lara-permission.navigation />
+            @endif
+
             <!-- Page Heading -->
             @if (isset($header))
                 <header class="bg-white dark:bg-gray-800 shadow">
