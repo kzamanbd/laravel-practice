@@ -11,10 +11,12 @@ class PostController extends Controller
     {
         $posts = Post::with([
             'category:id,name,slug',
-            'user:id,name,username,created_at',
+            'user:id,name,created_at',
             'tags:id,name,slug,description',
             'comments:id,post_id,user_id,comment',
-        ])->latest()->paginate(10);
+        ])
+            ->select(['id', 'title', 'slug', 'image', 'category_id', 'user_id', 'created_at'])
+            ->latest()->paginate(10);
 
         return response()->json([
             'success' => true,
@@ -26,13 +28,13 @@ class PostController extends Controller
     {
         $post = Post::with([
             'category:id,name,slug',
-            'user:id,name,username,created_at',
+            'user:id,name,created_at',
             'tags:id,name,slug,description',
             'comments' => function ($q) {
                 $q->orderByDesc('id');
                 $q->select(['id', 'post_id', 'user_id', 'comment']);
             },
-            'comments.user:id,name,username,created_at',
+            'comments.user:id,name,created_at',
         ])->where('slug', $slug)->firstOrFail();
 
         $prev = Post::where('id', '<', $post->id)
