@@ -10,20 +10,26 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-2">
             <div class="p-4 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg space-y-4">
-                <textarea rows="5" id="editor" class="form-control" wire:ignore></textarea>
+                <div x-data="editor('<p>Hello world! :-)</p>')">
+                    <template x-if="isLoaded()">
+                        <div class="menu">
+                            <button @click="toggleHeading({ level: 1 })"
+                                :class="{ 'is-active': isActive('heading', { level: 1 }, updatedAt) }">
+                                H1
+                            </button>
+                            <button @click="toggleBold()" :class="{ 'is-active': isActive('bold', updatedAt) }">
+                                Bold
+                            </button>
+                            <button @click="toggleItalic()" :class="{ 'is-active': isActive('italic', updatedAt) }">
+                                Italic
+                            </button>
+                        </div>
+                    </template>
+
+                    <div x-ref="element" class="form-control"></div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <x-slot name="head">
-        <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
-    </x-slot>
-    <x-slot name="script">
-        <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
-        <script>
-          const quill = new Quill('#editor', {
-            theme: 'snow'
-          });
-        </script>
-    </x-slot>
+    </div>
 </div>

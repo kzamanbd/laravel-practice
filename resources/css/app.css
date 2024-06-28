@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900");
+@import "toastify-js/src/toastify.css";
 
 @tailwind base;
 @tailwind components;
@@ -61,4 +62,10 @@
     .has-error .form-textarea {
         @apply border-danger bg-red-100 focus:border-red-300 focus:ring focus:ring-red-200;
     }
+}
+.tiptap {
+    padding: 0.5rem 1rem;
+    margin: 1rem 0;
+    border: 1px solid #ccc;
+    min-height: 200px;
 }
