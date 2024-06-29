@@ -3,7 +3,12 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
+        "build": "vite build",
+        "queue": "php artisan queue:work",
+        "schedule": "php artisan schedule:work",
+        "reverb": "php artisan reverb:start --host=\"0.0.0.0\" --port=8081 --hostname=\"localhost\"",
+        "pulse": "php artisan pulse:check",
+        "start": "concurrently \"npm run dev\" \"npm run queue\" \"npm run schedule\" \"npm run reverb\" \"npm run pulse\""
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.2",
@@ -12,6 +17,7 @@
         "@tiptap/starter-kit": "^2.4.0",
         "autoprefixer": "^10.4.2",
         "axios": "^1.6.4",
+        "concurrently": "^8.2.2",
         "laravel-echo": "^1.16.1",
         "laravel-vite-plugin": "^1.0",
         "postcss": "^8.4.31",
