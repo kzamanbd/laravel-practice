@@ -3,7 +3,7 @@ import StarterKit from "@tiptap/starter-kit";
 
 document.addEventListener("alpine:init", () => {
     Alpine.data("editor", (content) => {
-        console.log("Alpine.js initialized with Tiptap editor.");
+        console.log("Alpine.js initialized with TipTap editor.");
         let editor; // Alpine's reactive engine automatically wraps component properties in proxy objects. Attempting to use a proxied editor instance to apply a transaction will cause a "Range Error: Applying a mismatched transaction", so be sure to unwrap it using Alpine.raw(), or simply avoid storing your editor as a component property, as shown in this example.
 
         return {
@@ -41,6 +41,7 @@ document.addEventListener("alpine:init", () => {
             toggleItalic() {
                 editor.chain().toggleItalic().focus().run();
             },
+            editor,
         };
     });
 });

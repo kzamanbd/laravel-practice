@@ -6,7 +6,12 @@ use Livewire\Component;
 
 class PostManagement extends Component
 {
-    public $content;
+    public $content = '<p>Hello world! :-)</p>';
+
+    public function postAction(): void
+    {
+        dd($this->content);
+    }
 
     public function render()
     {
