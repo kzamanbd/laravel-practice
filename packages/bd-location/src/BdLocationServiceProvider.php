@@ -27,8 +27,6 @@ class BdLocationServiceProvider extends ServiceProvider
         if (!$this->app->runningInConsole()) {
             return;
         }
-
-        Log::info("BdLocationServiceProvider boot");
         // Load routes, migrations, etc.
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
         $this->commands([
