@@ -13,7 +13,7 @@
         "jenssegers/agent": "^2.6",
         "laravel/framework": "^11.9",
         "laravel/pulse": "^1.2.2",
-        "laravel/reverb": "@beta",
+        "laravel/reverb": "^1.0",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.4",
