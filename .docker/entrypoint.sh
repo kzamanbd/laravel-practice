@@ -1,15 +1,19 @@
 #!/bin/bash
 
-if [ ! -f "vendor/autoload.php" ]; then
-    echo "Installing composer dependencies"
-    composer install --no-progress --no-interaction
-fi
+# Wait for MySQL to be ready
+echo "Waiting for MySQL..."
+while ! nc -z db 3306; do
+    sleep 1
+done
 
-if [ ! -f ".env" ]; then
-    echo "Creating env file for env $APP_ENV"
-    cp .env.example .env
-else
-    echo "env file exists."
-fi
+# Install composer dependencies
+echo "Installing composer dependencies..."
+composer install
 
+# Run migrations and seed the database
+echo "Running migrations and seeding the database..."
+php artisan migrate --seed
+
+# Start PHP-FPM
+echo "Starting PHP-FPM..."
 php-fpm

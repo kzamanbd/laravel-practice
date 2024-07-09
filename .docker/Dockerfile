@@ -37,20 +37,6 @@ RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg \
 # Get latest Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Copy the existing application directory contents
-COPY . /var/www/html
-
-# Ensure the script files are executable
-RUN chmod +x /var/www/html/docker/install-composer.sh
-
-# Install PHP dependencies
-RUN composer install --no-scripts --no-autoloader
-
-# Copy the entrypoint script
-COPY ./.docker/entrypoint.sh /usr/local/bin/
-
-# Make the entrypoint script executable
-RUN chmod +x /usr/local/bin/entrypoint.sh
 
 # Create system user to run Composer and Artisan Commands
 RUN useradd -G www-data,root -u $uid -d /home/$user $user
