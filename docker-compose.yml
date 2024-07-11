@@ -72,7 +72,6 @@ services:
         volumes:
             - ./:/var/www/html:cached
             - ./.docker/nginx:/etc/nginx/conf.d
-            - ./.docker/nginx/ssl:/etc/nginx/conf.d/ssl
         depends_on:
             - laravel-app
         networks:
