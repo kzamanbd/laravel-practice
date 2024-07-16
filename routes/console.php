@@ -1,7 +1,7 @@
 <?php
 
 use App\Console\Commands\SendEmailsCommand;
-use App\Jobs\Unido\SyncDailySalesCollectionReturn;
+use App\Jobs\Unido\SyncSalesData;
 use Illuminate\Support\Facades\Schedule;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
@@ -12,4 +12,4 @@ Artisan::command('inspire', function () {
 
 Schedule::command(SendEmailsCommand::class)->hourly();
 
-Schedule::job(SyncDailySalesCollectionReturn::class)->everyMinute();
+Schedule::job(SyncSalesData::class)->dailyAt('8:00');

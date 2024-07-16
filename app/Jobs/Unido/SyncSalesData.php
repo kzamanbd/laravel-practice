@@ -2,6 +2,7 @@
 
 namespace App\Jobs\Unido;
 
+use Illuminate\Bus\Batchable;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -9,7 +10,6 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Bus;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class SyncSalesData implements ShouldQueue
@@ -33,19 +33,23 @@ class SyncSalesData implements ShouldQueue
      */
     public function handle()
     {
-        DB::beginTransaction();
 
         try {
             // Dispatch child jobs
-            Bus::chain([
+            $batch = Bus::batch([
                 new SyncSalesInvoice(),
                 new SyncReturnOrders(),
                 new SyncSalesCollection(),
-            ])->dispatch();
+            ])->then(function ($batch) {
+                // All child jobs completed successfully
+            })->catch(function ($batch, $e) {
+                // All child jobs completed successfully
+            })->finally(function ($batch) {
+                // All child jobs completed successfully
+            })->dispatch();
 
-            DB::commit();
+            Log::info('Batch ID: ' . $batch->id);
         } catch (\Exception $e) {
-            DB::rollBack();
             Log::error('Transaction failed: ' . $e->getMessage());
             throw $e;
         }

@@ -2,6 +2,7 @@
 
 namespace App\Jobs\Unido;
 
+use Illuminate\Bus\Batchable;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -14,7 +15,7 @@ use Illuminate\Support\Facades\Storage;
 
 class SyncSalesCollection implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Batchable, Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
      * The number of times the job may be attempted.
@@ -62,7 +63,7 @@ class SyncSalesCollection implements ShouldQueue
                     "payment_type" => $item[7],
                     "journal_code" => $item[8],
                     "cust_po" => $item[9],
-                    "STSTUS" => $item[10],
+                    "status" => $item[10],
                 ];
             });
 
