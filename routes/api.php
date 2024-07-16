@@ -15,10 +15,10 @@ Route::get('/user', function (Request $request) {
 })->middleware(Authenticate::using('sanctum'));
 
 
-Route::get('/', function () {
+Route::get('/', function (Request $request) {
     return response()->json([
         'success' => true,
-        'request url' => request()->url(),
+        'request url' => $request->url(),
         'message' => 'This api under construction',
     ]);
 });
