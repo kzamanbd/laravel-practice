@@ -63,13 +63,13 @@ new class extends Component {
                             </x-slot>
 
                             <x-slot name="content">
-                                @if(Route::has('lara-permission.users'))
-                                <x-dropdown-link :href="route('lara-permission.users')" wire:navigate>
-                                    Users List
-                                </x-dropdown-link>
+                                @if (Route::has('lara-permission.users'))
+                                    <x-dropdown-link :href="route('lara-permission.users')" wire:navigate>
+                                        Users List
+                                    </x-dropdown-link>
                                 @endif
 
-                                @if(Route::has('lara-permission.roles'))
+                                @if (Route::has('lara-permission.roles'))
                                     <x-dropdown-link :href="route('lara-permission.roles')" wire:navigate>
                                         Roles List
                                     </x-dropdown-link>
@@ -98,6 +98,9 @@ new class extends Component {
                             <x-slot name="content">
                                 <x-dropdown-link :href="route('pulse')" target="_blank">
                                     Pulse
+                                </x-dropdown-link>
+                                <x-dropdown-link :href="url('horizon')" target="_blank">
+                                    Horizon
                                 </x-dropdown-link>
                                 <x-dropdown-link :href="route('generate.route')" wire:navigate>
                                     Route Generate
