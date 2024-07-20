@@ -4,14 +4,14 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
-class SendEmailsCommand extends Command
+class SendEmails extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'app:send-emails-command';
+    protected $signature = 'app:send-emails';
 
     /**
      * The console command description.
@@ -25,6 +25,6 @@ class SendEmailsCommand extends Command
      */
     public function handle()
     {
-        //
+        $this->comment('Send Mail commands');
     }
 }

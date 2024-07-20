@@ -2,7 +2,6 @@
 
 namespace App\Jobs\Unido;
 
-use App\Mail\UnidoSalesDataSyncMail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -11,18 +10,36 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class SyncDailySalesCollectionReturn implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    const COLLECTION_TABLE = 'unido_inv_collection';
-    const SALES_RETURN_HEADER_TABLE = 'unido_sales_return_header';
-    const SALES_RETURN_LINES_TABLE = 'unido_sales_return_lines';
+    const UNIDO_FTP = 'unido-ftp';
+
     const SALES_INVOICE_HEADER_TABLE = 'unido_sales_invoice_header';
     const SALES_INVOICE_LINES_TABLE = 'unido_sales_invoice_lines';
+    const SALES_RETURN_HEADER_TABLE = 'unido_sales_return_header';
+    const SALES_RETURN_LINES_TABLE = 'unido_sales_return_lines';
+    const COLLECTION_TABLE = 'unido_inv_collection';
+
+
+    const INV_HEADER = 'Unido/SalesOrders/UND_SalesOrders_Headers.csv';
+    const INV_LINES = 'Unido/SalesOrders/UND_SalesOrders_Lines.csv';
+    const RETURN_HEADER = 'Unido/ReturnOrders/UND_ReturnOrders_Headers.csv';
+    const RETURN_LINES = 'Unido/ReturnOrders/UND_ReturnOrders_Lines.csv';
+    const COLLECTION = 'Unido/Collection/UND_CustomerCollections.csv';
+
+
+
+    /**
+     * The number of times the job may be attempted.
+     *
+     * @var int
+     */
+    public $tries = 5;
 
 
     /**
@@ -30,7 +47,7 @@ class SyncDailySalesCollectionReturn implements ShouldQueue
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(protected bool $isProduction = false)
     {
         //
     }
@@ -42,6 +59,11 @@ class SyncDailySalesCollectionReturn implements ShouldQueue
      */
     public function handle()
     {
+        if (!app()->isProduction() && !$this->isProduction) {
+            return;
+        }
+
+
         DB::beginTransaction();
         try {
 
@@ -67,15 +89,16 @@ class SyncDailySalesCollectionReturn implements ShouldQueue
 
 
             // backup files to unido-ftp server
-            // $this->backupFiles();
-            Log::info('Files backed up successfully');
+            $this->backupFiles();
 
-            Mail::to('kzamanbn@gmail.com')->send(new UnidoSalesDataSyncMail());
+            SyncNotificationMail::dispatch();
 
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
-            Log::error('Error syncing return orders: ' . $e->getMessage());
+            $message = Str::limit($e->getMessage(), 1000);
+            Log::error('Error syncing unido data: ' . $message);
+            SyncNotificationMail::dispatch($message);
         }
     }
 
@@ -86,7 +109,7 @@ class SyncDailySalesCollectionReturn implements ShouldQueue
     public function processSalesInvoice()
     {
         // master record
-        $mstRecords = Storage::disk('unido-ftp')->get('Unido/SalesOrders/UND_SalesOrders_Headers.csv');
+        $mstRecords = Storage::disk(self::UNIDO_FTP)->get(self::INV_HEADER);
         $mstRecords = explode("\n", $mstRecords);
         $mstRecords = array_map('str_getcsv', $mstRecords);
         // remove the header
@@ -109,7 +132,7 @@ class SyncDailySalesCollectionReturn implements ShouldQueue
         })->toArray();
 
         // detail record
-        $detailRecords = Storage::disk('unido-ftp')->get('Unido/SalesOrders/UND_SalesOrders_Lines.csv');
+        $detailRecords = Storage::disk(self::UNIDO_FTP)->get(self::INV_LINES);
         $detailRecords = explode("\n", $detailRecords);
         $detailRecords = array_map('str_getcsv', $detailRecords);
         // remove the header
@@ -147,7 +170,7 @@ class SyncDailySalesCollectionReturn implements ShouldQueue
     public function processReturnOrders()
     {
         // master records
-        $mstRecords = Storage::disk('unido-ftp')->get('Unido/ReturnOrders/UND_ReturnOrders_Headers.csv');
+        $mstRecords = Storage::disk(self::UNIDO_FTP)->get(self::RETURN_HEADER);
         $mstRecords = explode("\n", $mstRecords);
         $mstRecords = array_map('str_getcsv', $mstRecords);
         // remove the header
@@ -173,7 +196,7 @@ class SyncDailySalesCollectionReturn implements ShouldQueue
         })->toArray();
 
         // detail records
-        $detailRecords = Storage::disk('unido-ftp')->get('Unido/ReturnOrders/UND_ReturnOrders_Lines.csv');
+        $detailRecords = Storage::disk(self::UNIDO_FTP)->get(self::RETURN_LINES);
         $detailRecords = explode("\n", $detailRecords);
         $detailRecords = array_map('str_getcsv', $detailRecords);
         // remove the header
@@ -210,7 +233,7 @@ class SyncDailySalesCollectionReturn implements ShouldQueue
      */
     public function processCollections()
     {
-        $mstRecords = Storage::disk('unido-ftp')->get('Unido/Collection/UND_CustomerCollections.csv');
+        $mstRecords = Storage::disk(self::UNIDO_FTP)->get(self::COLLECTION);
         $mstRecords = explode("\n", $mstRecords);
         $mstRecords = array_map('str_getcsv', $mstRecords);
         // remove the header
@@ -228,7 +251,7 @@ class SyncDailySalesCollectionReturn implements ShouldQueue
                 "payment_type" => $item[7],
                 "journal_code" => $item[8],
                 "cust_po" => $item[9],
-                "status" => $item[10],
+                "ststus" => $item[10],
             ];
         })->toArray();
     }
@@ -239,10 +262,11 @@ class SyncDailySalesCollectionReturn implements ShouldQueue
     public function backupFiles()
     {
         $today = date('Y-m-d');
-        Storage::disk('unido-ftp')->copy('Unido/SalesOrders/UND_SalesOrders_Headers.csv', "Unido/Backup/$today/SalesOrders/UND_SalesOrders_Headers.csv");
-        Storage::disk('unido-ftp')->copy('Unido/SalesOrders/UND_SalesOrders_Lines.csv', "Unido/Backup/$today/SalesOrders/UND_SalesOrders_Lines.csv");
-        Storage::disk('unido-ftp')->copy('Unido/ReturnOrders/UND_ReturnOrders_Headers.csv', "Unido/Backup/$today/ReturnOrders/UND_ReturnOrders_Headers.csv");
-        Storage::disk('unido-ftp')->copy('Unido/ReturnOrders/UND_ReturnOrders_Lines.csv', "Unido/Backup/$today/ReturnOrders/UND_ReturnOrders_Lines.csv");
-        Storage::disk('unido-ftp')->copy('Unido/Collection/UND_CustomerCollections.csv', "Unido/Backup/$today/Collection/UND_CustomerCollections.csv");
+        Storage::disk(self::UNIDO_FTP)->copy(self::INV_HEADER, "Unido/Backup/$today/SalesOrders/UND_SalesOrders_Headers.csv");
+        Storage::disk(self::UNIDO_FTP)->copy(self::INV_LINES, "Unido/Backup/$today/SalesOrders/UND_SalesOrders_Lines.csv");
+        Storage::disk(self::UNIDO_FTP)->copy(self::RETURN_HEADER, "Unido/Backup/$today/ReturnOrders/UND_ReturnOrders_Headers.csv");
+        Storage::disk(self::UNIDO_FTP)->copy(self::RETURN_LINES, "Unido/Backup/$today/ReturnOrders/UND_ReturnOrders_Lines.csv");
+        Storage::disk(self::UNIDO_FTP)->copy(self::COLLECTION, "Unido/Backup/$today/Collection/UND_CustomerCollections.csv");
+        Log::info('Files backed up successfully');
     }
 }
