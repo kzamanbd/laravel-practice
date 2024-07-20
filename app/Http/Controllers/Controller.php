@@ -7,5 +7,5 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 
 abstract class Controller
 {
-    use AuthorizesRequests, ValidatesRequests, PermissionForPropertyValidation;
+    use AuthorizesRequests, ValidatesRequests;
 }
