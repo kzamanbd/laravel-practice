@@ -31,8 +31,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('profile', 'profile')->name('profile');
     Route::get('browser-session', BrowserSession::class)->name('browser-session');
     Route::get('tokens', ApiTokenManager::class)->name('api.tokens');
+    Route::get('blog', PostManagement::class)->name('blog');
     Route::get('contacts', ContactManagement::class)->name('contacts');
-    Route::get('posts', PostManagement::class)->name('posts');
 
     Route::post('upload-base64', [HomeController::class, 'uploadBase64'])->name('upload.base64');
     Route::get('generate-route', GenerateRoute::class)->name('generate.route');

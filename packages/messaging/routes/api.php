@@ -11,4 +11,4 @@ Route::prefix('api')->group(function () {
 });
 
 // Catch-all Route...
-Route::get('/{view?}', fn () => view('messaging::app'))->where('view', '(.*)');
+Route::get('/{view?}', fn () => view('messaging::app'))->where('view', '(.*)')->name('messaging');

@@ -230,7 +230,7 @@ body {
 
 :root {
     --primary: #026cd1;
-    --danger: #df2a43;
+    --yellow: #fcc428;
 }
 
 .page__404.wrapper {
@@ -282,7 +282,7 @@ body {
     }
 }
 .page__404 .cls-1 {
-    fill: var(--danger);
+    fill: var(--yellow);
 }
 
 .page__404 .cls-2 {

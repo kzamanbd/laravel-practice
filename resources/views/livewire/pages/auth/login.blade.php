@@ -47,13 +47,17 @@ new #[Layout('layouts.guest')] class extends Component {
         </div>
 
         <!-- Remember Me -->
-        <div class="block mt-4">
+        <div class="mt-4 flex justify-between">
             <label for="remember" class="inline-flex items-center">
                 <input wire:model="form.remember" id="remember" type="checkbox"
                     class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800"
                     name="remember">
                 <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
             </label>
+            <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
+                href="{{ route('register') }}" wire:navigate>
+                Create New Account
+            </a>
         </div>
 
         <div class="flex items-center justify-end mt-4">
