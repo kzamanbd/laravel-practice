@@ -12,10 +12,11 @@ const http = axios.create({
     baseURL: '/messaging/api'
 });
 
-import Messages from './pages/Messages.vue';
+import App from './App.vue';
 
 import { createApp } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
+import routes from './routes';
 
 window.Messaging.basePath = `/${window.Messaging.path}`;
 
@@ -28,11 +29,11 @@ if (window.Messaging.path === '' || window.Messaging.path === '/') {
 
 const router = createRouter({
     history: createWebHistory(routerBasePath),
-    routes: [{ path: '/', redirect: '/dashboard' }],
+    routes: routes,
     linkActiveClass: 'active'
 });
 
-const app = createApp(Messages);
+const app = createApp(App);
 app.use(router);
 app.provide('http', http);
 app.mount('#messaging');
