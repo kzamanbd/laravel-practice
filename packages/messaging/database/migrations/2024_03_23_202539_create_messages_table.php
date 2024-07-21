@@ -20,7 +20,7 @@ return new class extends Migration
                 ->constrained()
                 ->onDelete('cascade');
             $table->text('message');
-            $table->string('type')
+            $table->string('msg_type')
                 ->default('text')
                 ->comment('text, image, video, audio, file');
             $table->timestamp('seen_at')->nullable();

@@ -24,7 +24,7 @@ return new class extends Migration
                 ->nullable()
                 ->constrained('messages')
                 ->onDelete('cascade');
-            $table->string('type')
+            $table->string('msg_type')
                 ->default('single')
                 ->comment('group, single');
             $table->timestamps();

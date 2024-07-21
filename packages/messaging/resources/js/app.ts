@@ -1,3 +1,4 @@
+import './echo';
 import axios from 'axios';
 let token = document.head.querySelector("meta[name='csrf-token']") as any;
 
@@ -27,7 +28,7 @@ if (window.Messaging.path === '' || window.Messaging.path === '/') {
 
 const router = createRouter({
     history: createWebHistory(routerBasePath),
-    routes: [],
+    routes: [{ path: '/', redirect: '/dashboard' }],
     linkActiveClass: 'active'
 });
 
