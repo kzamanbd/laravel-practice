@@ -20,10 +20,7 @@ return new class extends Migration
             $table->foreignId('to_user_id')
                 ->constrained('users')
                 ->onDelete('cascade');
-            $table->foreignId('last_msg_id')
-                ->nullable()
-                ->constrained('messages')
-                ->onDelete('cascade');
+            $table->integer('last_msg_id')->nullable();
             $table->string('msg_type')
                 ->default('single')
                 ->comment('group, single');

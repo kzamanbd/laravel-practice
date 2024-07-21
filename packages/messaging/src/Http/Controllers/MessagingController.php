@@ -44,7 +44,7 @@ class MessagingController extends Controller
 
         if ($uuid) {
             $conversation = Conversation::query()
-                ->with(['participant', 'messages:id,conversation_id,user_id,type,message,created_at', 'messages.user:id,name'])
+                ->with(['participant', 'messages:id,conversation_id,user_id,msg_type,message,created_at', 'messages.user:id,name'])
                 ->where('uuid', $uuid)
                 ->first();
 
