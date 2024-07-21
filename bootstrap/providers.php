@@ -6,4 +6,5 @@ return [
     App\Providers\VoltServiceProvider::class,
     DraftScripts\BdLocation\BdLocationServiceProvider::class,
     DraftScripts\Permission\PermissionServiceProvider::class,
+    DraftScripts\Messaging\MessagingServiceProvider::class,
 ];

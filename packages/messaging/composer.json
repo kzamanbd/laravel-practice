@@ -1,0 +1,30 @@
+{
+    "name": "draftscripts/messaging",
+    "description": "Laravel chat app",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "KAMRUZZAMAN",
+            "email": "kzamanbn@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "DraftScripts\\Messaging\\": "src/",
+            "DraftScripts\\Messaging\\Database\\Factories\\": "database/factories/",
+            "DraftScripts\\Messaging\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "DraftScripts\\Messaging\\MessagingServiceProvider"
+            ],
+            "aliases": {
+                "Messaging": "DraftScripts\\Messaging\\Facades\\Messaging"
+            }
+        }
+    },
+    "minimum-stability": "stable"
+}

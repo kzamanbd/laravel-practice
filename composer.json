@@ -44,7 +44,8 @@
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
             "DraftScripts\\Permission\\": "packages/permission/src/",
-            "DraftScripts\\BdLocation\\": "packages/bd-location/src/"
+            "DraftScripts\\BdLocation\\": "packages/bd-location/src/",
+            "DraftScripts\\Messaging\\": "packages/messaging/src/"
         }
     },
     "autoload-dev": {
