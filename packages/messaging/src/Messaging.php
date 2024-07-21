@@ -24,7 +24,7 @@ class Messaging
     /**
      * Get the CSS for the Messaging dashboard.
      *
-     * @return Illuminate\Contracts\Support\Htmlable
+     * @return HtmlString
      */
     public static function css()
     {
@@ -41,7 +41,7 @@ class Messaging
     /**
      * Get the JS for the Messaging dashboard.
      *
-     * @return \Illuminate\Contracts\Support\Htmlable
+     * @return HtmlString
      */
     public static function js()
     {

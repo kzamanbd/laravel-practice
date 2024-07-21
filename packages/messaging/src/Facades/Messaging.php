@@ -6,8 +6,8 @@ use Illuminate\Support\Facades\Facade;
 
 
 /**
- * @method static \DraftScripts\Messaging\Messaging|string css(string|\Illuminate\Contracts\Support\Htmlable|array|null $css = null)
- * @method static string js()
+ * @method static HtmlString css()
+ * @method static HtmlString js()
  * @method static bool registersRoutes()
  * @see \DraftScripts\Messaging\Messaging
  */
