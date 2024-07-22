@@ -13,7 +13,7 @@ use Illuminate\Support\Str;
 class MessagingController extends Controller
 {
 
-    public function currentUser()
+    public function initialize()
     {
         $conversations = Conversation::query()
             ->with(['participant'])
@@ -21,18 +21,17 @@ class MessagingController extends Controller
             ->orderBy('updated_at', 'desc')
             ->get();
 
-        $ids = collect(array_merge(
-            $conversations->pluck('from_user_id')->toArray(),
-            $conversations->pluck('to_user_id')->toArray()
-        ))->unique();
+        $groups = collect($conversations)->where('msg_type', 'group')->toArray();
+        $conversations = collect($conversations)->where('msg_type', 'single')->toArray();
 
-        $users = User::query()->whereNotIn('id', $ids)->get();
+        $users = User::query()->whereNot('id', auth()->id())->get();
         $currentUser = User::find(auth()->id());
 
         return response()->json([
             'success' => true,
             'user' => $currentUser,
             'users' => $users,
+            'groups' => $groups,
             'conversations' => $conversations,
         ]);
     }
@@ -67,12 +66,19 @@ class MessagingController extends Controller
             $conversationId = $request->input('conversation_id');
             $conversation = null;
             if (!$conversationId) {
-                $conversation = Conversation::createOrFirst([
+                // check already has create a conversation
+                $conversation = Conversation::query()->where([
                     'from_user_id' => auth()->id(),
                     'to_user_id' => $request->input('to_user_id')
-                ], [
+                ])->orWhere([
+                    'from_user_id' => $request->input('to_user_id'),
+                    'to_user_id' => auth()->id()
+                ])->firstOrCreate([
+                    'from_user_id' => auth()->id(),
+                    'to_user_id' => $request->input('to_user_id'),
                     'uuid' => Str::uuid()
                 ]);
+
                 $conversationId = $conversation->id;
             }
 
@@ -91,12 +97,20 @@ class MessagingController extends Controller
                 'updated_at' => now()
             ]);
 
+            if ($conversation) {
+                $conversation = $conversation->load([
+                    'participant',
+                    'messages:id,conversation_id,user_id,msg_type,message,created_at',
+                    'messages.user:id,name'
+                ]);
+            }
+
             DB::commit();
 
             return response()->json([
                 'success' => true,
                 'message' => $message->load('user'),
-                'conversation' => $conversation
+                'conversation' => $conversation,
             ]);
         } catch (\Exception $e) {
             DB::rollBack();

@@ -228,6 +228,10 @@ body {
     @apply bg-light-gray;
 }
 
+button[data-headlessui-state='selected'] {
+    @apply text-primary;
+}
+
 :root {
     --primary: #026cd1;
     --yellow: #fcc428;
