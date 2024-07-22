@@ -154,7 +154,7 @@
 </script>
 
 <template>
-    <div class="chat-wrapper" :class="{ 'min-h-[999px]': chat.chatMenu }">
+    <div class="chat-wrapper">
         <TabGroup as="div" class="card chat-sidebar" :class="chat.chatMenu && '!block'">
             <div class="flex items-center justify-between">
                 <div class="flex items-center">
@@ -1107,7 +1107,7 @@
                 </div>
             </div>
 
-            <div v-else class="relative flex h-full items-center justify-center p-4">
+            <div v-else class="relative flex h-full items-center justify-center lg:p-4">
                 <button
                     type="button"
                     class="absolute left-4 top-4 hover:text-primary lg:hidden"

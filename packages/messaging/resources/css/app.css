@@ -192,19 +192,19 @@
 
     /* chats */
     .chat-wrapper {
-        @apply relative flex h-full gap-5 sm:h-screen sm:min-h-0 py-4 max-w-7xl mx-auto overflow-hidden;
+        @apply relative flex gap-5 h-screen lg:py-4 max-w-7xl mx-auto overflow-hidden;
     }
     .chat-sidebar {
-        @apply absolute inset-0 z-10 hidden w-full max-w-[24rem] flex-none space-y-4 overflow-hidden p-4 md:inset-auto lg:relative lg:block lg:h-full;
+        @apply absolute inset-0 z-10 hidden w-full max-w-[24rem] flex-none space-y-4 overflow-hidden p-4 lg:inset-auto lg:relative lg:block lg:h-full;
     }
     .chat-users {
-        @apply relative h-full min-h-[100px] space-y-0.5 sm:h-[calc(100vh_-_250px)] overflow-y-auto;
+        @apply relative space-y-0.5 h-[calc(100vh_-_250px)] overflow-y-auto;
     }
     .chat-user-item {
         @apply flex w-full items-center justify-between rounded-md p-2 pr-4 mb-1 hover:bg-gray-50 hover:text-primary dark:hover:bg-[#050b14] dark:hover:text-primary;
     }
     .chat-empty-wrapper {
-        @apply mb-8 h-[calc(100vh_-_200px)] min-h-[120px] w-[280px] text-white dark:text-[#0e1726] md:w-[430px];
+        @apply text-white dark:text-[#0e1726] md:w-[430px];
     }
     .chat-detail {
         @apply relative h-[calc(100vh_-_75px)] overflow-auto sm:h-[calc(100vh_-_150px)];

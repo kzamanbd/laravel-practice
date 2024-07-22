@@ -45,16 +45,33 @@ class Messaging
      */
     public static function js()
     {
-        if (($js = @file_get_contents(__DIR__ . '/../dist/app.js')) === false) {
+        if (($appJs = @file_get_contents(__DIR__ . '/../dist/app.js')) === false) {
             throw new RuntimeException('Unable to load the Messaging dashboard JavaScript.');
         }
 
         $messaging = Js::from(static::scriptVariables());
+        $REVERB_APP_KEY = "'" . env('REVERB_APP_KEY') . "'";
+        $REVERB_HOST = "'" . env('REVERB_HOST') . "'";
+        $REVERB_PORT = env('REVERB_PORT') ?? 8081;
+        $REVERB_SCHEME = "'" . env('REVERB_SCHEME') . "'";
+
 
         return new HtmlString(<<<HTML
             <script type="module">
                 window.Messaging = {$messaging};
-                {$js}
+                {$appJs};
+                window.Echo = new window.Echo({
+                    broadcaster: 'reverb',
+                    key: {$REVERB_APP_KEY},
+                    wsHost: {$REVERB_HOST},
+                    wsPort: {$REVERB_PORT},
+                    wssPort: {$REVERB_PORT},
+                    forceTLS: ({$REVERB_SCHEME} ?? 'https') === 'https',
+                    enabledTransports: ['ws', 'wss']
+                });
+                if(!{$REVERB_APP_KEY}) {
+                    console.warn('[Reverb:] REVERB_APP_KEY not found!')
+                }
             </script>
             HTML);
     }

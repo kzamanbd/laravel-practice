@@ -10,10 +10,8 @@
         "dev": "vite",
         "build": "vite build",
         "queue": "php artisan queue:work",
-        "schedule": "php artisan schedule:work",
-        "reverb": "php artisan reverb:start --host=\"0.0.0.0\" --port=8081 --hostname=\"localhost\"",
-        "pulse": "php artisan pulse:check",
-        "app:start": "concurrently \"npm run queue\" \"npm run schedule\" \"npm run reverb\" \"npm run pulse\"",
+        "reverb": "php artisan reverb:start --port=8081",
+        "app:start": "concurrently \"npm run queue\" \"npm run reverb\"",
         "messaging:watch": "npm run watch --workspace messaging",
         "permission:watch": "npm run watch --workspace permission"
     },
