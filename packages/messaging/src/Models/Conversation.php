@@ -2,6 +2,7 @@
 
 namespace DraftScripts\Messaging\Models;
 
+use DraftScripts\Messaging\Enums\AppContainsEnum;
 use DraftScripts\Messaging\Http\Helpers\Helpers;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -31,6 +32,14 @@ class Conversation extends Model
             return $this->hasOne(User::class, 'id', 'author_id');
         }
         return $this->hasOne(User::class, 'id', 'to_user_id');
+    }
+
+    public function groups()
+    {
+        if ($this->msg_type == AppContainsEnum::GROUP_MSG) {
+            return [];
+        }
+        return [];
     }
 
     public function getLastActiveAtAttribute()

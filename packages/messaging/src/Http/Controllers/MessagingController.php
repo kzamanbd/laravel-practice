@@ -23,7 +23,14 @@ class MessagingController extends Controller
             ->orderBy('updated_at', 'desc')
             ->get();
 
-        $groups = [];
+        $groups = Conversation::query()
+            ->whereIn(
+                'id',
+                DB::table('message_group_user')
+                    ->where('user_id', auth()->id())
+                    ->distinct('conversation_id')
+                    ->pluck('conversation_id')->toArray()
+            )->get();
 
         $users = User::query()->whereNot('id', auth()->id())->get();
         $currentUser = User::find(auth()->id());
@@ -111,6 +118,46 @@ class MessagingController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => $message->load('user'),
+                'conversation' => $conversation,
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+
+    public function createGroup(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+
+            $groupMembers = $request->input('group_members');
+            $groupName = $request->input('group_name') ?? auth()->user()->name . " and others " . count($groupMembers);
+            $conversation = Conversation::create([
+                'title' => $groupName,
+                'author_id' => auth()->id(),
+                'uuid' => Str::uuid()
+            ]);
+
+            $groupData = [];
+            foreach ($groupMembers as $id) {
+                $groupData[] = [
+                    'conversation_id' => $conversation->id,
+                    'user_id' => $id,
+                    'created_by' => auth()->id()
+                ];
+            }
+            DB::table('message_group_user')->insert($groupData);
+
+            // $conversation->groups->attach($groupMembers);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Group Successfully Created.',
                 'conversation' => $conversation,
             ]);
         } catch (\Exception $e) {

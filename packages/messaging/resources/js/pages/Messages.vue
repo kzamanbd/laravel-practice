@@ -197,10 +197,7 @@
             </div>
 
             <TabList class="flex items-center justify-between text-xs">
-                <Tab
-                    type="button"
-                    class="hover:text-primary focus-visible:outline-none"
-                    @click="fetchCurrentUser">
+                <Tab type="button" class="tab-btn" @click="fetchCurrentUser">
                     <svg
                         width="24"
                         height="24"
@@ -222,7 +219,7 @@
                     Chats
                 </Tab>
 
-                <Tab type="button" class="hover:text-primary focus-visible:outline-none">
+                <Tab type="button" @click="fetchCurrentUser" class="tab-btn">
                     <svg
                         width="24"
                         height="24"
@@ -243,7 +240,7 @@
                     Groups
                 </Tab>
 
-                <Tab type="button" class="hover:text-primary focus-visible:outline-none">
+                <Tab type="button" class="tab-btn">
                     <svg
                         width="24"
                         height="24"
@@ -271,7 +268,7 @@
                     Contacts
                 </Tab>
 
-                <Tab type="button" class="group hover:text-primary focus-visible:outline-none">
+                <Tab type="button" class="tab-btn">
                     <svg
                         width="24"
                         height="24"

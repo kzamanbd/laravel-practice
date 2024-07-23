@@ -1,3 +1,12 @@
+<script setup lang="ts">
+    defineProps({
+        groups: {
+            type: Array,
+            default: () => []
+        }
+    });
+</script>
+
 <template>
-    <h1>Group</h1>
+    <h1>{{ groups }}</h1>
 </template>

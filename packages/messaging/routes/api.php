@@ -5,9 +5,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('api')->group(function () {
     // Dashboard Routes...
-    Route::get('/initialize', [MessagingController::class, 'initialize']);
-    Route::get('/message', [MessagingController::class, 'getMessages']);
-    Route::post('/message', [MessagingController::class, 'store']);
+    Route::get('initialize', [MessagingController::class, 'initialize']);
+    Route::get('message', [MessagingController::class, 'getMessages']);
+    Route::post('message', [MessagingController::class, 'store']);
+    Route::post('group', [MessagingController::class, 'createGroup']);
 });
 
 // Catch-all Route...
