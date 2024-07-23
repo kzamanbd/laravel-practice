@@ -3,8 +3,7 @@
     "private": true,
     "type": "module",
     "workspaces": [
-        "packages/messaging",
-        "packages/permission"
+        "packages/*"
     ],
     "scripts": {
         "dev": "vite",
@@ -12,8 +11,8 @@
         "queue": "php artisan queue:work",
         "reverb": "php artisan reverb:start --port=8081",
         "app:start": "concurrently \"npm run queue\" \"npm run reverb\"",
-        "messaging:watch": "npm run watch --workspace messaging",
-        "permission:watch": "npm run watch --workspace permission"
+        "messaging:watch": "npm run watch --workspace packages/messaging",
+        "permission:watch": "npm run watch --workspace packages/permission"
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.2",
