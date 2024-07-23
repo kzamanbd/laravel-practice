@@ -18,7 +18,8 @@ class MessagingController extends Controller
     {
         $conversations = Conversation::query()
             ->with(['participant'])
-            ->whereAny(['from_user_id', 'to_user_id'], auth()->id())
+            ->whereAny(['author_id', 'to_user_id'], auth()->id())
+            ->where('msg_type', AppContainsEnum::SINGLE_MSG)
             ->orderBy('updated_at', 'desc')
             ->get();
 
@@ -68,13 +69,13 @@ class MessagingController extends Controller
             if (!$conversationId) {
                 // check already has create a conversation
                 $conversation = Conversation::query()->where([
-                    'from_user_id' => auth()->id(),
+                    'author_id' => auth()->id(),
                     'to_user_id' => $request->input('to_user_id')
                 ])->orWhere([
-                    'from_user_id' => $request->input('to_user_id'),
+                    'author_id' => $request->input('to_user_id'),
                     'to_user_id' => auth()->id()
                 ])->firstOrCreate([
-                    'from_user_id' => auth()->id(),
+                    'author_id' => auth()->id(),
                     'to_user_id' => $request->input('to_user_id'),
                     'uuid' => Str::uuid()
                 ]);

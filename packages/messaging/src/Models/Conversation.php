@@ -28,7 +28,7 @@ class Conversation extends Model
     public function participant(): HasOne
     {
         if ($this->to_user_id == auth()->id()) {
-            return $this->hasOne(User::class, 'id', 'from_user_id');
+            return $this->hasOne(User::class, 'id', 'author_id');
         }
         return $this->hasOne(User::class, 'id', 'to_user_id');
     }
@@ -36,7 +36,7 @@ class Conversation extends Model
     public function getLastActiveAtAttribute()
     {
         $key = $this->to_user_id == auth()->id()
-            ? $this->from_user_id
+            ? $this->author_id
             : $this->to_user_id;
         if ($key) {
             return Helpers::getLastActiveAt($key);
