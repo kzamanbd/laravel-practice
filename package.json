@@ -3,8 +3,7 @@
     "private": true,
     "type": "module",
     "workspaces": [
-        "packages/messaging",
-        "packages/permission"
+        "packages/*"
     ],
     "scripts": {
         "dev": "vite",
