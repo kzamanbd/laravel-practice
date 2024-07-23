@@ -1,46 +1,28 @@
-<script setup lang="ts">
-    import {
-        Menu,
-        MenuButton,
-        MenuItems,
-        MenuItem,
-        Tab,
-        TabGroup,
-        TabList,
-        TabPanels,
-        TabPanel
-    } from '@headlessui/vue';
-    // @ts-ignore
+<script setup>
+    import { Tab, TabGroup, TabList, TabPanels, TabPanel } from '@headlessui/vue';
     import ChatHeadMenu from '../components/ChatHeadMenu.vue';
     import EmptyState from '../components/EmptyState.vue';
-    // @ts-ignore
     import MessageGroup from '../components/MessageGroup.vue';
-    // @ts-ignore
     import UserProfile from '../components/UserProfile.vue';
-    // @ts-ignore
     import SendMessage from '../components/SendMessage.vue';
     import Simplebar from 'simplebar-vue';
     import { groupBy } from 'lodash';
     import { ref, computed, inject } from 'vue';
-    import { User, Conversation } from '../types';
 
-    const http = inject('http') as any;
-    const authUser = ref({} as User);
-    const conversations = ref([] as Conversation[]);
-    const users = ref([] as User[]);
-    const groups = ref([] as Conversation[]);
+    const http = inject('http');
+    const authUser = ref({});
+    const conversations = ref([]);
+    const users = ref([]);
+    const groups = ref([]);
 
-    const inputMessage = ref<HTMLInputElement | null>(null);
-    const selectedUser = ref<User | null>(null);
+    const inputMessage = ref(null);
+    const selectedUser = ref(null);
     const searchKey = ref('');
-    const form = ref<{
-        conversation_id: number | null;
-        to_user_id: number | null;
-    }>({
+    const form = ref({
         conversation_id: null,
         to_user_id: null
     });
-    const selectedConversation = ref(null) as any;
+    const selectedConversation = ref(null);
     const chat = ref({
         chatMenu: false,
         chatUser: false
@@ -69,25 +51,18 @@
     });
 
     const filteredConversations = computed(() => {
-        setTimeout(() => {
-            const element = document.querySelector('.chat-users') as HTMLElement;
-            if (element) {
-                element.scrollTop = 0;
-            }
-        });
-
-        return conversations.value.filter((d: Conversation) => {
+        return conversations.value.filter((d) => {
             return d.participant.name.toLowerCase().includes(searchKey.value.toLowerCase());
         });
     });
 
     const filteredUsers = computed(() => {
-        return users.value.filter((d: User) => {
+        return users.value.filter((d) => {
             return d.name.toLowerCase().includes(searchKey.value.toLowerCase());
         });
     });
 
-    const selectedNewUser = (user: User): void => {
+    const selectedNewUser = (user) => {
         selectedUser.value = user;
         chat.value.chatUser = true;
         chat.value.chatMenu = false;
@@ -101,11 +76,11 @@
             },
             last_msg_at: 'now',
             is_active: true
-        } as Conversation;
+        };
         selectedConversation.value = item;
     };
 
-    const selectedItem = async (item: Conversation) => {
+    const selectedItem = async (item) => {
         try {
             const { data: response } = await http.get(`/message?uuid=${item.uuid}`);
             selectedConversation.value = response.conversation;
@@ -120,7 +95,7 @@
         }
     };
 
-    const sendMessage = async (message: string) => {
+    const sendMessage = async (message) => {
         if (!message.trim()) {
             return;
         }
@@ -141,12 +116,10 @@
         }
     };
 
-    function scrollToBottom(): void {
+    function scrollToBottom() {
         if (selectedConversation.value) {
             setTimeout(() => {
-                const element = document.querySelector(
-                    '#chat-box .simplebar-content'
-                ) as HTMLElement;
+                const element = document.querySelector('#chat-box .simplebar-content');
 
                 element?.scrollIntoView({
                     behavior: 'smooth',

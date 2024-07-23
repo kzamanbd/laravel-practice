@@ -1,5 +1,5 @@
-<script setup lang="ts">
-    import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue';
+<script setup>
+    import { Menu, MenuButton, MenuItems } from '@headlessui/vue';
     defineProps({
         conversation: {
             type: Object,

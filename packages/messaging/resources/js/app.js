@@ -2,10 +2,10 @@ import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
 import axios from 'axios';
 
-(window as any).Pusher = Pusher;
-(window as any).Echo = Echo;
+window.Pusher = Pusher;
+window.Echo = Echo;
 
-let token = document.head.querySelector("meta[name='csrf-token']") as any;
+const token = document.head.querySelector("meta[name='csrf-token']");
 
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 

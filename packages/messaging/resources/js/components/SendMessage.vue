@@ -1,8 +1,8 @@
-<script setup lang="ts">
+<script setup>
     import { ref } from 'vue';
     const emit = defineEmits(['submit']);
     const message = ref('');
-    const inputMessageRef = ref<HTMLInputElement | null>(null);
+    const inputMessageRef = ref(null);
     const isInvalid = ref(false);
 
     const sendMessage = () => {
