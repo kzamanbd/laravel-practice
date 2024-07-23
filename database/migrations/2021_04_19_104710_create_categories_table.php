@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('parent_id')->nullable()
+            $table->foreignId('parent_id')
+                ->nullable()
+                ->constrained('categories')
                 ->comment('Parent category ID for nested categories');
             $table->string('name');
             $table->string('slug');
