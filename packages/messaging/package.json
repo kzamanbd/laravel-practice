@@ -1,5 +1,5 @@
 {
-    "name": "laravel-messaging",
+    "name": "messaging",
     "private": true,
     "type": "module",
     "scripts": {
@@ -26,10 +26,10 @@
         "simplebar": "^6.2.5",
         "simplebar-vue": "^2.3.3",
         "tailwindcss": "^3.2.1",
-        "typescript": "^5.0.2",
+        "typescript": "^5.4.2",
         "vite": "^5.0",
         "vue": "^3.4.0",
         "vue-router": "^4.2.5",
-        "vue-tsc": "^1.8.27"
+        "vue-tsc": "^1.6.5"
     }
 }
