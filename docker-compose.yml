@@ -1,4 +1,4 @@
-version: "3.7"
+version: "3"
 services:
     # mysql database
     mysql-database:
@@ -8,7 +8,7 @@ services:
         ports:
             - 3306:3306
         volumes:
-            - ./.docker/mysql:/var/lib/mysql
+            - ./dockerfiles/mysql:/var/lib/mysql
         environment:
             MYSQL_DATABASE: ${DB_DATABASE}
             MYSQL_ROOT_PASSWORD: root
@@ -22,7 +22,7 @@ services:
         ports:
             - 6379:6379
         volumes:
-            - ./.docker/redis:/data
+            - ./dockerfiles/redis:/data
         networks:
             - laravel-network
 
@@ -45,7 +45,7 @@ services:
             args:
                 user: zaman
                 uid: 1000
-            context: ./.docker
+            context: ./dockerfiles
             dockerfile: Dockerfile
         restart: unless-stopped
         environment:
@@ -56,7 +56,7 @@ services:
             - DB_PASSWORD=root
         volumes:
             - ./:/var/www/html:cached
-            - ./.docker/php-fpm.ini:/usr/local/etc/php/conf.d/custom.ini
+            - ./dockerfiles/php-fpm.ini:/usr/local/etc/php/conf.d/php-fpm.ini
         depends_on:
             - mysql-database
             - redis-database
@@ -71,7 +71,7 @@ services:
             - 8001:80
         volumes:
             - ./:/var/www/html:cached
-            - ./.docker/nginx:/etc/nginx/conf.d
+            - ./dockerfiles/nginx:/etc/nginx/conf.d
         depends_on:
             - laravel-app
         networks:
