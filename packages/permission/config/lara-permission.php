@@ -5,10 +5,10 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Pulse Domain
+    | Permission Domain
     |--------------------------------------------------------------------------
     |
-    | This is the subdomain which the Pulse dashboard will be accessible from.
+    | This is the subdomain which the Permission dashboard will be accessible from.
     | When set to null, the dashboard will reside under the same domain as
     | the application. Remember to configure your DNS entries correctly.
     |
@@ -18,10 +18,10 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Pulse Path
+    | Permission Path
     |--------------------------------------------------------------------------
     |
-    | This is the path which the Pulse dashboard will be accessible from. Feel
+    | This is the path which the Permission dashboard will be accessible from. Feel
     | free to change this path to anything you'd like. Note that this won't
     | affect the path of the internal API that is never exposed to users.
     |
@@ -31,11 +31,11 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Pulse Storage Driver
+    | Permission Storage Driver
     |--------------------------------------------------------------------------
     |
     | This configuration option determines which storage driver will be used
-    | while storing entries from Pulse's recorders. In addition, you also
+    | while storing entries from Permission's recorders. In addition, you also
     | may provide any options to configure the selected storage driver.
     |
     */
@@ -52,10 +52,10 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Pulse Route Middleware
+    | Permission Route Middleware
     |--------------------------------------------------------------------------
     |
-    | These middleware will be assigned to every Pulse route, giving you the
+    | These middleware will be assigned to every Permission route, giving you the
     | chance to add your own middleware to this list or change any of the
     | existing middleware. Of course, reasonable defaults are provided.
     |
