@@ -22,8 +22,7 @@ class MessagingController extends Controller
             ->orderBy('updated_at', 'desc')
             ->get();
 
-        $groups = collect($conversations)->where('msg_type', AppContainsEnum::GROUP_MSG)->toArray();
-        $conversations = collect($conversations)->where('msg_type', AppContainsEnum::SINGLE_MSG)->toArray();
+        $groups = [];
 
         $users = User::query()->whereNot('id', auth()->id())->get();
         $currentUser = User::find(auth()->id());

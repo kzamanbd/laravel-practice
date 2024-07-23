@@ -14,6 +14,8 @@
     import ChatHeadMenu from '../components/ChatHeadMenu.vue';
     import EmptyState from '../components/EmptyState.vue';
     // @ts-ignore
+    import MessageGroup from '../components/MessageGroup.vue';
+    // @ts-ignore
     import UserProfile from '../components/UserProfile.vue';
     // @ts-ignore
     import SendMessage from '../components/SendMessage.vue';
@@ -26,6 +28,8 @@
     const authUser = ref({} as User);
     const conversations = ref([] as Conversation[]);
     const users = ref([] as User[]);
+    const groups = ref([] as Conversation[]);
+
     const inputMessage = ref<HTMLInputElement | null>(null);
     const selectedUser = ref<User | null>(null);
     const searchKey = ref('');
@@ -47,8 +51,9 @@
         try {
             const { data: response } = await http.get('/initialize');
             authUser.value = response.user;
-            conversations.value = response.conversations || [];
-            users.value = response.users || [];
+            users.value = response.users;
+            groups.value = response.groups;
+            conversations.value = response.conversations;
         } catch (error) {
             console.log(error);
         }
@@ -332,7 +337,9 @@
                         </button>
                     </Simplebar>
                 </TabPanel>
-                <TabPanel>Content 2</TabPanel>
+                <TabPanel>
+                    <MessageGroup :groups="groups" />
+                </TabPanel>
                 <TabPanel>
                     <Simplebar class="chat-users my-2">
                         <button

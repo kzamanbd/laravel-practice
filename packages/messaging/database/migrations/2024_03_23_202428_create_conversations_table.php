@@ -16,15 +16,12 @@ return new class extends Migration
             $table->uuid('uuid')->unique();
             $table->string('title')->nullable();
             $table->foreignId('from_user_id')
-                ->nullable()
                 ->constrained('users')
                 ->onDelete('cascade');
             $table->foreignId('to_user_id')
-                ->nullable()
                 ->constrained('users')
                 ->onDelete('cascade');
             $table->integer('last_msg_id')->nullable();
-            $table->enum('msg_type', ['group', 'single'])->default('single');
             $table->timestamps();
         });
     }

@@ -38,7 +38,10 @@ class Conversation extends Model
         $key = $this->to_user_id == auth()->id()
             ? $this->from_user_id
             : $this->to_user_id;
-        return Helpers::getLastActiveAt($key);
+        if ($key) {
+            return Helpers::getLastActiveAt($key);
+        }
+        return null;
     }
 
     public function lastMessage(): HasOne
@@ -64,7 +67,7 @@ class Conversation extends Model
     {
         $updatedAt = $this->updated_at;
         if (!$updatedAt) {
-            return null;
+            return '';
         }
         // get date week name
         $date = $updatedAt->format('Y-m-d');

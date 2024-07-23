@@ -16,11 +16,11 @@ class Helpers
     public static function getLastActiveAt(int $key)
     {
         $sessionKey = "last_active_at" . $key;
-        if (cache()->has($sessionKey)) {
-            if (Carbon::parse(cache()->get($sessionKey))->diffInMinutes() > 1) {
+        if (cache($sessionKey)) {
+            if (Carbon::parse(cache($sessionKey))->diffInMinutes() > 1) {
                 return 'Active';
             }
-            return Carbon::parse(cache()->get($sessionKey))->diffForHumans();
+            return Carbon::parse(cache($sessionKey))->diffForHumans();
         } else {
             return 'Offline';
         }
