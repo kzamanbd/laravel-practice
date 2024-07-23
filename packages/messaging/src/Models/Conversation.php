@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class Conversation extends Model
 {
     use HasFactory;
+
     protected $guarded = [];
     protected $appends = [
         'msg_preview',

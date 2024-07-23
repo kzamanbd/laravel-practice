@@ -2,6 +2,7 @@
 
 namespace DraftScripts\Messaging\Http\Controllers;
 
+use DraftScripts\Messaging\Enums\AppContainsEnum;
 use DraftScripts\Messaging\Http\Helpers\Helpers;
 use DraftScripts\Messaging\Models\Conversation;
 use DraftScripts\Messaging\Models\Message;
@@ -21,8 +22,8 @@ class MessagingController extends Controller
             ->orderBy('updated_at', 'desc')
             ->get();
 
-        $groups = collect($conversations)->where('msg_type', 'group')->toArray();
-        $conversations = collect($conversations)->where('msg_type', 'single')->toArray();
+        $groups = collect($conversations)->where('msg_type', AppContainsEnum::GROUP_MSG)->toArray();
+        $conversations = collect($conversations)->where('msg_type', AppContainsEnum::SINGLE_MSG)->toArray();
 
         $users = User::query()->whereNot('id', auth()->id())->get();
         $currentUser = User::find(auth()->id());

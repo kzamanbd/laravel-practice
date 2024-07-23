@@ -1,6 +1,6 @@
 <?php
 
-namespace Workbench\Database\Seeders;
+namespace DraftScripts\Messaging\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Foundation\Auth\User;
