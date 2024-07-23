@@ -5,29 +5,31 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Pulse Domain
+    | Messaging Domain
     |--------------------------------------------------------------------------
     |
-    | This is the subdomain which the Pulse dashboard will be accessible from.
+    | This is the subdomain which the Messaging dashboard will be accessible from.
     | When set to null, the dashboard will reside under the same domain as
     | the application. Remember to configure your DNS entries correctly.
     |
     */
 
-    'domain' => env('LARA_PERMISSION_DOMAIN'),
+    'domain' => env('MESSAGING_DOMAIN'),
 
     /*
     |--------------------------------------------------------------------------
-    | Pulse Path
+    | Messaging Path
     |--------------------------------------------------------------------------
     |
-    | This is the path which the Pulse dashboard will be accessible from. Feel
+    | This is the path which the Messaging dashboard will be accessible from. Feel
     | free to change this path to anything you'd like. Note that this won't
     | affect the path of the internal API that is never exposed to users.
     |
     */
 
     'path' => env('MESSAGING_PATH', 'messaging'),
+
+    'reverb' =>  env('MESSAGING_REVERB', null),
 
     'middleware' => [
         'web',
