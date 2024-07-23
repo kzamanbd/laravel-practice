@@ -14,7 +14,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $total = 100;
+        $total = 20;
         $admin_email = 'kzamanbn@gmail.com';
         $defined_emails = [$admin_email];
 
@@ -24,7 +24,10 @@ class UserSeeder extends Seeder
             }
 
             if ($email === $admin_email) {
-                User::factory()->create(['email' => $email]);
+                User::factory()->create([
+                    'name' => 'Kamruzzaman',
+                    'email' => $email
+                ]);
             }
 
             $total--;
