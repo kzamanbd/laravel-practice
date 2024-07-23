@@ -1,6 +1,5 @@
 {
-    "name": "messaging",
-    "version": "1.0.0",
+    "name": "laravel-messaging",
     "private": true,
     "type": "module",
     "scripts": {
