@@ -52,7 +52,7 @@ new class extends Component {
 
                             <x-slot name="content">
                                 <x-dropdown-link :href="route('blog')" wire:navigate>
-                                    Blog
+                                    Blogging
                                 </x-dropdown-link>
                                 <x-dropdown-link :href="route('contacts')" wire:navigate>
                                     Contacts
@@ -62,9 +62,6 @@ new class extends Component {
                                 </x-dropdown-link>
                                 <x-dropdown-link :href="route('browser-session')" wire:navigate>
                                     Browser Session
-                                </x-dropdown-link>
-                                <x-dropdown-link :href="route('generate.route')" wire:navigate>
-                                    Route Generate
                                 </x-dropdown-link>
                             </x-slot>
                         </x-dropdown>
