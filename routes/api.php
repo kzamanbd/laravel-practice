@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Controllers\API\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\API\CategoryController;
-use App\Http\Controllers\API\CommentController;
-use App\Http\Controllers\API\HomeController;
-use App\Http\Controllers\API\PostController;
+use App\Http\Controllers\Api\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\CommentController;
+use App\Http\Controllers\Api\HomeController;
+use App\Http\Controllers\Api\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
