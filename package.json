@@ -16,9 +16,6 @@
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.2",
-        "@tiptap/core": "^2.4.0",
-        "@tiptap/pm": "^2.4.0",
-        "@tiptap/starter-kit": "^2.4.0",
         "autoprefixer": "^10.4.2",
         "axios": "^1.6.4",
         "concurrently": "^8.2.2",
