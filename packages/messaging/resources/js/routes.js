@@ -1,4 +1,3 @@
-import { RouterOptions } from 'vue-router';
 import Messages from './pages/MessagesView.vue';
 import NotFound from './pages/PageNotFound.vue';
 
@@ -15,4 +14,4 @@ export default [
         path: '/:catchAll(.*)',
         component: NotFound
     }
-] as RouterOptions['routes'];
+];

@@ -33,7 +33,6 @@ class MessagingServiceProvider extends ServiceProvider
         $this->registerAuthorization();
         $this->registerRoutes();
         $this->registerResources();
-        $this->registerComponents();
         $this->registerPublishing();
 
         // Load migrations from the specified path
@@ -64,11 +63,6 @@ class MessagingServiceProvider extends ServiceProvider
         ], function () {
             $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
         });
-    }
-
-    protected function registerComponents(): void
-    {
-        //
     }
 
     /**
