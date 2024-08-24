@@ -1,7 +1,7 @@
 # A User Access Control Packages for Laravel
 
-[![Packagist Version](https://img.shields.io/packagist/v/draftscripts/permission)](https://github.com/draftscripts/permission)
-[![Total Downloads](https://img.shields.io/packagist/dt/draftscripts/permission)](https://github.com/draftscripts/permission)
+[![Packagist Version](https://img.shields.io/packagist/v/draftscripts/messaging)](https://github.com/draftscripts/messaging)
+[![Total Downloads](https://img.shields.io/packagist/dt/draftscripts/messaging)](https://github.com/draftscripts/messaging)
 
 This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
 
@@ -14,36 +14,25 @@ We highly appreciate you sending us a postcard from your hometown, mentioning wh
 You can install the package via composer:
 
 ```bash
-composer require draftscripts/permission
+composer require draftscripts/messaging
 ```
 
 You can publish and run the migrations with:
 
 ```bash
-php artisan vendor:publish --tag="lara-permission-migrations"
+php artisan vendor:publish --tag="lara-messaging-migrations"
 php artisan migrate
 ```
 
 You can publish the config file with (Optional):
 
 ```bash
-php artisan vendor:publish --tag="lara-permission-config"
+php artisan vendor:publish --tag="lara-messaging-config"
 ```
 
-now you can visit permission route [/permission]
-
+now you can visit messaging route [/messaging]
 
 Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="laravel-openai-views"
-```
-
-## Testing
-
-```bash
-composer test
-```
 
 ## Changelog
 
