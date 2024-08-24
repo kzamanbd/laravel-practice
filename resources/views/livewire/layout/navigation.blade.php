@@ -85,7 +85,7 @@ new class extends Component {
                             </x-slot>
 
                             <x-slot name="content">
-                                <x-dropdown-link :href="route('contacts')" target="_blank">
+                                <x-dropdown-link :href="route('pulse')" target="_blank">
                                     Pulse
                                 </x-dropdown-link>
                                 <x-dropdown-link :href="url('messaging')" target="_blank">
