@@ -1,10 +1,10 @@
-import { defineConfig } from 'vite';
+import { defineConfig } from "vite";
 
 export default defineConfig({
     build: {
         assetsDir: "",
         rollupOptions: {
-            input: ["resources/js/permission.js", "resources/css/permission.css"],
+            input: ["resources/js/app.js", "resources/css/app.css"],
             output: {
                 assetFileNames: "[name][extname]",
                 entryFileNames: "[name].js",

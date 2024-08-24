@@ -2,9 +2,8 @@
 
 namespace DraftScripts\Permission;
 
-use Illuminate\Contracts\Support\Htmlable;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
+use Illuminate\Support\HtmlString;
+use Illuminate\Support\Js;
 use RuntimeException;
 
 class LaraPermission
@@ -18,58 +17,62 @@ class LaraPermission
     {
         return $this->registersRoutes;
     }
-
     /**
-     * The CSS paths to include on the dashboard.
+     * Get the default JavaScript variables for Messaging.
      *
-     * @var list<string|Htmlable>
+     * @return array
      */
-    protected $css = [__DIR__ . '/../dist/permission.css'];
-
-
-    /**
-     * Register or return CSS for the Pulse dashboard.
-     *
-     * @param string|Htmlable|list<string|Htmlable>|null $css
-     */
-    public function css(string|Htmlable|array|null $css = null): string|self
+    public static function scriptVariables()
     {
-        if (func_num_args() === 1) {
-            $this->css = array_values(array_unique(array_merge($this->css, Arr::wrap($css)), SORT_REGULAR));
+        return [
+            'path' => config('lara-permission.path'),
+        ];
+    }
 
-            return $this;
+
+    /**
+     * Get the CSS for the Messaging dashboard.
+     *
+     * @return HtmlString
+     */
+    public static function css()
+    {
+        if (($app = @file_get_contents(__DIR__ . '/../dist/app.css')) === false) {
+            throw new RuntimeException('Unable to load the Permission dashboard CSS.');
         }
 
-        return collect($this->css)->reduce(function ($carry, $css) {
-            if ($css instanceof Htmlable) {
-                return $carry . Str::finish($css->toHtml(), PHP_EOL);
-            } else {
-                if (($contents = @file_get_contents($css)) === false) {
-                    throw new RuntimeException("Unable to load Pulse dashboard CSS path [$css].");
-                }
-
-                return $carry . "<style>{$contents}</style>" . PHP_EOL;
-            }
-        }, '');
+        return new HtmlString(<<<HTML
+            <style>{$app}</style>
+            HTML);
     }
 
     /**
-     * Return the compiled JavaScript from the vendor directory.
+     * Get the JS for the Permission dashboard.
+     *
+     * @return HtmlString
      */
-    public function js(): string
+    public static function js()
     {
         if (
-            ($livewire = @file_get_contents(__DIR__ . '/../../../livewire/livewire/dist/livewire.js')) === false &&
-            ($livewire = @file_get_contents(__DIR__ . '/../vendor/livewire/livewire/dist/livewire.js')) === false
+            ($livewire = @file_get_contents(__DIR__ . '/../../../vendor/livewire/livewire/dist/livewire.js')) === false
         ) {
             throw new RuntimeException('Unable to load the Livewire JavaScript.');
         }
-
-        if (($pulse = @file_get_contents(__DIR__ . '/../dist/permission.js')) === false) {
-            throw new RuntimeException('Unable to load the Pulse dashboard JavaScript.');
+        if (($appJs = @file_get_contents(__DIR__ . '/../dist/app.js')) === false) {
+            throw new RuntimeException('Unable to load the Permission dashboard JavaScript.');
         }
 
-        return "<script>{$livewire}</script>" . PHP_EOL . "<script>{$pulse}</script>" . PHP_EOL;
+        $permission = Js::from(static::scriptVariables());
+
+        return new HtmlString(<<<HTML
+            <script>
+                window.livewire = {$livewire};
+            </script>
+            <script type="module">
+                window.Permission = {$permission};
+                {$appJs};
+            </script>
+            HTML);
     }
 
     public function userModel()

@@ -117,13 +117,13 @@ new class extends Component {
 
                             <x-slot name="content">
                                 @if (Route::has('lara-permission.users'))
-                                    <x-dropdown-link :href="route('lara-permission.users')" wire:navigate>
+                                    <x-dropdown-link :href="route('lara-permission.users')" target="_blank">
                                         Users List
                                     </x-dropdown-link>
                                 @endif
 
                                 @if (Route::has('lara-permission.roles'))
-                                    <x-dropdown-link :href="route('lara-permission.roles')" wire:navigate>
+                                    <x-dropdown-link :href="route('lara-permission.roles')" target="_blank">
                                         Roles List
                                     </x-dropdown-link>
                                 @endif
