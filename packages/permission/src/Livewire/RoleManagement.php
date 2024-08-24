@@ -8,7 +8,7 @@ use Illuminate\Contracts\View\View;
 use Livewire\Attributes\On;
 use Spatie\Permission\Models\Role;
 
-class RoleManagement extends PermissionLayout
+class RoleManagement extends BaseLayout
 {
     public $editableMode = false;
 

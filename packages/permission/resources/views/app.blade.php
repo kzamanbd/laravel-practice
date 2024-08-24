@@ -19,10 +19,10 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
         <!-- Scripts -->
-        {!! (new \DraftScripts\Permission\LaraPermission)->css() !!}
+        {!! (new \DraftScripts\Permission\LaraPermission())->css() !!}
         @livewireStyles
 
-        {!! (new \DraftScripts\Permission\LaraPermission)->js() !!}
+        {!! (new \DraftScripts\Permission\LaraPermission())->js() !!}
         @livewireScriptConfig
     </head>
 

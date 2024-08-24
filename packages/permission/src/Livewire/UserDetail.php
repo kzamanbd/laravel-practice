@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 use Spatie\Permission\Models\Permission;
 
 
-class UserDetail extends PermissionLayout
+class UserDetail extends BaseLayout
 {
     public $user;
     public $features_permissions = [];

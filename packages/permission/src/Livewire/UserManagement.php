@@ -7,13 +7,14 @@ use DraftScripts\Permission\Mail\AccountVerification;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
 use Spatie\Permission\Models\Role;
 
-class UserManagement extends PermissionLayout
+class UserManagement extends BaseLayout
 {
     use WithPagination;
 
@@ -80,7 +81,7 @@ class UserManagement extends PermissionLayout
     {
         $model = config('lara-permission.model');
         return (new $model)::with(['roles'])
-            ->where('id', '!=', auth()->id())
+            ->where('id', '!=', Auth::id())
             ->where('name', 'like', "%{$this->searchKey}%")
             ->orWhere('email', 'like', "%{$this->searchKey}%")
             ->orderBy($this->sortColumnName, $this->sortDirection)

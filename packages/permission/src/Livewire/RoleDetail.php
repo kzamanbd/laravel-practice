@@ -8,7 +8,7 @@ use DraftScripts\Permission\Support\RoleService\RoleService;
 use Illuminate\Contracts\View\View;
 
 
-class RoleDetail extends PermissionLayout
+class RoleDetail extends BaseLayout
 {
     public $role;
     public $features = [];

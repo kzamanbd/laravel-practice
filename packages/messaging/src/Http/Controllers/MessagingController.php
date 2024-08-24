@@ -8,17 +8,17 @@ use DraftScripts\Messaging\Models\Conversation;
 use DraftScripts\Messaging\Models\Message;
 use DraftScripts\Messaging\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
-class MessagingController extends Controller
+class MessagingController
 {
-
     public function initialize()
     {
         $conversations = Conversation::query()
             ->with(['participant'])
-            ->whereAny(['author_id', 'to_user_id'], auth()->id())
+            ->whereAny(['author_id', 'to_user_id'], Auth::id())
             ->where('msg_type', AppContainsEnum::SINGLE_MSG)
             ->orderBy('updated_at', 'desc')
             ->get();
@@ -27,13 +27,13 @@ class MessagingController extends Controller
             ->whereIn(
                 'id',
                 DB::table('message_group_user')
-                    ->where('user_id', auth()->id())
+                    ->where('user_id', Auth::id())
                     ->distinct('conversation_id')
                     ->pluck('conversation_id')->toArray()
             )->get();
 
-        $users = User::query()->whereNot('id', auth()->id())->get();
-        $currentUser = User::find(auth()->id());
+        $users = User::query()->whereNot('id', Auth::id())->get();
+        $currentUser = User::find(Auth::id());
 
         return response()->json([
             'success' => true,
@@ -76,13 +76,13 @@ class MessagingController extends Controller
             if (!$conversationId) {
                 // check already has create a conversation
                 $conversation = Conversation::query()->where([
-                    'author_id' => auth()->id(),
+                    'author_id' => Auth::id(),
                     'to_user_id' => $request->input('to_user_id')
                 ])->orWhere([
                     'author_id' => $request->input('to_user_id'),
-                    'to_user_id' => auth()->id()
+                    'to_user_id' => Auth::id()
                 ])->firstOrCreate([
-                    'author_id' => auth()->id(),
+                    'author_id' => Auth::id(),
                     'to_user_id' => $request->input('to_user_id'),
                     'uuid' => Str::uuid()
                 ]);
@@ -96,7 +96,7 @@ class MessagingController extends Controller
 
             $message = Message::create([
                 'conversation_id' => $conversationId,
-                'user_id' => auth()->id(),
+                'user_id' => Auth::id(),
                 'message' => $text
             ]);
 
@@ -136,10 +136,10 @@ class MessagingController extends Controller
         try {
 
             $groupMembers = $request->input('group_members');
-            $groupName = $request->input('group_name') ?? auth()->user()->name . " and others " . count($groupMembers);
+            $groupName = $request->input('group_name') ?? Auth::user()->name . " and others " . count($groupMembers);
             $conversation = Conversation::create([
                 'title' => $groupName,
-                'author_id' => auth()->id(),
+                'author_id' => Auth::id(),
                 'uuid' => Str::uuid()
             ]);
 
@@ -148,7 +148,7 @@ class MessagingController extends Controller
                 $groupData[] = [
                     'conversation_id' => $conversation->id,
                     'user_id' => $id,
-                    'created_by' => auth()->id()
+                    'created_by' => Auth::id()
                 ];
             }
             DB::table('message_group_user')->insert($groupData);
