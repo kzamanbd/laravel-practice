@@ -6,6 +6,7 @@ use App\Livewire\ApiTokenManager;
 use App\Livewire\Blogging;
 use App\Livewire\BrowserSession;
 use App\Livewire\ContactManagement;
+use App\Livewire\DatabaseBackup;
 use App\Livewire\JobBatching;
 use App\Livewire\UserDashboard;
 use Illuminate\Support\Facades\Route;
@@ -26,12 +27,13 @@ Route::view('/', 'welcome');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', UserDashboard::class)->name('dashboard');
-    Route::view('profile', 'profile')->name('profile');
-    Route::get('browser-session', BrowserSession::class)->name('browser-session');
+    Route::get('profile', fn() => view('profile'))->name('profile');
+    Route::get('browser-session', BrowserSession::class)->name('browser.session');
     Route::get('tokens', ApiTokenManager::class)->name('api.tokens');
     Route::get('blogging', Blogging::class)->name('blog');
     Route::get('contacts', ContactManagement::class)->name('contacts');
-    Route::get('job-batching', JobBatching::class)->name('job-batching');
+    Route::get('job-batching', JobBatching::class)->name('job.batching');
+    Route::get('database-backup', DatabaseBackup::class)->name('database.backup');
     Route::post('upload-base64', [HomeController::class, 'uploadBase64'])->name('upload.base64');
 });
 

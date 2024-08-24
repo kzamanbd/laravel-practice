@@ -57,11 +57,14 @@ new class extends Component {
                                 <x-dropdown-link :href="route('contacts')" wire:navigate>
                                     Contacts
                                 </x-dropdown-link>
-                                <x-dropdown-link :href="route('job-batching')" wire:navigate>
+                                <x-dropdown-link :href="route('job.batching')" wire:navigate>
                                     Job Batching
                                 </x-dropdown-link>
-                                <x-dropdown-link :href="route('browser-session')" wire:navigate>
+                                <x-dropdown-link :href="route('browser.session')" wire:navigate>
                                     Browser Session
+                                </x-dropdown-link>
+                                <x-dropdown-link :href="route('database.backup')" wire:navigate>
+                                    Database Backup
                                 </x-dropdown-link>
                             </x-slot>
                         </x-dropdown>
@@ -91,9 +94,6 @@ new class extends Component {
                                 <x-dropdown-link :href="url('messaging')" target="_blank">
                                     Messaging
                                 </x-dropdown-link>
-                                <x-dropdown-link :href="url('horizon')" target="_blank">
-                                    Horizon
-                                </x-dropdown-link>
                             </x-slot>
                         </x-dropdown>
                     </div>
@@ -117,13 +117,13 @@ new class extends Component {
 
                             <x-slot name="content">
                                 @if (Route::has('lara-permission.users'))
-                                    <x-dropdown-link :href="route('lara-permission.users')" target="_blank">
+                                    <x-dropdown-link :href="route('lara-permission.users')">
                                         Users List
                                     </x-dropdown-link>
                                 @endif
 
                                 @if (Route::has('lara-permission.roles'))
-                                    <x-dropdown-link :href="route('lara-permission.roles')" target="_blank">
+                                    <x-dropdown-link :href="route('lara-permission.roles')">
                                         Roles List
                                     </x-dropdown-link>
                                 @endif
