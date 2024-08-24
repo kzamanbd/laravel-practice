@@ -8,6 +8,7 @@ use App\Models\Contact;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Storage;
+use Livewire\Attributes\On;
 use Livewire\WithFileUploads;
 use Maatwebsite\Excel\Facades\Excel;
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -28,6 +29,12 @@ class ContactManagement extends Component
     protected $rules = [
         'excelFile' => 'nullable|file|mimes:xlsx',
     ];
+
+    #[On('echo:reverb-channel,ReverbConnected')]
+    public function reverbConnected($data): void
+    {
+        dd($data);
+    }
 
     public function uploadHandler(): void
     {

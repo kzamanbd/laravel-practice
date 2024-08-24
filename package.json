@@ -9,7 +9,7 @@
         "dev": "vite",
         "build": "vite build",
         "queue": "php artisan queue:work",
-        "reverb": "php artisan reverb:start --port=8081",
+        "reverb": "php artisan reverb:start --port=8081 --debug",
         "app:start": "concurrently \"npm run queue\" \"npm run reverb\"",
         "messaging:watch": "npm run watch --workspace messaging",
         "permission:watch": "npm run watch --workspace permission"

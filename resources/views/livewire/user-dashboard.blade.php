@@ -10,6 +10,7 @@
             <div class="p-4 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg space-y-4">
                 {{ __("You're logged in!") }}
                 {{ csrf_token() }}
+
                 <form action="{{ route('upload.base64') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class=" text-gray-900 dark:text-gray-100">
@@ -26,6 +27,9 @@
 
                 <x-primary-button wire:click="uploadExcel">
                     Upload Excel With Formula
+                </x-primary-button>
+                <x-primary-button wire:click="connectReverb">
+                    Connect Reverb
                 </x-primary-button>
             </div>
         </div>

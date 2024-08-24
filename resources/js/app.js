@@ -1,7 +1,4 @@
 import "./bootstrap";
-import "./echo";
-import "./editor";
-import "./toast";
 
 document.addEventListener("livewire:init", () => {
     Livewire.on("confirm-modal", (event) => {

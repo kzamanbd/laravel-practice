@@ -2,6 +2,8 @@
 
 namespace App\Livewire;
 
+use App\Events\ReverbConnected;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
@@ -33,11 +35,16 @@ class UserDashboard extends Component
 
         $fields = ['sl', 'region', 'blank_field', 'target_share', 'formula'];
 
-        $data = array_map(fn ($row) => array_combine($fields, $row), $dataToArray);
+        $data = array_map(fn($row) => array_combine($fields, $row), $dataToArray);
 
         dd($data);
     }
 
+
+    public function connectReverb(): void
+    {
+        ReverbConnected::dispatch(Auth::user());
+    }
 
     public function render()
     {
