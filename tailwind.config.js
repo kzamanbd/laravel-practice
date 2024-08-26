@@ -2,7 +2,7 @@ import forms from "@tailwindcss/forms";
 import colors from "tailwindcss/colors";
 import defaultTheme from "tailwindcss/defaultTheme";
 
-const primary = colors.green;
+const primary = colors.indigo;
 const colorConfig = {
     dark: {
         ...colors.slate,
