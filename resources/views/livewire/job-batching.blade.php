@@ -8,7 +8,7 @@
     </x-slot>
 
 
-    <div class="py-12">
+    <div class="py-6">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-2">
             <div class="p-4 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg space-y-4">
                 <x-primary-button type="button" wire:click="downloadContacts">

@@ -10,6 +10,5 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote')->hourly();
 
-Schedule::command(SendEmails::class)->daily();
 
 Schedule::job(SyncDailySalesCollectionReturn::class)->dailyAt('9:48');
