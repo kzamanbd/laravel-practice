@@ -2,9 +2,11 @@
 
 namespace App\Mail\Unido;
 
+use App\Jobs\Unido\SyncDailySalesCollectionReturn;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
@@ -59,6 +61,12 @@ class DailySalesDataSyncFailed extends Mailable implements ShouldQueue
      */
     public function attachments()
     {
-        return [];
+        return [
+            Attachment::fromStorageDisk(SyncDailySalesCollectionReturn::UNIDO_FTP, SyncDailySalesCollectionReturn::INV_HEADER),
+            Attachment::fromStorageDisk(SyncDailySalesCollectionReturn::UNIDO_FTP, SyncDailySalesCollectionReturn::INV_LINES),
+            Attachment::fromStorageDisk(SyncDailySalesCollectionReturn::UNIDO_FTP, SyncDailySalesCollectionReturn::RETURN_HEADER),
+            Attachment::fromStorageDisk(SyncDailySalesCollectionReturn::UNIDO_FTP, SyncDailySalesCollectionReturn::RETURN_LINES),
+            Attachment::fromStorageDisk(SyncDailySalesCollectionReturn::UNIDO_FTP, SyncDailySalesCollectionReturn::COLLECTION)
+        ];
     }
 }

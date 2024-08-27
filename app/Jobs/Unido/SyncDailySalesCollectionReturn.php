@@ -39,7 +39,7 @@ class SyncDailySalesCollectionReturn implements ShouldQueue
      *
      * @var int
      */
-    public $tries = 5;
+    public $tries = 3;
 
 
     /**
@@ -63,35 +63,45 @@ class SyncDailySalesCollectionReturn implements ShouldQueue
             return;
         }
 
-
         DB::beginTransaction();
         try {
 
+            $chunkSize = 1000;
+
             // sales invoice
             $salesInvoice = $this->processSalesInvoice();
-            // insert into database here
-            DB::table(self::SALES_INVOICE_HEADER_TABLE)->insert($salesInvoice[0]);
-            DB::table(self::SALES_INVOICE_LINES_TABLE)->insert($salesInvoice[1]);
+            // insert into database here $chunkSize chunks of data
+            collect($salesInvoice[0])->chunk($chunkSize)->each(function ($chunk) {
+                DB::table(self::SALES_INVOICE_HEADER_TABLE)->insert($chunk->toArray());
+            });
+
+            collect($salesInvoice[1])->chunk($chunkSize)->each(function ($chunk) {
+                DB::table(self::SALES_INVOICE_LINES_TABLE)->insert($chunk->toArray());
+            });
             Log::info('Sales invoice synced successfully');
 
             // sales return orders
             $salesReturn = $this->processReturnOrders();
-            // insert into database here
-            DB::table(self::SALES_RETURN_HEADER_TABLE)->insert($salesReturn[0]);
-            DB::table(self::SALES_RETURN_LINES_TABLE)->insert($salesReturn[1]);
+            // insert into database here $chunkSize chunks of data
+            collect($salesReturn[0])->chunk($chunkSize)->each(function ($chunk) {
+                DB::table(self::SALES_RETURN_HEADER_TABLE)->insert($chunk->toArray());
+            });
+
+            collect($salesReturn[1])->chunk($chunkSize)->each(function ($chunk) {
+                DB::table(self::SALES_RETURN_LINES_TABLE)->insert($chunk->toArray());
+            });
             Log::info('Return orders synced successfully');
 
             // collections
             $collections = $this->processCollections();
-            // insert into database here
-            DB::table(self::COLLECTION_TABLE)->insert($collections);
+            // insert into database here $chunkSize chunks of data
+            collect($collections)->chunk($chunkSize)->each(function ($chunk) {
+                DB::table(self::COLLECTION_TABLE)->insert($chunk->toArray());
+            });
             Log::info('Collection data inserted successfully');
-
 
             // backup files to unido-ftp server
             $this->backupFiles();
-
-            SyncNotificationMail::dispatch();
 
             DB::commit();
         } catch (\Exception $e) {

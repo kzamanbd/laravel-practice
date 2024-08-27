@@ -3,7 +3,6 @@
 namespace App\Jobs\Unido;
 
 use App\Mail\Unido\DailySalesDataSyncFailed;
-use App\Mail\Unido\DailySalesDataSyncSuccess;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -21,7 +20,7 @@ class SyncNotificationMail implements ShouldQueue
      *
      * @var int
      */
-    public $tries = 5;
+    public $tries = 3;
 
     /**
      * Create a new job instance.
@@ -42,10 +41,6 @@ class SyncNotificationMail implements ShouldQueue
     {
         $emails = ['kzamanbn@gmail.com'];
 
-        if (isset($this->error)) {
-            Mail::to($emails)->send(new DailySalesDataSyncFailed($this->error));
-        } else {
-            Mail::to($emails)->send(new DailySalesDataSyncSuccess());
-        }
+        Mail::to($emails)->send(new DailySalesDataSyncFailed($this->error));
     }
 }
