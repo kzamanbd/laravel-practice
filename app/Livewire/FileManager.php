@@ -8,6 +8,15 @@ use Livewire\Component;
 
 class FileManager extends Component
 {
+    public $currentPath = ''; // Holds the current directory path
+    public $files = [];
+
+    public function mount($initialPath = null)
+    {
+        $this->currentPath = $initialPath ?: base_path(); // Start with base path or provided initial path
+        $this->files = $this->getDirectoryTree($this->currentPath);
+    }
+
     // Function to recursively build the directory tree
     function getDirectoryTree($directory)
     {
@@ -22,7 +31,7 @@ class FileManager extends Component
                 'path' => $directoryInfo->getPathname(),
                 'size' => $directoryInfo->getSize(),
                 'last_modified' => $directoryInfo->getMTime(),
-                'children' => $this->getDirectoryTree($dir), // Recursive call
+                // 'children' => $this->getDirectoryTree($dir), // Recursive call
             ];
         }
 
@@ -39,9 +48,11 @@ class FileManager extends Component
 
         return $items;
     }
-    public function getFilesProperty()
+    // Method to load the contents of a directory when clicked
+    public function loadDirectory($path)
     {
-        return $this->getDirectoryTree(base_path());
+        $this->currentPath = $path;
+        $this->files = $this->getDirectoryTree($path);
     }
 
     public function render()
