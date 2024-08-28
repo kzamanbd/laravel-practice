@@ -22,9 +22,24 @@
         "laravel-echo": "^1.16.1",
         "laravel-vite-plugin": "^1.0",
         "postcss": "^8.4.31",
+        "prettier": "^3.3.3",
+        "prettier-plugin-tailwindcss": "^0.6.6",
         "pusher-js": "^8.4.0-rc2",
         "tailwindcss": "^3.1.0",
         "toastify-js": "^1.12.0",
         "vite": "^5.0"
+    },
+    "prettier": {
+        "semi": true,
+        "tabWidth": 4,
+        "singleQuote": true,
+        "printWidth": 100,
+        "trailingComma": "none",
+        "bracketSameLine": true,
+        "endOfLine": "crlf",
+        "plugins": [
+            "prettier-plugin-tailwindcss"
+        ]
     }
 }
+
