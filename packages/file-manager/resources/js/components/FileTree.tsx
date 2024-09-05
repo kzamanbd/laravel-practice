@@ -1,5 +1,6 @@
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react';
 import { IFile } from '@/types';
+import FileIcon from './FileIcon';
 
 interface TreeProps {
     file: IFile;
@@ -11,13 +12,17 @@ const FileTree = ({ file, action }: TreeProps) => {
         <Disclosure as="li" className="mb-2">
             <DisclosureButton className="w-full">
                 {file.type == 'directory' ? (
-                    <div onClick={() => action(file)} className="flex items-center ">
-                        <span className="mr-2">📂</span>
+                    <div onClick={action.bind(null, file)} className="flex items-center ">
+                        <span className="mr-2">
+                            <FileIcon type="directory" />
+                        </span>
                         <span className="font-bold">{file.name}</span>
                     </div>
                 ) : (
                     <div className="flex items-center ">
-                        <span className="mr-2">📄</span>
+                        <span className="mr-2">
+                            <FileIcon type="file" />
+                        </span>
                         <span>{file.name}</span>
                     </div>
                 )}

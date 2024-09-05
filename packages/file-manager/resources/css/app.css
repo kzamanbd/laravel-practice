@@ -1,3 +1,13 @@
+@import 'simplebar-react/dist/simplebar.min.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.simplebar-scrollbar:before {
+    width: 5px !important;
+    background: #e2e8f0 !important;
+}
+
+button[data-headlessui-state='selected'] {
+    @apply text-primary;
+}

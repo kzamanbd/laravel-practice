@@ -2,6 +2,8 @@ import { useCallback, useEffect, useState } from 'react';
 import { fetchFiles } from '@/utils';
 import FileTree from '@/components/FileTree';
 import { IFile } from '@/types';
+import SimpleBar from 'simplebar-react';
+import FileIcon from '@/components/FileIcon';
 
 const FileManager = () => {
     const [files, setFiles] = useState<IFile[]>([]);
@@ -320,96 +322,83 @@ const FileManager = () => {
                     {/* <!-- File List --> */}
                     <div className="overflow-auto grid grid-cols-7 border rounded-lg">
                         <div className="col-span-2">
-                            <ul className="p-4">
-                                {files.map((file) => (
-                                    <FileTree
-                                        key={file.path}
-                                        file={file}
-                                        action={fetchNestedFiles}
-                                    />
-                                ))}
-                            </ul>
+                            <SimpleBar style={{ maxHeight: 500 }}>
+                                <ul className="p-4">
+                                    {files.map((file) => (
+                                        <FileTree
+                                            key={file.path}
+                                            file={file}
+                                            action={fetchNestedFiles}
+                                        />
+                                    ))}
+                                </ul>
+                            </SimpleBar>
                         </div>
 
                         <div className="col-span-5 border-l">
                             {selectedFile && (
-                                <table className="w-full text-left">
-                                    <thead>
-                                        <tr className="text-gray-500 uppercase text-sm border-b">
-                                            <td className="py-1.5 px-3 w-10">
-                                                <input type="checkbox" className="rounded" />
-                                            </td>
-                                            <th className="py-1.5 px-3">Name</th>
-                                            <th className="py-1.5 px-3">Size</th>
-                                            <th className="py-1.5 px-3">Last Modified</th>
-                                            <th className="py-1.5 px-3 text-center">Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className="text-sm text-gray-700">
-                                        {/* <!-- Sample Row --> */}
-                                        {selectedFile.children.map((file) => (
-                                            <tr className="divide-y divide-gray-200">
-                                                <td className="py-1.5 px-3 w-10">
+                                <SimpleBar style={{ maxHeight: 500 }}>
+                                    <table className="w-full text-left">
+                                        <thead>
+                                            <tr className="text-gray-500 uppercase text-sm border-b">
+                                                <td className="bg-white sticky top-0 z-50 py-1.5 px-3 w-10">
                                                     <input type="checkbox" className="rounded" />
                                                 </td>
-                                                <td className="py-1.5 px-3">
-                                                    <div className="flex items-center">
-                                                        <svg
-                                                            className="size-5"
-                                                            viewBox="0 0 24 24"
-                                                            fill="none"
-                                                            xmlns="http://www.w3.org/2000/svg">
-                                                            <g
-                                                                id="SVGRepo_bgCarrier"
-                                                                stroke-width="0"></g>
-                                                            <g
-                                                                id="SVGRepo_tracerCarrier"
-                                                                stroke-linecap="round"
-                                                                stroke-linejoin="round"></g>
-                                                            <g id="SVGRepo_iconCarrier">
-                                                                <path
-                                                                    opacity="0.5"
-                                                                    d="M18 10L13 10"
-                                                                    stroke="#22c55e"
-                                                                    stroke-width="1.5"
-                                                                    stroke-linecap="round"></path>
-                                                                <path
-                                                                    opacity="0.5"
-                                                                    d="M10 3H16.5C16.9644 3 17.1966 3 17.3916 3.02567C18.7378 3.2029 19.7971 4.26222 19.9743 5.60842C20 5.80337 20 6.03558 20 6.5"
-                                                                    stroke="#22c55e"
-                                                                    stroke-width="1.5"></path>
-                                                                <path
-                                                                    d="M2 6.94975C2 6.06722 2 5.62595 2.06935 5.25839C2.37464 3.64031 3.64031 2.37464 5.25839 2.06935C5.62595 2 6.06722 2 6.94975 2C7.33642 2 7.52976 2 7.71557 2.01738C8.51665 2.09229 9.27652 2.40704 9.89594 2.92051C10.0396 3.03961 10.1763 3.17633 10.4497 3.44975L11 4C11.8158 4.81578 12.2237 5.22367 12.7121 5.49543C12.9804 5.64471 13.2651 5.7626 13.5604 5.84678C14.0979 6 14.6747 6 15.8284 6H16.2021C18.8345 6 20.1506 6 21.0062 6.76946C21.0849 6.84024 21.1598 6.91514 21.2305 6.99383C22 7.84935 22 9.16554 22 11.7979V14C22 17.7712 22 19.6569 20.8284 20.8284C19.6569 22 17.7712 22 14 22H10C6.22876 22 4.34315 22 3.17157 20.8284C2 19.6569 2 17.7712 2 14V6.94975Z"
-                                                                    stroke="#22c55e"
-                                                                    stroke-width="1.5"></path>
-                                                            </g>
-                                                        </svg>
-
-                                                        <span className="mx-2">{file.name}</span>
-                                                    </div>
-                                                </td>
-                                                <td className="py-1.5 px-3">489 KB</td>
-                                                <td className="py-1.5 px-3">
-                                                    21 Feb 2024, 11:05 am
-                                                </td>
-                                                <td className="py-1.5 px-3 text-center">
-                                                    <button className="text-gray-500 hover:text-gray-700">
-                                                        <svg
-                                                            xmlns="http://www.w3.org/2000/svg"
-                                                            width="16"
-                                                            height="16"
-                                                            fill="currentColor"
-                                                            className="bi bi-three-dots-vertical"
-                                                            viewBox="0 0 16 16">
-                                                            <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
-                                                        </svg>
-                                                    </button>
-                                                    {/* <!-- Add more buttons as necessary --> */}
-                                                </td>
+                                                <th className="bg-white sticky top-0 z-50 py-1.5 px-3">
+                                                    Name
+                                                </th>
+                                                <th className="bg-white sticky top-0 z-50 py-1.5 px-3">
+                                                    Size
+                                                </th>
+                                                <th className="bg-white sticky top-0 z-50 py-1.5 px-3">
+                                                    Last Modified
+                                                </th>
+                                                <th className="bg-white sticky top-0 z-50 py-1.5 px-3 text-center">
+                                                    Actions
+                                                </th>
                                             </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody className="text-sm text-gray-700">
+                                            {selectedFile.children.map((file) => (
+                                                <tr className="divide-y divide-gray-200">
+                                                    <td className="py-1.5 px-3 w-10">
+                                                        <input
+                                                            type="checkbox"
+                                                            className="rounded"
+                                                        />
+                                                    </td>
+                                                    <td className="py-1.5 px-3">
+                                                        <div className="flex items-center">
+                                                            <FileIcon type={file.type} />
+
+                                                            <span className="mx-2">
+                                                                {file.name}
+                                                            </span>
+                                                        </div>
+                                                    </td>
+                                                    <td className="py-1.5 px-3">{file.size}</td>
+                                                    <td className="py-1.5 px-3">
+                                                        {file.modified_at}
+                                                    </td>
+                                                    <td className="py-1.5 px-3 text-center">
+                                                        <button className="text-gray-500 hover:text-gray-700">
+                                                            <svg
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                width="16"
+                                                                height="16"
+                                                                fill="currentColor"
+                                                                className="bi bi-three-dots-vertical"
+                                                                viewBox="0 0 16 16">
+                                                                <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
+                                                            </svg>
+                                                        </button>
+                                                        {/* <!-- Add more buttons as necessary --> */}
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </SimpleBar>
                             )}
                         </div>
                     </div>

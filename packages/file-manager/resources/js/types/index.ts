@@ -3,6 +3,7 @@ export interface IFile {
     type: string;
     path: string;
     size: number;
-    lastModified: string;
+    modified_at: string;
+    expanded: boolean;
     children: IFile[];
 }
