@@ -36,7 +36,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('contacts', ContactManagement::class)->name('contacts');
     Route::get('job-batching', JobBatching::class)->name('job.batching');
     Route::get('database-backup', DatabaseBackup::class)->name('database.backup');
-    Route::get('files', FileManager::class)->name('files');
     Route::post('upload-base64', [HomeController::class, 'uploadBase64'])->name('upload.base64');
 });
 

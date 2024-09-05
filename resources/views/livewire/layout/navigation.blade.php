@@ -33,9 +33,11 @@ new class extends Component {
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('files')" :active="request()->routeIs('files')" wire:navigate>
-                        {{ __('Files') }}
-                    </x-nav-link>
+                    @if (Route::has('files'))
+                        <x-nav-link :href="route('files')" :active="request()->routeIs('files')" target="_blank">
+                            {{ __('Files') }}
+                        </x-nav-link>
+                    @endif
 
                     <div class="hidden sm:flex sm:items-center sm:ml-6">
                         <x-dropdown align="right" width="48">

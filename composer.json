@@ -44,8 +44,7 @@
             "DraftScripts\\Permission\\": "packages/permission/src/",
             "DraftScripts\\BdLocation\\": "packages/bd-location/src/",
             "DraftScripts\\Messaging\\": "packages/messaging/src/",
-            "DraftScripts\\Messaging\\Database\\Factories\\": "packages/messaging/database/factories/",
-            "DraftScripts\\Messaging\\Database\\Seeders\\": "packages/messaging/database/seeders/"
+            "DraftScripts\\FileManager\\": "packages/file-manager/src/"
         }
     },
     "autoload-dev": {
@@ -90,3 +89,4 @@
     "minimum-stability": "stable",
     "prefer-stable": true
 }
+

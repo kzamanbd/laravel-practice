@@ -12,7 +12,8 @@
         "reverb": "php artisan reverb:start --port=8081 --debug",
         "app:start": "concurrently \"npm run queue\" \"npm run reverb\"",
         "messaging:watch": "npm run watch --workspace messaging",
-        "permission:watch": "npm run watch --workspace permission"
+        "permission:watch": "npm run watch --workspace permission",
+        "file:watch": "npm run watch --workspace file-manager"
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.2",

@@ -8,8 +8,8 @@ use Livewire\Component;
 
 class FileManager extends Component
 {
-    public $currentPath = ''; // Holds the current directory path
     public $files = [];
+    public $currentPath = ''; // Holds the current directory path
     public $breadcrumbs = [];
 
     public function mount($initialPath = null)

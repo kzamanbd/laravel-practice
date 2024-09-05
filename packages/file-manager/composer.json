@@ -1,0 +1,28 @@
+{
+    "name": "draftscripts/file-manager",
+    "description": "Laravel File Manager",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "KAMRUZZAMAN",
+            "email": "kzamanbn@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "DraftScripts\\FileManager\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "DraftScripts\\FileManager\\FileManagerServiceProvider"
+            ],
+            "aliases": {
+                "FileManager": "DraftScripts\\FileManager\\Facades\\FileManager"
+            }
+        }
+    },
+    "minimum-stability": "stable"
+}
