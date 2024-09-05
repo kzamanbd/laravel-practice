@@ -10,6 +10,7 @@
         "format": "prettier --write resources/js/"
     },
     "dependencies": {
+        "@headlessui/react": "^2.1.5",
         "react": "^18.3.1",
         "react-dom": "^18.3.1"
     },
@@ -21,12 +22,12 @@
         "@vitejs/plugin-react-swc": "^3.5.0",
         "autoprefixer": "^10.4.12",
         "axios": "^1.6.4",
-        "postcss": "^8.4.31",
-        "tailwindcss": "^3.2.1",
         "eslint": "^9.9.0",
         "eslint-plugin-react-hooks": "^5.1.0-rc.0",
         "eslint-plugin-react-refresh": "^0.4.9",
         "globals": "^15.9.0",
+        "postcss": "^8.4.31",
+        "tailwindcss": "^3.2.1",
         "typescript": "^5.5.3",
         "typescript-eslint": "^8.0.1",
         "vite": "^5.4.1"

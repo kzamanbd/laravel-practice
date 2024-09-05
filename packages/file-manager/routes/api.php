@@ -1,9 +1,10 @@
 <?php
 
+use DraftScripts\FileManager\Http\Controllers\FileManagerController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('api')->group(function () {
-    // Dashboard Routes...
+    Route::get('files', [FileManagerController::class, 'index']);
 });
 
 // Catch-all Route...

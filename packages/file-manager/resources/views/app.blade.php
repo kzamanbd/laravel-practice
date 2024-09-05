@@ -7,6 +7,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>File Manager - {{ config('app.name', 'Laravel') }}</title>
+        <link rel="icon" href="{{ asset('favicon.svg') }}">
 
         <!-- Style -->
         {!! (new \DraftScripts\FileManager\FileManager())->css() !!}

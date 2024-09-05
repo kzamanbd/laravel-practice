@@ -7,7 +7,6 @@ use App\Livewire\Blogging;
 use App\Livewire\BrowserSession;
 use App\Livewire\ContactManagement;
 use App\Livewire\DatabaseBackup;
-use App\Livewire\FileManager;
 use App\Livewire\JobBatching;
 use App\Livewire\UserDashboard;
 use Illuminate\Support\Facades\File;
