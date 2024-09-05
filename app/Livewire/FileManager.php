@@ -10,6 +10,7 @@ class FileManager extends Component
 {
     public $currentPath = ''; // Holds the current directory path
     public $files = [];
+    public $breadcrumbs = [];
 
     public function mount($initialPath = null)
     {
@@ -28,7 +29,7 @@ class FileManager extends Component
             $items[] = [
                 'type' => 'directory',
                 'name' => $directoryInfo->getFilename(),
-                'path' => $directoryInfo->getPathname(),
+                'path' => json_encode($directoryInfo->getPathname()),
                 'size' => $directoryInfo->getSize(),
                 'last_modified' => $directoryInfo->getMTime(),
                 // 'children' => $this->getDirectoryTree($dir), // Recursive call
@@ -40,7 +41,7 @@ class FileManager extends Component
             $items[] = [
                 'type' => 'file',
                 'name' => $file->getFilename(),
-                'path' => $file->getPathname(),
+                'path' => json_encode($file->getPathname()),
                 'size' => $file->getSize(),
                 'last_modified' => Carbon::createFromTimestamp($file->getMTime())->toDateTimeString(),
             ];
@@ -48,11 +49,31 @@ class FileManager extends Component
 
         return $items;
     }
+
     // Method to load the contents of a directory when clicked
     public function loadDirectory($path)
     {
         $this->currentPath = $path;
         $this->files = $this->getDirectoryTree($path);
+        // generate breadcrumbs for the current path
+        $this->breadcrumbs = $this->generateBreadcrumbs($path);
+    }
+
+    // Method to generate breadcrumbs for the current path
+    public function generateBreadcrumbs($path)
+    {
+        $path = explode('/', $path);
+        $path = array_filter($path);
+
+        foreach ($path as $dir) {
+            $ex = explode('\\', $dir);
+            $name = end($ex);
+            $breadcrumbs[] = [
+                'name' => $name,
+            ];
+        }
+
+        return $breadcrumbs;
     }
 
     public function render()

@@ -210,9 +210,9 @@
                         <span>/</span>
                         <span class="text-primary-500">File Manager</span>
                         <span>/</span>
-                        <span class="text-primary-500">Root</span>
+                        {{ print_r($breadcrumbs) }}
                     </div>
-                    <span class="rounded bg-primary-500 text-white p-1">758 items</span>
+                    <span class="rounded bg-primary-500 text-white p-1">{{ count($files) }} items</span>
                 </div>
 
                 <!-- File List -->
@@ -220,78 +220,22 @@
                     <div class="col-span-2">
                         <ul class="p-4">
                             <!-- Directory Example -->
-                            <li class="mb-2">
-                                <div class="flex items-center">
-                                    <span class="mr-2">📂</span> <!-- Folder icon -->
-                                    <span class="font-bold">app</span>
-                                </div>
-                                <ul class="pl-4">
-                                    <li class="mb-2">
-                                        <div class="flex items-center">
+                            @foreach ($files as $file)
+                                <li class="mb-2 cursor-pointer">
+                                    @if ($file['type'] === 'directory')
+                                        <div wire:click="loadDirectory({{ $file['path'] }})"
+                                            class="flex items-center">
                                             <span class="mr-2">📂</span>
-                                            <span class="font-bold">Http</span>
+                                            <span class="font-bold">{{ $file['name'] }}</span>
                                         </div>
-                                        <ul class="pl-4">
-                                            <li>
-                                                <div class="flex items-center">
-                                                    <span class="mr-2">📄</span> <!-- File icon -->
-                                                    <span>Kernel.php</span>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="flex items-center">
-                                                    <span class="mr-2">📄</span>
-                                                    <span>Controller.php</span>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="mb-2">
-                                        <div class="flex items-center">
-                                            <span class="mr-2">📂</span>
-                                            <span class="font-bold">Models</span>
-                                        </div>
-                                        <ul class="pl-4">
-                                            <li>
-                                                <div class="flex items-center">
-                                                    <span class="mr-2">📄</span>
-                                                    <span>User.php</span>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <!-- Another Directory Example -->
-                            <li class="mb-2">
-                                <div class="flex items-center">
-                                    <span class="mr-2">📂</span>
-                                    <span class="font-bold">config</span>
-                                </div>
-                                <ul class="pl-4">
-                                    <li>
+                                    @else
                                         <div class="flex items-center">
                                             <span class="mr-2">📄</span>
-                                            <span>app.php</span>
+                                            <span>{{ $file['name'] }}</span>
                                         </div>
-                                    </li>
-                                    <li>
-                                        <div class="flex items-center">
-                                            <span class="mr-2">📄</span>
-                                            <span>database.php</span>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <!-- File at Root Level -->
-                            <li>
-                                <div class="flex items-center">
-                                    <span class="mr-2">📄</span>
-                                    <span>README.md</span>
-                                </div>
-                            </li>
+                                    @endif
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
 
