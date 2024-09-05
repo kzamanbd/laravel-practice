@@ -5,15 +5,18 @@
     "workspaces": [
         "packages/*"
     ],
+    "packageManager": "pnpm@8.15.6",
     "scripts": {
         "dev": "vite",
         "build": "vite build",
+        "turbo:dev": "turbo dev",
+        "turbo:build": "turbo build",
         "queue": "php artisan queue:work",
         "reverb": "php artisan reverb:start --port=8081 --debug",
         "app:start": "concurrently \"npm run queue\" \"npm run reverb\"",
-        "messaging:build": "npm run watch --workspace messaging",
-        "permission:build": "npm run watch --workspace permission",
-        "file:build": "npm run watch --workspace file-manager"
+        "messaging:build": "pnpm --filter=messaging build",
+        "permission:build": "pnpm --filter=permission build",
+        "file:build": "pnpm --filter=file-manager build"
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.2",
@@ -28,6 +31,7 @@
         "pusher-js": "^8.4.0-rc2",
         "tailwindcss": "^3.1.0",
         "toastify-js": "^1.12.0",
+        "turbo": "^2.1.1",
         "vite": "^5.0"
     },
     "prettier": {

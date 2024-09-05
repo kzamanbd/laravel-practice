@@ -1,9 +1,10 @@
 {
+    "name": "permission",
     "private": true,
     "type": "module",
     "scripts": {
-        "build": "vite build",
-        "watch": "vite build --watch"
+        "dev": "vite build --watch",
+        "build": "vite build"
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.2",
@@ -16,3 +17,4 @@
         "vite": "^5.0"
     }
 }
+
