@@ -8,31 +8,52 @@ import FileIcon from '@/components/FileIcon';
 const FileManager = () => {
     const [files, setFiles] = useState<IFile[]>([]);
 
-    const [selectedFile, setSelectedFile] = useState<IFile | null>(null);
+    const [selectedFiles, setSelectedFiles] = useState<IFile[]>([]);
+
+    const [breadcrumb, setBreadcrumb] = useState<Record<string, string>[]>([
+        {
+            name: 'File Manager',
+            separator: '/'
+        }
+    ]);
 
     const fetchNestedFiles = async (file: IFile) => {
+        const data = file.path.split('\\').map((item) => {
+            return {
+                name: item.trim() || 'File Manager',
+                separator: '/'
+            };
+        });
+        setBreadcrumb(data);
+        console.log(breadcrumb);
         if (file.children.length) return;
         try {
             const { data: response } = await fetchFiles(file.path);
             file.children.push(...response.files);
-            setSelectedFile(file);
-            console.log(files);
+            setSelectedFiles(file.children);
         } catch (err) {
             console.error(err);
         }
+    };
+
+    const breadcrumbClickHandler = (item: Record<string, string>, index: number) => {
+        console.log(item, index);
+        const data = breadcrumb.slice(0, index + 1);
+        setBreadcrumb(data);
+        console.log(breadcrumb.join('\\'));
     };
 
     const fetchInitialFile = useCallback(async () => {
         try {
             const { data: response } = await fetchFiles();
             setFiles(response.files);
+            setSelectedFiles(response.files);
         } catch (err) {
             console.error(err);
         }
     }, []);
 
     useEffect(() => {
-        console.log('Hello World');
         fetchInitialFile();
     }, [fetchInitialFile]);
 
@@ -310,13 +331,26 @@ const FileManager = () => {
                                     </g>
                                 </svg>
                             </span>
-                            <span className="text-primary-500">Laravel</span>
-                            <span>/</span>
-                            <span className="text-primary-500">File Manager</span>
-                            <span>/</span>
-                            <span>Root</span>
+                            <div className="flex gap-2">
+                                {breadcrumb.map((item, index) => (
+                                    <div className="text-primary-500">
+                                        <span
+                                            onClick={breadcrumbClickHandler.bind(null, item, index)}
+                                            className="underline">
+                                            {item.name}
+                                        </span>
+                                        {index != breadcrumb.length - 1 ? (
+                                            <span className="text-gray-700 ml-2">
+                                                {item.separator}
+                                            </span>
+                                        ) : null}
+                                    </div>
+                                ))}
+                            </div>
                         </div>
-                        <span className="rounded bg-primary-500 text-white p-1">485 items</span>
+                        <span className="rounded bg-primary-500 text-white p-1">
+                            {selectedFiles.length} items
+                        </span>
                     </div>
 
                     {/* <!-- File List --> */}
@@ -336,7 +370,7 @@ const FileManager = () => {
                         </div>
 
                         <div className="col-span-5 border-l">
-                            {selectedFile && (
+                            {selectedFiles.length ? (
                                 <SimpleBar style={{ maxHeight: 500 }}>
                                     <table className="w-full text-left">
                                         <thead>
@@ -359,7 +393,7 @@ const FileManager = () => {
                                             </tr>
                                         </thead>
                                         <tbody className="text-sm text-gray-700">
-                                            {selectedFile.children.map((file) => (
+                                            {selectedFiles.map((file) => (
                                                 <tr className="divide-y divide-gray-200">
                                                     <td className="py-1.5 px-3 w-10">
                                                         <input
@@ -368,7 +402,12 @@ const FileManager = () => {
                                                         />
                                                     </td>
                                                     <td className="py-1.5 px-3">
-                                                        <div className="flex items-center">
+                                                        <div
+                                                            onClick={fetchNestedFiles.bind(
+                                                                null,
+                                                                file
+                                                            )}
+                                                            className="flex items-center cursor-pointer">
                                                             <FileIcon type={file.type} />
 
                                                             <span className="mx-2">
@@ -399,7 +438,7 @@ const FileManager = () => {
                                         </tbody>
                                     </table>
                                 </SimpleBar>
-                            )}
+                            ) : null}
                         </div>
                     </div>
                 </div>

@@ -8,11 +8,11 @@ if (token) {
 }
 
 export const http = axios.create({
-    baseURL: '/file-manager/api'
+    baseURL: '/files/api'
 });
 
 export const fetchFiles = async (path?: string) => {
-    return http.get(`/files`, {
+    return http.get(`/data`, {
         params: {
             path
         }

@@ -27,7 +27,7 @@ return [
     |
     */
 
-    'path' => env('FILE_MANAGER', 'file-manager'),
+    'path' => env('FILE_MANAGER', 'files'),
 
     'middleware' => [
         'web',

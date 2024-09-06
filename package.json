@@ -16,7 +16,7 @@
         "app:start": "concurrently \"npm run queue\" \"npm run reverb\"",
         "messaging:build": "pnpm --filter=messaging build",
         "permission:build": "pnpm --filter=permission build",
-        "file:build": "pnpm --filter=file-manager build"
+        "file:dev": "pnpm --filter=file-manager dev"
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.2",

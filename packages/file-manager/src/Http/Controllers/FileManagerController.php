@@ -60,7 +60,7 @@ class FileManagerController
             $modifiedItem['type'] = 'directory';
             $modifiedItem['size'] = $this->formatSizeUnits($this->getDirectorySize($item->getPathname()));
             $modifiedItem['expanded'] = false;
-            $modifiedItem['children'] = [];
+            $modifiedItem['children'] = []; // $this->getRemoteDirectoryTree($dir), // Recursive call to get the children
         }
 
         if ($pathReplace) {
@@ -150,32 +150,9 @@ class FileManagerController
         // Get all directories in the current directory
         $directories = Storage::disk($disk)->directories($path);
 
-        foreach ($directories as $dir) {
-            $directoryInfo = new SplFileInfo($dir);
-            $items[] = [
-                'type' => 'directory',
-                'name' => $directoryInfo->getFilename(),
-                'path' => $directoryInfo->getPathname(),
-                'size' => Storage::disk($disk)->size($dir),
-                'modified_at' => Carbon::createFromTimestamp(0)->toDateTimeString(),
-                'expanded' => false,
-                'children' => [] // $this->getRemoteDirectoryTree($dir), // Recursive call
-            ];
-        }
-
         // Get all files in the current directory
         $files = Storage::disk($disk)->files($path);
 
-        foreach ($files as $file) {
-            $fileInfo = new SplFileInfo($file);
-            $items[] = [
-                'type' => 'file',
-                'name' => $fileInfo->getFilename(),
-                'path' => $fileInfo->getPathname(),
-                'size' => $this->formatSizeUnits(Storage::disk($disk)->size($file)),
-                'modified_at' => Carbon::createFromTimestamp(Storage::disk($disk)->lastModified($file))->toDateTimeString(),
-            ];
-        }
 
         return $items;
     }
@@ -197,14 +174,16 @@ class FileManagerController
             ]);
         }
 
-        $currentPath = base_path(); // Start with base path or provided initial path
+        $initialPath = base_path();
+
+        $currentPath = $initialPath; // Start with base path or provided initial path
         if (request()->has('path')) {
             $currentPath = base_path(request('path'));
         }
-        $files = $this->getLocalDirectoryTree($currentPath, base_path());
+        $files = $this->getLocalDirectoryTree($currentPath, $initialPath);
         return response()->json([
             'files' => $files,
-            'currentPath' => $currentPath
+            'currentPath' => str_replace($initialPath, '', $currentPath)
         ]);
     }
 }
