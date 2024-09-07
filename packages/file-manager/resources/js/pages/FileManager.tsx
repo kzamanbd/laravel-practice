@@ -4,15 +4,19 @@ import FileTree from '@/components/FileTree';
 import { IFile } from '@/types';
 import SimpleBar from 'simplebar-react';
 import FileIcon from '@/components/FileIcon';
+import LoadingSkeleton from '@/components/LoadingSkeleton';
+import Dropdown from '@/components/Dropdown';
 
 const FileManager = () => {
     const [files, setFiles] = useState<IFile[]>([]);
 
     const [selectedFiles, setSelectedFiles] = useState<IFile[]>([]);
+    const [initialLoading, setInitialLoading] = useState(true);
+    const [detailLoading, setDetailLoading] = useState(false);
 
     const [breadcrumb, setBreadcrumb] = useState<Record<string, string>[]>([
         {
-            name: 'File Manager',
+            name: '',
             separator: '/'
         }
     ]);
@@ -20,34 +24,43 @@ const FileManager = () => {
     const fetchNestedFiles = async (file: IFile) => {
         const data = file.path.split('\\').map((item) => {
             return {
-                name: item.trim() || 'File Manager',
+                name: item.trim(),
                 separator: '/'
             };
         });
         setBreadcrumb(data);
-        console.log(breadcrumb);
-        if (file.children.length) return;
+        if (file.children.length) {
+            setSelectedFiles(file.children);
+            return;
+        }
         try {
+            setDetailLoading(true);
             const { data: response } = await fetchFiles(file.path);
             file.children.push(...response.files);
             setSelectedFiles(file.children);
+            setDetailLoading(false);
         } catch (err) {
             console.error(err);
         }
     };
 
-    const breadcrumbClickHandler = (item: Record<string, string>, index: number) => {
-        console.log(item, index);
+    const breadcrumbClickHandler = async (index: number) => {
         const data = breadcrumb.slice(0, index + 1);
         setBreadcrumb(data);
-        console.log(breadcrumb.join('\\'));
+        const path = data.map((item) => item.name).join('\\');
+        fetchInitialFile(path);
+        setDetailLoading(true);
     };
 
-    const fetchInitialFile = useCallback(async () => {
+    const fetchInitialFile = useCallback(async (path?: string) => {
         try {
-            const { data: response } = await fetchFiles();
-            setFiles(response.files);
+            const { data: response } = await fetchFiles(path);
+            if (!path) {
+                setFiles(response.files);
+            }
             setSelectedFiles(response.files);
+            setDetailLoading(false);
+            setInitialLoading(false);
         } catch (err) {
             console.error(err);
         }
@@ -58,7 +71,7 @@ const FileManager = () => {
     }, [fetchInitialFile]);
 
     return (
-        <div className="py-6">
+        <div className="py-4">
             <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-4">
                 <div className="bg-white shadow-sm rounded-lg p-4 flex justify-between">
                     <div>
@@ -335,9 +348,9 @@ const FileManager = () => {
                                 {breadcrumb.map((item, index) => (
                                     <div className="text-primary-500">
                                         <span
-                                            onClick={breadcrumbClickHandler.bind(null, item, index)}
-                                            className="underline">
-                                            {item.name}
+                                            onClick={breadcrumbClickHandler.bind(null, index)}
+                                            className="underline cursor-pointer">
+                                            {item.name || 'File Manager'}
                                         </span>
                                         {index != breadcrumb.length - 1 ? (
                                             <span className="text-gray-700 ml-2">
@@ -356,21 +369,36 @@ const FileManager = () => {
                     {/* <!-- File List --> */}
                     <div className="overflow-auto grid grid-cols-7 border rounded-lg">
                         <div className="col-span-2">
-                            <SimpleBar style={{ maxHeight: 500 }}>
-                                <ul className="p-4">
-                                    {files.map((file) => (
-                                        <FileTree
-                                            key={file.path}
-                                            file={file}
-                                            action={fetchNestedFiles}
-                                        />
+                            {initialLoading ? (
+                                <div className="p-4">
+                                    {Array.from({ length: 10 }).map((_, index) => (
+                                        <LoadingSkeleton key={index} />
                                     ))}
-                                </ul>
-                            </SimpleBar>
+                                </div>
+                            ) : (
+                                <SimpleBar style={{ maxHeight: 500 }}>
+                                    <ul className="p-4">
+                                        {files.map((file) => (
+                                            <FileTree
+                                                key={file.path}
+                                                file={file}
+                                                action={fetchNestedFiles}
+                                            />
+                                        ))}
+                                    </ul>
+                                </SimpleBar>
+                            )}
                         </div>
 
                         <div className="col-span-5 border-l">
-                            {selectedFiles.length ? (
+                            {detailLoading ? (
+                                <div className="p-4">
+                                    {Array.from({ length: 10 }).map((_, index) => (
+                                        <LoadingSkeleton key={index} />
+                                    ))}
+                                </div>
+                            ) : null}
+                            {selectedFiles.length && !detailLoading ? (
                                 <SimpleBar style={{ maxHeight: 500 }}>
                                     <table className="w-full text-left">
                                         <thead>
@@ -420,17 +448,50 @@ const FileManager = () => {
                                                         {file.modified_at}
                                                     </td>
                                                     <td className="py-1.5 px-3 text-center">
-                                                        <button className="text-gray-500 hover:text-gray-700">
-                                                            <svg
-                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                width="16"
-                                                                height="16"
-                                                                fill="currentColor"
-                                                                className="bi bi-three-dots-vertical"
-                                                                viewBox="0 0 16 16">
-                                                                <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
-                                                            </svg>
-                                                        </button>
+                                                        <Dropdown>
+                                                            <Dropdown.Trigger>
+                                                                <button className="text-gray-500 hover:text-gray-700">
+                                                                    <svg
+                                                                        xmlns="http://www.w3.org/2000/svg"
+                                                                        width="16"
+                                                                        height="16"
+                                                                        fill="currentColor"
+                                                                        className="bi bi-three-dots-vertical"
+                                                                        viewBox="0 0 16 16">
+                                                                        <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
+                                                                    </svg>
+                                                                </button>
+                                                            </Dropdown.Trigger>
+
+                                                            <Dropdown.Content width="w-32">
+                                                                <ul
+                                                                    className="py-2 text-sm text-gray-700 dark:text-gray-200"
+                                                                    aria-labelledby="dropdownSmallButton">
+                                                                    <li>
+                                                                        <a
+                                                                            href="#"
+                                                                            className="block text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                                                            Edit
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a
+                                                                            href="#"
+                                                                            className="block text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                                                            Delete
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a
+                                                                            href="#"
+                                                                            className="block text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                                                            Earnings
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </Dropdown.Content>
+                                                        </Dropdown>
+
                                                         {/* <!-- Add more buttons as necessary --> */}
                                                     </td>
                                                 </tr>
