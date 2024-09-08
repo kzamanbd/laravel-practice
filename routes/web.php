@@ -1,17 +1,16 @@
 <?php
 
-use App\Http\Controllers\HomeController;
-use App\Imports\CollectionData;
-use App\Livewire\ApiTokenManager;
 use App\Livewire\Blogging;
-use App\Livewire\BrowserSession;
-use App\Livewire\ContactManagement;
-use App\Livewire\DatabaseBackup;
 use App\Livewire\JobBatching;
+use App\Imports\CollectionData;
 use App\Livewire\UserDashboard;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Route;
+use App\Livewire\BrowserSession;
+use App\Livewire\DatabaseBackup;
+use App\Livewire\ApiTokenManager;
+use App\Livewire\ContactManagement;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +21,7 @@ use Maatwebsite\Excel\Facades\Excel;
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "web" middleware group. Make something great!
 |
-*/
+ */
 
 Route::view('/', 'welcome');
 
@@ -45,33 +44,10 @@ Route::get('excel-data', function () {
     // get all sheets
     $response = [];
     $sheets = Excel::toCollection(new CollectionData, $path);
+
     foreach ($sheets as $sheet) {
         $response[] = $sheet;
     }
+
     return $response;
-});
-
-
-Route::get('system-files', function () {
-    $files = collect(File::files(base_path()))->map(function ($file) {
-        return [
-            'name' => $file->getFilename(),
-            'size' => $file->getSize(),
-            'last_modified' => $file->getMTime(),
-            'path' => $file->getPathname(),
-        ];
-    });
-    $directories = collect(File::directories(base_path()))->map(function ($directory) {
-        $directoryInfo = new \SplFileInfo($directory);
-        return [
-            'name' => $directoryInfo->getFilename(),
-            'size' => $directoryInfo->getSize(),
-            'last_modified' => $directoryInfo->getMTime(),
-            'path' => $directoryInfo->getPathname(),
-        ];
-    });
-    return [
-        'files' => $files,
-        'directories' => $directories,
-    ];
 });

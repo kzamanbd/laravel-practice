@@ -2,13 +2,13 @@
 
 namespace DraftScripts\FileManager\Http\Controllers;
 
+use SplFileInfo;
 use Carbon\Carbon;
 use FilesystemIterator;
+use RecursiveIteratorIterator;
+use RecursiveDirectoryIterator;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
-use RecursiveDirectoryIterator;
-use RecursiveIteratorIterator;
-use SplFileInfo;
 
 class FileManagerController
 {
@@ -21,6 +21,7 @@ class FileManagerController
      */
     function formatSizeUnits($bytes)
     {
+
         if ($bytes >= 1073741824) {
             $bytes = number_format($bytes / 1073741824, 2) . ' GB';
         } elseif ($bytes >= 1048576) {
@@ -49,10 +50,10 @@ class FileManagerController
     function getFileInfo(SplFileInfo $item, $pathReplace = null)
     {
         $modifiedItem = [
-            'type' => $item->getType(),
-            'name' => $item->getFilename(),
-            'path' => $item->getPathname(),
-            'size' => $this->formatSizeUnits($item->getSize()),
+            'type'        => $item->getType(),
+            'name'        => $item->getFilename(),
+            'path'        => $item->getPathname(),
+            'size'        => $this->formatSizeUnits($item->getSize()),
             'modified_at' => Carbon::createFromTimestamp($item->getMTime())->toDateTimeString(),
         ];
 
@@ -80,6 +81,7 @@ class FileManagerController
 
     function getDirectorySize($path)
     {
+
         if (!is_dir($path)) {
             return filesize($path);
         }
@@ -88,6 +90,7 @@ class FileManagerController
 
         // get current operation system info
         $os = php_uname('s');
+
         // if os is unix based or macOS then use the du command
         if ($os == 'Darwin' || $os == 'Linux') {
             $bytes = shell_exec("du -sb $path | awk '{print $1}'");
@@ -131,7 +134,6 @@ class FileManagerController
         return $items;
     }
 
-
     /**
      * Get Remote Directory Tree (S3, FTP, etc)
      *
@@ -145,6 +147,7 @@ class FileManagerController
         // Implement your remote directory tree logic here
 
         $items = [];
+
         // type is local or remote
 
         // Get all directories in the current directory
@@ -152,7 +155,6 @@ class FileManagerController
 
         // Get all files in the current directory
         $files = Storage::disk($disk)->files($path);
-
 
         return $items;
     }
@@ -165,25 +167,29 @@ class FileManagerController
 
     public function index()
     {
+
         if (request()->has('disk') && !empty(request('disk'))) {
             $disk = request('disk');
             $currentPath = request('path') ?? '/';
             $files = $this->getRemoteDirectoryTree($currentPath, $disk);
             return response()->json([
-                'files' => $files
+                'files' => $files,
             ]);
         }
 
         $initialPath = base_path();
 
-        $currentPath = $initialPath; // Start with base path or provided initial path
+        $currentPath = $initialPath;
+
+        // Start with base path or provided initial path
         if (request()->has('path')) {
             $currentPath = base_path(request('path'));
         }
+
         $files = $this->getLocalDirectoryTree($currentPath, $initialPath);
         return response()->json([
-            'files' => $files,
-            'currentPath' => str_replace($initialPath, '', $currentPath)
+            'files'       => $files,
+            'currentPath' => str_replace($initialPath, '', $currentPath),
         ]);
     }
 }
