@@ -51,3 +51,5 @@ Route::get('excel-data', function () {
 
     return $response;
 });
+
+Route::get('remote-files', [HomeController::class, 'remoteFiles'])->name('remote.files');

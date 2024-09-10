@@ -8,7 +8,9 @@
             "email": "kzamanbn@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+        "league/flysystem": "^3.28"
+    },
     "autoload": {
         "psr-4": {
             "DraftScripts\\FileManager\\": "src/"
