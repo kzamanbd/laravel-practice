@@ -3,17 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blob;
-use DraftScripts\FileManager\FilesystemUtils;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use DraftScripts\FileManager\FilesystemUtils;
 
 class HomeController extends Controller
 {
     use FilesystemUtils;
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
     public function uploadBase64(Request $request)
     {
         $this->validate($request, [
-            'file' => 'required'
+            'file' => 'required',
         ]);
         try {
             $file = $request->file('file');
@@ -32,7 +36,7 @@ class HomeController extends Controller
 
     public function remoteFiles()
     {
-        $content  = $this->getContent('local');
+        $content = $this->getContent('local');
 
         return response()->json($content);
     }
