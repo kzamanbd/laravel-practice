@@ -1,3 +1,5 @@
+@props(['files' => []])
+
 <ul class="pl-4">
     <!-- Directory Example -->
     @foreach ($files as $file)

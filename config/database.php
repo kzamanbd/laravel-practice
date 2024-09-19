@@ -120,7 +120,6 @@ return [
             'charset' => 'AL32UTF8',
             'prefix' => '',
         ],
-
     ],
 
     /*
