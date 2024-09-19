@@ -92,19 +92,6 @@ class DatabaseBackup extends Component
 
         foreach ($tables as $table => $columns) {
             $name = strtoupper($table);
-
-            $heading = [
-                'Column Name',
-                'Data Type',
-                'Length',
-                'Precision',
-                'Scale',
-                'Nullable',
-                'Default',
-            ];
-
-            $columns->prepend($heading);
-
             Excel::store(new DatabaseSchemaExport($columns->toArray()), "backup/TABLE-{$name}.xlsx", 'local');
         }
     }
