@@ -13,7 +13,7 @@
         "turbo:build": "turbo build",
         "queue": "php artisan queue:work",
         "reverb": "php artisan reverb:start --port=8081 --debug",
-        "app:start": "concurrently \"npm run queue\" \"npm run reverb\"",
+        "start": "concurrently \"npm run dev\" \"npm run reverb\"",
         "messaging:build": "pnpm --filter=messaging build",
         "permission:build": "pnpm --filter=permission build",
         "file:dev": "pnpm --filter=file-manager dev"
