@@ -25,6 +25,7 @@ class DatabaseBackup extends Component
         $tables = DB::connection($connection)->select("
             SELECT table_name
             FROM user_tables
+            ORDER BY table_name
         ");
 
         // Iterate over each table and get column metadata
@@ -89,10 +90,16 @@ class DatabaseBackup extends Component
         if (empty($tables)) {
             $tables = $this->exportOracleTableStructure();
         }
-
+        $idx = 1;
         foreach ($tables as $table => $columns) {
             $name = strtoupper($table);
-            Excel::store(new DatabaseSchemaExport($columns->toArray()), "backup/TABLE-{$name}.xlsx", 'local');
+            if ($idx < 10) {
+                $name = "0{$idx}-{$name}";
+            } else {
+                $name = "{$idx}-{$name}";
+            }
+            $idx++;
+            Excel::store(new DatabaseSchemaExport($columns->toArray(), $table), "backup/{$name}.xlsx", 'local');
         }
     }
 

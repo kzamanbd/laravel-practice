@@ -33,41 +33,78 @@
         <table>
             <thead>
                 <tr>
-                    <th style="border: 1px solid #000; font-weight:bold;">
+                    <th valign="middle"
+                        style="border: 1px solid #000; text-align: center; font-weight: bold; font-size: 20px;"
+                        colspan="10">
+                        Table Name: {{ $tableName }}
+                    </th>
+                </tr>
+                <tr>
+                    <th valign="middle"
+                        style="border: 1px solid #000;font-weight:bold;text-align:center;background: #E2EDFA">
                         Column Name
                     </th>
-                    <th style="border: 1px solid #000; font-weight:bold;">
+                    <th valign="middle"
+                        style="border: 1px solid #000;font-weight:bold;text-align:center;background: #E2EDFA">
                         Data Type
                     </th>
-                    <th style="border: 1px solid #000; font-weight:bold;">
+                    <th valign="middle"
+                        style="border: 1px solid #000;font-weight:bold;text-align:center;background: #E2EDFA">
                         Length
                     </th>
-                    <th style="border: 1px solid #000; font-weight:bold;">
+                    <th valign="middle"
+                        style="border: 1px solid #000;font-weight:bold;text-align:center;background: #E2EDFA">
                         Nullable
                     </th>
-                    <th style="border: 1px solid #000; font-weight:bold;">
+                    <th valign="middle"
+                        style="border: 1px solid #000;font-weight:bold;text-align:center;background: #E2EDFA">
                         Default
+                    </th>
+                    <th valign="middle"
+                        style="border: 1px solid #000;font-weight:bold;text-align:center;background: #E2EDFA">
+                        Comments
+                    </th>
+                    <th valign="middle"
+                        style="border: 1px solid #000;font-weight:bold;text-align:center;background: #E2EDFA">
+                        Constraints
+                    </th>
+                    <th valign="middle"
+                        style="border: 1px solid #000;font-weight:bold;text-align:center;background: #E2EDFA">
+                        Indexes
+                    </th>
+                    <th valign="middle"
+                        style="border: 1px solid #000;font-weight:bold;text-align:center;background: #E2EDFA">
+                        Triggers
+                    </th>
+                    <th valign="middle"
+                        style="border: 1px solid #000;font-weight:bold;text-align:center;background: #E2EDFA">
+                        Foreign Keys
                     </th>
                 </tr>
             </thead>
             @foreach ($schema as $column)
                 <tbody>
                     <tr>
-                        <td style="border: 1px solid #000">
+                        <td valign="middle" style="border: 1px solid #000">
                             {{ $column['column_name'] }}
                         </td>
-                        <td style="border: 1px solid #000">
+                        <td valign="middle" style="border: 1px solid #000">
                             {{ $column['data_type'] }}
                         </td>
-                        <td style="border: 1px solid #000">
+                        <td valign="middle" style="border: 1px solid #000">
                             {{ $column['length'] }}
                         </td>
-                        <td style="border: 1px solid #000">
+                        <td valign="middle" style="border: 1px solid #000">
                             {{ $column['nullable'] }}
                         </td>
-                        <td style="border: 1px solid #000">
+                        <td valign="middle" style="border: 1px solid #000">
                             {{ $column['default'] }}
                         </td>
+                        <td valign="middle" style="border: 1px solid #000"></td>
+                        <td valign="middle" style="border: 1px solid #000"></td>
+                        <td valign="middle" style="border: 1px solid #000"></td>
+                        <td valign="middle" style="border: 1px solid #000"></td>
+                        <td valign="middle" style="border: 1px solid #000"></td>
                     </tr>
                 </tbody>
             @endforeach
