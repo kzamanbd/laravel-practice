@@ -4,29 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>TABLE</title>
-
-        <style>
-            table {
-                width: 100%;
-                border-collapse: collapse;
-            }
-
-            th {
-                background-color: #f2f2f2;
-            }
-
-            th,
-            td {
-                border: 1px solid #000000;
-                text-align: left;
-                padding: 8px;
-            }
-
-            tr:nth-child(even) {
-                background-color: #f2f2f2;
-            }
-        </style>
+        <title>{{ $tableName }}</title>
     </head>
 
     <body>
@@ -40,71 +18,64 @@
                     </th>
                 </tr>
                 <tr>
-                    <th valign="middle"
-                        style="border: 1px solid #000;font-weight:bold;text-align:center;background: #E2EDFA">
+                    <th valign="middle" @style($thStyle)>
                         Column Name
                     </th>
-                    <th valign="middle"
-                        style="border: 1px solid #000;font-weight:bold;text-align:center;background: #E2EDFA">
+                    <th valign="middle" @style($thStyle)>
                         Data Type
                     </th>
-                    <th valign="middle"
-                        style="border: 1px solid #000;font-weight:bold;text-align:center;background: #E2EDFA">
+                    <th valign="middle" @style($thStyle)>
                         Length
                     </th>
-                    <th valign="middle"
-                        style="border: 1px solid #000;font-weight:bold;text-align:center;background: #E2EDFA">
+                    <th valign="middle" @style($thStyle)>
                         Nullable
                     </th>
-                    <th valign="middle"
-                        style="border: 1px solid #000;font-weight:bold;text-align:center;background: #E2EDFA">
+                    <th valign="middle" @style($thStyle)>
                         Default
                     </th>
-                    <th valign="middle"
-                        style="border: 1px solid #000;font-weight:bold;text-align:center;background: #E2EDFA">
-                        Comments
-                    </th>
-                    <th valign="middle"
-                        style="border: 1px solid #000;font-weight:bold;text-align:center;background: #E2EDFA">
+                    <th valign="middle" @style($thStyle)>
                         Constraints
                     </th>
-                    <th valign="middle"
-                        style="border: 1px solid #000;font-weight:bold;text-align:center;background: #E2EDFA">
+                    <th valign="middle" @style($thStyle)>
                         Indexes
                     </th>
-                    <th valign="middle"
-                        style="border: 1px solid #000;font-weight:bold;text-align:center;background: #E2EDFA">
-                        Triggers
+                    <th valign="middle" @style($thStyle)>
+                        Unique Keys
                     </th>
-                    <th valign="middle"
-                        style="border: 1px solid #000;font-weight:bold;text-align:center;background: #E2EDFA">
+                    <th valign="middle" @style($thStyle)>
                         Foreign Keys
+                    </th>
+                    <th valign="middle" @style($thStyle)>
+                        Comments
                     </th>
                 </tr>
             </thead>
             @foreach ($schema as $column)
+                @php
+                    $tdStyle = ['border: 1px solid #000', 'background: #f2f2f2' => $loop->iteration % 2 == 0];
+                @endphp
                 <tbody>
                     <tr>
-                        <td valign="middle" style="border: 1px solid #000">
+                        <td valign="middle" @style($tdStyle)>
                             {{ $column['column_name'] }}
                         </td>
-                        <td valign="middle" style="border: 1px solid #000">
+                        <td valign="middle" @style($tdStyle)>
                             {{ $column['data_type'] }}
                         </td>
-                        <td valign="middle" style="border: 1px solid #000">
+                        <td valign="middle" @style($tdStyle)>
                             {{ $column['length'] }}
                         </td>
-                        <td valign="middle" style="border: 1px solid #000">
+                        <td valign="middle" @style($tdStyle)>
                             {{ $column['nullable'] }}
                         </td>
-                        <td valign="middle" style="border: 1px solid #000">
+                        <td valign="middle" @style($tdStyle)>
                             {{ $column['default'] }}
                         </td>
-                        <td valign="middle" style="border: 1px solid #000"></td>
-                        <td valign="middle" style="border: 1px solid #000"></td>
-                        <td valign="middle" style="border: 1px solid #000"></td>
-                        <td valign="middle" style="border: 1px solid #000"></td>
-                        <td valign="middle" style="border: 1px solid #000"></td>
+                        <td valign="middle" @style($tdStyle)></td>
+                        <td valign="middle" @style($tdStyle)></td>
+                        <td valign="middle" @style($tdStyle)></td>
+                        <td valign="middle" @style($tdStyle)></td>
+                        <td valign="middle" @style($tdStyle)></td>
                     </tr>
                 </tbody>
             @endforeach

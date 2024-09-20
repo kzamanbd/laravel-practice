@@ -13,7 +13,8 @@ class DatabaseSchemaExport extends BaseExportFromView
     {
         return view('exports.database-schema', [
             'schema' => $this->schema,
-            'tableName' => $this->tableName
+            'tableName' => $this->tableName,
+            'thStyle' => ['border: 1px solid #000', 'font-weight:bold', 'text-align:center', 'background: #E2EDFA']
         ]);
     }
 
