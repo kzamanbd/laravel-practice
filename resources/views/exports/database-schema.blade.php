@@ -19,6 +19,9 @@
                 </tr>
                 <tr>
                     <th valign="middle" @style($thStyle)>
+                        SL
+                    </th>
+                    <th valign="middle" @style($thStyle)>
                         Column Name
                     </th>
                     <th valign="middle" @style($thStyle)>
@@ -32,9 +35,6 @@
                     </th>
                     <th valign="middle" @style($thStyle)>
                         Default
-                    </th>
-                    <th valign="middle" @style($thStyle)>
-                        Constraints
                     </th>
                     <th valign="middle" @style($thStyle)>
                         Indexes
@@ -57,6 +57,9 @@
                 <tbody>
                     <tr>
                         <td valign="middle" @style($tdStyle)>
+                            {{ $loop->iteration }}
+                        </td>
+                        <td valign="middle" @style($tdStyle)>
                             {{ $column['column_name'] }}
                         </td>
                         <td valign="middle" @style($tdStyle)>
@@ -71,7 +74,6 @@
                         <td valign="middle" @style($tdStyle)>
                             {{ $column['default'] }}
                         </td>
-                        <td valign="middle" @style($tdStyle)></td>
                         <td valign="middle" @style($tdStyle)></td>
                         <td valign="middle" @style($tdStyle)></td>
                         <td valign="middle" @style($tdStyle)></td>
