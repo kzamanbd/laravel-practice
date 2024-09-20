@@ -99,7 +99,7 @@ class DatabaseBackup extends Component
                 $name = "{$idx}-{$name}";
             }
             $idx++;
-            Excel::store(new DatabaseSchemaExport($columns->toArray(), $table), "backup/{$name}.xlsx", 'local');
+            Excel::store(new DatabaseSchemaExport($columns->toArray(), $table), "Database_Schema/{$name}.xlsx", 'local');
         }
     }
 
