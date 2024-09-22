@@ -34,9 +34,9 @@ new class extends Component {
                     </x-nav-link>
 
                     @if (Route::has('files'))
-                        <x-nav-link :href="route('files')" :active="request()->routeIs('files')" target="_blank">
-                            {{ __('Files') }}
-                        </x-nav-link>
+                    <x-nav-link :href="route('files')" :active="request()->routeIs('files')" target="_blank">
+                        {{ __('Files') }}
+                    </x-nav-link>
                     @endif
 
                     <div class="hidden sm:flex sm:items-center sm:ml-6">
@@ -57,6 +57,9 @@ new class extends Component {
                             </x-slot>
 
                             <x-slot name="content">
+                                <x-dropdown-link :href="route('open-ai')" wire:navigate>
+                                    Open AI
+                                </x-dropdown-link>
                                 <x-dropdown-link :href="route('blog')" wire:navigate>
                                     Blogging
                                 </x-dropdown-link>
@@ -123,15 +126,15 @@ new class extends Component {
 
                             <x-slot name="content">
                                 @if (Route::has('lara-permission.users'))
-                                    <x-dropdown-link :href="route('lara-permission.users')">
-                                        Users List
-                                    </x-dropdown-link>
+                                <x-dropdown-link :href="route('lara-permission.users')">
+                                    Users List
+                                </x-dropdown-link>
                                 @endif
 
                                 @if (Route::has('lara-permission.roles'))
-                                    <x-dropdown-link :href="route('lara-permission.roles')">
-                                        Roles List
-                                    </x-dropdown-link>
+                                <x-dropdown-link :href="route('lara-permission.roles')">
+                                    Roles List
+                                </x-dropdown-link>
                                 @endif
                             </x-slot>
                         </x-dropdown>
@@ -205,8 +208,9 @@ new class extends Component {
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
             <div class="px-4">
-                <div class="font-medium text-base text-gray-800 dark:text-gray-200" x-data="{ name: '{{ auth()->user()->name }}' }"
-                    x-text="name" x-on:profile-updated.window="name = $event.detail.name"></div>
+                <div class="font-medium text-base text-gray-800 dark:text-gray-200"
+                    x-data="{ name: '{{ auth()->user()->name }}' }" x-text="name"
+                    x-on:profile-updated.window="name = $event.detail.name"></div>
                 <div class="font-medium text-sm text-gray-500">{{ auth()->user()->email }}</div>
             </div>
 

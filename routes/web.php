@@ -11,6 +11,7 @@ use App\Livewire\ContactManagement;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Livewire\OpenAi\OpenAi;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('contacts', ContactManagement::class)->name('contacts');
     Route::get('job-batching', JobBatching::class)->name('job.batching');
     Route::get('database-backup', DatabaseBackup::class)->name('database.backup');
+    Route::get('open-ai', OpenAi::class)->name('open-ai');
     Route::post('upload-base64', [HomeController::class, 'uploadBase64'])->name('upload.base64');
 });
 
