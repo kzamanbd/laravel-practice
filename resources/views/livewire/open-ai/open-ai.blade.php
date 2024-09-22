@@ -6,13 +6,13 @@
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 {{ __('Open AI') }}
             </h2>
-            <x-primary-button>
+            <x-primary-button class="!p-0">
                 @if ($customData)
-                    <a href="{{ route('open-ai') }}" wire:navigate>
+                    <a class="px-4 py-2" href="{{ route('open-ai') }}" wire:navigate>
                         Chat Bot
                     </a>
                 @else
-                    <a href="{{ route('open-ai', ['action' => 'custom']) }}" wire:navigate>
+                    <a class="px-4 py-2" href="{{ route('open-ai', ['action' => 'custom']) }}" wire:navigate>
                         Custom Data
                     </a>
                 @endif

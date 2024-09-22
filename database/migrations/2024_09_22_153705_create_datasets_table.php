@@ -12,14 +12,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        DB::statement('CREATE EXTENSION IF NOT EXISTS vector;');
+        // DB::statement('CREATE EXTENSION IF NOT EXISTS vector;');
 
         Schema::create('datasets', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->string('path', 2048)->nullable();
             $table->longText('text');
-            $table->vector('embedding');
+            // $table->vector('embedding');
+            $table->json('embedding');
             $table->timestamps();
         });
     }

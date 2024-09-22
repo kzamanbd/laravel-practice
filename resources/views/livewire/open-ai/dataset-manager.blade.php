@@ -1,7 +1,7 @@
-<div class="col-span-2">
+<div class="col-span-2 shadow rounded bg-white px-6 pt-4">
     <div>
-        <button wire:click="$toggle('showModal')" type="button"
-            class="inline-flex w-full justify-center items-center gap-x-1.5 rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">
+        <button wire:click="$dispatch('open-modal', 'dataset-upload-form')" type="button"
+            class="inline-flex w-full justify-center items-center gap-x-1.5 rounded-md bg-primary-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600">
             <svg class="-ml-0.5 h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                 <path fill-rule="evenodd"
                     d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
@@ -39,11 +39,11 @@
                 </div>
             </li>
         @empty
-            <p class="text-gray-500">No datasets found.</p>
+            <p class="text-gray-500 p-1">No datasets found.</p>
         @endforelse
     </ul>
 
-    <x-modal name="dataset-upload-form" wire:model.live="showModal" focusable>
+    <x-modal name="dataset-upload-form">
         <form wire:submit="uploadFile" class="p-6">
             <h2 class="text-lg font-medium text-gray-900">
                 Add New Dataset
@@ -54,7 +54,9 @@
                 file.
             </p>
 
-            <div class="mt-6">
+            <div class="mt-6" x-data="{ uploading: false, progress: 0 }" x-on:livewire-upload-start="uploading = true"
+                x-on:livewire-upload-finish="uploading = false; progress = 0;"
+                x-on:livewire-upload-progress="progress = $event.detail.progress">
                 <div class="flex justify-center px-6 py-10 border border-dashed rounded-lg border-gray-900/25">
                     <div class="text-center">
                         <svg class="w-12 h-12 mx-auto text-gray-300" xmlns="http://www.w3.org/2000/svg" width="24"
@@ -76,6 +78,10 @@
                         </div>
                         <p class="text-xs leading-5 text-gray-600">PDF, DOC, DOCX, TXT up to 500MB</p>
                     </div>
+                </div>
+                <div x-show="uploading" class="w-full bg-gray-200 rounded-full dark:bg-gray-700 mb-4">
+                    <div class="bg-primary-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full"
+                        :style="`width: ${progress}%`" x-text="progress + '%'"></div>
                 </div>
                 @error('file')
                     <span class="text-red-700 error">{{ $message }}</span>
