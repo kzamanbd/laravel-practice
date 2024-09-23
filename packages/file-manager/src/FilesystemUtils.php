@@ -8,6 +8,16 @@ use League\Flysystem\FilesystemException;
 
 trait FilesystemUtils
 {
+    /**
+     * Get disk list
+     *
+     * @return array
+     */
+
+    public function getDiskList(): array
+    {
+        return ['local', 'public', 's3'];
+    }
 
     /**
      * Check disk name
@@ -18,7 +28,7 @@ trait FilesystemUtils
      */
     public function checkDisk($name): bool
     {
-        return in_array($name, $this->configRepository->getDiskList())
+        return in_array($name, $this->getDiskList())
             && array_key_exists($name, config('filesystems.disks'));
     }
 
@@ -32,6 +42,7 @@ trait FilesystemUtils
      */
     public function checkPath($disk, $path): bool
     {
+
         // check disk name
         if (!$this->checkDisk($disk)) {
             return false;
@@ -163,12 +174,12 @@ trait FilesystemUtils
     /**
      * Get properties for the selected directory
      *
-     * @param       $disk
-     * @param  null  $path
+     * @param string $disk
+     * @param string $path
      *
      * @return array|false
      */
-    public function directoryProperties($disk, $path = null): bool|array
+    public function directoryProperties($disk, $path = null): array
     {
         $adapter = Storage::drive($disk)->getAdapter();
 
@@ -182,7 +193,6 @@ trait FilesystemUtils
             'timestamp'  => $adapter instanceof AwsS3V3Adapter ? null : Storage::disk($disk)->lastModified($path),
             'visibility' => $adapter instanceof AwsS3V3Adapter ? null : Storage::disk($disk)->getVisibility($path),
         ];
-
 
         return $properties;
     }

@@ -4,9 +4,6 @@ namespace DraftScripts\FileManager\Http\Controllers;
 
 use SplFileInfo;
 use Carbon\Carbon;
-use FilesystemIterator;
-use RecursiveIteratorIterator;
-use RecursiveDirectoryIterator;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
@@ -21,7 +18,6 @@ class FileManagerController
      */
     function formatSizeUnits($bytes)
     {
-
         if ($bytes >= 1073741824) {
             $bytes = number_format($bytes / 1073741824, 2) . ' GB';
         } elseif ($bytes >= 1048576) {
@@ -33,7 +29,7 @@ class FileManagerController
         } elseif ($bytes == 1) {
             $bytes = '1 byte';
         } else {
-            $bytes = '0 bytes';
+            $bytes = 'N/A';
         }
 
         return $bytes;
@@ -86,27 +82,13 @@ class FileManagerController
             return filesize($path);
         }
 
-        $bytes = 0;
-
-        // get current operation system info
-        $os = php_uname('s');
-
         // if os is unix based or macOS then use the du command
-        if ($os == 'Darwin' || $os == 'Linux') {
+        if (PHP_OS_FAMILY == 'Darwin' || PHP_OS_FAMILY == 'Linux') {
             $bytes = shell_exec("du -sb $path | awk '{print $1}'");
             return $bytes;
         }
 
-        $path = realpath($path);
-
-        if ($path !== false) {
-            $directory = new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS);
-            foreach (new RecursiveIteratorIterator($directory) as $object) {
-                $bytes += $object->getSize();
-            }
-        }
-
-        return $bytes;
+        return 0;
     }
 
     /**
@@ -147,12 +129,8 @@ class FileManagerController
         // Implement your remote directory tree logic here
 
         $items = [];
-
-        // type is local or remote
-
         // Get all directories in the current directory
         $directories = Storage::disk($disk)->directories($path);
-
         // Get all files in the current directory
         $files = Storage::disk($disk)->files($path);
 
@@ -167,7 +145,6 @@ class FileManagerController
 
     public function index()
     {
-
         if (request()->has('disk') && !empty(request('disk'))) {
             $disk = request('disk');
             $currentPath = request('path') ?? '/';
