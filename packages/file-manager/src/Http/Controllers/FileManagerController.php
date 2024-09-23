@@ -192,4 +192,22 @@ class FileManagerController
             'currentPath' => str_replace($initialPath, '', $currentPath),
         ]);
     }
+
+    public function content()
+    {
+        $path = request('path');
+
+        if (request()->has('disk') && !empty(request('disk'))) {
+            $disk = request('disk');
+            $contents = Storage::disk($disk)->get($path);
+            return response()->json([
+                'contents' => $contents,
+            ]);
+        }
+
+        $contents = File::get(base_path($path));
+        return response()->json([
+            'contents' => $contents,
+        ]);
+    }
 }

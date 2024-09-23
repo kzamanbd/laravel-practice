@@ -83,7 +83,11 @@ const Content = ({
     );
 };
 
-const DropdownLink = ({ className = '', children, ...props }: {
+const DropdownLink = ({
+    className = '',
+    children,
+    ...props
+}: {
     className?: string;
     children: React.ReactNode;
     [key: string]: unknown;
@@ -105,4 +109,3 @@ Dropdown.Content = Content;
 Dropdown.Link = DropdownLink;
 
 export default Dropdown;
-

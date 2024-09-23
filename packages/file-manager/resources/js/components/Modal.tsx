@@ -10,7 +10,7 @@ export default function Modal({
     onClose = () => {}
 }: PropsWithChildren<{
     show: boolean;
-    maxWidth?: 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+    maxWidth?: string;
     closeable?: boolean;
     onClose?: CallableFunction;
     title?: string | JSX.Element;

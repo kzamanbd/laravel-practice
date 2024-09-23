@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('api')->group(function () {
     Route::get('data', [FileManagerController::class, 'index']);
+    Route::post('content', [FileManagerController::class, 'content']);
 });
 
 // Catch-all Route...

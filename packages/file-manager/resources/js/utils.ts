@@ -18,3 +18,9 @@ export const fetchFiles = async (path?: string) => {
         }
     });
 };
+
+export const fetchFileContent = async (path: string) => {
+    return http.post(`/content`, {
+        path
+    });
+};

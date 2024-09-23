@@ -1,15 +1,18 @@
 import { useCallback, useEffect, useState } from 'react';
-import { fetchFiles } from '@/utils';
+import { fetchFiles, fetchFileContent } from '@/utils';
 import FileTree from '@/components/FileTree';
 import { IFile } from '@/types';
 import SimpleBar from 'simplebar-react';
 import FileIcon from '@/components/FileIcon';
 import LoadingSkeleton from '@/components/LoadingSkeleton';
 import Dropdown from '@/components/Dropdown';
+import Editor from '@/components/Editor';
 
 const FileManager = () => {
     const [files, setFiles] = useState<IFile[]>([]);
-
+    const [openEditor, setOpenEditor] = useState(false);
+    const [fileContent, setFileContent] = useState('');
+    const [fileName, setFileName] = useState('');
     const [selectedFiles, setSelectedFiles] = useState<IFile[]>([]);
     const [initialLoading, setInitialLoading] = useState(true);
     const [detailLoading, setDetailLoading] = useState(false);
@@ -65,6 +68,25 @@ const FileManager = () => {
             console.error(err);
         }
     }, []);
+
+    const fileEditHandler = async (file: IFile) => {
+        if (file.type === 'file') {
+            toggleEditor();
+            setFileName(file.name);
+            const { data: response } = await fetchFileContent(file.path);
+            setFileContent(response.contents);
+            console.log(response);
+        }
+
+        console.log(file);
+    };
+
+    const toggleEditor = () => {
+        setOpenEditor(!openEditor);
+        if (!openEditor) {
+            setFileContent('');
+        }
+    };
 
     useEffect(() => {
         fetchInitialFile();
@@ -468,25 +490,19 @@ const FileManager = () => {
                                                                     className="py-2 text-sm text-gray-700 dark:text-gray-200"
                                                                     aria-labelledby="dropdownSmallButton">
                                                                     <li>
-                                                                        <a
-                                                                            href="#"
-                                                                            className="block text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                                                        <button
+                                                                            onClick={fileEditHandler.bind(
+                                                                                null,
+                                                                                file
+                                                                            )}
+                                                                            className="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                                                                             Edit
-                                                                        </a>
+                                                                        </button>
                                                                     </li>
                                                                     <li>
-                                                                        <a
-                                                                            href="#"
-                                                                            className="block text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                                                        <button className="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                                                                             Delete
-                                                                        </a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a
-                                                                            href="#"
-                                                                            className="block text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                                                            Earnings
-                                                                        </a>
+                                                                        </button>
                                                                     </li>
                                                                 </ul>
                                                             </Dropdown.Content>
@@ -504,6 +520,13 @@ const FileManager = () => {
                     </div>
                 </div>
             </div>
+
+            <Editor
+                open={openEditor}
+                toggle={toggleEditor}
+                fileContent={fileContent}
+                fileName={fileName}
+            />
         </div>
     );
 };
