@@ -14,9 +14,9 @@
         "queue": "php artisan queue:work",
         "reverb": "php artisan reverb:start --port=8081 --debug",
         "start": "concurrently \"npm run dev\" \"npm run reverb\"",
+        "file:dev": "pnpm --filter=file-manager dev",
         "messaging:dev": "pnpm --filter=messaging dev",
-        "permission:dev": "pnpm --filter=permission dev",
-        "file:dev": "pnpm --filter=file-manager dev"
+        "permission:dev": "pnpm --filter=permission dev"
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.2",
