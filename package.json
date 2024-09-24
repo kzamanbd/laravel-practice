@@ -14,8 +14,8 @@
         "queue": "php artisan queue:work",
         "reverb": "php artisan reverb:start --port=8081 --debug",
         "start": "concurrently \"npm run dev\" \"npm run reverb\"",
-        "messaging:build": "pnpm --filter=messaging build",
-        "permission:build": "pnpm --filter=permission build",
+        "messaging:dev": "pnpm --filter=messaging dev",
+        "permission:dev": "pnpm --filter=permission dev",
         "file:dev": "pnpm --filter=file-manager dev"
     },
     "devDependencies": {
