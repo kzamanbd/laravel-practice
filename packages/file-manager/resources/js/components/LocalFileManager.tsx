@@ -5,8 +5,7 @@ import { IFile } from '@/types';
 import SimpleBar from 'simplebar-react';
 import FileIcon from '@/components/FileIcon';
 import LoadingSkeleton from '@/components/LoadingSkeleton';
-import Dropdown from '@/components/Dropdown';
-import Editor from '@/components/Editor';
+import FileEditor from '@/components/FileEditor';
 
 const LocalFileManager = () => {
     const [files, setFiles] = useState<IFile[]>([]);
@@ -25,6 +24,10 @@ const LocalFileManager = () => {
     ]);
 
     const fetchNestedFiles = async (file: IFile) => {
+        if (file.type === 'file') {
+            fileEditHandler(file);
+            return;
+        }
         const data = file.path.split('\\').map((item) => {
             return {
                 name: item.trim(),
@@ -32,7 +35,7 @@ const LocalFileManager = () => {
             };
         });
         setBreadcrumb(data);
-        if (file.children.length) {
+        if (file.children?.length) {
             setSelectedFiles(file.children);
             return;
         }
@@ -75,10 +78,7 @@ const LocalFileManager = () => {
             setFileName(file.name);
             const { data: response } = await fetchFileContent(file.path);
             setFileContent(response.contents);
-            console.log(response);
         }
-
-        console.log(file);
     };
 
     const toggleEditor = () => {
@@ -86,6 +86,25 @@ const LocalFileManager = () => {
         if (!openEditor) {
             setFileContent('');
         }
+    };
+
+    const allSelected = selectedFiles.every((file) => file.checked);
+
+    const checkedItems = selectedFiles.filter((file) => file.checked);
+
+    const checkedItem = (file: IFile, e: React.ChangeEvent<HTMLInputElement>) => {
+        setSelectedFiles(
+            selectedFiles.map((item) => {
+                if (item.path === file.path) {
+                    return { ...item, checked: e.target.checked };
+                }
+                return item;
+            })
+        );
+    };
+
+    const checkedAllItems = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSelectedFiles(selectedFiles.map((file) => ({ ...file, checked: e.target.checked })));
     };
 
     useEffect(() => {
@@ -167,7 +186,7 @@ const LocalFileManager = () => {
                                 <span
                                     onClick={breadcrumbClickHandler.bind(null, index)}
                                     className="underline cursor-pointer">
-                                    {item.name || 'File Manager'}
+                                    {item.name || 'Local'}
                                 </span>
                                 {index != breadcrumb.length - 1 ? (
                                     <span className="text-gray-700 ml-2">{item.separator}</span>
@@ -219,7 +238,12 @@ const LocalFileManager = () => {
                                 <thead>
                                     <tr className="text-gray-500 uppercase text-sm border-b">
                                         <td className="bg-white sticky top-0 z-50 py-1.5 px-3 w-10">
-                                            <input type="checkbox" className="rounded" />
+                                            <input
+                                                type="checkbox"
+                                                className="rounded"
+                                                checked={allSelected}
+                                                onChange={checkedAllItems}
+                                            />
                                         </td>
                                         <th className="bg-white sticky top-0 z-50 py-1.5 px-3">
                                             Name
@@ -236,10 +260,34 @@ const LocalFileManager = () => {
                                     </tr>
                                 </thead>
                                 <tbody className="text-sm text-gray-700">
+                                    {checkedItems.length ? (
+                                        <tr className="border-b border-gray-200 on-parent-hover-show">
+                                            <td colSpan={5} className="text-center px-3 py-2">
+                                                You have selected{' '}
+                                                <strong>{checkedItems.length}</strong> users.
+                                                <button
+                                                    className="text-red-500 hover:text-red-700"
+                                                    onClick={() =>
+                                                        confirm(
+                                                            'Are you sure you want to delete all selected files?'
+                                                        )
+                                                    }>
+                                                    Delete
+                                                </button>
+                                                them?
+                                            </td>
+                                        </tr>
+                                    ) : null}
+
                                     {selectedFiles.map((file) => (
                                         <tr className="divide-y divide-gray-200">
                                             <td className="py-1.5 px-3 w-10">
-                                                <input type="checkbox" className="rounded" />
+                                                <input
+                                                    type="checkbox"
+                                                    className="rounded"
+                                                    onChange={checkedItem.bind(null, file)}
+                                                    checked={file.checked}
+                                                />
                                             </td>
                                             <td className="py-1.5 px-3">
                                                 <div
@@ -253,45 +301,17 @@ const LocalFileManager = () => {
                                             <td className="py-1.5 px-3">{file.size}</td>
                                             <td className="py-1.5 px-3">{file.modified_at}</td>
                                             <td className="py-1.5 px-3 text-center">
-                                                <Dropdown>
-                                                    <Dropdown.Trigger>
-                                                        <button className="text-gray-500 hover:text-gray-700">
-                                                            <svg
-                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                width="16"
-                                                                height="16"
-                                                                fill="currentColor"
-                                                                className="bi bi-three-dots-vertical"
-                                                                viewBox="0 0 16 16">
-                                                                <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
-                                                            </svg>
-                                                        </button>
-                                                    </Dropdown.Trigger>
-
-                                                    <Dropdown.Content width="w-32">
-                                                        <ul
-                                                            className="py-2 text-sm text-gray-700 dark:text-gray-200"
-                                                            aria-labelledby="dropdownSmallButton">
-                                                            <li>
-                                                                <button
-                                                                    onClick={fileEditHandler.bind(
-                                                                        null,
-                                                                        file
-                                                                    )}
-                                                                    className="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                                                    Edit
-                                                                </button>
-                                                            </li>
-                                                            <li>
-                                                                <button className="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                                                    Delete
-                                                                </button>
-                                                            </li>
-                                                        </ul>
-                                                    </Dropdown.Content>
-                                                </Dropdown>
-
-                                                {/* <!-- Add more buttons as necessary --> */}
+                                                <button className="text-gray-500 hover:text-gray-700">
+                                                    <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        width="16"
+                                                        height="16"
+                                                        fill="currentColor"
+                                                        className="bi bi-three-dots-vertical"
+                                                        viewBox="0 0 16 16">
+                                                        <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
+                                                    </svg>
+                                                </button>
                                             </td>
                                         </tr>
                                     ))}
@@ -301,7 +321,7 @@ const LocalFileManager = () => {
                     ) : null}
                 </div>
             </div>
-            <Editor
+            <FileEditor
                 open={openEditor}
                 toggle={toggleEditor}
                 fileContent={fileContent}

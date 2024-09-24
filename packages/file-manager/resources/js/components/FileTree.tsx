@@ -19,7 +19,7 @@ const FileTree = ({ file, action }: TreeProps) => {
                         <span className="font-bold">{file.name}</span>
                     </div>
                 ) : (
-                    <div className="flex items-center ">
+                    <div onClick={action.bind(null, file)} className="flex items-center ">
                         <span className="mr-2">
                             <FileIcon type="file" />
                         </span>

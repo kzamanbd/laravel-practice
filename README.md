@@ -12,9 +12,11 @@
 - PDF Generate
 - Mail Send
 - Notification Send
-- Queue
-- Event
-- Listener
+- Queue Job (With Redis)
+- Events
+- Listeners
+- File Upload (Local & S3)
+- Messaging (Realtime)
 - Dockerize Application
 - Scale Application
 

@@ -18,6 +18,7 @@ class FileManagerController
      */
     function formatSizeUnits($bytes)
     {
+
         if ($bytes >= 1073741824) {
             $bytes = number_format($bytes / 1073741824, 2) . ' GB';
         } elseif ($bytes >= 1048576) {
@@ -145,6 +146,7 @@ class FileManagerController
 
     public function index()
     {
+
         if (request()->has('disk') && !empty(request('disk'))) {
             $disk = request('disk');
             $currentPath = request('path') ?? '/';
@@ -165,8 +167,8 @@ class FileManagerController
 
         $files = $this->getLocalDirectoryTree($currentPath, $initialPath);
         return response()->json([
-            'files'       => $files,
-            'currentPath' => str_replace($initialPath, '', $currentPath),
+            'path'  => str_replace($initialPath, '', $currentPath),
+            'files' => $files,
         ]);
     }
 
