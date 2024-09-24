@@ -7,24 +7,54 @@
         "framework"
     ],
     "license": "MIT",
+    "repositories": [
+        {
+            "type": "path",
+            "url": "./packages/file-manager",
+            "options": {
+                "symlink": true
+            }
+        },
+        {
+            "type": "path",
+            "url": "./packages/messaging",
+            "options": {
+                "symlink": true
+            }
+        },
+        {
+            "type": "path",
+            "url": "./packages/bd-location",
+            "options": {
+                "symlink": true
+            }
+        },
+        {
+            "type": "path",
+            "url": "./packages/permission",
+            "options": {
+                "symlink": true
+            }
+        }
+    ],
     "require": {
         "php": "^8.2",
         "dedoc/scramble": "^0.10.13",
+        "draftscripts/bd-location": "dev-master",
+        "draftscripts/file-manager": "dev-master",
+        "draftscripts/messaging": "dev-master",
+        "draftscripts/permission": "dev-master",
         "jenssegers/agent": "^2.6",
         "laravel/framework": "^11.9",
         "laravel/pulse": "^1.2.2",
         "laravel/reverb": "^1.0",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
-        "league/flysystem": "^3.28",
-        "league/flysystem-ftp": "^3.28",
-        "league/flysystem-sftp-v3": "^3.28",
         "livewire/livewire": "^3.4",
         "livewire/volt": "^1.0",
         "maatwebsite/excel": "^3.1",
         "openai-php/laravel": "^0.10.1",
         "predis/predis": "^2.2",
-        "spatie/laravel-permission": "^6.4",
         "yajra/laravel-oci8": "^11.6"
     },
     "require-dev": {
@@ -44,11 +74,7 @@
         "psr-4": {
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/",
-            "DraftScripts\\Permission\\": "packages/permission/src/",
-            "DraftScripts\\BdLocation\\": "packages/bd-location/src/",
-            "DraftScripts\\Messaging\\": "packages/messaging/src/",
-            "DraftScripts\\FileManager\\": "packages/file-manager/src/"
+            "Database\\Seeders\\": "database/seeders/"
         }
     },
     "autoload-dev": {
@@ -93,3 +119,4 @@
     "minimum-stability": "stable",
     "prefer-stable": true
 }
+
