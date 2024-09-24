@@ -57,21 +57,6 @@ class BaseFileManager
     }
 
     /**
-     * Disk/path not found message
-     *
-     * @return array
-     */
-    public function notFoundMessage(): array
-    {
-        return [
-            'result' => [
-                'status'  => 'danger',
-                'message' => 'notFound',
-            ],
-        ];
-    }
-
-    /**
      * Get content for the selected disk and path
      *
      * @param $disk
