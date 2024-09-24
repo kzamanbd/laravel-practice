@@ -27,7 +27,7 @@ class Messaging
 
     public static function isReverbConfig()
     {
-        return cache('has_reverb', null) || config('messaging.reverb', null);
+        return cache('has_reverb', null) || config('messaging.reverb', 'true');
     }
 
 
@@ -65,18 +65,14 @@ class Messaging
         $REVERB_PORT = env('REVERB_PORT', 8081);
         $REVERB_SCHEME = "'" . env('REVERB_SCHEME') . "'";
 
-        $isReverbConfig = "'" . static::isReverbConfig() . "'";
-
-
         return new HtmlString(<<<HTML
             <script type="module">
                 window.Messaging = {$messaging};
                 {$appJs};
                 const reverbKey = {$REVERB_APP_KEY};
-                const isReverbConfig = {$isReverbConfig};
 
-                if(isReverbConfig && reverbKey) {
-                    window.Echo = new window.Echo({
+                if(reverbKey) {
+                    window.Echo = new Echo({
                         broadcaster: 'reverb',
                         key: {$REVERB_APP_KEY},
                         wsHost: {$REVERB_HOST},
