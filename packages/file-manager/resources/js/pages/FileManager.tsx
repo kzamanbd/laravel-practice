@@ -421,7 +421,7 @@ const FileManager = () => {
                                 </div>
                             ) : null}
                             {selectedFiles.length && !detailLoading ? (
-                                <SimpleBar style={{ maxHeight: 500 }}>
+                                <SimpleBar style={{ maxHeight: 500, height: '100%' }}>
                                     <table className="w-full text-left">
                                         <thead>
                                             <tr className="text-gray-500 uppercase text-sm border-b">

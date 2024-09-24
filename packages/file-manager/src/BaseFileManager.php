@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Filesystem\AwsS3V3Adapter;
 use League\Flysystem\FilesystemException;
 
-trait FilesystemUtils
+class BaseFileManager
 {
     /**
      * Get disk list

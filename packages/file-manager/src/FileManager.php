@@ -6,7 +6,7 @@ use Illuminate\Support\HtmlString;
 use Illuminate\Support\Js;
 use RuntimeException;
 
-class FileManager
+class FileManager extends BaseFileManager
 {
     /**
      * Get the default JavaScript variables for FileManager.
@@ -26,7 +26,7 @@ class FileManager
      *
      * @return HtmlString
      */
-    public static function css()
+    public function css()
     {
 
         if (($app = @file_get_contents(__DIR__ . '/../dist/app.css')) === false) {
@@ -43,7 +43,7 @@ class FileManager
      *
      * @return HtmlString
      */
-    public static function js()
+    public function js()
     {
         if (($appJs = @file_get_contents(__DIR__ . '/../dist/main.js')) === false) {
             throw new RuntimeException('Unable to load the FileManager dashboard JavaScript.');

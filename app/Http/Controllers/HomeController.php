@@ -4,12 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Blob;
 use Illuminate\Http\Request;
-use DraftScripts\FileManager\FilesystemUtils;
+use DraftScripts\FileManager\Facades\FileManager;
 
 class HomeController extends Controller
 {
-    use FilesystemUtils;
-
     /**
      * @param Request $request
      * @return mixed
@@ -36,7 +34,7 @@ class HomeController extends Controller
 
     public function remoteFiles()
     {
-        $content = $this->getContent('local');
+        $content = FileManager::getContent('local');
 
         return response()->json($content);
     }
