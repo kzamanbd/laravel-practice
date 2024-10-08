@@ -2,13 +2,13 @@
     <x-slot name="title">API Tokens</x-slot>
 
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="text-xl font-semibold leading-tight text-gray-800">
             {{ __('API Tokens') }}
         </h2>
     </x-slot>
 
     <div class="py-5">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
 
             <!-- Generate API Token -->
             <x-form-section submit="createApiToken">
@@ -24,7 +24,7 @@
                     <!-- Token Name -->
                     <div class="col-span-6 sm:col-span-4">
                         <x-input-label for="name" value="{{ __('Token Name') }}" />
-                        <x-text-input id="name" type="text" class="mt-1 block w-full"
+                        <x-text-input id="name" type="text" class="block w-full mt-1"
                             wire:model="createApiTokenForm.name" autofocus />
                         <x-input-error :messages="$errors->get('createApiTokenForm.name')" class="mt-2" />
                     </div>
@@ -34,7 +34,7 @@
                     <div class="col-span-6">
                         <x-input-label for="permissions" value="{{ __('Permissions') }}" />
 
-                        <div class="mt-2 grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="grid grid-cols-1 gap-4 mt-2 md:grid-cols-2">
                             @foreach ($permissionsList as $permission)
                                 <label for="add_permission_{{ $permission }}" class="flex items-center">
                                     <x-box-input wire:model="createApiTokenForm.permissions" :value="$permission"
@@ -91,13 +91,13 @@
                                             @endif
 
 
-                                            <button class="cursor-pointer ml-6 text-sm text-gray-400 underline"
+                                            <button class="ml-6 text-sm text-gray-400 underline cursor-pointer"
                                                 wire:click="manageApiTokenPermissions({{ $token->id }})">
                                                 {{ __('Permissions') }}
                                             </button>
 
 
-                                            <button class="cursor-pointer ml-6 text-sm text-red-500"
+                                            <button class="ml-6 text-sm text-red-500 cursor-pointer"
                                                 wire:click="confirmApiTokenDeletion({{ $token->id }})">
                                                 {{ __('Delete') }}
                                             </button>
@@ -123,7 +123,7 @@
                     </div>
 
                     <x-text-input x-ref="plaintextToken" type="text" readonly :value="$plainTextToken"
-                        class="my-4 bg-gray-100 px-4 py-2 rounded font-mono text-sm text-gray-500 w-full break-all"
+                        class="w-full px-4 py-2 my-4 font-mono text-sm text-gray-500 break-all bg-gray-100 rounded"
                         autofocus autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
                         @showing-token-modal.window="setTimeout(() => $refs.plaintextToken.select(), 250)" />
 
@@ -142,7 +142,7 @@
                         {{ __('API Token Permissions') }}
                     </x-slot>
 
-                    <div class="mb-3 grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="grid grid-cols-1 gap-4 mb-3 md:grid-cols-2">
                         @foreach ($permissionsList as $permission)
                             <label for="update_permission_{{ $permission }}" class="flex items-center">
                                 <x-box-input wire:model.defer="updateApiTokenForm.permissions" :value="$permission"
