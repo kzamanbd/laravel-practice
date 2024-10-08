@@ -4,7 +4,6 @@ namespace App\Livewire;
 
 use App\Exports\DatabaseSchemaExport;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
 use Livewire\Component;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -16,11 +15,10 @@ class DatabaseBackup extends Component
     /**
      * Export the structure of all tables in the oracle database
      *
-     * @return void
+     * @return \Illuminate\Support\Collection
      */
-    public function exportOracleTableStructure()
+    public function exportOracleTableStructure(string $connection = 'oracle'): \Illuminate\Support\Collection
     {
-        $connection = 'oracle'; // The database connection to use
         // Fetch the list of tables owned by the current schema (user)
         $tables = DB::connection($connection)->select("
             SELECT table_name
@@ -68,10 +66,15 @@ class DatabaseBackup extends Component
     /**
      * Export the structure of all tables in the mysql database
      *
-     * @return void
+     * @return \Illuminate\Support\Collection
      */
 
-    public function exportMysqlTableStructure() {}
+    public function exportMysqlTableStructure(string $connection = 'mysql')
+    {
+        $table = DB::connection($connection)->select("SHOW TABLES");
+
+        return collect([]);
+    }
 
 
     /**
@@ -81,14 +84,14 @@ class DatabaseBackup extends Component
      */
     public function viewTableStructure()
     {
-        $this->tables = $this->exportOracleTableStructure();
+        $this->tables = $this->exportMysqlTableStructure();
     }
 
     public function exportTableStructure()
     {
         $tables = $this->tables;
         if (empty($tables)) {
-            $tables = $this->exportOracleTableStructure();
+            $tables = $this->exportMysqlTableStructure();
         }
         $idx = 1;
         foreach ($tables as $table => $columns) {
@@ -99,7 +102,10 @@ class DatabaseBackup extends Component
                 $name = "{$idx}-{$name}";
             }
             $idx++;
-            Excel::store(new DatabaseSchemaExport($columns->toArray(), $table), "Database_Schema/{$name}.xlsx", 'local');
+            Excel::store(new DatabaseSchemaExport(
+                $columns->toArray(),
+                $table
+            ), "Database_Schema/{$name}.xlsx", 'local');
         }
     }
 
