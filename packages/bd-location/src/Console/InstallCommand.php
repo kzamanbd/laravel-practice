@@ -63,17 +63,22 @@ class InstallCommand extends Command
             return 1;
         }
 
-        if (Division::count() > 0 || District::count() > 0 || Upazila::count() > 0 || Union::count() > 0) {
+        $divisions_count = DB::table('divisions')->count();
+        $districts_count = DB::table('districts')->count();
+        $upazilas_count = DB::table('upazilas')->count();
+        $unions_count = DB::table('unions')->count();
+
+        if ($divisions_count > 0 || $districts_count > 0 || $upazilas_count > 0 || $unions_count > 0) {
             $this->components->error("The Location command already executed, please truncate location related tables, [e.g.: divisions,districts,upazilas,unions] first, and run migrate commands");
             return 1;
         }
 
         try {
             DB::transaction(function () use ($divisions, $districts, $upazilas, $unions) {
-                Division::insert($divisions['data']);
-                District::insert($districts['data']);
-                Upazila::insert($upazilas['data']);
-                Union::insert($unions['data']);
+                DB::table('divisions')->insert($divisions['data']);
+                DB::table('districts')->insert($districts['data']);
+                DB::table('upazilas')->insert($upazilas['data']);
+                DB::table('unions')->insert($unions['data']);
 
                 $this->components->info('Data Successfully Installed');
 
