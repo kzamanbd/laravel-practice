@@ -11,6 +11,7 @@ use App\Livewire\ContactManagement;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Middleware\LoggerMiddleware;
 use App\Livewire\OpenAi\OpenAIManager;
 
 /*
@@ -24,7 +25,7 @@ use App\Livewire\OpenAi\OpenAIManager;
 |
  */
 
-Route::view('/', 'welcome');
+Route::view('/', 'welcome')->middleware(LoggerMiddleware::class);
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', UserDashboard::class)->name('dashboard');
