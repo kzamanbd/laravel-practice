@@ -27,7 +27,7 @@ class JobBatching extends Component
 
     public function downloadContacts()
     {
-        $filename = 'contacts/export_' . now()->timestamp . '.csv';
+        $filename = 'contacts/Export_' . now()->timestamp . '.csv';
         $batches = [];
         DB::table('contacts')->latest()->chunk(10000, function ($rows) use (&$batches, $filename) {
             $batches[] = new ExportCsvChunk($rows->toArray(), $filename);
