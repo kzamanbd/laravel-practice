@@ -1,5 +1,0 @@
-.env
-mysql/*
-redis/*
-!.gitkeep
-!.gitignore
