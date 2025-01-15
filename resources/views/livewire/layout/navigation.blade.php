@@ -97,6 +97,9 @@ new class extends Component {
                             </x-slot>
 
                             <x-slot name="content">
+                                <x-dropdown-link :href="route('horizon.index')" target="_blank">
+                                    Horizon
+                                </x-dropdown-link>
                                 <x-dropdown-link :href="route('pulse')" target="_blank">
                                     Pulse
                                 </x-dropdown-link>

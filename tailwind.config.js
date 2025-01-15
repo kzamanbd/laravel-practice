@@ -1,8 +1,7 @@
 import forms from '@tailwindcss/forms';
-import colors from 'tailwindcss/colors';
+import colors, { indigo as primary } from 'tailwindcss/colors';
 import defaultTheme from 'tailwindcss/defaultTheme';
 
-const primary = colors.green;
 const colorConfig = {
     dark: {
         ...colors.slate,

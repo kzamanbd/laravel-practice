@@ -1,11 +1,8 @@
-import colors from 'tailwindcss/colors';
 import defaultTheme from 'tailwindcss/defaultTheme';
 import forms from '@tailwindcss/forms';
+import colors, { indigo as primary } from 'tailwindcss/colors';
 
 /** @type {import('tailwindcss').Config} */
-
-const primary = colors.green;
-
 export default {
     content: [
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',

@@ -24,13 +24,6 @@
         },
         {
             "type": "path",
-            "url": "./packages/bd-location",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
             "url": "./packages/permission",
             "options": {
                 "symlink": true
@@ -40,7 +33,6 @@
     "require": {
         "php": "^8.2",
         "dedoc/scramble": "^0.10.13",
-        "draftscripts/bd-location": "dev-master",
         "draftscripts/file-manager": "dev-master",
         "draftscripts/messaging": "dev-master",
         "draftscripts/permission": "dev-master",
@@ -121,3 +113,4 @@
     "minimum-stability": "stable",
     "prefer-stable": true
 }
+
