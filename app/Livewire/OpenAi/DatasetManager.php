@@ -73,6 +73,9 @@ class DatasetManager extends Component
         if (file_exists($file)) {
             $content = file_get_contents($file);
 
+            // utf8 encode the content
+            $content = mb_convert_encoding($content, 'UTF-8', 'UTF-8');
+
             return $content;
         }
 

@@ -14,7 +14,10 @@ class ChatBot extends Component
 
     public function mount()
     {
-        $this->messages[] = ['role' => 'system', 'content' => 'You are a helpful assistant. The response will have the word "Laravel Folks!" at first and markdown format (if needed) with well-organized, detailed, formatted and clean content.'];
+        $this->messages[] = [
+            'role' => 'system',
+            'content' => 'You are a helpful assistant. The response will have the word "Laravel Folks!" at first and markdown format (if needed) with well-organized, detailed, formatted and clean content.'
+        ];
     }
 
     public function submit()
