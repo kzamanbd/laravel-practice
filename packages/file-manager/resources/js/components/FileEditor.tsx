@@ -1,9 +1,6 @@
 import MonacoEditor from '@monaco-editor/react';
-
 import { useEffect, useRef } from 'react';
 import { Dialog, DialogPanel, DialogTitle } from '@headlessui/react';
-
-type EditorType = undefined | import('monaco-editor').editor.IStandaloneCodeEditor;
 
 // Mapping of file extensions to Monaco languages
 const extensionToLanguageMap = {
@@ -50,11 +47,13 @@ const FileEditor = ({
     readOnly?: boolean;
     toggle: (action: boolean) => void;
 }) => {
-    const editorRef = useRef<EditorType>(undefined);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const editorRef = useRef<any>(undefined);
 
-    function handleEditorDidMount(editor: EditorType) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
+    const handleEditorDidMount = (editor: any, monaco: any) => {
         editorRef.current = editor;
-    }
+    };
 
     useEffect(() => {
         if (editorRef.current) {
