@@ -28,14 +28,6 @@ class DatasetManager extends Component
 
     public function uploadFile()
     {
-        // validate the file
-        // store the file
-        // parse text content from file
-        // create vector embeddings from the extracted text
-        // store that embedding to dataset
-        // push that dataset to the datasets
-        // close the modal
-
         $this->validate();
 
         $path = $this->file->store('datasets');
