@@ -40,7 +40,6 @@
         "laravel/framework": "^11.9",
         "laravel/horizon": "^5.30",
         "laravel/pulse": "^1.2.2",
-        "laravel/reverb": "^1.0",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.4",
@@ -113,4 +112,3 @@
     "minimum-stability": "stable",
     "prefer-stable": true
 }
-
