@@ -8,6 +8,7 @@ use OpenAI\Laravel\Facades\OpenAI;
 
 class ReplayMessage extends Component
 {
+    public $uniqueId;
 
     public array $messages = [];
 
@@ -18,6 +19,7 @@ class ReplayMessage extends Component
     public function mount()
     {
         $this->js('$wire.getResponse()');
+        $this->uniqueId = $this->getId();
     }
 
     public function getResponse()
@@ -33,7 +35,7 @@ class ReplayMessage extends Component
             $this->response .= $content;
 
             $this->stream(
-                to: 'stream-' . $this->getId(),
+                to: 'stream-' . $this->uniqueId,
                 content: $content,
                 replace: false
             );

@@ -9,6 +9,7 @@ use OpenAI\Laravel\Facades\OpenAI;
 
 class OthersCustomMessage extends Component
 {
+    public $uniqueId;
     public array $messages = [];
 
     public array $prompt;
@@ -18,6 +19,7 @@ class OthersCustomMessage extends Component
     public function mount()
     {
         $this->js('$wire.getResponse()');
+        $this->uniqueId = $this->getId();
     }
 
     public function getResponse()
@@ -53,7 +55,7 @@ class OthersCustomMessage extends Component
             $this->response .= $content;
 
             $this->stream(
-                to: 'stream-' . $this->getId(),
+                to: 'stream-' . $this->uniqueId,
                 content: $content,
                 replace: false
             );
@@ -62,6 +64,6 @@ class OthersCustomMessage extends Component
 
     public function render()
     {
-        return view('livewire.open-ai.others-custom-message');
+        return view('livewire.open-ai.replay-message');
     }
 }

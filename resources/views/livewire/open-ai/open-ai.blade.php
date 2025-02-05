@@ -26,7 +26,7 @@
             @if ($customData)
                 <livewire:open-ai.custom-manager />
             @else
-                <livewire:open-ai.chat-bot />
+                <livewire:open-ai.ai-prompt />
             @endif
         </div>
     </div>

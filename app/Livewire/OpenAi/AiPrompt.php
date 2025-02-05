@@ -5,7 +5,7 @@ namespace App\Livewire\OpenAi;
 use Livewire\Component;
 use Livewire\Attributes\Validate;
 
-class ChatBot extends Component
+class AiPrompt extends Component
 {
     #[Validate('required|string|max:1000')]
     public string $body = '';
@@ -32,6 +32,6 @@ class ChatBot extends Component
 
     public function render()
     {
-        return view('livewire.open-ai.chat-bot');
+        return view('livewire.open-ai.ai-prompt');
     }
 }

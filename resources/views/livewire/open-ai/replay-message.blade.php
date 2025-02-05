@@ -13,7 +13,7 @@
     </div>
     <div class="flex flex-grow flex-shrink min-w-0 group">
         <div class="flex flex-col justify-end mr-48">
-            <div wire:stream="stream-{{ $this->getId() }}"
+            <div wire:stream="stream-{{ $uniqueId }}"
                 class="px-4 py-2.5 text-gray-700  shadow-md bg-gradient-to-r from-gray-300 rounded-r-xl rounded-bl-xl via-gray-200 to-gray-300 align-left shadow-gray-200 prose">
                 @if ($response)
                     {!! str()->markdown($response) !!}
