@@ -1,6 +1,55 @@
-<div class="flex flex-col flex-grow h-[720px] shadow rounded bg-white">
-    <div class="flex flex-col flex-1 flex-grow overflow-y-auto">
-        <div class="flex flex-col flex-auto flex-grow px-6 pt-4 overflow-y-auto gap-y-4">
+<div class="relative h-screen bg-white mx-auto max-w-7xl sm:px-6 lg:px-8 flex flex-col">
+    <div class="w-full px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+        <!-- Title -->
+        <div class="text-center">
+            <div class="mb-4 flex justify-center items-center">
+                <!-- Logo -->
+                <a class="flex rounded-md text-xl items-center gap-4 font-semibold focus:outline-none focus:opacity-80"
+                    href="/">
+                    <span> Open AI</span>
+                </a>
+                <!-- End Logo -->
+
+                <div class="ms-2">
+                    <!-- Templates Dropdown -->
+                    <div class="hs-dropdown relative  [--auto-close:inside] inline-flex">
+                        <button id="hs-dropdown-preview-navbar" type="button"
+                            class="hs-dropdown-toggle  group relative flex justify-center items-center size-8 text-xs rounded-full text-gray-800 hover:bg-gray-100 focus:bg-gray-100 dark:text-neutral-200 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 disabled:opacity-50 disabled:pointer-events-none focus:outline-none">
+                            <span class="">
+                                <svg class=" size-4 shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="m6 9 6 6 6-6" />
+                                </svg>
+                            </span>
+
+                            <span class="absolute -top-0.5 -end-0.5">
+                                <span class="relative flex">
+                                    <span
+                                        class="animate-ping absolute inline-flex size-full rounded-full bg-red-400 dark:bg-red-600 opacity-75"></span>
+                                    <span class="relative inline-flex size-2 bg-red-500 rounded-full"></span>
+                                    <span class="sr-only">Notification</span>
+                                </span>
+                            </span>
+                        </button>
+                    </div>
+                    <!-- End Templates Dropdown -->
+                </div>
+            </div>
+
+            <h1 class="text-3xl font-bold text-gray-800 sm:text-4xl dark:text-white">
+                Welcome to Open AI, {{ auth()->user()->name }}!
+            </h1>
+            <p class="mt-3 text-gray-600 dark:text-neutral-400">
+                Your AI-powered copilot for the web, <a class="underline text-primary"
+                    href="{{ route('open-ai', ['action' => 'custom']) }}" wire:navigate>
+                    Custom Prompt
+                </a>
+            </p>
+        </div>
+        <!-- End Title -->
+
+        <ul class="mt-16 space-y-5">
             @foreach ($messages as $key => $message)
                 @if ($message['role'] == 'assistant')
                     <livewire:open-ai.replay-message :messages="$messages" :key="$key" :prompt="$messages[$key - 1]" />
@@ -10,82 +59,106 @@
                     <livewire:open-ai.own-message :message="$message" :key="$key" />
                 @endif
             @endforeach
+        </ul>
+    </div>
 
-        </div>
+    <div
+        class="w-full mx-auto mt-auto sticky bottom-0 z-10 bg-white border-t border-gray-200 pt-2 pb-4 sm:pt-4 sm:pb-6 px-4 sm:px-6 lg:px-0 dark:bg-neutral-900 dark:border-neutral-700">
+        <!-- Textarea -->
+        <div class="w-full mx-auto px-4 sm:px-6 lg:px-0">
+            <div class="flex justify-between items-center mb-3">
+                <button type="button"
+                    class="inline-flex justify-center items-center gap-x-2 rounded-lg font-medium text-gray-800 hover:text-primary-600 focus:outline-none focus:text-primary-600 text-xs sm:text-sm dark:text-neutral-200 dark:hover:text-primary-500 dark:focus:text-primary-500">
+                    <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M5 12h14" />
+                        <path d="M12 5v14" />
+                    </svg>
+                    New chat
+                </button>
 
-        {{-- Message Composer --}}
-        <div class="z-10 flex-none px-6 py-4">
+                <button type="button"
+                    class="py-1.5 px-2 inline-flex items-center gap-x-2 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800">
+                    <svg class="size-3" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M5 3.5h6A1.5 1.5 0 0 1 12.5 5v6a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 11V5A1.5 1.5 0 0 1 5 3.5z" />
+                    </svg>
+                    Stop generating
+                </button>
+            </div>
+
+            <!-- Input -->
             <form wire:submit="submit" class="relative">
-                <div
-                    class="overflow-hidden bg-white shadow-sm rounded-xl ring-1 ring-inset focus-within:ring-2 focus-within:ring-blue-100 ring-gray-300">
-                    <label for="message-body" class="sr-only">Message Composer</label>
+                <textarea wire:model="body"
+                    class="p-4 pb-12 block w-full border-gray-200 rounded-lg text-sm focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                    placeholder="Ask me anything..."></textarea>
 
-                    <input wire:model="body" id="message-body" rows="2" name="message-body"
-                        class="block w-full p-4 text-gray-900 bg-transparent border-0 outline-none resize-none placeholder:text-gray-400 focus:ring-0 focus:outline-none disabled:opacity-50"
-                        placeholder="Add your message..." />
-
-                    <div class="py-2" aria-hidden="true">
-                        <div class="py-px">
-                            <div class="h-11"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="absolute inset-x-0 bottom-0 flex justify-between px-4 pt-1 pb-4">
-                    <div class="flex items-center space-x-5">
-                        <div class="flex items-center justify-center space-x-1.5"><button type="button"
-                                class="flex items-center justify-center text-gray-500 transition-colors bg-white border border-gray-200 rounded-xl p-1.5 hover:text-gray-700 hover:bg-gray-50"><svg
-                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round" class="lucide lucide-smile-icon size-5">
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                    <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
-                                    <line x1="9" x2="9.01" y1="9" y2="9">
-                                    </line>
-                                    <line x1="15" x2="15.01" y1="9" y2="9">
-                                    </line>
+                <!-- Toolbar -->
+                <div class="absolute bottom-px inset-x-px p-2 rounded-b-lg bg-white dark:bg-neutral-900">
+                    <div class="flex justify-between items-center">
+                        <!-- Button Group -->
+                        <div class="flex items-center">
+                            <!-- Mic Button -->
+                            <button type="button"
+                                class="inline-flex shrink-0 justify-center items-center size-8 rounded-lg text-gray-500 hover:bg-gray-100 focus:z-10 focus:outline-none focus:bg-gray-100 dark:text-neutral-500 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700">
+                                <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <rect width="18" height="18" x="3" y="3" rx="2" />
+                                    <line x1="9" x2="15" y1="15" y2="9" />
                                 </svg>
                             </button>
-                            <div data-orientation="vertical" aria-orientation="vertical" role="separator"
-                                class="relative w-px h-full bg-gray-200 shrink-0 dark:bg-gray-800"></div>
+                            <!-- End Mic Button -->
+
+                            <!-- Attach Button -->
                             <button type="button"
-                                class="flex items-center justify-center text-gray-500 transition-colors bg-white border border-gray-200 rounded-xl p-1.5 hover:text-gray-700 hover:bg-gray-50"><svg
-                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round" class="lucide lucide-paperclip-icon size-5">
+                                class="inline-flex shrink-0 justify-center items-center size-8 rounded-lg text-gray-500 hover:bg-gray-100 focus:z-10 focus:outline-none focus:bg-gray-100 dark:text-neutral-500 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700">
+                                <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
                                     <path
-                                        d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48">
-                                    </path>
+                                        d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48" />
                                 </svg>
                             </button>
-                            <div data-orientation="vertical" aria-orientation="vertical" role="separator"
-                                class="relative w-px h-full bg-gray-200 shrink-0 dark:bg-gray-800"></div>
-                            <button type="button"
-                                class="flex items-center justify-center p-1.5 text-gray-500 transition-colors bg-white border border-gray-200 rounded-xl hover:text-gray-700 hover:bg-gray-50"><svg
-                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round" class="lucide lucide-mic-icon size-5">
-                                    <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
-                                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
-                                    <line x1="12" x2="12" y1="19" y2="22">
-                                    </line>
-                                </svg>
-                            </button>
+                            <!-- End Attach Button -->
                         </div>
-                    </div>
-                    <div class="flex items-center justify-start flex-shrink-0">
-                        <button type="submit"
-                            class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:ring-offset-gray-950 dark:focus-visible:ring-gray-300 bg-gray-900 text-gray-50 hover:bg-gray-900/90 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 h-9 rounded-md px-3 ml-auto gap-1.5">
-                            Send Message
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="lucide lucide-corner-down-left-icon size-3.5">
-                                <polyline points="9 10 4 15 9 20"></polyline>
-                                <path d="M20 4v7a4 4 0 0 1-4 4H4"></path>
-                            </svg>
-                        </button>
+                        <!-- End Button Group -->
+
+                        <!-- Button Group -->
+                        <div class="flex items-center gap-x-1">
+                            <!-- Mic Button -->
+                            <button type="button"
+                                class="inline-flex shrink-0 justify-center items-center size-8 rounded-lg text-gray-500 hover:bg-gray-100 focus:z-10 focus:outline-none focus:bg-gray-100 dark:text-neutral-500 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700">
+                                <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" />
+                                    <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+                                    <line x1="12" x2="12" y1="19" y2="22" />
+                                </svg>
+                            </button>
+                            <!-- End Mic Button -->
+
+                            <!-- Send Button -->
+                            <button type="submit" wire:loading.attr="disabled"
+                                class="inline-flex shrink-0 justify-center items-center size-8 rounded-lg text-white bg-primary-600 hover:bg-primary-500 focus:z-10 focus:outline-none focus:bg-primary-500">
+                                <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    fill="currentColor" viewBox="0 0 16 16">
+                                    <path
+                                        d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z" />
+                                </svg>
+                            </button>
+                            <!-- End Send Button -->
+                        </div>
+                        <!-- End Button Group -->
                     </div>
                 </div>
+                <!-- End Toolbar -->
             </form>
+            <!-- End Input -->
         </div>
+        <!-- End Textarea -->
     </div>
 </div>

@@ -16,7 +16,7 @@ class AiPrompt extends Component
     {
         $this->messages[] = [
             'role' => 'system',
-            'content' => 'You are a helpful assistant. The response will have the word "Laravel Folks!" at first and markdown format (if needed) with well-organized, detailed, formatted and clean content.'
+            'content' => 'You are a helpful assistant. The response will markdown format (if needed) with well-organized, detailed, formatted and clean content.'
         ];
     }
 

@@ -6,14 +6,6 @@ use Livewire\Component;
 
 class OpenAIManager extends Component
 {
-
-    public $customData = false;
-
-    public function mount()
-    {
-        $this->customData = request('action') == 'custom';
-    }
-
     public function render()
     {
 

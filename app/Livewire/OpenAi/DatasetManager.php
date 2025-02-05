@@ -56,10 +56,6 @@ class DatasetManager extends Component
 
     protected function getTextContent($path): ?string
     {
-        // Parse the text content from the file.
-        // For txt files, we can directly read the content.
-        // For pdf, docx, doc files, we can use libraries like Spatie/PdfToText, PhpOffice/PhpWord, etc.
-
         $file = Storage::path($path);
 
         if (file_exists($file)) {

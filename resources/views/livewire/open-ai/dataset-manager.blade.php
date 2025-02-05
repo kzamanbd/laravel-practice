@@ -30,8 +30,7 @@
                     </div>
                 </div>
                 <div class="flex items-center shrink-0 gap-x-4">
-                    <svg class="flex-none w-5 h-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor"
-                        aria-hidden="true">
+                    <svg class="flex-none w-5 h-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                         <path fill-rule="evenodd"
                             d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
                             clip-rule="evenodd" />
@@ -39,7 +38,7 @@
                 </div>
             </li>
         @empty
-            <p class="text-gray-500 p-1">No datasets found.</p>
+            <p class="text-gray-500 p-4">No datasets found.</p>
         @endforelse
     </ul>
 

@@ -1,11 +1,15 @@
-{{-- Own Message --}}
-<div class="flex items-end justify-end space-x-4 transition-opacity">
-    <div class="flex flex-row-reverse justify-start flex-grow flex-shrink min-w-0 group">
-        <div class="flex flex-col ml-48">
-            <div
-                class="px-4 py-2.5 text-white  bg-gradient-to-r from-blue-700 rounded-l-xl shadow-blue-200 shadow-md rounded-tr-xl via-blue-500 to-blue-700 align-right">
+<li class="flex justify-end gap-x-2 sm:gap-x-4">
+    <div class="grow text-end space-y-3">
+        <!-- Card -->
+        <div class="max-w-[90%] w-full inline-block">
+            <p class="bg-white overflow-auto border border-gray-200 rounded-lg p-3">
                 {{ $message['content'] }}
-            </div>
+            </p>
         </div>
+        <!-- End Card -->
     </div>
-</div>
+
+    <span class="shrink-0 inline-flex items-center justify-center size-[38px] rounded-full bg-gray-600">
+        <img src="{{ auth()->user()->profile_photo_url }}" alt="image" class="rounded-full size-10" />
+    </span>
+</li>
