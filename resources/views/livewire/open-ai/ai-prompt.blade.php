@@ -1,4 +1,4 @@
-<div class="relative h-screen bg-white mx-auto max-w-7xl sm:px-6 lg:px-8 flex flex-col">
+<div class="relative h-[calc(100vh_-_70px)] overflow-y-auto bg-white mx-auto max-w-7xl sm:px-6 lg:px-8 flex flex-col">
     <div class="w-full px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
         <!-- Title -->
         <div class="text-center">
