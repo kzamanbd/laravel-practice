@@ -11,7 +11,7 @@
         <ellipse cx="19" cy="18.6554" rx="3.75" ry="3.6" fill="white" />
     </svg>
 
-    <div class="grow max-w-[90%] w-full space-y-3">
+    <div class="grow max-w-[90%] space-y-3">
         <!-- Card -->
         <div wire:stream="stream-{{ $uniqueId }}"
             class="bg-white overflow-auto border border-gray-200 rounded-lg p-3 space-y-3 dark:bg-neutral-900 dark:border-neutral-700">

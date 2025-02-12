@@ -1,7 +1,7 @@
 <div>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('User Show') }}
+            User Detail
         </h2>
     </x-slot>
 
@@ -88,13 +88,15 @@
                                 <p
                                     class="text-gray-600 dark:text-gray-100 text-sm tracking-normal font-normal mb-8 text-center w-10/12">
                                     Account create at {{ $user->created_at }} and last updated at
-                                    {{ $user->updated_at }}</p>
+                                    {{ $user->updated_at }}
+                                </p>
                                 <h1 tabindex="0"
                                     class="focus:outline-none text-lg font-bold text-gray-800 dark:text-gray-100 leading-5 pt-2">
                                     Current Roles</h1>
                                 <h2 tabindex="0"
                                     class="focus:outline-none text-sm leading-3 text-gray-600 dark:text-gray-100 my-3">
-                                    {{ $user->roles->pluck('name')->join(', ') }}</h2>
+                                    {{ $user->roles->pluck('name')->join(', ') }}
+                                </h2>
                             </div>
 
                         </div>
@@ -109,7 +111,8 @@
                                             <div class="relative rounded shadow p-5 border border-1 border-gray-300">
                                                 <p tabindex="0"
                                                     class="focus:outline-none text-gray-600 dark:text-gray-100 text-sm leading-none pt-2">
-                                                    {{ $feature }}</p>
+                                                    {{ $feature }}
+                                                </p>
                                                 <p tabindex="0"
                                                     class="focus:outline-none text-xs italic pt-1 leading-3 text-gray-400">
                                                     Discussion on the template design</p>

@@ -24,20 +24,19 @@
                         </div>
 
                         <div class="flex items-center space-x-4">
-                            <x-lara-permission::button color="light" type="button">
-                                csv
-                            </x-lara-permission::button>
-                            <x-lara-permission::button color="light" type="button">
+                            <button class="btn btn-light" type="button">
+                                CSV
+                            </button>
+                            <button class="btn btn-light" type="button">
                                 Xslx
-                            </x-lara-permission::button>
-                            <x-lara-permission::button color="light" type="button">
+                            </button>
+                            <button class="btn btn-light" type="button">
                                 PDF
-                            </x-lara-permission::button>
-
-                            <x-lara-permission::button type="button"
+                            </button>
+                            <button type="button" class="btn btn-primary"
                                 wire:click="$dispatch('open-modal', 'role-modal')">
                                 Create
-                            </x-lara-permission::button>
+                            </button>
                         </div>
                     </div>
 
@@ -70,7 +69,7 @@
                                         </th>
                                         <th
                                             class="text-left px-3 py-3 border-b-2 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                           Total Permission Grant
+                                            Total Permission Grant
                                         </th>
                                         <th
                                             class="text-left px-3 py-3 border-b-2 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider">
@@ -95,8 +94,7 @@
                                                 </label>
                                             </td>
                                             <td class="px-3 py-2 text-sm">
-                                                <a href="#"
-                                                    class="flex items-center no-underline hover:underline">
+                                                <a href="#" class="flex items-center no-underline hover:underline">
                                                     <div class="ml-3 d-flex items-center">
                                                         <span class="text-gray-900 whitespace-no-wrap m-0">
                                                             {{ $role->name }}
@@ -115,24 +113,19 @@
                                                 </span>
                                             </td>
                                             <td class="px-3 py-2 text-center">
-                                                <div class="inline-flex rounded-md shadow-sm" role="group">
-                                                    <x-lara-permission::button
-                                                        wire:click="editItem({{ $role->id }})"
-                                                        class="rounded-r-none" color="light">
+                                                <div class="inline-flex rounded-md shadow-sm btn-group" role="group">
+                                                    <button wire:click="editItem({{ $role->id }})" class="btn btn-light">
                                                         Edit
-                                                    </x-lara-permission::button>
+                                                    </button>
                                                     @if (Route::has('lara-permission.role.show'))
-                                                        <x-lara-permission::button as="a" wire:navigate
-                                                            href="{{ route('lara-permission.role.show', $role->id) }}"
-                                                            class="rounded-none">
+                                                        <a class="btn btn-light" wire:navigate
+                                                            href="{{ route('lara-permission.role.show', $role->id) }}">
                                                             View
-                                                        </x-lara-permission::button>
+                                                        </a>
                                                     @endif
-                                                    <x-lara-permission::button color="danger"
-                                                        wire:click="deleteItem({{ $role->id }})"
-                                                        class="rounded-l-none">
+                                                    <button wire:click="deleteItem({{ $role->id }})" class="btn btn-danger">
                                                         Delete
-                                                    </x-lara-permission::button>
+                                                    </button>
                                                 </div>
                                             </td>
                                         </tr>
@@ -146,8 +139,6 @@
         </div>
     </div>
 
-    {{-- role create or update modal --}}
-
     <x-lara-permission::modal name="role-modal" maxWidth="3xl" title="{{ $editableMode ? 'Update' : 'Create' }}">
 
         <form class="p-6" wire:submit="store">
@@ -156,8 +147,8 @@
                 <label for="grid-first-name1" class="form-label">
                     Name
                 </label>
-                <input wire:model="name" class="form-control" id="grid-first-name1" type="text"
-                    placeholder="Role Name" required />
+                <input wire:model="name" class="form-control" id="grid-first-name1" type="text" placeholder="Role Name"
+                    required />
             </div>
             <div class="form-group mt-3">
                 <label class="form-label">
@@ -169,12 +160,11 @@
 
 
             <div class="my-4">
-                <div
-                    role="button"
-                    wire:click="syncPermission"
+                <div role="button" wire:click="syncPermission"
                     class="focus:outline-none text-lg font-bold text-gray-800 dark:text-gray-100 leading-5 pt-2 mb-4 text-center flex items-center justify-center">
                     <span>Permissions</span>
-                    <span class="material-icons cursor-pointer" wire:loading.class="animate-spin" wire:target="syncPermission">sync</span>
+                    <span class="material-icons cursor-pointer" wire:loading.class="animate-spin"
+                        wire:target="syncPermission">sync</span>
                 </div>
 
                 <div class="space-y-4 max-h-96 overflow-y-auto">
@@ -200,15 +190,14 @@
                     @endforeach
                 </div>
             </div>
-            <div class="flex justify-end">
-                <x-lara-permission::button color="danger" type="button"
-                    wire:click="$dispatch('close-modal', 'role-modal')">
-                    {{ __('Cancel') }}
-                </x-lara-permission::button>
+            <div class="flex justify-end gap-2">
+                <button class="btn btn-danger" type="button" wire:click="$dispatch('close-modal', 'role-modal')">
+                    Cancel
+                </button>
 
-                <x-lara-permission::button class="ml-3">
-                    Save
-                </x-lara-permission::button>
+                <button class="btn btn-primary">
+                    Save Changes
+                </button>
             </div>
         </form>
     </x-lara-permission::modal>

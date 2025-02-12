@@ -25,23 +25,22 @@
                         </div>
 
                         <div class="flex items-center space-x-4">
-                            <x-lara-permission::button color="light" type="button" wire:click="exportExcel('csv')">
-                                csv
-                            </x-lara-permission::button>
-                            <x-lara-permission::button color="light" type="button" wire:click="exportExcel('xlsx')">
+                            <button class="btn btn-light" type="button" wire:click="exportExcel('csv')">
+                                CSV
+                            </button>
+                            <button class="btn btn-light" type="button" wire:click="exportExcel('xlsx')">
                                 Xslx
-                            </x-lara-permission::button>
-                            <x-lara-permission::button color="light" type="button">
+                            </button>
+                            <button class="btn btn-light" type="button">
                                 PDF
-                            </x-lara-permission::button>
-
-                            <x-lara-permission::button type="button"
+                            </button>
+                            <button class="btn btn-primary" type="button"
                                 wire:click="$dispatch('open-modal', 'create-modal')">
                                 Create
-                            </x-lara-permission::button>
-                            <x-lara-permission::button color="light" type="button" wire:click="sendNotification">
+                            </button>
+                            <button class="btn btn-light" type="button" wire:click="sendNotification">
                                 Send Notification
-                            </x-lara-permission::button>
+                            </button>
                         </div>
                     </div>
 
@@ -52,7 +51,7 @@
                     <div class="py-2 align-middle inline-block w-full">
                         <div class="border border-1 border-gray-200 rounded">
                             <div class="p-2">
-                                {{ $this->users->links('lara-permission::tailwind') }}
+                                {{ $this->users->links() }}
                             </div>
                             <table class="w-full leading-normal p-2">
                                 <thead>
@@ -119,8 +118,7 @@
                                                 </label>
                                             </td>
                                             <td class="px-3 py-2 text-sm">
-                                                <a href="#"
-                                                    class="flex items-center no-underline hover:underline">
+                                                <a href="#" class="flex items-center no-underline hover:underline">
                                                     <div class="flex-shrink-0 w-10 h-10 hidden sm:table-cell">
                                                         <img class="w-full h-full rounded-full"
                                                             src="https://ui-avatars.com/api/?name={{ $user->name }}&color=7F9CF5&background=EBF4FF"
@@ -145,24 +143,19 @@
                                             </td>
 
                                             <td class="px-3 py-2 text-sm text-center">
-                                                <div class="inline-flex rounded-md shadow-sm" role="group">
-                                                    <x-lara-permission::button
-                                                        wire:click="editItem({{ $user->id }})"
-                                                        class="rounded-r-none" color="light">
+                                                <div class="inline-flex rounded-md btn-group shadow-sm" role="group">
+                                                    <button class="btn btn-light" wire:click="editItem({{ $user->id }})">
                                                         Edit
-                                                    </x-lara-permission::button>
+                                                    </button>
                                                     @if (Route::has('lara-permission.user.show'))
-                                                        <x-lara-permission::button as="a" wire:navigate
-                                                            href="{{ route('lara-permission.user.show', $user->id) }}"
-                                                            class="rounded-none">
+                                                        <a class="btn btn-light" wire:navigate
+                                                            href="{{ route('lara-permission.user.show', $user->id) }}">
                                                             View
-                                                        </x-lara-permission::button>
+                                                        </a>
                                                     @endif
-                                                    <x-lara-permission::button color="danger"
-                                                        wire:click="deleteItem({{ $user->id }})"
-                                                        class="rounded-l-none">
+                                                    <button class="btn btn-danger" wire:click="deleteItem({{ $user->id }})">
                                                         Delete
-                                                    </x-lara-permission::button>
+                                                    </button>
                                                 </div>
                                             </td>
                                         </tr>
@@ -182,8 +175,7 @@
         </div>
     </div>
 
-    <x-lara-permission::modal name="create-modal" maxWidth="3xl"
-        title="{{ $editableMode ? 'Update' : 'Create' }} User">
+    <x-lara-permission::modal name="create-modal" maxWidth="3xl" title="{{ $editableMode ? 'Update' : 'Create' }} User">
 
         <form class="p-6" wire:submit="store">
 
@@ -242,15 +234,14 @@
             </div>
 
 
-            <div class="flex justify-end">
-                <x-lara-permission::button color="danger" type="button"
-                    wire:click="$dispatch('close-modal', 'create-modal')">
-                    {{ __('Cancel') }}
-                </x-lara-permission::button>
+            <div class="flex justify-end gap-2">
+                <button class="btn btn-danger" type="button" wire:click="$dispatch('close-modal', 'create-modal')">
+                    Cancel
+                </button>
 
-                <x-lara-permission::button class="ml-3">
-                    Save
-                </x-lara-permission::button>
+                <button class="btn btn-light">
+                    Save Changes
+                </button>
             </div>
         </form>
     </x-lara-permission::modal>

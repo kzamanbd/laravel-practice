@@ -1,7 +1,7 @@
 <li class="flex justify-end gap-x-2 sm:gap-x-4">
     <div class="grow text-end space-y-3">
         <!-- Card -->
-        <div class="max-w-[90%] w-full inline-block">
+        <div class="max-w-[90%] inline-block">
             <p class="bg-white overflow-auto border border-gray-200 rounded-lg p-3">
                 {{ $message['content'] }}
             </p>
