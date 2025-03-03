@@ -15,7 +15,7 @@ class HomeController extends Controller
     public function uploadBase64(Request $request)
     {
         $this->validate($request, [
-            'file' => 'required',
+            'file' => 'required|file',
         ]);
         try {
             $file = $request->file('file');

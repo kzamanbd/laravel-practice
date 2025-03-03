@@ -10,10 +10,10 @@
     ],
     "require": {
         "php": "^8.1",
-        "laravel/framework": "^11.0",
-        "league/flysystem": "^3.28",
-        "league/flysystem-ftp": "^3.28",
-        "league/flysystem-sftp-v3": "^3.28"
+        "laravel/framework": "^v12.0",
+        "league/flysystem": "^3.29",
+        "league/flysystem-ftp": "^3.29",
+        "league/flysystem-sftp-v3": "^3.29"
     },
     "autoload": {
         "psr-4": {
