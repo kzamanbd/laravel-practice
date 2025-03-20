@@ -1,18 +1,22 @@
 <script setup>
     import { Menu, MenuButton, MenuItems } from '@headlessui/vue';
-    defineProps({
+    const props = defineProps({
         authUser: {
             type: Object,
             required: true
         }
     });
+
+    console.log(props.authUser);
 </script>
 
 <template>
     <div class="flex items-center justify-between">
         <div class="flex items-center">
             <div class="flex-none">
-                <img :src="authUser.avatar_path" class="h-12 w-12 rounded-full object-cover" />
+                <img
+                    :src="authUser.profile_photo_url"
+                    class="h-12 w-12 rounded-full object-cover" />
             </div>
             <div class="mx-3">
                 <p class="mb-1 font-semibold">{{ authUser.name }}</p>
@@ -41,7 +45,7 @@
                 </svg>
             </MenuButton>
             <MenuItems>
-                <ul class="dropdown-menu right-0 top-4 w-48 whitespace-nowrap block">
+                <ul class="dropdown-menu right-0 top-4 block w-48 whitespace-nowrap">
                     <li>
                         <router-link to="/profile" class="dropdown-link">
                             <svg
@@ -155,3 +159,4 @@
         </Menu>
     </div>
 </template>
+

@@ -1,12 +1,12 @@
 <?php
 
-namespace DraftScripts\Messaging\Http\Controllers;
+namespace App\Http\Controllers;
 
-use DraftScripts\Messaging\Enums\AppContainsEnum;
-use DraftScripts\Messaging\Http\Helpers\Helpers;
-use DraftScripts\Messaging\Models\Conversation;
-use DraftScripts\Messaging\Models\Message;
-use DraftScripts\Messaging\Models\User;
+use App\Enums\AppContainsEnum;
+use App\Http\Helpers;
+use App\Models\Conversation;
+use App\Models\Message;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;

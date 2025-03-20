@@ -1,9 +1,9 @@
 <?php
 
-namespace DraftScripts\Messaging\Models;
+namespace App\Models;
 
-use DraftScripts\Messaging\Enums\AppContainsEnum;
-use DraftScripts\Messaging\Http\Helpers\Helpers;
+use App\Enums\AppContainsEnum;
+use App\Http\Helpers;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;

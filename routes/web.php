@@ -40,8 +40,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('upload-base64', [HomeController::class, 'uploadBase64'])->name('upload.base64');
 });
 
-require __DIR__ . '/auth.php';
-
 Route::get('excel-data', function () {
     $path = public_path('docs/TargetSetup.xlsx');
     // get all sheets

@@ -1,6 +1,6 @@
 <?php
 
-namespace DraftScripts\Messaging\Http\Helpers;
+namespace App\Http;
 
 use Carbon\Carbon;
 

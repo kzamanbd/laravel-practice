@@ -40,7 +40,7 @@
             </button>
             <div class="relative flex-none">
                 <img
-                    :src="conversation.participant.avatar_path"
+                    :src="conversation.participant.profile_photo_url"
                     class="h-10 w-10 rounded-full object-cover sm:h-12 sm:w-12" />
                 <div class="absolute bottom-0 right-0">
                     <div class="h-4 w-4 rounded-full bg-success"></div>
@@ -293,3 +293,4 @@
     </div>
     <div class="h-px w-full border-b border-[#e0e6ed] dark:border-[#1b2e4b]"></div>
 </template>
+

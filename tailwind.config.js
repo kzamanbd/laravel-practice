@@ -51,7 +51,6 @@ export default {
     darkMode: 'class', // or 'media'
 
     theme: {
-        themeVariants: ['dark', 'light'],
         extend: {
             colors: colorConfig,
             maxHeight: {

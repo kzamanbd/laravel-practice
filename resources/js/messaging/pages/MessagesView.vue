@@ -31,7 +31,7 @@
     const fetchCurrentUser = async () => {
         selectedConversation.value = null;
         try {
-            const { data: response } = await http.get('/initialize');
+            const { data: response } = await http.get('/messaging/initialize');
             authUser.value = response.user;
             users.value = response.users;
             groups.value = response.groups;
@@ -72,7 +72,7 @@
         const item = {
             participant: {
                 name: user.name,
-                avatar_path: user.avatar_path
+                profile_photo_url: user.profile_photo_url
             },
             last_msg_at: 'now',
             is_active: true
@@ -82,7 +82,7 @@
 
     const selectedItem = async (item) => {
         try {
-            const { data: response } = await http.get(`/message?uuid=${item.uuid}`);
+            const { data: response } = await http.get(`/messaging/message?uuid=${item.uuid}`);
             selectedConversation.value = response.conversation;
 
             form.value.to_user_id = null;
@@ -100,7 +100,7 @@
             return;
         }
         try {
-            const { data: response } = await http.post('message', {
+            const { data: response } = await http.post('/messaging/message', {
                 ...form.value,
                 message
             });
@@ -274,7 +274,7 @@
                             :key="item.id"
                             class="chat-user-item"
                             :class="{
-                                'bg-gray-100 dark:bg-[#050b14] dark:text-primary text-primary':
+                                'bg-gray-100 text-primary dark:bg-[#050b14] dark:text-primary':
                                     selectedConversation?.id === item.id
                             }"
                             @click="selectedItem(item)">
@@ -282,7 +282,7 @@
                                 <div class="flex items-center">
                                     <div class="relative flex-shrink-0">
                                         <img
-                                            :src="item.participant.avatar_path"
+                                            :src="item.participant.profile_photo_url"
                                             class="h-12 w-12 rounded-full object-cover" />
 
                                         <div
@@ -318,7 +318,7 @@
                             :key="item.id"
                             class="chat-user-item"
                             :class="{
-                                'bg-gray-100 dark:bg-[#050b14] dark:text-primary text-primary':
+                                'bg-gray-100 text-primary dark:bg-[#050b14] dark:text-primary':
                                     selectedUser?.id === item.id
                             }"
                             @click="selectedNewUser(item)">
@@ -326,7 +326,7 @@
                                 <div class="flex items-center">
                                     <div class="relative flex-shrink-0">
                                         <img
-                                            :src="item.avatar_path"
+                                            :src="item.profile_photo_url"
                                             class="h-12 w-12 rounded-full object-cover" />
 
                                         <div v-if="item.active" class="absolute bottom-0 right-0">
@@ -387,7 +387,7 @@
                                         'order-2': authUser.id === message.user_id
                                     }">
                                     <img
-                                        :src="message.user.avatar_path"
+                                        :src="message.user.profile_photo_url"
                                         class="h-10 w-10 rounded-full object-cover" />
                                 </div>
                                 <div class="space-y-2">
@@ -396,7 +396,7 @@
                                             class="rounded-md bg-black/10 p-4 py-2 dark:bg-gray-800"
                                             :class="
                                                 authUser.id == message.user_id
-                                                    ? 'rounded-br-none  !bg-primary text-white'
+                                                    ? 'rounded-br-none !bg-primary text-white'
                                                     : 'rounded-bl-none'
                                             "
                                             v-html="message.message"></div>
@@ -438,7 +438,7 @@
                                     <div
                                         class="text-white-dark text-xs"
                                         :class="{
-                                            'text-right ': authUser.id === message.user_id
+                                            'text-right': authUser.id === message.user_id
                                         }">
                                         {{ message.formatted_time }}
                                     </div>
@@ -455,3 +455,4 @@
         </div>
     </div>
 </template>
+
