@@ -73,7 +73,7 @@ class HomeController extends Controller
     public function testDatabaseTransactions()
     {
 
-        DB::beginTransaction(function () {
+        DB::transaction(function () {
             $category = Category::query()->create([
                 'name' => 'Test Category',
                 'slug' => 'test-category',

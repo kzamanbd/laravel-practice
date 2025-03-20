@@ -7,35 +7,10 @@
         "framework"
     ],
     "license": "MIT",
-    "repositories": [
-        {
-            "type": "path",
-            "url": "./packages/file-manager",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "./packages/messaging",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "./packages/permission",
-            "options": {
-                "symlink": true
-            }
-        }
-    ],
+    "repositories": [],
     "require": {
         "php": "^8.2",
         "dedoc/scramble": "^v0.12.10",
-        "draftscripts/file-manager": "dev-master",
-        "draftscripts/messaging": "dev-master",
-        "draftscripts/permission": "dev-master",
         "jenssegers/agent": "^v2.6.4",
         "laravel/framework": "^v12.0",
         "laravel/horizon": "^v5.30",
@@ -112,3 +87,4 @@
     "minimum-stability": "stable",
     "prefer-stable": true
 }
+

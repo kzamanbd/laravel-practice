@@ -1,23 +1,21 @@
-@import "toastify-js/src/toastify.css";
+@import 'simplebar/dist/simplebar.css';
+@import 'toastify-js/src/toastify.css';
+@import './../js/messaging/messaging.css';
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer components {
-    .dark--text {
-        @apply text-gray-700 dark:text-[#6D7993];
-    }
     /* Form components */
     .form-group {
         @apply mb-2;
     }
     label,
     .form-label {
-        @apply dark--text mb-1.5 block text-sm font-medium;
+        @apply mb-1.5 block text-sm font-medium text-gray-700 dark:text-[#6D7993];
     }
     .form-input,
-    .tiptap,
     .form-select,
     .form-control,
     .form-multiselect,
@@ -63,3 +61,93 @@
         @apply border-danger bg-red-100 focus:border-red-300 focus:ring focus:ring-red-200;
     }
 }
+
+@layer components {
+    .dark--text {
+        @apply text-gray-700 dark:text-[#6D7993];
+    }
+    .tw-logo {
+        @apply h-12 w-12 fill-primary;
+    }
+    .login-bg {
+        @apply relative z-[1] w-full max-w-md before:absolute before:bg-[url('../../public/images/login-left.png')];
+        @apply before:left-[-45px] before:top-[-70px] before:z-[-1] before:h-[244px] before:w-[244px];
+        @apply after:absolute after:bg-[url('../../public/images/login-right.png')];
+        @apply after:bottom-[-50px] after:right-[-50px] after:z-[-1] after:h-[244px] after:w-[244px];
+    }
+    /* card */
+    .card {
+        @apply rounded-md bg-white shadow-sm dark:bg-dark;
+    }
+    .card-header {
+        @apply dark--text border-b border-dashed border-gray-200 p-4 font-semibold dark:border-gray-700;
+    }
+    .card-body {
+        @apply p-4;
+    }
+    .btn-link {
+        @apply text-primary hover:text-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-300;
+        @apply dark:text-primary-600 dark:hover:text-primary-700 dark:focus:ring-primary-900;
+    }
+    .tab-btn {
+        @apply hover:text-primary focus-visible:outline-none;
+    }
+
+    /* disabled button */
+    .btn:disabled {
+        @apply cursor-not-allowed opacity-50;
+    }
+
+    /* dropdown */
+    .dropdown {
+        @apply relative flex flex-col;
+    }
+    .dropdown-toggle {
+        @apply flex cursor-pointer items-center;
+    }
+    .dropdown-menu {
+        @apply absolute right-0 top-0 z-20 hidden w-40 overflow-hidden rounded-md border border-gray-200 bg-white py-2 shadow-lg outline-none dark:border-slate-700 dark:bg-slate-800;
+    }
+    .dropdown-menu.show {
+        @apply block !important;
+    }
+    .dropdown-link {
+        @apply inline-flex w-full cursor-pointer items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-slate-700;
+    }
+    .dropdown-btn {
+        @apply inline-flex w-full items-center gap-2 px-4 py-2 text-sm text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-700;
+    }
+    .dropdown-btn.active {
+        @apply text-primary dark:text-primary;
+    }
+
+    /* chats */
+    .chat-wrapper {
+        @apply relative mx-auto flex h-screen max-w-7xl gap-5 overflow-hidden lg:py-4;
+    }
+    .chat-sidebar {
+        @apply absolute inset-0 z-10 hidden w-full max-w-[24rem] flex-none space-y-4 overflow-hidden p-4 lg:relative lg:inset-auto lg:block lg:h-full;
+    }
+    .chat-users {
+        @apply relative h-[calc(100vh_-_250px)] space-y-0.5 overflow-y-auto;
+    }
+    .chat-user-item {
+        @apply mb-1 flex w-full items-center justify-between rounded-md p-2 pr-4 hover:bg-gray-50 hover:text-primary dark:hover:bg-[#050b14] dark:hover:text-primary;
+    }
+    .chat-empty-wrapper {
+        @apply text-white dark:text-[#0e1726] md:w-[430px];
+    }
+    .chat-detail {
+        @apply relative h-[calc(100vh_-_75px)] overflow-auto sm:h-[calc(100vh_-_150px)];
+    }
+    .chat-conversation-box {
+        @apply space-y-5 p-4 pb-[68px] sm:pb-0;
+    }
+    .chat-overlay {
+        @apply absolute z-[5] hidden h-full w-full rounded-md bg-black/60;
+    }
+    .chat-conversation-box a {
+        @apply underline;
+    }
+}
+
