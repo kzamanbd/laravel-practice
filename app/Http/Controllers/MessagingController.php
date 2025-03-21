@@ -11,10 +11,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Inertia\Inertia;
 
 class MessagingController
 {
-    public function initialize()
+    public function initialize(Request $request, $uuid = null)
     {
         $conversations = Conversation::query()
             ->with(['participant'])
@@ -33,37 +34,22 @@ class MessagingController
             )->get();
 
         $users = User::query()->whereNot('id', Auth::id())->get();
-        $currentUser = User::find(Auth::id());
-
-        return response()->json([
-            'success' => true,
-            'user' => $currentUser,
-            'users' => $users,
-            'groups' => $groups,
-            'conversations' => $conversations,
-        ]);
-    }
-
-    public function getMessages(Request $request)
-    {
-        $uuid = $request->input('uuid');
-
 
         if ($uuid) {
             $conversation = Conversation::query()
                 ->with(['participant', 'messages:id,conversation_id,user_id,msg_type,message,created_at', 'messages.user:id,name'])
                 ->where('uuid', $uuid)
                 ->first();
-
-            return response()->json([
-                'success' => true,
-                'conversation' => $conversation
-            ]);
+        } else {
+            $conversation = null;
         }
-        return response()->json([
-            'success' => false,
-            'conversation' => (object)[]
-        ], 404);
+
+        return Inertia::render('messaging/MessagesView', [
+            'users' => $users,
+            'groups' => $groups,
+            'conversations' => $conversations,
+            'conversation' => $conversation
+        ]);
     }
 
     public function store(Request $request)
@@ -114,19 +100,10 @@ class MessagingController
             }
 
             DB::commit();
-
-            return response()->json([
-                'success' => true,
-                'message' => $message->load('user'),
-                'conversation' => $conversation,
-            ]);
         } catch (\Exception $e) {
             DB::rollBack();
-            return response()->json([
-                'success' => false,
-                'message' => $e->getMessage()
-            ], 500);
         }
+        return to_route('messaging', $conversation->uuid);
     }
 
 

@@ -1,47 +1,35 @@
 <script setup>
     import { Tab, TabGroup, TabList, TabPanels, TabPanel } from '@headlessui/vue';
-    import ChatHeadMenu from '../components/ChatHeadMenu.vue';
-    import EmptyState from '../components/EmptyState.vue';
-    import MessageGroup from '../components/MessageGroup.vue';
-    import UserProfile from '../components/UserProfile.vue';
-    import SendMessage from '../components/SendMessage.vue';
+    import ChatHeadMenu from './components/ChatHeadMenu.vue';
+    import EmptyState from './components/EmptyState.vue';
+    import MessageGroup from './components/MessageGroup.vue';
+    import UserProfile from './components/UserProfile.vue';
+    import SendMessage from './components/SendMessage.vue';
     import Simplebar from 'simplebar-vue';
     import { groupBy } from 'lodash';
-    import { ref, computed, inject } from 'vue';
+    import { ref, computed, watch } from 'vue';
+    import { Link, useForm, usePage, Head } from '@inertiajs/vue3';
 
-    const http = inject('http');
-    const authUser = ref({});
-    const conversations = ref([]);
-    const users = ref([]);
-    const groups = ref([]);
+    const page = usePage();
+    const authUser = page.props.auth.user;
+
+    const conversations = ref(page.props.conversations);
+    const users = ref(page.props.users);
+    const groups = ref(page.props.groups);
 
     const inputMessage = ref(null);
     const selectedUser = ref(null);
     const searchKey = ref('');
-    const form = ref({
+    const form = useForm({
+        message: '',
         conversation_id: null,
         to_user_id: null
     });
-    const selectedConversation = ref(null);
+    const selectedConversation = ref(page.props.conversation);
     const chat = ref({
         chatMenu: false,
         chatUser: false
     });
-
-    const fetchCurrentUser = async () => {
-        selectedConversation.value = null;
-        try {
-            const { data: response } = await http.get('/messaging/initialize');
-            authUser.value = response.user;
-            users.value = response.users;
-            groups.value = response.groups;
-            conversations.value = response.conversations;
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    fetchCurrentUser();
 
     const groupByMessages = computed(function () {
         if (selectedConversation.value?.messages?.length) {
@@ -52,7 +40,7 @@
 
     const filteredConversations = computed(() => {
         return conversations.value.filter((d) => {
-            return d.participant.name.toLowerCase().includes(searchKey.value.toLowerCase());
+            return d.participant?.name.toLowerCase().includes(searchKey.value.toLowerCase());
         });
     });
 
@@ -62,13 +50,21 @@
         });
     });
 
+    watch(selectedConversation, () => {
+        form.to_user_id = null;
+        form.conversation_id = selectedConversation.value.id;
+        chat.value.chatUser = true;
+        chat.value.chatMenu = false;
+        scrollToBottom();
+    });
+
     const selectedNewUser = (user) => {
         selectedUser.value = user;
         chat.value.chatUser = true;
         chat.value.chatMenu = false;
         inputMessage.value?.focus();
-        form.value.to_user_id = user.id;
-        form.value.conversation_id = null;
+        form.to_user_id = user.id;
+        form.conversation_id = null;
         const item = {
             participant: {
                 name: user.name,
@@ -80,40 +76,17 @@
         selectedConversation.value = item;
     };
 
-    const selectedItem = async (item) => {
-        try {
-            const { data: response } = await http.get(`/messaging/message?uuid=${item.uuid}`);
-            selectedConversation.value = response.conversation;
-
-            form.value.to_user_id = null;
-            form.value.conversation_id = item.id;
-            chat.value.chatUser = true;
-            chat.value.chatMenu = false;
-            scrollToBottom();
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
     const sendMessage = async (message) => {
-        if (!message.trim()) {
+        form.message = message;
+        if (!form.message.trim()) {
             return;
         }
-        try {
-            const { data: response } = await http.post('/messaging/message', {
-                ...form.value,
-                message
-            });
-            console.log(response);
-            if (response.conversation) {
-                selectedConversation.value = response.conversation;
-            } else {
-                selectedConversation.value.messages.push(response.message);
+        form.post(route('message.store'), {
+            preserveScroll: true,
+            onSuccess: () => {
+                scrollToBottom();
             }
-            scrollToBottom();
-        } catch (error) {
-            console.log(error);
-        }
+        });
     };
 
     function scrollToBottom() {
@@ -136,6 +109,9 @@
 </script>
 
 <template>
+    <Head>
+        <title>Messages</title>
+    </Head>
     <div class="chat-wrapper">
         <TabGroup as="div" class="card chat-sidebar" :class="chat.chatMenu && '!block'">
             <UserProfile :auth-user="authUser" />
@@ -170,7 +146,7 @@
             </div>
 
             <TabList class="flex items-center justify-between text-xs">
-                <Tab type="button" class="tab-btn" @click="fetchCurrentUser">
+                <Tab type="button" class="tab-btn">
                     <svg
                         width="24"
                         height="24"
@@ -192,7 +168,7 @@
                     Chats
                 </Tab>
 
-                <Tab type="button" @click="fetchCurrentUser" class="tab-btn">
+                <Tab type="button" class="tab-btn">
                     <svg
                         width="24"
                         height="24"
@@ -268,7 +244,7 @@
                 <div class="h-px w-full border-b border-[#e0e6ed] dark:border-[#1b2e4b]"></div>
                 <TabPanel>
                     <Simplebar class="chat-users my-2">
-                        <button
+                        <Link
                             type="button"
                             v-for="item in filteredConversations"
                             :key="item.id"
@@ -277,7 +253,7 @@
                                 'bg-gray-100 text-primary dark:bg-[#050b14] dark:text-primary':
                                     selectedConversation?.id === item.id
                             }"
-                            @click="selectedItem(item)">
+                            :href="route('messaging', item.uuid)">
                             <div class="flex-1">
                                 <div class="flex items-center">
                                     <div class="relative flex-shrink-0">
@@ -304,7 +280,7 @@
                             <div class="whitespace-nowrap text-xs font-semibold">
                                 <p>{{ item.last_msg_at }}</p>
                             </div>
-                        </button>
+                        </Link>
                     </Simplebar>
                 </TabPanel>
                 <TabPanel>

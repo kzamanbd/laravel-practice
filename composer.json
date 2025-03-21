@@ -11,6 +11,7 @@
     "require": {
         "php": "^8.2",
         "dedoc/scramble": "^v0.12.10",
+        "inertiajs/inertia-laravel": "^2.0",
         "jenssegers/agent": "^v2.6.4",
         "laravel/framework": "^v12.0",
         "laravel/horizon": "^v5.30",
@@ -21,7 +22,8 @@
         "livewire/volt": "^v1.6",
         "maatwebsite/excel": "^3.1",
         "openai-php/laravel": "^v0.11",
-        "predis/predis": "^v2.3"
+        "predis/predis": "^v2.3",
+        "tightenco/ziggy": "^2.5"
     },
     "require-dev": {
         "fakerphp/faker": "^v1.24",
@@ -87,4 +89,3 @@
     "minimum-stability": "stable",
     "prefer-stable": true
 }
-

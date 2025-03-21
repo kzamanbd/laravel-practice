@@ -1,6 +1,6 @@
 @import 'simplebar/dist/simplebar.css';
 @import 'toastify-js/src/toastify.css';
-@import './../js/messaging/messaging.css';
+@import './messaging.css';
 
 @tailwind base;
 @tailwind components;

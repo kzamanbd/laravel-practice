@@ -1,13 +1,12 @@
 <script setup>
     import { Menu, MenuButton, MenuItems } from '@headlessui/vue';
+    import { Link } from '@inertiajs/vue3';
     const props = defineProps({
         authUser: {
             type: Object,
             required: true
         }
     });
-
-    console.log(props.authUser);
 </script>
 
 <template>
@@ -47,7 +46,7 @@
             <MenuItems>
                 <ul class="dropdown-menu right-0 top-4 block w-48 whitespace-nowrap">
                     <li>
-                        <router-link to="/profile" class="dropdown-link">
+                        <Link href="/profile" class="dropdown-link">
                             <svg
                                 width="24"
                                 height="24"
@@ -73,7 +72,7 @@
                                     stroke-linecap="round"></path>
                             </svg>
                             Profile
-                        </router-link>
+                        </Link>
                     </li>
                     <li>
                         <a href="javascript:;" class="dropdown-link">
@@ -126,11 +125,7 @@
                         </a>
                     </li>
                     <li>
-                        <router-link
-                            to="route('logout')"
-                            method="post"
-                            class="dropdown-link"
-                            as="button">
+                        <Link href="#" class="dropdown-link">
                             <svg
                                 width="24"
                                 height="24"
@@ -152,7 +147,7 @@
                                     stroke-linecap="round"></path>
                             </svg>
                             Sign Out
-                        </router-link>
+                        </Link>
                     </li>
                 </ul>
             </MenuItems>

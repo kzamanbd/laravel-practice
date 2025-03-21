@@ -40,7 +40,7 @@
             </button>
             <div class="relative flex-none">
                 <img
-                    :src="conversation.participant.profile_photo_url"
+                    :src="conversation.participant?.profile_photo_url"
                     class="h-10 w-10 rounded-full object-cover sm:h-12 sm:w-12" />
                 <div class="absolute bottom-0 right-0">
                     <div class="h-4 w-4 rounded-full bg-success"></div>
@@ -48,7 +48,7 @@
             </div>
             <div class="mx-3">
                 <p class="font-semibold">
-                    {{ conversation.participant.name }}
+                    {{ conversation.participant?.name }}
                 </p>
                 <p class="text-white-dark text-xs">
                     {{
