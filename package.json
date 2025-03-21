@@ -2,18 +2,9 @@
     "name": "laravel-app",
     "private": true,
     "type": "module",
-    "packageManager": "pnpm@8.15.6",
     "scripts": {
         "dev": "vite",
-        "build": "vite build",
-        "turbo:dev": "turbo dev",
-        "turbo:build": "turbo build",
-        "queue": "php artisan queue:work",
-        "reverb": "php artisan reverb:start --port=8081 --debug",
-        "start": "concurrently \"npm run dev\" \"npm run reverb\"",
-        "file:dev": "pnpm --filter=file-manager dev",
-        "messaging:dev": "pnpm --filter=messaging dev",
-        "permission:dev": "pnpm --filter=permission dev"
+        "build": "vite build"
     },
     "dependencies": {
         "@headlessui/react": "^2.1.5",
@@ -22,28 +13,28 @@
         "@tailwindcss/forms": "^0.5.2",
         "autoprefixer": "^10.4.2",
         "axios": "^1.6.4",
-        "concurrently": "^8.2.2",
-        "laravel-echo": "^1.16.1",
+        "laravel-echo": "^2.0.2",
         "laravel-vite-plugin": "^1.0",
         "lodash": "^4.17.21",
         "pusher-js": "^8.4.0-rc2",
-        "react": "^18.3.1",
-        "react-dom": "^18.3.1",
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0",
         "simplebar": "^6.2.5",
         "simplebar-react": "^3.2.6",
         "simplebar-vue": "^2.3.3",
         "tailwindcss": "^3.1.0",
         "toastify-js": "^1.12.0",
-        "turbo": "^2.1.1",
-        "vite": "^5.0",
+        "typescript": "^5.8.2",
+        "vite": "^6.0",
         "vue": "^3.4.29",
         "vue-router": "^4.3.3"
     },
     "devDependencies": {
-        "@types/react": "^18.3.3",
-        "@types/react-dom": "^18.3.0",
+        "@types/react": "^19.0.12",
+        "@types/react-dom": "^19.0.4",
         "@vitejs/plugin-react-swc": "^3.5.0",
         "@vitejs/plugin-vue": "^5.2.3",
+        "concurrently": "^9.1.2",
         "postcss": "^8.4.31",
         "prettier": "^3.3.3",
         "prettier-plugin-tailwindcss": "^0.6.6"
@@ -62,4 +53,3 @@
         ]
     }
 }
-
