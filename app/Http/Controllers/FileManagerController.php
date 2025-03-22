@@ -1,11 +1,12 @@
 <?php
 
-namespace DraftScripts\FileManager\Http\Controllers;
+namespace App\Http\Controllers;
 
 use SplFileInfo;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Inertia\Inertia;
 
 class FileManagerController
 {
@@ -16,7 +17,7 @@ class FileManagerController
      *
      * @return string
      */
-    function formatSizeUnits($bytes)
+    public function formatSizeUnits($bytes)
     {
 
         if ($bytes >= 1073741824) {
@@ -44,7 +45,7 @@ class FileManagerController
      * @return object
      */
 
-    function getFileInfo(SplFileInfo $item, $pathReplace = null)
+    public function getFileInfo(SplFileInfo $item, $pathReplace = null)
     {
         $modifiedItem = [
             'type'        => $item->getType(),
@@ -65,7 +66,7 @@ class FileManagerController
             $modifiedItem['path'] = str_replace($pathReplace, '', $modifiedItem['path']);
         }
 
-        return $modifiedItem;
+        return (object) $modifiedItem;
     }
 
     /**
@@ -76,7 +77,7 @@ class FileManagerController
      * @return int
      */
 
-    function getDirectorySize($path)
+    public function getDirectorySize($path)
     {
 
         if (!is_dir($path)) {
@@ -100,7 +101,7 @@ class FileManagerController
      *
      * @return array
      */
-    function getLocalDirectoryTree($path, $pathReplace = null)
+    public function getLocalDirectoryTree($path, $pathReplace = null)
     {
         $items = [];
 
@@ -125,7 +126,7 @@ class FileManagerController
      * @return array
      */
 
-    function getRemoteDirectoryTree($path, string $disk = 'local')
+    public function getRemoteDirectoryTree($path, string $disk = 'local')
     {
         // Implement your remote directory tree logic here
 
@@ -138,15 +139,8 @@ class FileManagerController
         return $items;
     }
 
-    /**
-     * Function to get the directory tree
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-
     public function index()
     {
-
         if (request()->has('disk') && !empty(request('disk'))) {
             $disk = request('disk');
             $currentPath = request('path') ?? '/';
@@ -166,9 +160,16 @@ class FileManagerController
         }
 
         $files = $this->getLocalDirectoryTree($currentPath, $initialPath);
-        return response()->json([
-            'path'  => str_replace($initialPath, '', $currentPath),
+
+        if (request('path')) {
+            return response()->json([
+                'files' => $files,
+                'path'  => str_replace($initialPath, '', $currentPath),
+            ]);
+        }
+        return Inertia::render('files/FileManager', [
             'files' => $files,
+            'path'  => str_replace($initialPath, '', $currentPath),
         ]);
     }
 

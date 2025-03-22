@@ -11,7 +11,12 @@
     <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
 
     @routes
-    @vite(['resources/js/messaging.ts', 'resources/css/app.css'])
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @if (request()->routeIs('files*'))
+        @vite(['resources/js/file-manager.tsx'])
+    @elseif(request()->routeIs('messaging*'))
+        @vite(['resources/js/messaging.ts'])
+    @endif
     @inertiaHead
 </head>
 

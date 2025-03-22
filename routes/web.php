@@ -2,13 +2,11 @@
 
 use App\Livewire\Blogging;
 use App\Livewire\JobBatching;
-use App\Imports\CollectionData;
 use App\Livewire\UserDashboard;
 use App\Livewire\BrowserSession;
 use App\Livewire\DatabaseBackup;
 use App\Livewire\ApiTokenManager;
 use App\Livewire\ContactManagement;
-use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Middleware\LoggerMiddleware;
@@ -38,23 +36,4 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('database-backup', DatabaseBackup::class)->name('database.backup');
     Route::get('open-ai', OpenAIManager::class)->name('open-ai');
     Route::post('upload-base64', [HomeController::class, 'uploadBase64'])->name('upload.base64');
-});
-
-Route::get('excel-data', function () {
-    $path = public_path('docs/TargetSetup.xlsx');
-    // get all sheets
-    $response = [];
-    $sheets = Excel::toCollection(new CollectionData, $path);
-
-    foreach ($sheets as $sheet) {
-        $response[] = $sheet;
-    }
-
-    return $response;
-});
-
-Route::get('remote-files', [HomeController::class, 'remoteFiles'])->name('remote.files');
-
-Route::get('payhere', function () {
-    return view('payhere');
 });

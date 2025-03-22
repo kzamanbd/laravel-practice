@@ -68,8 +68,8 @@ const FileEditor = ({
             <div className="fixed inset-0 z-50 w-screen overflow-y-auto">
                 <DialogPanel
                     transition
-                    className="w-full rounded-xl bg-white/5 p-4 h-full backdrop-blur-2xl duration-300 ease-out data-[closed]:transform-[scale(95%)] data-[closed]:opacity-0">
-                    <DialogTitle as="h3" className="text-base/7 pb-4 font-bold">
+                    className="data-[closed]:transform-[scale(95%)] h-full w-full rounded-xl bg-white/5 p-4 backdrop-blur-2xl duration-300 ease-out data-[closed]:opacity-0">
+                    <DialogTitle as="h3" className="pb-4 text-base/7 font-bold">
                         {fileName}
                     </DialogTitle>
                     <MonacoEditor
@@ -96,3 +96,4 @@ const FileEditor = ({
 };
 
 export default FileEditor;
+

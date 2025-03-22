@@ -1,19 +1,19 @@
 import { useCallback, useEffect, useState } from 'react';
-import { fetchFiles, fetchFileContent } from '@/utils';
-import FileTree from '@/components/FileTree';
+import { fetchFiles, fetchFileContent } from '../utils';
+import FileTree from '../components/FileTree';
 import { IFile } from '@/types';
 import SimpleBar from 'simplebar-react';
-import FileIcon from '@/components/FileIcon';
-import LoadingSkeleton from '@/components/LoadingSkeleton';
-import FileEditor from '@/components/FileEditor';
+import FileIcon from '../components/FileIcon';
+import LoadingSkeleton from '../components/LoadingSkeleton';
+import FileEditor from '../components/FileEditor';
 
-const LocalFileManager = () => {
-    const [files, setFiles] = useState<IFile[]>([]);
+const LocalFileManager = ({ filesData }: any) => {
+    const [files, setFiles] = useState<IFile[]>(filesData);
     const [openEditor, setOpenEditor] = useState(false);
     const [fileContent, setFileContent] = useState('');
     const [fileName, setFileName] = useState('');
     const [selectedFiles, setSelectedFiles] = useState<IFile[]>([]);
-    const [initialLoading, setInitialLoading] = useState(true);
+    const [initialLoading, setInitialLoading] = useState(false);
     const [detailLoading, setDetailLoading] = useState(false);
 
     const [breadcrumb, setBreadcrumb] = useState<Record<string, string>[]>([
@@ -107,20 +107,17 @@ const LocalFileManager = () => {
         setSelectedFiles(selectedFiles.map((file) => ({ ...file, checked: e.target.checked })));
     };
 
-    useEffect(() => {
-        fetchInitialFile();
-    }, [fetchInitialFile]);
     return (
-        <div className="bg-white shadow-sm rounded-lg p-4">
+        <div className="rounded-lg bg-white p-4 shadow-sm">
             {/* <!-- Search and Action Buttons --> */}
-            <div className="flex justify-between items-center mb-4">
+            <div className="mb-4 flex items-center justify-between">
                 <input
                     type="text"
                     placeholder="Search Files & Folders"
-                    className="border border-gray-100 rounded-lg p-2 w-1/3"
+                    className="w-1/3 rounded-lg border border-gray-100 p-2"
                 />
                 <div className="flex space-x-4">
-                    <button className="flex items-center gap-2 bg-primary-100 text-primary-500 px-4 py-1.5 rounded-lg">
+                    <button className="flex items-center gap-2 rounded-lg bg-primary-100 px-4 py-1.5 text-primary-500">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
@@ -129,14 +126,14 @@ const LocalFileManager = () => {
                             className="bi bi-cloud-arrow-up"
                             viewBox="0 0 16 16">
                             <path
-                                fill-rule="evenodd"
+                                fillRule="evenodd"
                                 d="M7.646 5.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 6.707V10.5a.5.5 0 0 1-1 0V6.707L6.354 7.854a.5.5 0 1 1-.708-.708z"
                             />
                             <path d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383m.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z" />
                         </svg>
                         <span>New Folder</span>
                     </button>
-                    <button className="flex items-center gap-2 bg-primary-500 text-white px-4 py-1.5 rounded-lg">
+                    <button className="flex items-center gap-2 rounded-lg bg-primary-500 px-4 py-1.5 text-white">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
@@ -145,7 +142,7 @@ const LocalFileManager = () => {
                             className="bi bi-cloud-arrow-up"
                             viewBox="0 0 16 16">
                             <path
-                                fill-rule="evenodd"
+                                fillRule="evenodd"
                                 d="M7.646 5.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 6.707V10.5a.5.5 0 0 1-1 0V6.707L6.354 7.854a.5.5 0 1 1-.708-.708z"
                             />
                             <path d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383m.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z" />
@@ -156,52 +153,52 @@ const LocalFileManager = () => {
             </div>
 
             {/* <!-- Breadcrumb --> */}
-            <div className="text-sm flex items-center justify-between font-semibold text-gray-500 mb-4">
-                <div className="w-max py-1 px-2 rounded-lg gap-2 bg-primary-100 flex items-center">
+            <div className="mb-4 flex items-center justify-between text-sm font-semibold text-gray-500">
+                <div className="flex w-max items-center gap-2 rounded-lg bg-primary-100 px-2 py-1">
                     <span className="text-primary-500">
                         <svg
                             className="size-6"
                             viewBox="0 0 24 24"
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg">
-                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
                             <g
                                 id="SVGRepo_tracerCarrier"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"></g>
+                                strokeLinecap="round"
+                                strokeLinejoin="round"></g>
                             <g id="SVGRepo_iconCarrier">
                                 <path
                                     d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
                                     className="stroke-primary"
-                                    stroke-width="2"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-dasharray="4 4"></path>
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeDasharray="4 4"></path>
                             </g>
                         </svg>
                     </span>
                     <div className="flex gap-2">
                         {breadcrumb.map((item, index) => (
-                            <div className="text-primary-500">
+                            <div key={index} className="text-primary-500">
                                 <span
                                     onClick={breadcrumbClickHandler.bind(null, index)}
-                                    className="underline cursor-pointer">
+                                    className="cursor-pointer underline">
                                     {item.name || 'Local'}
                                 </span>
                                 {index != breadcrumb.length - 1 ? (
-                                    <span className="text-gray-700 ml-2">{item.separator}</span>
+                                    <span className="ml-2 text-gray-700">{item.separator}</span>
                                 ) : null}
                             </div>
                         ))}
                     </div>
                 </div>
-                <span className="rounded bg-primary-500 text-white p-1">
+                <span className="rounded bg-primary-500 p-1 text-white">
                     {selectedFiles.length} items
                 </span>
             </div>
 
             {/* <!-- File List --> */}
-            <div className="overflow-auto grid grid-cols-7 border rounded-lg">
+            <div className="grid grid-cols-7 overflow-auto rounded-lg border">
                 <div className="col-span-2">
                     {initialLoading ? (
                         <div className="p-4">
@@ -236,8 +233,8 @@ const LocalFileManager = () => {
                         <SimpleBar style={{ maxHeight: 500, height: '100%' }}>
                             <table className="w-full text-left">
                                 <thead>
-                                    <tr className="text-gray-500 uppercase text-sm border-b">
-                                        <td className="bg-white sticky top-0 z-50 py-1.5 px-3 w-10">
+                                    <tr className="border-b text-sm uppercase text-gray-500">
+                                        <td className="sticky top-0 z-50 w-10 bg-white px-3 py-1.5">
                                             <input
                                                 type="checkbox"
                                                 className="rounded"
@@ -245,24 +242,24 @@ const LocalFileManager = () => {
                                                 onChange={checkedAllItems}
                                             />
                                         </td>
-                                        <th className="bg-white sticky top-0 z-50 py-1.5 px-3">
+                                        <th className="sticky top-0 z-50 bg-white px-3 py-1.5">
                                             Name
                                         </th>
-                                        <th className="bg-white sticky top-0 z-50 py-1.5 px-3">
+                                        <th className="sticky top-0 z-50 bg-white px-3 py-1.5">
                                             Size
                                         </th>
-                                        <th className="bg-white sticky top-0 z-50 py-1.5 px-3">
+                                        <th className="sticky top-0 z-50 bg-white px-3 py-1.5">
                                             Last Modified
                                         </th>
-                                        <th className="bg-white sticky top-0 z-50 py-1.5 px-3 text-center">
+                                        <th className="sticky top-0 z-50 bg-white px-3 py-1.5 text-center">
                                             Actions
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody className="text-sm text-gray-700">
                                     {checkedItems.length ? (
-                                        <tr className="border-b border-gray-200 on-parent-hover-show">
-                                            <td colSpan={5} className="text-center px-3 py-2">
+                                        <tr className="on-parent-hover-show border-b border-gray-200">
+                                            <td colSpan={5} className="px-3 py-2 text-center">
                                                 You have selected{' '}
                                                 <strong>{checkedItems.length}</strong> users.
                                                 <button
@@ -281,7 +278,7 @@ const LocalFileManager = () => {
 
                                     {selectedFiles.map((file) => (
                                         <tr className="divide-y divide-gray-200">
-                                            <td className="py-1.5 px-3 w-10">
+                                            <td className="w-10 px-3 py-1.5">
                                                 <input
                                                     type="checkbox"
                                                     className="rounded"
@@ -289,18 +286,18 @@ const LocalFileManager = () => {
                                                     checked={file.checked}
                                                 />
                                             </td>
-                                            <td className="py-1.5 px-3">
+                                            <td className="px-3 py-1.5">
                                                 <div
                                                     onClick={fetchNestedFiles.bind(null, file)}
-                                                    className="flex items-center cursor-pointer">
+                                                    className="flex cursor-pointer items-center">
                                                     <FileIcon type={file.type} />
 
                                                     <span className="mx-2">{file.name}</span>
                                                 </div>
                                             </td>
-                                            <td className="py-1.5 px-3">{file.size}</td>
-                                            <td className="py-1.5 px-3">{file.modified_at}</td>
-                                            <td className="py-1.5 px-3 text-center">
+                                            <td className="px-3 py-1.5">{file.size}</td>
+                                            <td className="px-3 py-1.5">{file.modified_at}</td>
+                                            <td className="px-3 py-1.5 text-center">
                                                 <button className="text-gray-500 hover:text-gray-700">
                                                     <svg
                                                         xmlns="http://www.w3.org/2000/svg"
@@ -332,3 +329,4 @@ const LocalFileManager = () => {
 };
 
 export default LocalFileManager;
+

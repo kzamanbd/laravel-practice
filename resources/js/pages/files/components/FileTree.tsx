@@ -12,14 +12,14 @@ const FileTree = ({ file, action }: TreeProps) => {
         <Disclosure as="li" className="mb-2">
             <DisclosureButton className="w-full">
                 {file.type == 'directory' ? (
-                    <div onClick={action.bind(null, file)} className="flex items-center ">
+                    <div onClick={action.bind(null, file)} className="flex items-center">
                         <span className="mr-2">
                             <FileIcon type="directory" />
                         </span>
                         <span className="font-bold">{file.name}</span>
                     </div>
                 ) : (
-                    <div onClick={action.bind(null, file)} className="flex items-center ">
+                    <div onClick={action.bind(null, file)} className="flex items-center">
                         <span className="mr-2">
                             <FileIcon type="file" />
                         </span>
@@ -32,7 +32,7 @@ const FileTree = ({ file, action }: TreeProps) => {
                 <DisclosurePanel
                     as="ul"
                     transition
-                    className="pl-4 origin-top transition duration-100 ease-out data-[closed]:-translate-y-4 data-[closed]:opacity-0">
+                    className="origin-top pl-4 transition duration-100 ease-out data-[closed]:-translate-y-4 data-[closed]:opacity-0">
                     {file.children?.map((child) => (
                         <FileTree key={child.path} file={child} action={action} />
                     ))}
@@ -43,3 +43,4 @@ const FileTree = ({ file, action }: TreeProps) => {
 };
 
 export default FileTree;
+

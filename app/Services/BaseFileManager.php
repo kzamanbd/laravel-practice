@@ -1,6 +1,6 @@
 <?php
 
-namespace DraftScripts\FileManager;
+namespace App\Services;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Filesystem\AwsS3V3Adapter;
@@ -60,7 +60,7 @@ class BaseFileManager
      * Get content for the selected disk and path
      *
      * @param $disk
-     * @param  null  $path
+     * @param $path
      *
      * @return array
      * @throws FilesystemException
@@ -79,7 +79,7 @@ class BaseFileManager
      * Get directories with properties
      *
      * @param $disk
-     * @param  null  $path
+     * @param $path
      *
      * @return array
      * @throws FilesystemException
@@ -95,7 +95,7 @@ class BaseFileManager
      * Get files with properties
      *
      * @param       $disk
-     * @param  null  $path
+     * @param $path
      *
      * @return array
      * @throws FilesystemException
@@ -111,7 +111,7 @@ class BaseFileManager
      * Get directories for tree module
      *
      * @param $disk
-     * @param  null  $path
+     * @param $path
      *
      * @return array
      * @throws FilesystemException

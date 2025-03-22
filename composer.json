@@ -23,6 +23,7 @@
         "maatwebsite/excel": "^3.1",
         "openai-php/laravel": "^v0.11",
         "predis/predis": "^v2.3",
+        "spatie/laravel-permission": "^6.16",
         "tightenco/ziggy": "^2.5"
     },
     "require-dev": {

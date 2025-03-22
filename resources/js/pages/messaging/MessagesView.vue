@@ -109,9 +109,7 @@
 </script>
 
 <template>
-    <Head>
-        <title>Messages</title>
-    </Head>
+    <Head title="Messages" />
     <div class="chat-wrapper">
         <TabGroup as="div" class="card chat-sidebar" :class="chat.chatMenu && '!block'">
             <UserProfile :auth-user="authUser" />
