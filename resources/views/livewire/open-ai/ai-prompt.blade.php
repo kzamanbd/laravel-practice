@@ -4,7 +4,7 @@
         <div class="text-center">
             <div class="mb-4 flex justify-center items-center">
                 <!-- Logo -->
-                <a class="flex rounded-md text-xl items-center gap-4 font-semibold focus:outline-none focus:opacity-80"
+                <a class="flex rounded-md text-xl items-center gap-4 font-semibold focus:outline-hidden focus:opacity-80"
                     href="/">
                     <span> Open AI</span>
                 </a>
@@ -14,7 +14,7 @@
                     <!-- Templates Dropdown -->
                     <div class="hs-dropdown relative  [--auto-close:inside] inline-flex">
                         <button id="hs-dropdown-preview-navbar" type="button"
-                            class="hs-dropdown-toggle  group relative flex justify-center items-center size-8 text-xs rounded-full text-gray-800 hover:bg-gray-100 focus:bg-gray-100 dark:text-neutral-200 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 disabled:opacity-50 disabled:pointer-events-none focus:outline-none">
+                            class="hs-dropdown-toggle  group relative flex justify-center items-center size-8 text-xs rounded-full text-gray-800 hover:bg-gray-100 focus:bg-gray-100 dark:text-neutral-200 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden">
                             <span class="">
                                 <svg class=" size-4 shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -68,7 +68,7 @@
         <div class="w-full mx-auto px-4 sm:px-6 lg:px-0">
             <div class="flex justify-between items-center mb-3">
                 <button type="button"
-                    class="inline-flex justify-center items-center gap-x-2 rounded-lg font-medium text-gray-800 hover:text-primary-600 focus:outline-none focus:text-primary-600 text-xs sm:text-sm dark:text-neutral-200 dark:hover:text-primary-500 dark:focus:text-primary-500">
+                    class="inline-flex justify-center items-center gap-x-2 rounded-lg font-medium text-gray-800 hover:text-primary-600 focus:outline-hidden focus:text-primary-600 text-xs sm:text-sm dark:text-neutral-200 dark:hover:text-primary-500 dark:focus:text-primary-500">
                     <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -79,7 +79,7 @@
                 </button>
 
                 <button type="button"
-                    class="py-1.5 px-2 inline-flex items-center gap-x-2 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800">
+                    class="py-1.5 px-2 inline-flex items-center gap-x-2 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800">
                     <svg class="size-3" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         viewBox="0 0 16 16">
                         <path
@@ -102,7 +102,7 @@
                         <div class="flex items-center">
                             <!-- Mic Button -->
                             <button type="button"
-                                class="inline-flex shrink-0 justify-center items-center size-8 rounded-lg text-gray-500 hover:bg-gray-100 focus:z-10 focus:outline-none focus:bg-gray-100 dark:text-neutral-500 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700">
+                                class="inline-flex shrink-0 justify-center items-center size-8 rounded-lg text-gray-500 hover:bg-gray-100 focus:z-10 focus:outline-hidden focus:bg-gray-100 dark:text-neutral-500 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700">
                                 <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round">
@@ -114,7 +114,7 @@
 
                             <!-- Attach Button -->
                             <button type="button"
-                                class="inline-flex shrink-0 justify-center items-center size-8 rounded-lg text-gray-500 hover:bg-gray-100 focus:z-10 focus:outline-none focus:bg-gray-100 dark:text-neutral-500 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700">
+                                class="inline-flex shrink-0 justify-center items-center size-8 rounded-lg text-gray-500 hover:bg-gray-100 focus:z-10 focus:outline-hidden focus:bg-gray-100 dark:text-neutral-500 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700">
                                 <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round">
@@ -130,7 +130,7 @@
                         <div class="flex items-center gap-x-1">
                             <!-- Mic Button -->
                             <button type="button"
-                                class="inline-flex shrink-0 justify-center items-center size-8 rounded-lg text-gray-500 hover:bg-gray-100 focus:z-10 focus:outline-none focus:bg-gray-100 dark:text-neutral-500 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700">
+                                class="inline-flex shrink-0 justify-center items-center size-8 rounded-lg text-gray-500 hover:bg-gray-100 focus:z-10 focus:outline-hidden focus:bg-gray-100 dark:text-neutral-500 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700">
                                 <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round">
@@ -143,7 +143,7 @@
 
                             <!-- Send Button -->
                             <button type="submit" wire:loading.attr="disabled"
-                                class="inline-flex shrink-0 justify-center items-center size-8 rounded-lg text-white bg-primary-600 hover:bg-primary-500 focus:z-10 focus:outline-none focus:bg-primary-500">
+                                class="inline-flex shrink-0 justify-center items-center size-8 rounded-lg text-white bg-primary-600 hover:bg-primary-500 focus:z-10 focus:outline-hidden focus:bg-primary-500">
                                 <svg class="shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                     fill="currentColor" viewBox="0 0 16 16">
                                     <path

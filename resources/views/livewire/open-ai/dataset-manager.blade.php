@@ -1,7 +1,7 @@
-<div class="col-span-2 shadow rounded bg-white px-6 pt-4">
+<div class="col-span-2 shadow-sm rounded-sm bg-white px-6 pt-4">
     <div>
         <button wire:click="$dispatch('open-modal', 'dataset-upload-form')" type="button"
-            class="inline-flex w-full justify-center items-center gap-x-1.5 rounded-md bg-primary-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600">
+            class="inline-flex w-full justify-center items-center gap-x-1.5 rounded-md bg-primary-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600">
             <svg class="-ml-0.5 h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                 <path fill-rule="evenodd"
                     d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
@@ -14,7 +14,7 @@
         <h2 class="text-lg font-semibold text-gray-900">Dataset</h2>
     </div>
     <ul role="list"
-        class="overflow-hidden bg-white divide-y divide-gray-100 shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl">
+        class="overflow-hidden bg-white divide-y divide-gray-100 shadow-xs ring-1 ring-gray-900/5 sm:rounded-xl">
 
         @forelse ($datasets as $dataset)
             <li title="{{ $dataset->text }}"
@@ -68,7 +68,7 @@
 
                         <div class="flex mt-4 text-sm leading-6 text-gray-600">
                             <label for="file-upload"
-                                class="relative font-semibold text-indigo-600 bg-white rounded-md cursor-pointer focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
+                                class="relative font-semibold text-indigo-600 bg-white rounded-md cursor-pointer focus-within:outline-hidden focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
                                 <span>Upload a file</span>
                                 <input wire:model='file' id="file-upload" name="file-upload" type="file"
                                     accept=".pdf,.txt,.docx,.doc" class="sr-only">

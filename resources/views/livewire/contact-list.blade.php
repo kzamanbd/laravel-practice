@@ -9,7 +9,7 @@
 
     <div class="py-5">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white shadow-sm sm:rounded-lg p-5">
+            <div class="bg-white shadow-xs sm:rounded-lg p-5">
                 <div class="flex justify-between">
                     <div class="flex items-center space-x-4">
                         <div class="flex items-center">
@@ -54,7 +54,7 @@
 
                 <div class="flex flex-col">
                     <div class="py-2 align-middle inline-block w-full">
-                        <div class="border border-1 border-gray-200 rounded">
+                        <div class="border border-1 border-gray-200 rounded-sm">
                             @if (empty($excelData))
                                 <div class="p-2">
                                     {{ $this->contacts->links() }}

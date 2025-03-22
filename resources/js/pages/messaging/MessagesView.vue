@@ -111,16 +111,16 @@
 <template>
     <Head title="Messages" />
     <div class="chat-wrapper">
-        <TabGroup as="div" class="card chat-sidebar" :class="chat.chatMenu && '!block'">
+        <TabGroup as="div" class="card chat-sidebar" :class="chat.chatMenu && 'block!'">
             <UserProfile :auth-user="authUser" />
 
             <div class="relative">
                 <input
                     type="search"
-                    class="peer form-input pr-9"
+                    class="peer form-control pr-9"
                     placeholder="Searching..."
                     v-model="searchKey" />
-                <div class="absolute right-2 top-1/2 -translate-y-1/2 peer-focus:text-primary">
+                <div class="peer-focus:text-primary absolute top-1/2 right-2 -translate-y-1/2">
                     <svg
                         width="16"
                         height="16"
@@ -248,21 +248,21 @@
                             :key="item.id"
                             class="chat-user-item"
                             :class="{
-                                'bg-gray-100 text-primary dark:bg-[#050b14] dark:text-primary':
+                                'text-primary dark:text-primary bg-gray-100 dark:bg-[#050b14]':
                                     selectedConversation?.id === item.id
                             }"
                             :href="route('messaging', item.uuid)">
                             <div class="flex-1">
                                 <div class="flex items-center">
-                                    <div class="relative flex-shrink-0">
+                                    <div class="relative shrink-0">
                                         <img
                                             :src="item.participant.profile_photo_url"
                                             class="h-12 w-12 rounded-full object-cover" />
 
                                         <div
                                             v-if="item.is_active"
-                                            class="absolute bottom-0 right-0">
-                                            <div class="h-4 w-4 rounded-full bg-success"></div>
+                                            class="absolute right-0 bottom-0">
+                                            <div class="bg-success h-4 w-4 rounded-full"></div>
                                         </div>
                                     </div>
                                     <div class="mx-3 text-left">
@@ -275,7 +275,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="whitespace-nowrap text-xs font-semibold">
+                            <div class="text-xs font-semibold whitespace-nowrap">
                                 <p>{{ item.last_msg_at }}</p>
                             </div>
                         </Link>
@@ -292,19 +292,19 @@
                             :key="item.id"
                             class="chat-user-item"
                             :class="{
-                                'bg-gray-100 text-primary dark:bg-[#050b14] dark:text-primary':
+                                'text-primary dark:text-primary bg-gray-100 dark:bg-[#050b14]':
                                     selectedUser?.id === item.id
                             }"
                             @click="selectedNewUser(item)">
                             <div class="flex-1">
                                 <div class="flex items-center">
-                                    <div class="relative flex-shrink-0">
+                                    <div class="relative shrink-0">
                                         <img
                                             :src="item.profile_photo_url"
                                             class="h-12 w-12 rounded-full object-cover" />
 
-                                        <div v-if="item.active" class="absolute bottom-0 right-0">
-                                            <div class="h-4 w-4 rounded-full bg-success"></div>
+                                        <div v-if="item.active" class="absolute right-0 bottom-0">
+                                            <div class="bg-success h-4 w-4 rounded-full"></div>
                                         </div>
                                     </div>
                                     <div class="mx-3 text-left">
@@ -315,7 +315,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="whitespace-nowrap text-xs font-semibold">
+                            <div class="text-xs font-semibold whitespace-nowrap">
                                 <p>Yesterday 09:31 PM</p>
                             </div>
                         </button>
@@ -327,7 +327,7 @@
 
         <div
             class="chat-overlay"
-            :class="chat.chatMenu && '!block lg:!hidden'"
+            :class="chat.chatMenu && 'block! lg:hidden!'"
             @click="toggleHandler"></div>
 
         <div class="card flex-1 p-0">
@@ -370,7 +370,7 @@
                                             class="rounded-md bg-black/10 p-4 py-2 dark:bg-gray-800"
                                             :class="
                                                 authUser.id == message.user_id
-                                                    ? 'rounded-br-none !bg-primary text-white'
+                                                    ? 'bg-primary! rounded-br-none text-white'
                                                     : 'rounded-bl-none'
                                             "
                                             v-html="message.message"></div>
@@ -384,7 +384,7 @@
                                                 viewBox="0 0 24 24"
                                                 fill="none"
                                                 xmlns="http://www.w3.org/2000/svg"
-                                                class="h-5 w-5 hover:text-primary">
+                                                class="hover:text-primary h-5 w-5">
                                                 <circle
                                                     opacity="0.5"
                                                     cx="12"

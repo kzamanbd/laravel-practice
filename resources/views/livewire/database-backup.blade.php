@@ -7,7 +7,7 @@
 
     <div class="py-6">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-2">
-            <div class="p-4 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg space-y-4">
+            <div class="p-4 bg-white dark:bg-gray-800 overflow-hidden shadow-xs sm:rounded-lg space-y-4">
                 <div class="flex gap-2 flex-wrap">
                     <x-primary-button wire:click="viewTableStructure">
                         View Table Structure
@@ -23,7 +23,7 @@
                                 @foreach ($tables as $key => $table)
                                     <div class="hs-accordion active" x-data="{ open: false }">
                                         <button @click="open = !open"
-                                            class="py-4 inline-flex items-center justify-between gap-x-3 w-full font-semibold text-start text-gray-800 hover:text-gray-500 rounded-lg disabled:opacity-50 disabled:pointer-events-none dark:hs-accordion-active:text-blue-500 dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:outline-none dark:focus:text-neutral-400"
+                                            class="py-4 inline-flex items-center justify-between gap-x-3 w-full font-semibold text-start text-gray-800 hover:text-gray-500 rounded-lg disabled:opacity-50 disabled:pointer-events-none dark:hs-accordion-active:text-blue-500 dark:text-neutral-200 dark:hover:text-neutral-400 dark:focus:outline-hidden dark:focus:text-neutral-400"
                                             aria-expanded="true">
                                             <div class="bg-gray-50 px-4 w-full flex items-center justify-between">
                                                 <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-200">
