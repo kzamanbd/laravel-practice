@@ -127,6 +127,10 @@
     ::file-selector-button {
         border-color: var(--color-gray-200, currentColor);
     }
+    button:not(:disabled),
+    [role='button']:not(:disabled) {
+        cursor: pointer;
+    }
 }
 
 .simplebar-scrollbar:before {
@@ -265,4 +269,8 @@ button[data-headlessui-state='selected'] {
         @apply underline;
     }
 }
+
+@import 'simplebar/dist/simplebar.css';
+@import 'toastify-js/src/toastify.css';
+@import './messaging.css';
 

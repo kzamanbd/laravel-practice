@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { fetchFiles, fetchFileContent } from '../utils';
 import FileTree from '../components/FileTree';
 import { IFile } from '@/types';
@@ -192,7 +192,7 @@ const LocalFileManager = ({ filesData }: any) => {
                         ))}
                     </div>
                 </div>
-                <span className="bg-primary-500 rounded-sm p-1 text-white">
+                <span className="bg-primary-500 rounded-sm p-1 px-2 text-white">
                     {selectedFiles.length} items
                 </span>
             </div>
@@ -207,7 +207,7 @@ const LocalFileManager = ({ filesData }: any) => {
                             ))}
                         </div>
                     ) : (
-                        <SimpleBar className="h-[500px]">
+                        <SimpleBar className="h-[500px] overflow-y-auto">
                             <ul className="p-4">
                                 {files.map((file) => (
                                     <FileTree
@@ -230,14 +230,14 @@ const LocalFileManager = ({ filesData }: any) => {
                         </div>
                     ) : null}
                     {selectedFiles.length && !detailLoading ? (
-                        <SimpleBar className="h-[500px]">
+                        <SimpleBar className="h-[500px] overflow-y-auto">
                             <table className="w-full text-left">
                                 <thead>
                                     <tr className="border-b text-sm text-gray-500 uppercase">
                                         <td className="sticky top-0 z-50 w-10 bg-white px-3 py-1.5">
                                             <input
                                                 type="checkbox"
-                                                className="rounded-sm"
+                                                className="form-input-checkbox"
                                                 checked={allSelected}
                                                 onChange={checkedAllItems}
                                             />
@@ -263,7 +263,7 @@ const LocalFileManager = ({ filesData }: any) => {
                                                 You have selected{' '}
                                                 <strong>{checkedItems.length}</strong> users.
                                                 <button
-                                                    className="text-red-500 hover:text-red-700"
+                                                    className="mx-1 text-red-500 hover:text-red-700"
                                                     onClick={() =>
                                                         confirm(
                                                             'Are you sure you want to delete all selected files?'
@@ -277,11 +277,11 @@ const LocalFileManager = ({ filesData }: any) => {
                                     ) : null}
 
                                     {selectedFiles.map((file) => (
-                                        <tr className="divide-y divide-gray-200">
+                                        <tr key={file.path} className="border-b">
                                             <td className="w-10 px-3 py-1.5">
                                                 <input
                                                     type="checkbox"
-                                                    className="rounded-sm"
+                                                    className="form-input-checkbox"
                                                     onChange={checkedItem.bind(null, file)}
                                                     checked={file.checked}
                                                 />
