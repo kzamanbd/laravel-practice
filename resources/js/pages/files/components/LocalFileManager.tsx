@@ -117,7 +117,7 @@ const LocalFileManager = ({ filesData }: any) => {
                     className="w-1/3 rounded-lg border border-gray-100 p-2"
                 />
                 <div className="flex space-x-4">
-                    <button className="flex items-center gap-2 rounded-lg bg-primary-100 px-4 py-1.5 text-primary-500">
+                    <button className="bg-primary-100 text-primary-500 flex items-center gap-2 rounded-lg px-4 py-1.5">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
@@ -133,7 +133,7 @@ const LocalFileManager = ({ filesData }: any) => {
                         </svg>
                         <span>New Folder</span>
                     </button>
-                    <button className="flex items-center gap-2 rounded-lg bg-primary-500 px-4 py-1.5 text-white">
+                    <button className="bg-primary-500 flex items-center gap-2 rounded-lg px-4 py-1.5 text-white">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
@@ -154,7 +154,7 @@ const LocalFileManager = ({ filesData }: any) => {
 
             {/* <!-- Breadcrumb --> */}
             <div className="mb-4 flex items-center justify-between text-sm font-semibold text-gray-500">
-                <div className="flex w-max items-center gap-2 rounded-lg bg-primary-100 px-2 py-1">
+                <div className="bg-primary-100 flex w-max items-center gap-2 rounded-lg px-2 py-1">
                     <span className="text-primary-500">
                         <svg
                             className="size-6"
@@ -192,7 +192,7 @@ const LocalFileManager = ({ filesData }: any) => {
                         ))}
                     </div>
                 </div>
-                <span className="rounded-sm bg-primary-500 p-1 text-white">
+                <span className="bg-primary-500 rounded-sm p-1 text-white">
                     {selectedFiles.length} items
                 </span>
             </div>
@@ -207,7 +207,7 @@ const LocalFileManager = ({ filesData }: any) => {
                             ))}
                         </div>
                     ) : (
-                        <SimpleBar style={{ maxHeight: 500 }}>
+                        <SimpleBar className="h-[500px]">
                             <ul className="p-4">
                                 {files.map((file) => (
                                     <FileTree
@@ -230,10 +230,10 @@ const LocalFileManager = ({ filesData }: any) => {
                         </div>
                     ) : null}
                     {selectedFiles.length && !detailLoading ? (
-                        <SimpleBar style={{ maxHeight: 500, height: '100%' }}>
+                        <SimpleBar className="h-[500px]">
                             <table className="w-full text-left">
                                 <thead>
-                                    <tr className="border-b text-sm uppercase text-gray-500">
+                                    <tr className="border-b text-sm text-gray-500 uppercase">
                                         <td className="sticky top-0 z-50 w-10 bg-white px-3 py-1.5">
                                             <input
                                                 type="checkbox"

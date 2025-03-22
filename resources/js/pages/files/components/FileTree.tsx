@@ -10,7 +10,7 @@ interface TreeProps {
 const FileTree = ({ file, action }: TreeProps) => {
     return (
         <Disclosure as="li" className="mb-2">
-            <DisclosureButton className="w-full">
+            <DisclosureButton className="w-full cursor-pointer">
                 {file.type == 'directory' ? (
                     <div onClick={action.bind(null, file)} className="flex items-center">
                         <span className="mr-2">
