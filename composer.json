@@ -23,12 +23,10 @@
         "maatwebsite/excel": "^3.1",
         "openai-php/laravel": "^v0.11",
         "predis/predis": "^v2.3",
-        "spatie/laravel-permission": "^6.16",
         "tightenco/ziggy": "^2.5"
     },
     "require-dev": {
         "fakerphp/faker": "^v1.24",
-        "laravel/breeze": "^v2.3",
         "laravel/pail": "^v1.2",
         "laravel/pint": "^v1.21",
         "laravel/sail": "^v1.41",
