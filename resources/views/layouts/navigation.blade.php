@@ -17,8 +17,13 @@
                     </x-nav-link>
 
                     @if (Route::has('files'))
-                        <x-nav-link :href="route('files')" :active="request()->routeIs('files')" target="_blank">
+                        <x-nav-link :href="route('files')" target="_blank">
                             {{ __('Files') }}
+                        </x-nav-link>
+                    @endif
+                    @if (Route::has('messaging'))
+                        <x-nav-link :href="route('messaging')" target="_blank">
+                            {{ __('Messaging') }}
                         </x-nav-link>
                     @endif
 
@@ -80,14 +85,11 @@
                             </x-slot>
 
                             <x-slot name="content">
-                                <x-dropdown-link :href="route('horizon.index')" target="_blank">
-                                    Horizon
-                                </x-dropdown-link>
                                 <x-dropdown-link :href="route('pulse')" target="_blank">
                                     Pulse
                                 </x-dropdown-link>
-                                <x-dropdown-link :href="url('messaging')" target="_blank">
-                                    Messaging
+                                <x-dropdown-link :href="route('horizon.index')" target="_blank">
+                                    Horizon
                                 </x-dropdown-link>
                             </x-slot>
                         </x-dropdown>
