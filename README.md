@@ -1,7 +1,5 @@
 # Laravel App
 
-![laravel](https://laravel.com/assets/img/components/logo-laravel.svg)
-
 ## Features
 
 - Authentication (Breeze)
