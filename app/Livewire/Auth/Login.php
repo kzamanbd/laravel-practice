@@ -1,16 +1,19 @@
 <?php
 
-namespace App\Livewire\Forms;
+namespace App\Livewire\Auth;
 
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use Livewire\Attributes\Layout;
 use Livewire\Attributes\Validate;
-use Livewire\Form;
+use Livewire\Component;
 
-class LoginForm extends Form
+#[Layout('layouts.guest')]
+class Login extends Component
 {
     #[Validate('required|string|email')]
     public string $email = 'kzamanbn@gmail.com';
@@ -18,27 +21,29 @@ class LoginForm extends Form
     #[Validate('required|string')]
     public string $password = 'password';
 
-    #[Validate('boolean')]
     public bool $remember = false;
 
     /**
-     * Attempt to authenticate the request's credentials.
-     *
-     * @throws \Illuminate\Validation\ValidationException
+     * Handle an incoming authentication request.
      */
-    public function authenticate(): void
+    public function login(): void
     {
+        $this->validate();
+
         $this->ensureIsNotRateLimited();
 
-        if (!Auth::attempt($this->only(['email', 'password']), $this->remember)) {
+        if (! Auth::attempt(['email' => $this->email, 'password' => $this->password], $this->remember)) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'email' => trans('auth.failed'),
+                'email' => __('auth.failed'),
             ]);
         }
 
         RateLimiter::clear($this->throttleKey());
+        Session::regenerate();
+
+        $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
     }
 
     /**
@@ -46,7 +51,7 @@ class LoginForm extends Form
      */
     protected function ensureIsNotRateLimited(): void
     {
-        if (!RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
+        if (! RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
             return;
         }
 
@@ -55,7 +60,7 @@ class LoginForm extends Form
         $seconds = RateLimiter::availableIn($this->throttleKey());
 
         throw ValidationException::withMessages([
-            'email' => trans('auth.throttle', [
+            'email' => __('auth.throttle', [
                 'seconds' => $seconds,
                 'minutes' => ceil($seconds / 60),
             ]),

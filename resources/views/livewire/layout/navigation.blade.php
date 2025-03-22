@@ -1,20 +1,3 @@
-<?php
-
-use App\Livewire\Actions\Logout;
-use Livewire\Volt\Component;
-
-new class extends Component {
-    /**
-     * Log the current user out of the application.
-     */
-    public function logout(Logout $logout): void
-    {
-        $logout();
-
-        $this->redirect('/', navigate: true);
-    }
-}; ?>
-
 <nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -34,9 +17,9 @@ new class extends Component {
                     </x-nav-link>
 
                     @if (Route::has('files'))
-                    <x-nav-link :href="route('files')" :active="request()->routeIs('files')" target="_blank">
-                        {{ __('Files') }}
-                    </x-nav-link>
+                        <x-nav-link :href="route('files')" :active="request()->routeIs('files')" target="_blank">
+                            {{ __('Files') }}
+                        </x-nav-link>
                     @endif
 
                     <div class="hidden sm:flex sm:items-center">
@@ -178,9 +161,8 @@ new class extends Component {
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
             <div class="px-4">
-                <div class="font-medium text-base text-gray-800 dark:text-gray-200"
-                    x-data="{ name: '{{ auth()->user()->name }}' }" x-text="name"
-                    x-on:profile-updated.window="name = $event.detail.name"></div>
+                <div class="font-medium text-base text-gray-800 dark:text-gray-200" x-data="{ name: '{{ auth()->user()->name }}' }"
+                    x-text="name" x-on:profile-updated.window="name = $event.detail.name"></div>
                 <div class="font-medium text-sm text-gray-500">{{ auth()->user()->email }}</div>
             </div>
 
