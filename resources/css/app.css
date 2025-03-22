@@ -1,10 +1,142 @@
-@import 'simplebar/dist/simplebar.css';
-@import 'toastify-js/src/toastify.css';
-@import './messaging.css';
+@import 'tailwindcss';
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@plugin '@tailwindcss/forms';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+    --color-dark-50: #f8fafc;
+    --color-dark-100: #f1f5f9;
+    --color-dark-200: #e2e8f0;
+    --color-dark-300: #cbd5e1;
+    --color-dark-400: #94a3b8;
+    --color-dark-500: #64748b;
+    --color-dark-600: #475569;
+    --color-dark-700: #334155;
+    --color-dark-800: #1e293b;
+    --color-dark-900: #0f172a;
+    --color-dark-950: #020617;
+    --color-dark: #1f2937;
+
+    --color-white: #ffffff;
+    --color-white-light: #e0e6ed;
+
+    --color-light: #f5f8fa;
+
+    --color-primary-50: #eef2ff;
+    --color-primary-100: #e0e7ff;
+    --color-primary-200: #c7d2fe;
+    --color-primary-300: #a5b4fc;
+    --color-primary-400: #818cf8;
+    --color-primary-500: #6366f1;
+    --color-primary-600: #4f46e5;
+    --color-primary-700: #4338ca;
+    --color-primary-800: #3730a3;
+    --color-primary-900: #312e81;
+    --color-primary-950: #1e1b4b;
+    --color-primary: #6366f1;
+
+    --color-info-50: #eef2ff;
+    --color-info-100: #e0e7ff;
+    --color-info-200: #c7d2fe;
+    --color-info-300: #a5b4fc;
+    --color-info-400: #818cf8;
+    --color-info-500: #6366f1;
+    --color-info-600: #4f46e5;
+    --color-info-700: #4338ca;
+    --color-info-800: #3730a3;
+    --color-info-900: #312e81;
+    --color-info-950: #1e1b4b;
+    --color-info: #6366f1;
+
+    --color-danger-50: #fff1f2;
+    --color-danger-100: #ffe4e6;
+    --color-danger-200: #fecdd3;
+    --color-danger-300: #fda4af;
+    --color-danger-400: #fb7185;
+    --color-danger-500: #f43f5e;
+    --color-danger-600: #e11d48;
+    --color-danger-700: #be123c;
+    --color-danger-800: #9f1239;
+    --color-danger-900: #881337;
+    --color-danger-950: #4c0519;
+    --color-danger: #f43f5e;
+
+    --color-success-50: #ecfdf5;
+    --color-success-100: #d1fae5;
+    --color-success-200: #a7f3d0;
+    --color-success-300: #6ee7b7;
+    --color-success-400: #34d399;
+    --color-success-500: #10b981;
+    --color-success-600: #059669;
+    --color-success-700: #047857;
+    --color-success-800: #065f46;
+    --color-success-900: #064e3b;
+    --color-success-950: #022c22;
+    --color-success: #10b981;
+
+    --color-warning-50: #fffbeb;
+    --color-warning-100: #fef3c7;
+    --color-warning-200: #fde68a;
+    --color-warning-300: #fcd34d;
+    --color-warning-400: #fbbf24;
+    --color-warning-500: #f59e0b;
+    --color-warning-600: #d97706;
+    --color-warning-700: #b45309;
+    --color-warning-800: #92400e;
+    --color-warning-900: #78350f;
+    --color-warning-950: #451a03;
+    --color-warning: #f59e0b;
+
+    --color-secondary-50: #f9fafb;
+    --color-secondary-100: #f3f4f6;
+    --color-secondary-200: #e5e7eb;
+    --color-secondary-300: #d1d5db;
+    --color-secondary-400: #9ca3af;
+    --color-secondary-500: #6b7280;
+    --color-secondary-600: #4b5563;
+    --color-secondary-700: #374151;
+    --color-secondary-800: #1f2937;
+    --color-secondary-900: #111827;
+    --color-secondary-950: #030712;
+    --color-secondary: #9ca3af;
+
+    --max-height-0: 0;
+    --max-height-xl: 36rem;
+
+    --font-sans:
+        Figtree, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--color-gray-200, currentColor);
+    }
+}
+
+.simplebar-scrollbar:before {
+    width: 5px !important;
+    background: #e2e8f0 !important;
+}
+
+button[data-headlessui-state='selected'] {
+    @apply text-primary;
+}
 
 @layer components {
     /* Form components */
@@ -15,63 +147,61 @@
     .form-label {
         @apply mb-1.5 block text-sm font-medium text-gray-700 dark:text-[#6D7993];
     }
-    .form-input,
-    .form-select,
     .form-control,
     .form-multiselect,
     .form-textarea {
-        @apply block w-full rounded-md border-gray-300 bg-gray-50 focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 dark:border-gray-800 dark:bg-gray-700 dark:ring-gray-800;
+        @apply focus:border-primary-300 focus:ring-primary-200 block w-full rounded-md border-gray-300 bg-gray-50 focus:ring dark:border-gray-800 dark:bg-gray-700 dark:ring-gray-800;
     }
-    .form-select-sm {
+    .form-control-sm {
         @apply py-1.5 text-xs;
     }
-    .form-checkbox {
-        @apply mr-1.5 rounded border-gray-300 text-primary-600 shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 focus:ring-offset-0;
+    .form-input-checkbox {
+        @apply text-primary-600 focus:border-primary-300 focus:ring-primary-200 mr-1.5 rounded border-gray-300 shadow-sm focus:ring focus:ring-offset-0;
     }
-    .form-radio {
-        @apply mr-1.5 rounded-full border-gray-300 text-primary-600 shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 focus:ring-offset-0;
+    .form-input-radio {
+        @apply text-primary-600 focus:border-primary-300 focus:ring-primary-200 mr-1.5 rounded-full border-gray-300 shadow-sm focus:ring focus:ring-offset-0;
     }
-    .form-input.is-invalid {
+    .form-control.is-invalid {
         @apply border-red-500 focus:border-red-300 focus:ring focus:ring-red-200;
     }
-    .form-input.is-valid {
+    .form-control.is-valid {
         @apply border-green-500 focus:border-green-300 focus:ring focus:ring-green-200;
     }
 
     /* form input sm */
-    .form-input-sm {
+    .form-control-sm {
         @apply h-8 px-2 text-sm;
     }
     /* form input large */
-    .form-input-lg {
+    .form-control-lg {
         @apply px-2 text-2xl;
     }
-    .has-success .form-input,
-    .has-success .form-input,
-    .has-success .form-select,
+    .has-success .form-control,
+    .has-success .form-control,
+    .has-success .form-control,
     .has-success .form-multiselect,
     .has-success .form-textarea {
         @apply border-success bg-green-100 focus:border-green-300 focus:ring focus:ring-green-200;
     }
-    .has-error .form-input,
-    .has-error .form-input,
-    .has-error .form-select,
+    .has-error .form-control,
+    .has-error .form-control,
+    .has-error .form-control,
     .has-error .form-multiselect,
     .has-error .form-textarea {
         @apply border-danger bg-red-100 focus:border-red-300 focus:ring focus:ring-red-200;
     }
     /* card */
     .card {
-        @apply rounded-md bg-white shadow-sm dark:bg-dark;
+        @apply dark:bg-dark rounded-md bg-white shadow-sm;
     }
     .card-header {
-        @apply dark--text border-b border-dashed border-gray-200 p-4 font-semibold dark:border-gray-700;
+        @apply border-b border-dashed border-gray-200 p-4 font-semibold dark:border-gray-700;
     }
     .card-body {
         @apply p-4;
     }
     .btn-link {
-        @apply text-primary hover:text-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-300;
+        @apply text-primary hover:text-primary-600 focus:ring-primary-300 focus:ring-2 focus:outline-none;
         @apply dark:text-primary-600 dark:hover:text-primary-700 dark:focus:ring-primary-900;
     }
     .tab-btn {
@@ -91,10 +221,10 @@
         @apply flex cursor-pointer items-center;
     }
     .dropdown-menu {
-        @apply absolute right-0 top-0 z-20 hidden w-40 overflow-hidden rounded-md border border-gray-200 bg-white py-2 shadow-lg outline-none dark:border-slate-700 dark:bg-slate-800;
+        @apply absolute top-0 right-0 z-20 hidden w-40 overflow-hidden rounded-md border border-gray-200 bg-white py-2 shadow-lg outline-none dark:border-slate-700 dark:bg-slate-800;
     }
     .dropdown-menu.show {
-        @apply block !important;
+        @apply block!;
     }
     .dropdown-link {
         @apply inline-flex w-full cursor-pointer items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-slate-700;
@@ -117,10 +247,10 @@
         @apply relative h-[calc(100vh_-_250px)] space-y-0.5 overflow-y-auto;
     }
     .chat-user-item {
-        @apply mb-1 flex w-full items-center justify-between rounded-md p-2 pr-4 hover:bg-gray-50 hover:text-primary dark:hover:bg-[#050b14] dark:hover:text-primary;
+        @apply hover:text-primary dark:hover:text-primary mb-1 flex w-full items-center justify-between rounded-md p-2 pr-4 hover:bg-gray-50 dark:hover:bg-[#050b14];
     }
     .chat-empty-wrapper {
-        @apply text-white dark:text-[#0e1726] md:w-[430px];
+        @apply text-white md:w-[430px] dark:text-[#0e1726];
     }
     .chat-detail {
         @apply relative h-[calc(100vh_-_75px)] overflow-auto sm:h-[calc(100vh_-_150px)];
@@ -134,14 +264,5 @@
     .chat-conversation-box a {
         @apply underline;
     }
-}
-
-.simplebar-scrollbar:before {
-    width: 5px !important;
-    background: #e2e8f0 !important;
-}
-
-button[data-headlessui-state='selected'] {
-    @apply text-primary;
 }
 

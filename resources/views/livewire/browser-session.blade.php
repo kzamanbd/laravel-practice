@@ -9,22 +9,22 @@
 
     <div class="py-5">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4">
+            <div class="bg-white overflow-hidden shadow-xs sm:rounded-lg mb-4">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <strong>Total {{ count($this->sessions) }} devices found!</strong>
                 </div>
             </div>
 
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-5">
+            <div class="bg-white overflow-hidden shadow-xs sm:rounded-lg p-5">
                 <button wire:click="logoutOtherBrowserSessions" type="submit"
-                    class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">
+                    class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-hidden focus:border-gray-900 focus:ring-3 focus:ring-gray-300 disabled:opacity-25 transition">
                     LOG OUT OTHER BROWSER SESSIONS
                 </button>
 
                 <div class="flex flex-col">
                     <div class="overflow-x-auto">
                         <div class="py-2 align-middle inline-block w-full">
-                            <div class="overflow-hidden border border-1 border-gray-200 rounded">
+                            <div class="overflow-hidden border border-1 border-gray-200 rounded-sm">
                                 <table class="w-full leading-normal">
                                     <thead>
                                         <tr>

@@ -64,11 +64,11 @@ const FileEditor = ({
     }, [fileContent]);
 
     return (
-        <Dialog open={open} as="div" className="relative z-50 focus:outline-none" onClose={close}>
+        <Dialog open={open} as="div" className="relative z-50 focus:outline-hidden" onClose={close}>
             <div className="fixed inset-0 z-50 w-screen overflow-y-auto">
                 <DialogPanel
                     transition
-                    className="data-[closed]:transform-[scale(95%)] h-full w-full rounded-xl bg-white/5 p-4 backdrop-blur-2xl duration-300 ease-out data-[closed]:opacity-0">
+                    className="data-closed:transform-[scale(95%)] h-full w-full rounded-xl bg-white/5 p-4 backdrop-blur-2xl duration-300 ease-out data-closed:opacity-0">
                     <DialogTitle as="h3" className="pb-4 text-base/7 font-bold">
                         {fileName}
                     </DialogTitle>

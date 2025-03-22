@@ -108,7 +108,7 @@ const LocalFileManager = ({ filesData }: any) => {
     };
 
     return (
-        <div className="rounded-lg bg-white p-4 shadow-sm">
+        <div className="rounded-lg bg-white p-4 shadow-xs">
             {/* <!-- Search and Action Buttons --> */}
             <div className="mb-4 flex items-center justify-between">
                 <input
@@ -192,7 +192,7 @@ const LocalFileManager = ({ filesData }: any) => {
                         ))}
                     </div>
                 </div>
-                <span className="rounded bg-primary-500 p-1 text-white">
+                <span className="rounded-sm bg-primary-500 p-1 text-white">
                     {selectedFiles.length} items
                 </span>
             </div>
@@ -237,7 +237,7 @@ const LocalFileManager = ({ filesData }: any) => {
                                         <td className="sticky top-0 z-50 w-10 bg-white px-3 py-1.5">
                                             <input
                                                 type="checkbox"
-                                                className="rounded"
+                                                className="rounded-sm"
                                                 checked={allSelected}
                                                 onChange={checkedAllItems}
                                             />
@@ -281,7 +281,7 @@ const LocalFileManager = ({ filesData }: any) => {
                                             <td className="w-10 px-3 py-1.5">
                                                 <input
                                                     type="checkbox"
-                                                    className="rounded"
+                                                    className="rounded-sm"
                                                     onChange={checkedItem.bind(null, file)}
                                                     checked={file.checked}
                                                 />

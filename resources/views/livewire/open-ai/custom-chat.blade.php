@@ -1,6 +1,6 @@
-<div class="flex flex-col flex-grow h-[720px] shadow rounded bg-white">
-    <div class="flex flex-col flex-1 flex-grow overflow-y-auto">
-        <div class="flex flex-col flex-auto flex-grow px-6 pt-4 overflow-y-auto gap-y-4">
+<div class="flex flex-col grow h-[720px] shadow-sm rounded-sm bg-white">
+    <div class="flex flex-col flex-1 grow overflow-y-auto">
+        <div class="flex flex-col flex-auto grow px-6 pt-4 overflow-y-auto gap-y-4">
             @foreach ($messages as $key => $message)
                 @if ($message['role'] == 'assistant')
                     <livewire:open-ai.others-custom-message :messages="$messages" :key="$key" :prompt="$messages[$key - 1]" />
@@ -16,11 +16,11 @@
         <div class="z-10 flex-none px-6 py-4">
             <form wire:submit="submit" class="relative">
                 <div
-                    class="overflow-hidden bg-white shadow-sm rounded-xl ring-1 ring-inset focus-within:ring-2 focus-within:ring-blue-100 ring-gray-300">
+                    class="overflow-hidden bg-white shadow-xs rounded-xl ring-1 ring-inset focus-within:ring-2 focus-within:ring-blue-100 ring-gray-300">
                     <label for="message-body" class="sr-only">Message Composer</label>
 
                     <input wire:model="body" id="message-body" rows="2" name="message-body"
-                        class="block w-full p-4 text-gray-900 bg-transparent border-0 outline-none resize-none placeholder:text-gray-400 focus:ring-0 focus:outline-none disabled:opacity-50"
+                        class="block w-full p-4 text-gray-900 bg-transparent border-0 outline-hidden resize-none placeholder:text-gray-400 focus:ring-0 focus:outline-hidden disabled:opacity-50"
                         placeholder="Add your message..." />
 
                     <div class="py-2" aria-hidden="true">
@@ -68,9 +68,9 @@
                             </button>
                         </div>
                     </div>
-                    <div class="flex items-center justify-start flex-shrink-0">
+                    <div class="flex items-center justify-start shrink-0">
                         <button type="submit"
-                            class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:ring-offset-gray-950 dark:focus-visible:ring-gray-300 bg-gray-900 text-gray-50 hover:bg-gray-900/90 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 h-9 rounded-md px-3 ml-auto gap-1.5">
+                            class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-white transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-gray-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:ring-offset-gray-950 dark:focus-visible:ring-gray-300 bg-gray-900 text-gray-50 hover:bg-gray-900/90 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 h-9 rounded-md px-3 ml-auto gap-1.5">
                             Send Message
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"

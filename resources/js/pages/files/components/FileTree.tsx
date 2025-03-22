@@ -32,7 +32,7 @@ const FileTree = ({ file, action }: TreeProps) => {
                 <DisclosurePanel
                     as="ul"
                     transition
-                    className="origin-top pl-4 transition duration-100 ease-out data-[closed]:-translate-y-4 data-[closed]:opacity-0">
+                    className="origin-top pl-4 transition duration-100 ease-out data-closed:-translate-y-4 data-closed:opacity-0">
                     {file.children?.map((child) => (
                         <FileTree key={child.path} file={child} action={action} />
                     ))}

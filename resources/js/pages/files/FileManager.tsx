@@ -8,7 +8,7 @@ const FileManager = () => {
         <div className="py-4">
             <Head title="File Manager" />
             <TabGroup className="mx-auto max-w-7xl space-y-4 sm:px-6 lg:px-8">
-                <div className="flex justify-between rounded-lg bg-white p-4 shadow-sm">
+                <div className="flex justify-between rounded-lg bg-white p-4 shadow-xs">
                     <div>
                         <div className="flex items-center justify-between">
                             <div className="flex items-center space-x-4">
@@ -37,10 +37,10 @@ const FileManager = () => {
 
                         <TabList className="mt-4">
                             <nav className="flex space-x-4 p-2">
-                                <Tab className="text-gray-500 focus-visible:outline-none data-[selected]:font-semibold data-[selected]:text-primary-500">
+                                <Tab className="text-gray-500 focus-visible:outline-hidden data-selected:font-semibold data-selected:text-primary-500">
                                     Local
                                 </Tab>
-                                <Tab className="text-gray-500 focus-visible:outline-none data-[selected]:font-semibold data-[selected]:text-primary-500">
+                                <Tab className="text-gray-500 focus-visible:outline-hidden data-selected:font-semibold data-selected:text-primary-500">
                                     Remote
                                 </Tab>
                             </nav>
@@ -56,7 +56,7 @@ const FileManager = () => {
                     </div>
                 </div>
 
-                <div className="hidden rounded-lg bg-white shadow-sm">
+                <div className="hidden rounded-lg bg-white shadow-xs">
                     <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
                         <div className="flex justify-between border-r p-4">
                             <div className="flex items-center gap-4">

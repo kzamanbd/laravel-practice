@@ -3,6 +3,7 @@ import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
 // @ts-ignore
 import { resolve } from 'node:path';
+import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
     plugins: [
@@ -15,7 +16,8 @@ export default defineConfig({
                 'resources/js/file-manager.tsx'
             ],
             refresh: true
-        })
+        }),
+        tailwindcss()
     ],
     resolve: {
         alias: {

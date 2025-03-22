@@ -118,7 +118,8 @@
                                                 </label>
                                             </td>
                                             <td class="px-3 py-2 text-sm">
-                                                <a href="#" class="flex items-center no-underline hover:underline">
+                                                <a href="#"
+                                                    class="flex items-center no-underline hover:underline">
                                                     <div class="flex-shrink-0 w-10 h-10 hidden sm:table-cell">
                                                         <img class="w-full h-full rounded-full"
                                                             src="https://ui-avatars.com/api/?name={{ $user->name }}&color=7F9CF5&background=EBF4FF"
@@ -144,7 +145,8 @@
 
                                             <td class="px-3 py-2 text-sm text-center">
                                                 <div class="inline-flex rounded-md btn-group shadow-sm" role="group">
-                                                    <button class="btn btn-light" wire:click="editItem({{ $user->id }})">
+                                                    <button class="btn btn-light"
+                                                        wire:click="editItem({{ $user->id }})">
                                                         Edit
                                                     </button>
                                                     @if (Route::has('lara-permission.user.show'))
@@ -153,7 +155,8 @@
                                                             View
                                                         </a>
                                                     @endif
-                                                    <button class="btn btn-danger" wire:click="deleteItem({{ $user->id }})">
+                                                    <button class="btn btn-danger"
+                                                        wire:click="deleteItem({{ $user->id }})">
                                                         Delete
                                                     </button>
                                                 </div>
@@ -175,7 +178,8 @@
         </div>
     </div>
 
-    <x-lara-permission::modal name="create-modal" maxWidth="3xl" title="{{ $editableMode ? 'Update' : 'Create' }} User">
+    <x-lara-permission::modal name="create-modal" maxWidth="3xl"
+        title="{{ $editableMode ? 'Update' : 'Create' }} User">
 
         <form class="p-6" wire:submit="store">
 
@@ -210,7 +214,8 @@
                         placeholder="Confirm Password" />
                 </div>
             </div>
-            <div class="bg-primary-100 rounded border-l-4 border-primary-500 text-primary-700 p-5 mt-3" role="alert">
+            <div class="bg-primary-100 rounded border-l-4 border-primary-500 text-primary-700 p-5 mt-3"
+                role="alert">
                 <p class="font-bold">Set user roles</p>
                 <p>Something not ideal might be happening.</p>
             </div>
@@ -224,7 +229,7 @@
                         <div class="rounded bg-primary-100 border border-1 border-primary-500 p-5">
                             <label class="inline-flex items-center">
                                 <input type="checkbox" wire:model="roles" value="{{ $role->name }}"
-                                    class="form-checkbox h-4 w-4 text-primary-600 rounded" />
+                                    class="form-input-checkbox h-4 w-4 text-primary-600 rounded" />
                                 <span class="ml-2 text-gray-700">{{ $role->name }}</span>
                             </label>
                             <p class="text-sm">{{ $role->description }}</p>

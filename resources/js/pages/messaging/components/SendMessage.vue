@@ -29,13 +29,13 @@
                     v-model="message"
                     id="message"
                     ref="inputMessageRef"
-                    class="form-input rounded-full border-0 bg-[#f4f4f4] px-12 py-2 focus:outline-none"
+                    class="form-control rounded-full border-0 bg-[#f4f4f4] px-12 py-2 focus:outline-hidden"
                     :class="{ 'is-invalid': isInvalid && !message }"
                     placeholder="Type a message"
                     @keyup.enter="sendMessage" />
                 <button
                     type="button"
-                    class="absolute left-4 top-1/2 -translate-y-1/2 hover:text-primary">
+                    class="hover:text-primary absolute top-1/2 left-4 -translate-y-1/2">
                     <svg
                         width="24"
                         height="24"
@@ -63,7 +63,7 @@
                 </button>
                 <button
                     type="button"
-                    class="absolute right-4 top-1/2 -translate-y-1/2 hover:text-primary"
+                    class="hover:text-primary absolute top-1/2 right-4 -translate-y-1/2"
                     @click="sendMessage">
                     <svg
                         width="24"
@@ -88,7 +88,7 @@
             <div class="hidden items-center space-x-3 py-3 sm:block sm:py-0">
                 <button
                     type="button"
-                    class="rounded-md bg-[#f4f4f4] p-2 hover:bg-primary-100 hover:text-primary dark:bg-[#1b2e4b]">
+                    class="hover:bg-primary-100 hover:text-primary rounded-md bg-[#f4f4f4] p-2 dark:bg-[#1b2e4b]">
                     <svg
                         width="24"
                         height="24"
@@ -139,7 +139,7 @@
                 </button>
                 <button
                     type="button"
-                    class="rounded-md bg-[#f4f4f4] p-2 hover:bg-primary-100 hover:text-primary dark:bg-[#1b2e4b]">
+                    class="hover:bg-primary-100 hover:text-primary rounded-md bg-[#f4f4f4] p-2 dark:bg-[#1b2e4b]">
                     <svg
                         width="24"
                         height="24"
@@ -163,7 +163,7 @@
                 </button>
                 <button
                     type="button"
-                    class="rounded-md bg-[#f4f4f4] p-2 hover:bg-primary-100 hover:text-primary dark:bg-[#1b2e4b]">
+                    class="hover:bg-primary-100 hover:text-primary rounded-md bg-[#f4f4f4] p-2 dark:bg-[#1b2e4b]">
                     <svg
                         width="24"
                         height="24"
@@ -191,7 +191,7 @@
                 </button>
                 <button
                     type="button"
-                    class="rounded-md bg-[#f4f4f4] p-2 hover:bg-primary-100 hover:text-primary dark:bg-[#1b2e4b]">
+                    class="hover:bg-primary-100 hover:text-primary rounded-md bg-[#f4f4f4] p-2 dark:bg-[#1b2e4b]">
                     <svg
                         width="24"
                         height="24"
@@ -224,3 +224,4 @@
         </div>
     </div>
 </template>
+

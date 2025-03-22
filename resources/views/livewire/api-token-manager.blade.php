@@ -123,7 +123,7 @@
                     </div>
 
                     <x-text-input x-ref="plaintextToken" type="text" readonly :value="$plainTextToken"
-                        class="w-full px-4 py-2 my-4 font-mono text-sm text-gray-500 break-all bg-gray-100 rounded"
+                        class="w-full px-4 py-2 my-4 font-mono text-sm text-gray-500 break-all bg-gray-100 rounded-sm"
                         autofocus autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
                         @showing-token-modal.window="setTimeout(() => $refs.plaintextToken.select(), 250)" />
 
