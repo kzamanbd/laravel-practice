@@ -11,6 +11,7 @@ return Application::configure(basePath: dirname(__DIR__))
         web: [
             __DIR__ . '/../routes/web.php',
             __DIR__ . '/../routes/auth.php',
+            __DIR__ . '/../routes/file-manager.php',
             __DIR__ . '/../routes/messaging.php',
         ],
         api: __DIR__ . '/../routes/api.php',

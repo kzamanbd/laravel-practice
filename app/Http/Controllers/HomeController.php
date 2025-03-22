@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Blob;
 use Illuminate\Http\Request;
-use DraftScripts\FileManager\Facades\FileManager;
 
 class HomeController extends Controller
 {
@@ -30,12 +29,5 @@ class HomeController extends Controller
         } catch (\Exception $e) {
             return $e->getMessage();
         }
-    }
-
-    public function remoteFiles()
-    {
-        $content = FileManager::getContent('local');
-
-        return response()->json($content);
     }
 }

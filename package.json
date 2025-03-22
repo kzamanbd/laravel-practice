@@ -7,8 +7,11 @@
         "build": "vite build"
     },
     "dependencies": {
+        "@headlessui/react": "^2.2.0",
         "@headlessui/vue": "^1.7.23",
+        "@inertiajs/react": "^2.0.5",
         "@inertiajs/vue3": "^2.0.5",
+        "@monaco-editor/react": "^4.7.0",
         "@tailwindcss/forms": "^0.5.2",
         "autoprefixer": "^10.4.2",
         "axios": "^1.6.4",
@@ -16,7 +19,10 @@
         "laravel-vite-plugin": "^1.0",
         "lodash": "^4.17.21",
         "pusher-js": "^8.4.0-rc2",
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0",
         "simplebar": "^6.2.5",
+        "simplebar-react": "^3.3.0",
         "simplebar-vue": "^2.3.3",
         "tailwindcss": "^3.1.0",
         "toastify-js": "^1.12.0",
@@ -26,6 +32,9 @@
         "ziggy-js": "^2.5.2"
     },
     "devDependencies": {
+        "@types/react": "^19.0.3",
+        "@types/react-dom": "^19.0.2",
+        "@vitejs/plugin-react": "^4.3.4",
         "@vitejs/plugin-vue": "^5.2.1",
         "concurrently": "^9.1.2",
         "postcss": "^8.4.31",
@@ -47,4 +56,3 @@
         ]
     }
 }
-
