@@ -2,6 +2,9 @@
 
 namespace App\Services;
 
+use SplFileInfo;
+use Carbon\Carbon;
+use Symfony\Component\Finder\Finder;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Filesystem\AwsS3V3Adapter;
 use League\Flysystem\FilesystemException;
@@ -42,7 +45,6 @@ class BaseFileManager
      */
     public function checkPath($disk, $path): bool
     {
-
         // check disk name
         if (!$this->checkDisk($disk)) {
             return false;
@@ -54,6 +56,32 @@ class BaseFileManager
         }
 
         return true;
+    }
+
+    /**
+     * Helper function to format file sizes into readable format
+     *
+     * @param $bytes int
+     *
+     * @return string
+     */
+    public function formatSizeUnits($bytes)
+    {
+        if ($bytes >= 1073741824) {
+            $bytes = number_format($bytes / 1073741824, 2) . ' GB';
+        } elseif ($bytes >= 1048576) {
+            $bytes = number_format($bytes / 1048576, 2) . ' MB';
+        } elseif ($bytes >= 1024) {
+            $bytes = number_format($bytes / 1024, 2) . ' KB';
+        } elseif ($bytes > 1) {
+            $bytes = $bytes . ' bytes';
+        } elseif ($bytes == 1) {
+            $bytes = '1 byte';
+        } else {
+            $bytes = 'N/A';
+        }
+
+        return $bytes;
     }
 
     /**
@@ -241,5 +269,113 @@ class BaseFileManager
         }, $filesList);
 
         return array_values($files);
+    }
+
+    /**
+     * Helper function to get the file or directory info
+     *
+     * @param $item SplFileInfo object
+     *
+     * @return object
+     */
+
+    public function getFileInfo(SplFileInfo $item, $pathReplace = null)
+    {
+        $modifiedItem = [
+            'type'        => $item->getType(),
+            'name'        => $item->getFilename(),
+            'path'        => $item->getPathname(),
+            'size'        => $this->formatSizeUnits($item->getSize()),
+            'modified_at' => Carbon::createFromTimestamp($item->getMTime())->toDateTimeString(),
+        ];
+
+        if ($item->getType() == 'dir') {
+            $modifiedItem['type'] = 'directory';
+            $modifiedItem['size'] = $this->formatSizeUnits($this->getDirectorySize($item->getPathname()));
+            $modifiedItem['expanded'] = false;
+            $modifiedItem['children'] = []; // $this->getRemoteDirectoryTree($dir), // Recursive call to get the children
+        }
+
+        if ($pathReplace) {
+            $modifiedItem['path'] = str_replace($pathReplace, '', $modifiedItem['path']);
+        }
+
+        return (object) $modifiedItem;
+    }
+
+    /**
+     * Helper function to get the size of a directory
+     *
+     * @param $path
+     *
+     * @return int
+     */
+
+    public function getDirectorySize($path)
+    {
+
+        if (!is_dir($path)) {
+            return filesize($path);
+        }
+
+        // if os is unix based or macOS then use the du command
+        if (PHP_OS_FAMILY == 'Darwin' || PHP_OS_FAMILY == 'Linux') {
+            $bytes = shell_exec("du -sb $path | awk '{print $1}'");
+            return $bytes;
+        }
+
+        return 0;
+    }
+
+    /**
+     * Function to recursively build the directory tree
+     *
+     * @param $path The path to the directory string
+     * @param $pathReplace Replace the path with this string
+     *
+     * @return array
+     */
+    public function getLocalDirectoryTree($path, $pathReplace = null)
+    {
+
+        $finder = new Finder();
+        $finder->ignoreDotFiles(false)->depth('== 0')->in($path);
+
+        $files = [];
+        $directories = [];
+
+        foreach ($finder as $file) {
+            if ($file->isDir()) {
+                $directories[] = $this->getFileInfo(new SplFileInfo($file), $pathReplace);
+            } else {
+                $files[] = $this->getFileInfo(new SplFileInfo($file), $pathReplace);
+            }
+        }
+
+        $files = collect($files)->sortBy('name');
+        $directories = collect($directories)->sortBy('name');
+
+        return array_merge($directories->toArray(), $files->toArray());
+    }
+
+    /**
+     * Get Remote Directory Tree (S3, FTP, etc)
+     *
+     * @param $path string
+     *
+     * @return array
+     */
+
+    public function getRemoteDirectoryTree($path, string $disk = 'local')
+    {
+        // Implement your remote directory tree logic here
+
+        $items = [];
+        // Get all directories in the current directory
+        $directories = Storage::disk($disk)->directories($path);
+        // Get all files in the current directory
+        $files = Storage::disk($disk)->files($path);
+
+        return $items;
     }
 }
