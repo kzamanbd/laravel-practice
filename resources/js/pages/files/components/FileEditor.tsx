@@ -68,7 +68,7 @@ const FileEditor = ({
             <div className="fixed inset-0 z-50 w-screen overflow-y-auto">
                 <DialogPanel
                     transition
-                    className="data-closed:transform-[scale(95%)] h-full w-full rounded-xl bg-white/5 p-4 backdrop-blur-2xl duration-300 ease-out data-closed:opacity-0">
+                    className="h-screen w-full rounded-xl bg-white/5 p-4 backdrop-blur-2xl duration-300 ease-out data-closed:transform-[scale(95%)] data-closed:opacity-0">
                     <DialogTitle as="h3" className="pb-4 text-base/7 font-bold">
                         {fileName}
                     </DialogTitle>
@@ -79,8 +79,8 @@ const FileEditor = ({
                         options={{ readOnly: readOnly }}
                         defaultLanguage={getLanguageFromExtension(fileName)}
                     />
-                    <div className="mt-4">
-                        <div className="mt-2 flex justify-end">
+                    <div className="bg-gray-200 p-3">
+                        <div className="flex justify-end">
                             <button className="btn btn-primary">Save</button>
                             <button
                                 className="btn btn-secondary ml-2"
