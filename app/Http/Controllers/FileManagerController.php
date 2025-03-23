@@ -19,7 +19,6 @@ class FileManagerController
      */
     public function formatSizeUnits($bytes)
     {
-
         if ($bytes >= 1073741824) {
             $bytes = number_format($bytes / 1073741824, 2) . ' GB';
         } elseif ($bytes >= 1048576) {
@@ -188,6 +187,17 @@ class FileManagerController
         $contents = File::get(base_path($path));
         return response()->json([
             'contents' => $contents,
+        ]);
+    }
+
+    public function updateContent()
+    {
+        $path = request('path');
+        $content = request('content');
+        File::put(base_path($path), $content);
+        return response()->json([
+            'success' => true,
+            'path' => $path
         ]);
     }
 }

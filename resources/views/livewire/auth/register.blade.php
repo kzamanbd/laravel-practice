@@ -1,4 +1,12 @@
 <div>
+    <div class="flex w-full flex-col text-center">
+        <div class="font-medium text-zinc-800 dark:text-white text-2xl mb-2 mt-2">
+            Create an account
+        </div>
+        <div class="text-sm text-zinc-500 dark:text-white/70 mb-4">
+            Enter your details below to create your account
+        </div>
+    </div>
     <form wire:submit="register">
         <!-- Name -->
         <div>
@@ -36,15 +44,16 @@
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
-                href="{{ route('login') }}" wire:navigate>
-                {{ __('Already registered?') }}
-            </a>
+        <x-primary-button class="mb-3 flex justify-center w-full">
+            {{ __('Register') }}
+        </x-primary-button>
 
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
+        <div class="space-x-1 text-center text-sm text-zinc-600 dark:text-zinc-400">
+            Already have an account?
+            <a class="inline font-medium underline-offset-[6px] hover:decoration-current underline text-gray-600 decoration-[color-mix(in_oklab,var(--color-accent-content),transparent_80%)]"
+                href="{{ route('login') }}" wire:navigate>
+                Login
+            </a>
         </div>
     </form>
 </div>
