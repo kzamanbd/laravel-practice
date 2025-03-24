@@ -12,7 +12,7 @@ const LocalFileManager = ({ filesData }: any) => {
     const [openEditor, setOpenEditor] = useState(false);
     const [fileContent, setFileContent] = useState('');
     const [fileName, setFileName] = useState('');
-    const [selectedFiles, setSelectedFiles] = useState<IFile[]>([]);
+    const [selectedFiles, setSelectedFiles] = useState<IFile[]>(filesData);
     const [initialLoading, setInitialLoading] = useState(false);
     const [detailLoading, setDetailLoading] = useState(false);
 
