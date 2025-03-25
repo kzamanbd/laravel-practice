@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs\Unido;
+namespace App\Jobs;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -106,9 +106,7 @@ class SyncDailySalesCollectionReturn implements ShouldQueue
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
-            $message = Str::limit($e->getMessage(), 1000);
-            Log::error('Error syncing unido data: ' . $message);
-            SyncNotificationMail::dispatch($message);
+            Log::error($e->getMessage());
         }
     }
 
