@@ -1,4 +1,4 @@
-<div>
+<div class="py-6 *:rounded-lg">
     <x-slot name="title">Open AI</x-slot>
 
     @if (request('action'))
