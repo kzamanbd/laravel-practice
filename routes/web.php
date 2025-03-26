@@ -37,3 +37,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('open-ai', OpenAIManager::class)->name('open-ai');
     Route::post('upload-base64', [HomeController::class, 'uploadBase64'])->name('upload.base64');
 });
+
+Route::view('payhere', 'payhere')->name('payhere');
+Route::view('payhere-success', 'payhere-success')->name('payhere.success');
+Route::view('payhere-cancel', 'payhere-cancel')->name('payhere.cancel');
+Route::view('payhere-notify', 'payhere-notify')->name('payhere.notify');

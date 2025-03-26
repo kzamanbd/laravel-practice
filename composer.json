@@ -15,7 +15,6 @@
         "jenssegers/agent": "^v2.6.4",
         "laravel/framework": "^v12.0",
         "laravel/horizon": "^v5.30",
-        "laravel/pulse": "^v1.4",
         "laravel/sanctum": "^v4.0",
         "laravel/tinker": "^v2.10",
         "livewire/livewire": "^v3.6",

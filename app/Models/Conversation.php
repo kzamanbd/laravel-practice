@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Enums\AppContainsEnum;
+use App\Enums\AppContains;
 use App\Http\Helpers;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -36,7 +36,7 @@ class Conversation extends Model
 
     public function groups()
     {
-        if ($this->msg_type == AppContainsEnum::GROUP_MSG) {
+        if ($this->msg_type == AppContains::GROUP_MSG) {
             return [];
         }
         return [];
@@ -48,7 +48,7 @@ class Conversation extends Model
             ? $this->author_id
             : $this->to_user_id;
         if ($key) {
-            return Helpers::getLastActiveAt($key);
+            return getLastActiveAt($key);
         }
         return null;
     }

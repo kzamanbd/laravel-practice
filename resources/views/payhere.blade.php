@@ -1,12 +1,12 @@
 @php
     $merchant_id = '1229854';
-    $return_url = url('payhere/return');
-    $cancel_url = url('payhere/cancel');
-    $notify_url = url('payhere/notify');
-    $order_id = 'ItemNo12345';
+    $return_url = url('payhere-return');
+    $cancel_url = url('payhere-cancel');
+    $notify_url = url('payhere-notify');
+    $order_id = uniqid();
     $amount = 1000;
     $currency = 'LKR';
-    $merchant_secret = 'MTcyNTkxNzM4NDM5MjM3OTM0NjEzODU4MjMyMDk1NTg4MDkxMw';
+    $merchant_secret = 'MTcyNTkxNzM4NDM5MjM3OTM0NjEzODU4MjMyMDk1NTg4MDkxMw==';
     $hash = strtoupper(
         md5(
             $merchant_id .
@@ -38,7 +38,11 @@
             <input type="text" name="phone" value="0771234567">
             <input type="text" name="address" value="No.1, Galle Road">
             <input type="text" name="city" value="Colombo">
-            <input type="hidden" name="country" value="Sri Lanka">
+            <input type="text" name="country" value="Sri Lanka">
+            <input type="text" name="delivery_address" value="No. 46, Galle road">
+            <input type="text" name="delivery_city" value="Kandy">
+            <input type="text" name="delivery_country" value="Sri Lanka">
+
             <input type="hidden" name="hash" value="{{ $hash }}">
             <!-- Replace with generated hash -->
             <input type="submit" value="Buy Now">

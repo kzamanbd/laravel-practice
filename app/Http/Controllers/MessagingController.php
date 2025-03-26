@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\AppContainsEnum;
-use App\Http\Helpers;
+use App\Enums\AppContains;
 use App\Models\Conversation;
 use App\Models\Message;
 use App\Models\User;
@@ -20,7 +19,7 @@ class MessagingController
         $conversations = Conversation::query()
             ->with(['participant'])
             ->whereAny(['author_id', 'to_user_id'], Auth::id())
-            ->where('msg_type', AppContainsEnum::SINGLE_MSG)
+            ->where('msg_type', AppContains::SINGLE_MSG)
             ->orderBy('updated_at', 'desc')
             ->get();
 
@@ -76,9 +75,9 @@ class MessagingController
                 $conversationId = $conversation->id;
             }
 
-            $text = preg_replace(Helpers::LINK_REGEX, Helpers::LINK_REPLACE, $text);
-            $text = preg_replace(Helpers::EMAIL_REGEX, Helpers::EMAIL_REPLACE, $text);
-            $text = preg_replace(Helpers::PHONE_REGEX, Helpers::PHONE_REPLACE, $text);
+            $text = preg_replace(AppContains::LINK_REGEX, AppContains::LINK_REPLACE, $text);
+            $text = preg_replace(AppContains::EMAIL_REGEX, AppContains::EMAIL_REPLACE, $text);
+            $text = preg_replace(AppContains::PHONE_REGEX, AppContains::PHONE_REPLACE, $text);
 
             $message = Message::create([
                 'conversation_id' => $conversationId,

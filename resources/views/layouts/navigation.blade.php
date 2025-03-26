@@ -21,6 +21,7 @@
                             {{ __('Files') }}
                         </x-nav-link>
                     @endif
+
                     @if (Route::has('messaging'))
                         <x-nav-link :href="route('messaging')">
                             {{ __('Messaging') }}
@@ -85,9 +86,6 @@
                             </x-slot>
 
                             <x-slot name="content">
-                                <x-dropdown-link :href="route('pulse')">
-                                    Pulse
-                                </x-dropdown-link>
                                 <x-dropdown-link :href="route('horizon.index')">
                                     Horizon
                                 </x-dropdown-link>
