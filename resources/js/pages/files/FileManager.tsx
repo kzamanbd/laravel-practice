@@ -1,9 +1,13 @@
+import { IFile } from '@/types';
 import LocalFileManager from './components/LocalFileManager';
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
-import { Head, usePage } from '@inertiajs/react';
+import { Head, Link, usePage } from '@inertiajs/react';
 
 const FileManager = () => {
-    const { files } = usePage<any>().props;
+    const { files } = usePage<{
+        files: IFile[];
+    }>().props;
+
     return (
         <div className="py-4">
             <Head title="File Manager" />
@@ -12,9 +16,9 @@ const FileManager = () => {
                     <div>
                         <div className="flex items-center justify-between">
                             <div className="flex items-center space-x-4">
-                                <div className="rounded-full bg-primary-100 p-3">
+                                <div className="bg-primary-100 rounded-full p-3">
                                     <svg
-                                        className="h-6 w-6 text-primary-500"
+                                        className="text-primary-500 h-6 w-6"
                                         fill="currentColor"
                                         viewBox="0 0 24 24">
                                         <path d="M5 3L19 3C20.1 3 21 3.9 21 5V19C21 20.1 20.1 21 19 21H5C3.9 21 3 20.1 3 19V5C3 3.9 3.9 3 5 3M5 5V19H19V5H5Z" />
@@ -37,20 +41,20 @@ const FileManager = () => {
 
                         <TabList className="mt-4">
                             <nav className="flex space-x-4 p-2">
-                                <Tab className="text-gray-500 focus-visible:outline-hidden data-selected:font-semibold data-selected:text-primary-500">
+                                <Tab className="data-selected:text-primary-500 text-gray-500 focus-visible:outline-hidden data-selected:font-semibold">
                                     Local
                                 </Tab>
-                                <Tab className="text-gray-500 focus-visible:outline-hidden data-selected:font-semibold data-selected:text-primary-500">
-                                    Remote
+                                <Tab className="data-selected:text-primary-500 text-gray-500 focus-visible:outline-hidden data-selected:font-semibold">
+                                    <Link href={route('files.remotes')}>Shared</Link>
                                 </Tab>
                             </nav>
                         </TabList>
                     </div>
                     <div className="flex items-center justify-end space-x-4">
-                        <button className="h-max rounded-lg bg-primary-100 px-4 py-1.5 text-primary-500">
+                        <button className="bg-primary-100 text-primary-500 h-max rounded-lg px-4 py-1.5">
                             Filter
                         </button>
-                        <button className="h-max rounded-lg bg-primary-500 px-4 py-1.5 text-white">
+                        <button className="bg-primary-500 h-max rounded-lg px-4 py-1.5 text-white">
                             Create
                         </button>
                     </div>
@@ -112,7 +116,7 @@ const FileManager = () => {
                                     </svg>
                                 </div>
                                 <div>
-                                    <p className="text-lg font-medium text-primary-500">Image</p>
+                                    <p className="text-primary-500 text-lg font-medium">Image</p>
                                     <span className="font-medium">12 files</span>
                                 </div>
                             </div>
