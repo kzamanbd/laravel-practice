@@ -1,42 +1,52 @@
-<x-app-layout>
-    <div class="py-6">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xs sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    <form method="post" action="https://sandbox.payhere.lk/pay/checkout" class="grid grid-cols-3 gap-4">
-                        <input type="hidden" class="form-control" name="merchant_id" value="{{ $data['merchant_id'] }}">
-                        <input type="hidden" class="form-control" name="return_url" value="{{ $data['return_url'] }}">
-                        <input type="hidden" class="form-control" name="cancel_url" value="{{ $data['cancel_url'] }}">
-                        <input type="hidden" class="form-control" name="notify_url" value="{{ $data['notify_url'] }}">
-                        <div class="col-span-3">
-                            Items
-                        </div>
-                        <input type="text" class="form-control" name="order_id" value="{{ $data['order_id'] }}">
-                        <input type="text" class="form-control" name="items" value="Door bell wireless">
-                        <input type="text" class="form-control" name="currency" value="{{ $data['currency'] }}">
-                        <input type="text" class="form-control" name="amount" value="{{ $data['amount'] }}">
-                        <div class="col-span-3">
-                            Customer Details
-                        </div>
-                        <input type="text" class="form-control" name="first_name" value="Saman">
-                        <input type="text" class="form-control" name="last_name" value="Perera">
-                        <input type="text" class="form-control" name="email" value="samanp@gmail.com">
-                        <input type="text" class="form-control" name="phone" value="0771234567">
-                        <input type="text" class="form-control" name="address" value="No.1, Galle Road">
-                        <input type="text" class="form-control" name="city" value="Colombo">
-                        <input type="text" class="form-control" name="country" value="Sri Lanka">
-                        <input type="text" class="form-control" name="delivery_address" value="No. 46, Galle road">
-                        <input type="text" class="form-control" name="delivery_city" value="Kandy">
-                        <input type="text" class="form-control" name="delivery_country" value="Sri Lanka">
+@php
+    $merchant_id = '1229854';
+    $return_url = url('payhere-return');
+    $cancel_url = url('payhere-cancel');
+    $notify_url = url('payhere-notify');
+    $order_id = uniqid();
+    $amount = 1000;
+    $currency = 'LKR';
+    $merchant_secret = 'MTcyNTkxNzM4NDM5MjM3OTM0NjEzODU4MjMyMDk1NTg4MDkxMw==';
+    $hash = strtoupper(
+        md5(
+            $merchant_id .
+                $order_id .
+                number_format($amount, 2, '.', '') .
+                $currency .
+                strtoupper(md5($merchant_secret)),
+        ),
+    );
+@endphp
 
-                        <input type="hidden" name="hash" value="{{ $data['hash'] }}">
-                        <!-- Replace with generated hash -->
-                        <x-primary-button type="submit">
-                            Pay Now
-                        </x-primary-button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</x-app-layout>
+<html>
+
+    <body>
+        <form method="post" action="https://sandbox.payhere.lk/pay/checkout">
+            <input type="hidden" name="merchant_id" value="{{ $merchant_id }}"> <!-- Replace your Merchant ID -->
+            <input type="hidden" name="return_url" value="{{ $return_url }}">
+            <input type="hidden" name="cancel_url" value="{{ $cancel_url }}">
+            <input type="hidden" name="notify_url" value="{{ $notify_url }}">
+            </br></br>Item Details</br>
+            <input type="text" name="order_id" value="{{ $order_id }}">
+            <input type="text" name="items" value="Door bell wireless">
+            <input type="text" name="currency" value="{{ $currency }}">
+            <input type="text" name="amount" value="{{ $amount }}">
+            </br></br>Customer Details</br>
+            <input type="text" name="first_name" value="Saman">
+            <input type="text" name="last_name" value="Perera">
+            <input type="text" name="email" value="samanp@gmail.com">
+            <input type="text" name="phone" value="0771234567">
+            <input type="text" name="address" value="No.1, Galle Road">
+            <input type="text" name="city" value="Colombo">
+            <input type="text" name="country" value="Sri Lanka">
+            <input type="text" name="delivery_address" value="No. 46, Galle road">
+            <input type="text" name="delivery_city" value="Kandy">
+            <input type="text" name="delivery_country" value="Sri Lanka">
+
+            <input type="hidden" name="hash" value="{{ $hash }}">
+            <!-- Replace with generated hash -->
+            <input type="submit" value="Buy Now">
+        </form>
+    </body>
+
+</html>

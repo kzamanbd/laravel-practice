@@ -9,7 +9,6 @@ use App\Livewire\ApiTokenManager;
 use App\Livewire\ContactManagement;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\PayhereController;
 use App\Http\Middleware\LoggerMiddleware;
 use App\Livewire\OpenAi\OpenAIManager;
 
@@ -37,9 +36,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('database-backup', DatabaseBackup::class)->name('database.backup');
     Route::get('open-ai', OpenAIManager::class)->name('open-ai');
     Route::post('upload-base64', [HomeController::class, 'uploadBase64'])->name('upload.base64');
-    Route::get('payhere', [PayhereController::class, 'payhere'])->name('payhere');
 });
 
-Route::get('payhere/success', [PayhereController::class, 'success'])->name('payhere.success');
-Route::get('payhere/cancel', [PayhereController::class, 'cancel'])->name('payhere.cancel');
-Route::get('payhere/notify', [PayhereController::class, 'notify'])->name('payhere.notify');
+Route::view('payhere', 'payhere')->name('payhere');
+Route::view('payhere-success', 'payhere-success')->name('payhere.success');
+Route::view('payhere-cancel', 'payhere-cancel')->name('payhere.cancel');
+Route::view('payhere-notify', 'payhere-notify')->name('payhere.notify');
