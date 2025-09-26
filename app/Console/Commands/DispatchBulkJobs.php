@@ -14,7 +14,7 @@ class DispatchBulkJobs extends Command
      *
      * @var string
      */
-    protected $signature = 'jobs:dispatch-bulk {--count=1000 : Number of jobs to dispatch} {--payload-size=1000 : Size of payload per job}';
+    protected $signature = 'jobs:dispatch-bulk {--count=10 : Number of jobs to dispatch} {--payload-size=100 : Size of payload per job}';
 
     /**
      * The console command description.
