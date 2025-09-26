@@ -56,7 +56,7 @@ return [
 
     'prefix' => env(
         'HORIZON_PREFIX',
-        Str::slug(env('APP_NAME', 'laravel'), '_').'_horizon:'
+        Str::slug(env('APP_NAME', 'laravel'), '_') . '_horizon:'
     ),
 
     /*
@@ -185,12 +185,12 @@ return [
             'queue' => ['default'],
             'balance' => 'auto',
             'autoScalingStrategy' => 'time',
-            'maxProcesses' => 1,
+            'maxProcesses' => 5,
             'maxTime' => 0,
             'maxJobs' => 0,
-            'memory' => 128,
-            'tries' => 1,
-            'timeout' => 60,
+            'memory' => 256,
+            'tries' => 3,
+            'timeout' => 300,
             'nice' => 0,
         ],
     ],
@@ -201,12 +201,24 @@ return [
                 'maxProcesses' => 10,
                 'balanceMaxShift' => 1,
                 'balanceCooldown' => 3,
+                'memory' => 512,
+                'timeout' => 600,
             ],
         ],
 
         'local' => [
             'supervisor-1' => [
-                'maxProcesses' => 3,
+                'maxProcesses' => 5,
+                'memory' => 256,
+                'timeout' => 300,
+            ],
+        ],
+
+        'testing' => [
+            'supervisor-1' => [
+                'maxProcesses' => 5,
+                'memory' => 128,
+                'timeout' => 60,
             ],
         ],
     ],
