@@ -1,4 +1,6 @@
 /.phpunit.cache
+/database/*.sqlite
+/database/*.sqlite-journal
 /node_modules
 /public/build
 /public/hot
@@ -30,3 +32,8 @@ build
 dist
 package-lock.json
 yarn-lock.json
+
+# Wayfinder generated route helpers
+/resources/js/actions
+/resources/js/routes
+/resources/js/wayfinder

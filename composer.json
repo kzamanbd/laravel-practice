@@ -9,30 +9,30 @@
     "license": "MIT",
     "repositories": [],
     "require": {
-        "php": "^8.2",
-        "dedoc/scramble": "^v0.12.10",
-        "inertiajs/inertia-laravel": "^2.0",
+        "php": "^8.3",
+        "dedoc/scramble": "^0.13.43",
+        "inertiajs/inertia-laravel": "^3.3",
         "jenssegers/agent": "^v2.6.4",
-        "laravel/framework": "^v12.0",
-        "laravel/horizon": "^v5.30",
-        "laravel/sanctum": "^v4.0",
-        "laravel/tinker": "^v2.10",
-        "livewire/livewire": "^v3.6",
-        "maatwebsite/excel": "^3.1",
-        "openai-php/laravel": "^v0.11",
-        "predis/predis": "^v2.3",
-        "tightenco/ziggy": "^2.5"
+        "laravel/framework": "^v13.31",
+        "laravel/horizon": "^v5.49",
+        "laravel/sanctum": "^v4.3",
+        "laravel/tinker": "^v3.0",
+        "laravel/wayfinder": "^0.1.21",
+        "livewire/livewire": "^v4.4",
+        "maatwebsite/excel": "^3.1.70",
+        "openai-php/laravel": "^v0.20",
+        "predis/predis": "^v3.6"
     },
     "require-dev": {
         "fakerphp/faker": "^v1.24",
-        "laravel/boost": "^1.2",
+        "laravel/boost": "^2.8",
         "laravel/pail": "^v1.2",
-        "laravel/pint": "^v1.21",
-        "laravel/sail": "^v1.41",
+        "laravel/pint": "^v1.32",
+        "laravel/sail": "^v1.67",
         "mockery/mockery": "^1.6",
-        "nunomaduro/collision": "^v8.6",
-        "pestphp/pest": "^v3.7",
-        "pestphp/pest-plugin-laravel": "v3.1.0"
+        "nunomaduro/collision": "^v8.9",
+        "pestphp/pest": "^v4.7",
+        "pestphp/pest-plugin-laravel": "^v4.1"
     },
     "autoload": {
         "files": [

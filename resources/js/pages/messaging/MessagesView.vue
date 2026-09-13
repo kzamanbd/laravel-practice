@@ -9,6 +9,8 @@
     import { groupBy } from 'lodash';
     import { ref, computed, watch } from 'vue';
     import { Link, useForm, usePage, Head } from '@inertiajs/vue3';
+    import { messaging } from '@/routes';
+    import { store as storeMessage } from '@/routes/message';
 
     const page = usePage();
     const authUser = page.props.auth.user;
@@ -81,7 +83,7 @@
         if (!form.message.trim()) {
             return;
         }
-        form.post(route('message.store'), {
+        form.post(storeMessage.url(), {
             preserveScroll: true,
             onSuccess: () => {
                 scrollToBottom();
@@ -251,7 +253,7 @@
                                 'text-primary dark:text-primary bg-gray-100 dark:bg-[#050b14]':
                                     selectedConversation?.id === item.id
                             }"
-                            :href="route('messaging', item.uuid)">
+                            :href="messaging.url(item.uuid)">
                             <div class="flex-1">
                                 <div class="flex items-center">
                                     <div class="relative shrink-0">
@@ -429,4 +431,3 @@
         </div>
     </div>
 </template>
-

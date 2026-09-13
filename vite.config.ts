@@ -1,9 +1,8 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
-// @ts-ignore
-import { resolve } from 'node:path';
 import tailwindcss from '@tailwindcss/vite';
+import { wayfinder } from '@laravel/vite-plugin-wayfinder';
 
 export default defineConfig({
     plugins: [
@@ -17,14 +16,14 @@ export default defineConfig({
             ],
             refresh: true
         }),
-        tailwindcss()
+        tailwindcss(),
+        wayfinder({
+            formVariants: true
+        })
     ],
     resolve: {
         alias: {
-            '@': '/resources/js',
-            // @ts-ignore
-            'ziggy-js': resolve(__dirname, 'vendor/tightenco/ziggy')
+            '@': '/resources/js'
         }
     }
 });
-

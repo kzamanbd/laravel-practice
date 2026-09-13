@@ -35,9 +35,9 @@ class ReplayMessage extends Component
             $this->response .= $content;
 
             $this->stream(
-                to: 'stream-' . $this->uniqueId,
                 content: $content,
-                replace: false
+                replace: false,
+                name: 'stream-'.$this->uniqueId
             );
         }
     }

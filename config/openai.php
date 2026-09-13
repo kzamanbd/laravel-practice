@@ -14,6 +14,18 @@ return [
 
     'api_key' => env('OPENAI_API_KEY'),
     'organization' => env('OPENAI_ORGANIZATION'),
+    'project' => env('OPENAI_PROJECT'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Base URL
+    |--------------------------------------------------------------------------
+    |
+    | Point the client at an OpenAI-compatible endpoint. Leave null to use the
+    | default OpenAI API base URL.
+    */
+
+    'base_uri' => env('OPENAI_BASE_URL'),
 
     /*
     |--------------------------------------------------------------------------

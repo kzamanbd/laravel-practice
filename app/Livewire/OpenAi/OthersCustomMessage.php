@@ -10,6 +10,7 @@ use OpenAI\Laravel\Facades\OpenAI;
 class OthersCustomMessage extends Component
 {
     public $uniqueId;
+
     public array $messages = [];
 
     public array $prompt;
@@ -55,9 +56,9 @@ class OthersCustomMessage extends Component
             $this->response .= $content;
 
             $this->stream(
-                to: 'stream-' . $this->uniqueId,
                 content: $content,
-                replace: false
+                replace: false,
+                name: 'stream-'.$this->uniqueId
             );
         }
     }

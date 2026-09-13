@@ -2,6 +2,7 @@ import { IFile } from '@/types';
 import LocalFileManager from './components/LocalFileManager';
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import { Head, Link, usePage } from '@inertiajs/react';
+import { remotes } from '@/routes/files';
 
 const FileManager = () => {
     const { files } = usePage<{
@@ -45,7 +46,7 @@ const FileManager = () => {
                                     Local
                                 </Tab>
                                 <Tab className="data-selected:text-primary-500 text-gray-500 focus-visible:outline-hidden data-selected:font-semibold">
-                                    <Link href={route('files.remotes')}>Shared</Link>
+                                    <Link href={remotes.url()}>Shared</Link>
                                 </Tab>
                             </nav>
                         </TabList>
@@ -223,4 +224,3 @@ const FileManager = () => {
 };
 
 export default FileManager;
-

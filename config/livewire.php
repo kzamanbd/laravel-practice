@@ -4,100 +4,126 @@ return [
 
     /*
     |---------------------------------------------------------------------------
-    | Class Namespace
+    | Component Locations
     |---------------------------------------------------------------------------
     |
-    | This value sets the root class namespace for Livewire component classes in
-    | your application. This value will change where component auto-discovery
-    | finds components. It's also referenced by the file creation commands.
+    | The directories Livewire searches when resolving single-file and
+    | multi-file components by name.
     |
     */
 
+    'component_locations' => [
+        resource_path('views/components'),
+        resource_path('views/livewire'),
+    ],
+
+    /*
+    |---------------------------------------------------------------------------
+    | Component Namespaces
+    |---------------------------------------------------------------------------
+    |
+    | View based component namespaces, for example "layouts::app" resolves to
+    | resources/views/layouts/app.blade.php.
+    |
+    */
+
+    'component_namespaces' => [
+        'layouts' => resource_path('views/layouts'),
+        'pages' => resource_path('views/pages'),
+    ],
+
+    /*
+    |---------------------------------------------------------------------------
+    | Layout
+    |---------------------------------------------------------------------------
+    |
+    | The view used as the layout when rendering a full-page component.
+    |
+    */
+
+    'component_layout' => 'layouts::app',
+
+    /*
+    |---------------------------------------------------------------------------
+    | Lazy Loading Placeholder
+    |---------------------------------------------------------------------------
+    |
+    | The default placeholder view rendered for lazy loaded components before
+    | they are resolved.
+    |
+    */
+
+    'component_placeholder' => null, // Example: 'placeholders::skeleton'
+
+    /*
+    |---------------------------------------------------------------------------
+    | Make Command
+    |---------------------------------------------------------------------------
+    |
+    | Defaults used by "make:livewire". Type options: 'sfc', 'mfc', 'class'.
+    |
+    */
+
+    'make_command' => [
+        'type' => 'class',
+        'emoji' => true,
+        'with' => [
+            'js' => false,
+            'css' => false,
+            'test' => false,
+        ],
+    ],
+
+    /*
+    |---------------------------------------------------------------------------
+    | Class Namespace
+    |---------------------------------------------------------------------------
+    */
+
     'class_namespace' => 'App\\Livewire',
+
+    'class_path' => app_path('Livewire'),
 
     /*
     |---------------------------------------------------------------------------
     | View Path
     |---------------------------------------------------------------------------
-    |
-    | This value is used to specify where Livewire component Blade templates are
-    | stored when running file creation commands like `artisan make:livewire`.
-    | It is also used if you choose to omit a component's render() method.
-    |
     */
 
     'view_path' => resource_path('views/livewire'),
 
     /*
     |---------------------------------------------------------------------------
-    | Layout
-    |---------------------------------------------------------------------------
-    | The view that will be used as the layout when rendering a single component
-    | as an entire page via `Route::get('/post/create', CreatePost::class);`.
-    | In this case, the view returned by CreatePost will render into $slot.
-    |
-    */
-
-    'layout' => 'layouts.app',
-
-    /*
-    |---------------------------------------------------------------------------
-    | Lazy Loading Placeholder
-    |---------------------------------------------------------------------------
-    | Livewire allows you to lazy load components that would otherwise slow down
-    | the initial page load. Every component can have a custom placeholder or
-    | you can define the default placeholder view for all components below.
-    |
-    */
-
-    'lazy_placeholder' => null,
-
-    /*
-    |---------------------------------------------------------------------------
     | Temporary File Uploads
     |---------------------------------------------------------------------------
-    |
-    | Livewire handles file uploads by storing uploads in a temporary directory
-    | before the file is stored permanently. All file uploads are directed to
-    | a global endpoint for temporary storage. You may configure this below:
-    |
     */
 
     'temporary_file_upload' => [
-        'disk' => null,        // Example: 'local', 's3'              | Default: 'default'
-        'rules' => null,       // Example: ['file', 'mimes:png,jpg']  | Default: ['required', 'file', 'max:12288'] (12MB)
-        'directory' => null,   // Example: 'tmp'                      | Default: 'livewire-tmp'
-        'middleware' => null,  // Example: 'throttle:5,1'             | Default: 'throttle:60,1'
-        'preview_mimes' => [   // Supported file types for temporary pre-signed file URLs...
+        'disk' => env('LIVEWIRE_TEMPORARY_FILE_UPLOAD_DISK'), // Example: 'local', 's3'             | Default: 'default'
+        'rules' => null,                                      // Example: ['file', 'mimes:png,jpg'] | Default: ['required', 'file', 'max:12288'] (12MB)
+        'directory' => null,                                  // Example: 'tmp'                     | Default: 'livewire-tmp'
+        'middleware' => null,                                 // Example: 'throttle:5,1'            | Default: 'throttle:60,1'
+        'preview_mimes' => [                                  // Supported file types for temporary pre-signed file URLs...
             'png', 'gif', 'bmp', 'svg', 'wav', 'mp4',
             'mov', 'avi', 'wmv', 'mp3', 'm4a',
             'jpg', 'jpeg', 'mpga', 'webp', 'wma',
         ],
         'max_upload_time' => 5, // Max duration (in minutes) before an upload is invalidated...
+        'cleanup' => true, // Should cleanup temporary uploads older than 24 hrs...
     ],
 
     /*
     |---------------------------------------------------------------------------
     | Render On Redirect
     |---------------------------------------------------------------------------
-    |
-    | This value determines if Livewire will run a component's `render()` method
-    | after a redirect has been triggered using something like `redirect(...)`
-    | Setting this to true will render the view once more before redirecting
-    |
     */
 
     'render_on_redirect' => false,
 
     /*
     |---------------------------------------------------------------------------
-    | Eloquent Model Binding
+    | Legacy Model Binding
     |---------------------------------------------------------------------------
-    |
-    | Previous versions of Livewire supported binding directly to eloquent model
-    | properties using wire:model by default. However, this behavior has been
-    | deemed too "magical" and has therefore been put under a feature flag.
-    |
     */
 
     'legacy_model_binding' => false,
@@ -106,11 +132,6 @@ return [
     |---------------------------------------------------------------------------
     | Auto-inject Frontend Assets
     |---------------------------------------------------------------------------
-    |
-    | By default, Livewire automatically injects its JavaScript and CSS into the
-    | <head> and <body> of pages containing Livewire components. By disabling
-    | this behavior, you need to use @livewireStyles and @livewireScripts.
-    |
     */
 
     'inject_assets' => true,
@@ -119,40 +140,64 @@ return [
     |---------------------------------------------------------------------------
     | Navigate (SPA mode)
     |---------------------------------------------------------------------------
-    |
-    | By adding `wire:navigate` to links in your Livewire application, Livewire
-    | will prevent the default link handling and instead request those pages
-    | via AJAX, creating an SPA-like effect. Configure this behavior here.
-    |
     */
 
     'navigate' => [
         'show_progress_bar' => true,
+        'progress_bar_color' => '#2299dd',
     ],
 
     /*
     |---------------------------------------------------------------------------
     | HTML Morph Markers
     |---------------------------------------------------------------------------
-    |
-    | Livewire intelligently "morphs" existing HTML into the newly rendered HTML
-    | after each update. To make this process more reliable, Livewire injects
-    | "markers" into the rendered Blade surrounding @if, @class & @foreach.
-    |
     */
 
     'inject_morph_markers' => true,
 
     /*
     |---------------------------------------------------------------------------
+    | Smart wire:key
+    |---------------------------------------------------------------------------
+    */
+
+    'smart_wire_keys' => true,
+
+    /*
+    |---------------------------------------------------------------------------
     | Pagination Theme
     |---------------------------------------------------------------------------
-    |
-    | When enabling Livewire's pagination feature by using the `WithPagination`
-    | trait, Livewire will use Tailwind templates to render pagination views
-    | on the page. If you want Bootstrap CSS, you can specify: "bootstrap"
-    |
     */
 
     'pagination_theme' => 'tailwind',
+
+    /*
+    |---------------------------------------------------------------------------
+    | Release Token
+    |---------------------------------------------------------------------------
+    */
+
+    'release_token' => 'a',
+
+    /*
+    |---------------------------------------------------------------------------
+    | CSP Safe Mode
+    |---------------------------------------------------------------------------
+    */
+
+    'csp_safe' => false,
+
+    /*
+    |---------------------------------------------------------------------------
+    | Payload Limits
+    |---------------------------------------------------------------------------
+    */
+
+    'payload' => [
+        'max_size' => 1024 * 1024,   // 1MB - maximum request payload size in bytes
+        'max_nesting_depth' => 10,   // Maximum depth of dot-notation property paths
+        'max_calls' => 50,           // Maximum method calls per request
+        'max_components' => 200,     // Maximum components per batch request
+    ],
+
 ];
