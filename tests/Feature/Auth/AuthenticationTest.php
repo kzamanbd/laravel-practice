@@ -1,22 +1,24 @@
 <?php
 
+use App\Livewire\Auth\Login;
+use App\Livewire\Navigation;
 use App\Models\User;
-use Livewire\Volt\Volt;
+use Livewire\Livewire;
 
 test('login screen can be rendered', function () {
     $response = $this->get('/login');
 
     $response
         ->assertOk()
-        ->assertSeeVolt('pages.auth.login');
+        ->assertSeeLivewire(Login::class);
 });
 
 test('users can authenticate using the login screen', function () {
     $user = User::factory()->create();
 
-    $component = Volt::test('pages.auth.login')
-        ->set('form.email', $user->email)
-        ->set('form.password', 'password');
+    $component = Livewire::test(Login::class)
+        ->set('email', $user->email)
+        ->set('password', 'password');
 
     $component->call('login');
 
@@ -30,9 +32,9 @@ test('users can authenticate using the login screen', function () {
 test('users can not authenticate with invalid password', function () {
     $user = User::factory()->create();
 
-    $component = Volt::test('pages.auth.login')
-        ->set('form.email', $user->email)
-        ->set('form.password', 'wrong-password');
+    $component = Livewire::test(Login::class)
+        ->set('email', $user->email)
+        ->set('password', 'wrong-password');
 
     $component->call('login');
 
@@ -52,7 +54,7 @@ test('navigation menu can be rendered', function () {
 
     $response
         ->assertOk()
-        ->assertSeeVolt('layout.navigation');
+        ->assertSeeLivewire(Navigation::class);
 });
 
 test('users can logout', function () {
@@ -60,7 +62,7 @@ test('users can logout', function () {
 
     $this->actingAs($user);
 
-    $component = Volt::test('layout.navigation');
+    $component = Livewire::test(Navigation::class);
 
     $component->call('logout');
 
