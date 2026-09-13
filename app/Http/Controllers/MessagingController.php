@@ -47,7 +47,7 @@ class MessagingController
             'users' => $users,
             'groups' => $groups,
             'conversations' => $conversations,
-            'conversation' => $conversation
+            'conversation' => $conversation,
         ]);
     }
 
@@ -58,18 +58,18 @@ class MessagingController
             $text = $request->input('message');
             $conversationId = $request->input('conversation_id');
             $conversation = null;
-            if (!$conversationId) {
+            if (! $conversationId) {
                 // check already has create a conversation
                 $conversation = Conversation::query()->where([
                     'author_id' => Auth::id(),
-                    'to_user_id' => $request->input('to_user_id')
+                    'to_user_id' => $request->input('to_user_id'),
                 ])->orWhere([
                     'author_id' => $request->input('to_user_id'),
-                    'to_user_id' => Auth::id()
+                    'to_user_id' => Auth::id(),
                 ])->firstOrCreate([
                     'author_id' => Auth::id(),
                     'to_user_id' => $request->input('to_user_id'),
-                    'uuid' => Str::uuid()
+                    'uuid' => Str::uuid(),
                 ]);
 
                 $conversationId = $conversation->id;
@@ -82,19 +82,19 @@ class MessagingController
             $message = Message::create([
                 'conversation_id' => $conversationId,
                 'user_id' => Auth::id(),
-                'message' => $text
+                'message' => $text,
             ]);
 
             Conversation::find($conversationId)->update([
                 'last_msg_id' => $message->id,
-                'updated_at' => now()
+                'updated_at' => now(),
             ]);
 
             if ($conversation) {
                 $conversation = $conversation->load([
                     'participant',
                     'messages:id,conversation_id,user_id,msg_type,message,created_at',
-                    'messages.user:id,name'
+                    'messages.user:id,name',
                 ]);
             }
 
@@ -102,9 +102,9 @@ class MessagingController
         } catch (\Exception $e) {
             DB::rollBack();
         }
+
         return to_route('messaging', $conversation->uuid);
     }
-
 
     public function createGroup(Request $request)
     {
@@ -112,11 +112,11 @@ class MessagingController
         try {
 
             $groupMembers = $request->input('group_members');
-            $groupName = $request->input('group_name') ?? Auth::user()->name . " and others " . count($groupMembers);
+            $groupName = $request->input('group_name') ?? Auth::user()->name.' and others '.count($groupMembers);
             $conversation = Conversation::create([
                 'title' => $groupName,
                 'author_id' => Auth::id(),
-                'uuid' => Str::uuid()
+                'uuid' => Str::uuid(),
             ]);
 
             $groupData = [];
@@ -124,7 +124,7 @@ class MessagingController
                 $groupData[] = [
                     'conversation_id' => $conversation->id,
                     'user_id' => $id,
-                    'created_by' => Auth::id()
+                    'created_by' => Auth::id(),
                 ];
             }
             DB::table('message_group_user')->insert($groupData);
@@ -138,9 +138,10 @@ class MessagingController
             ]);
         } catch (\Exception $e) {
             DB::rollBack();
+
             return response()->json([
                 'success' => false,
-                'message' => $e->getMessage()
+                'message' => $e->getMessage(),
             ], 500);
         }
     }

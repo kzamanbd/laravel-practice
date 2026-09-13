@@ -16,6 +16,7 @@ class ExportCsvChunk implements ShouldQueue
     use Batchable, Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected $data;
+
     protected $filename;
 
     /**

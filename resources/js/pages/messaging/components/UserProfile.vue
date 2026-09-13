@@ -44,7 +44,7 @@
                 </svg>
             </MenuButton>
             <MenuItems>
-                <ul class="dropdown-menu right-0 top-4 block w-48 whitespace-nowrap">
+                <ul class="dropdown-menu top-4 right-0 block w-48 whitespace-nowrap">
                     <li>
                         <Link href="/profile" class="dropdown-link">
                             <svg
@@ -53,7 +53,7 @@
                                 viewBox="0 0 24 24"
                                 fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
-                                class="h-4.5 w-4.5 mr-1 shrink-0">
+                                class="mr-1 h-4.5 w-4.5 shrink-0">
                                 <circle
                                     cx="10"
                                     cy="6"
@@ -82,7 +82,7 @@
                                 viewBox="0 0 24 24"
                                 fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
-                                class="h-4.5 w-4.5 mr-1 shrink-0">
+                                class="mr-1 h-4.5 w-4.5 shrink-0">
                                 <circle
                                     cx="12"
                                     cy="12"
@@ -106,7 +106,7 @@
                                 viewBox="0 0 24 24"
                                 fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
-                                class="h-4.5 w-4.5 mr-1 shrink-0">
+                                class="mr-1 h-4.5 w-4.5 shrink-0">
                                 <circle
                                     opacity="0.5"
                                     cx="12"
@@ -132,7 +132,7 @@
                                 viewBox="0 0 24 24"
                                 fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
-                                class="h-4.5 w-4.5 mr-1 shrink-0">
+                                class="mr-1 h-4.5 w-4.5 shrink-0">
                                 <path
                                     d="M2.00098 11.999L16.001 11.999M16.001 11.999L12.501 8.99902M16.001 11.999L12.501 14.999"
                                     stroke="currentColor"
@@ -154,4 +154,3 @@
         </Menu>
     </div>
 </template>
-

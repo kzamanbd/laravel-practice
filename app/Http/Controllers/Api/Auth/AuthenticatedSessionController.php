@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Hash;
  */
 class AuthenticatedSessionController extends Controller
 {
-
     /**
      * Current User
+     *
      * @operationId current-user
      */
     public function currentUser(Request $request)
@@ -27,6 +27,7 @@ class AuthenticatedSessionController extends Controller
 
     /**
      * Login
+     *
      * @operationId login
      */
     public function login(Request $request): JsonResponse
@@ -34,11 +35,13 @@ class AuthenticatedSessionController extends Controller
         $this->validate($request, [
             /**
              * @var string
+             *
              * @example kzamanbn@gmail.com
              */
             'email' => 'required',
             /**
              * @var string
+             *
              * @example password
              */
             'password' => 'required|min:6',
@@ -69,6 +72,7 @@ class AuthenticatedSessionController extends Controller
 
     /**
      * Register
+     *
      * @operationId register
      */
     public function register(Request $request): JsonResponse
@@ -109,9 +113,9 @@ class AuthenticatedSessionController extends Controller
 
     /**
      * Logout
+     *
      * @operationId logout
      */
-
     public function logout(Request $request): JsonResponse
     {
         $request->user()->currentAccessToken()->delete();

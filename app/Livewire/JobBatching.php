@@ -6,11 +6,9 @@ use App\Jobs\ExportCsvChunk;
 use Illuminate\Bus\Batch;
 use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Throwable;
 
 class JobBatching extends Component
 {
@@ -27,7 +25,7 @@ class JobBatching extends Component
 
     public function downloadContacts()
     {
-        $filename = 'contacts/Export_' . now()->timestamp . '.csv';
+        $filename = 'contacts/Export_'.now()->timestamp.'.csv';
         $batches = [];
         DB::table('contacts')->latest()->chunk(10000, function ($rows) use (&$batches, $filename) {
             $batches[] = new ExportCsvChunk($rows->toArray(), $filename);

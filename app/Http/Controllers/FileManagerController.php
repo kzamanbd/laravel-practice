@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Services\BaseFileManager;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class FileManagerController
@@ -20,18 +19,20 @@ class FileManagerController
         $files = $this->baseFileManager->getLocalDirectoryTree($currentPath, $basePath);
         $props = [
             'files' => $files,
-            'path'  => str_replace($basePath, '', $currentPath),
+            'path' => str_replace($basePath, '', $currentPath),
         ];
 
         if (request()->expectsJson()) {
             return response()->json($props);
         }
+
         return Inertia::render('files/FileManager', $props);
     }
 
     public function content()
     {
         $contents = File::get(base_path(request('path')));
+
         return response()->json([
             'contents' => $contents,
         ]);
@@ -42,9 +43,10 @@ class FileManagerController
         $path = request('path');
         $content = request('content');
         File::put(base_path($path), $content);
+
         return response()->json([
             'success' => true,
-            'path' => $path
+            'path' => $path,
         ]);
     }
 }

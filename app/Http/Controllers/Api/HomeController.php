@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Models\Blob;
 use App\Models\Category;
 use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
-use Throwable;
 
 class HomeController extends Controller
 {
@@ -38,8 +37,8 @@ class HomeController extends Controller
 
     public function uploadImage(Request $request)
     {
-        $png_url = uniqid() . time() . '.jpg';
-        $path = 'images/' . $png_url;
+        $png_url = uniqid().time().'.jpg';
+        $path = 'images/'.$png_url;
         $img = file_get_contents($request->image);
         $success = Storage::put($path, $img);
         echo $success ? $png_url : 'Unable to save the file.';
@@ -50,8 +49,8 @@ class HomeController extends Controller
         $uploaded_file = [];
         foreach ($request->attachments as $attachment) {
             $type = explode('.', $attachment['name']);
-            $file_name = uniqid() . time() . '.' . end($type);
-            $path = 'docs/' . $file_name;
+            $file_name = uniqid().time().'.'.end($type);
+            $path = 'docs/'.$file_name;
             $base64 = file_get_contents($attachment['base64']);
             Storage::put($path, $base64);
             $uploaded_file[] = $file_name;
@@ -94,6 +93,7 @@ class HomeController extends Controller
             'message' => 'Database transaction success',
         ], 200);
     }
+
     public function uploadBase64(Request $request)
     {
 
@@ -102,10 +102,11 @@ class HomeController extends Controller
             $filename = $file->getClientOriginalName();
             $fileData = file_get_contents($file->getRealPath());
 
-            $blob = new Blob();
+            $blob = new Blob;
             $blob->filename = $filename;
             $blob->file_data = $fileData;
             $blob->save();
+
             return $blob->id;
         } catch (\Exception $e) {
             return $e->getMessage();

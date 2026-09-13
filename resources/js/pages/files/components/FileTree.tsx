@@ -43,4 +43,3 @@ const FileTree = ({ file, action }: TreeProps) => {
 };
 
 export default FileTree;
-

@@ -3,7 +3,6 @@
 namespace App\Jobs;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -11,7 +10,6 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class SyncDailySalesCollectionReturn implements ShouldQueue
 {
@@ -20,19 +18,24 @@ class SyncDailySalesCollectionReturn implements ShouldQueue
     const UNIDO_FTP = 'unido-ftp';
 
     const SALES_INVOICE_HEADER_TABLE = 'unido_sales_invoice_header';
+
     const SALES_INVOICE_LINES_TABLE = 'unido_sales_invoice_lines';
+
     const SALES_RETURN_HEADER_TABLE = 'unido_sales_return_header';
+
     const SALES_RETURN_LINES_TABLE = 'unido_sales_return_lines';
+
     const COLLECTION_TABLE = 'unido_inv_collection';
 
-
     const INV_HEADER = 'Unido/SalesOrders/UND_SalesOrders_Headers.csv';
+
     const INV_LINES = 'Unido/SalesOrders/UND_SalesOrders_Lines.csv';
+
     const RETURN_HEADER = 'Unido/ReturnOrders/UND_ReturnOrders_Headers.csv';
+
     const RETURN_LINES = 'Unido/ReturnOrders/UND_ReturnOrders_Lines.csv';
+
     const COLLECTION = 'Unido/Collection/UND_CustomerCollections.csv';
-
-
 
     /**
      * The number of times the job may be attempted.
@@ -40,7 +43,6 @@ class SyncDailySalesCollectionReturn implements ShouldQueue
      * @var int
      */
     public $tries = 3;
-
 
     /**
      * Create a new job instance.
@@ -59,7 +61,7 @@ class SyncDailySalesCollectionReturn implements ShouldQueue
      */
     public function handle()
     {
-        if (!app()->isProduction() && !$this->isProduction) {
+        if (! app()->isProduction() && ! $this->isProduction) {
             return;
         }
 
@@ -112,6 +114,7 @@ class SyncDailySalesCollectionReturn implements ShouldQueue
 
     /**
      * Process sales invoice
+     *
      * @return array
      */
     public function processSalesInvoice()
@@ -125,17 +128,17 @@ class SyncDailySalesCollectionReturn implements ShouldQueue
         // ready the data for insertion
         $mstRecords = collect($mstRecords)->map(function ($item) {
             return [
-                "invoice_number" => $item[0],
-                "customer_po" => $item[1],
-                "invoice_date" => $item[2],
-                "customer_code" => $item[3],
-                "wh_code" => $item[4],
-                "inv_pay_term" => $item[5],
-                "net_sales" => $item[6],
-                "inv_tax" => $item[7],
-                "inv_discount" => $item[8],
-                "dist_ref_id" => $item[9],
-                "status" => $item[10]
+                'invoice_number' => $item[0],
+                'customer_po' => $item[1],
+                'invoice_date' => $item[2],
+                'customer_code' => $item[3],
+                'wh_code' => $item[4],
+                'inv_pay_term' => $item[5],
+                'net_sales' => $item[6],
+                'inv_tax' => $item[7],
+                'inv_discount' => $item[8],
+                'dist_ref_id' => $item[9],
+                'status' => $item[10],
             ];
         })->toArray();
 
@@ -148,23 +151,23 @@ class SyncDailySalesCollectionReturn implements ShouldQueue
         // ready the data for insertion
         $detailRecords = collect($detailRecords)->map(function ($item) {
             return [
-                "invoice_number" => $item[0],
-                "customer_po" => $item[1],
-                "inv_line" => $item[2],
-                "invoice_date" => $item[3],
-                "mkt_code" => $item[4],
-                "lot_no" => $item[5],
-                "busi_division" => $item[6],
-                "line_typev" => $item[7],
-                "qty_req" => $item[8],
-                "trans_qty" => $item[9],
-                "list_price" => $item[10],
-                "inv_line_value" => $item[11],
-                "tot_discount" => $item[12],
-                "ind_item_tax" => $item[13],
-                "approval_no" => $item[14],
-                "dist_ref_id" => $item[15],
-                "status" => $item[16]
+                'invoice_number' => $item[0],
+                'customer_po' => $item[1],
+                'inv_line' => $item[2],
+                'invoice_date' => $item[3],
+                'mkt_code' => $item[4],
+                'lot_no' => $item[5],
+                'busi_division' => $item[6],
+                'line_typev' => $item[7],
+                'qty_req' => $item[8],
+                'trans_qty' => $item[9],
+                'list_price' => $item[10],
+                'inv_line_value' => $item[11],
+                'tot_discount' => $item[12],
+                'ind_item_tax' => $item[13],
+                'approval_no' => $item[14],
+                'dist_ref_id' => $item[15],
+                'status' => $item[16],
             ];
         })->toArray();
 
@@ -173,6 +176,7 @@ class SyncDailySalesCollectionReturn implements ShouldQueue
 
     /**
      * Process return orders
+     *
      * @return array
      */
     public function processReturnOrders()
@@ -186,20 +190,20 @@ class SyncDailySalesCollectionReturn implements ShouldQueue
         // ready the data for insertion
         $mstRecords = collect($mstRecords)->map(function ($item) {
             return [
-                "invoice_number" => $item[0],
-                "customer_po" => $item[1],
-                "invoice_date" => $item[2],
-                "cr_ref_invoice" => $item[3],
-                "ref_iv_date" => $item[4],
-                "customer_code" => $item[5],
-                "wh_code" => $item[6],
-                "inv_pay_term" => $item[7],
-                "net_sales" => $item[8],
-                "inv_tax" => $item[9],
-                "inv_discount" => $item[10],
-                "cr_memo_reason" => $item[11],
-                "dist_ref_id" => $item[12],
-                "status" => $item[13]
+                'invoice_number' => $item[0],
+                'customer_po' => $item[1],
+                'invoice_date' => $item[2],
+                'cr_ref_invoice' => $item[3],
+                'ref_iv_date' => $item[4],
+                'customer_code' => $item[5],
+                'wh_code' => $item[6],
+                'inv_pay_term' => $item[7],
+                'net_sales' => $item[8],
+                'inv_tax' => $item[9],
+                'inv_discount' => $item[10],
+                'cr_memo_reason' => $item[11],
+                'dist_ref_id' => $item[12],
+                'status' => $item[13],
             ];
         })->toArray();
 
@@ -212,23 +216,23 @@ class SyncDailySalesCollectionReturn implements ShouldQueue
         // ready the data for insertion
         $detailRecords = collect($detailRecords)->map(function ($item) {
             return [
-                "return_no" => $item[0],
-                "cust_po_no" => $item[1],
-                "return_line_no" => $item[2],
-                "return_date" => $item[3],
-                "cr_ref_inv" => $item[4],
-                "ref_inv_date" => $item[5],
-                "item_code" => $item[6],
-                "batch_lot" => $item[7],
-                "busi_div" => $item[8],
-                "line_type" => $item[9],
-                "ret_qty" => $item[10],
-                "list_price" => $item[11],
-                "inv_line_value" => $item[12],
-                "ret_discount" => $item[13],
-                "ret_vat" => $item[14],
-                "dist_ref_id" => $item[15],
-                "status" => $item[16],
+                'return_no' => $item[0],
+                'cust_po_no' => $item[1],
+                'return_line_no' => $item[2],
+                'return_date' => $item[3],
+                'cr_ref_inv' => $item[4],
+                'ref_inv_date' => $item[5],
+                'item_code' => $item[6],
+                'batch_lot' => $item[7],
+                'busi_div' => $item[8],
+                'line_type' => $item[9],
+                'ret_qty' => $item[10],
+                'list_price' => $item[11],
+                'inv_line_value' => $item[12],
+                'ret_discount' => $item[13],
+                'ret_vat' => $item[14],
+                'dist_ref_id' => $item[15],
+                'status' => $item[16],
             ];
         })->toArray();
 
@@ -237,6 +241,7 @@ class SyncDailySalesCollectionReturn implements ShouldQueue
 
     /**
      * Process collections
+     *
      * @return array
      */
     public function processCollections()
@@ -246,20 +251,21 @@ class SyncDailySalesCollectionReturn implements ShouldQueue
         $mstRecords = array_map('str_getcsv', $mstRecords);
         // remove the header
         unset($mstRecords[0]);
+
         // ready the data for insertion
         return collect($mstRecords)->map(function ($item) {
             return [
-                "wh_code" => $item[0],
-                "cust_code" => $item[1],
-                "inv_number" => $item[2],
-                "inv_value" => $item[3],
-                "pay_date" => $item[4],
-                "received_amt" => $item[5],
-                "pay_rcv_date" => $item[6],
-                "payment_type" => $item[7],
-                "journal_code" => $item[8],
-                "cust_po" => $item[9],
-                "ststus" => $item[10],
+                'wh_code' => $item[0],
+                'cust_code' => $item[1],
+                'inv_number' => $item[2],
+                'inv_value' => $item[3],
+                'pay_date' => $item[4],
+                'received_amt' => $item[5],
+                'pay_rcv_date' => $item[6],
+                'payment_type' => $item[7],
+                'journal_code' => $item[8],
+                'cust_po' => $item[9],
+                'ststus' => $item[10],
             ];
         })->toArray();
     }

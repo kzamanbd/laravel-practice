@@ -329,4 +329,3 @@ const LocalFileManager = ({ filesData }: any) => {
 };
 
 export default LocalFileManager;
-

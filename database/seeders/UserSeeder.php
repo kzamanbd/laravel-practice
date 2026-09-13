@@ -26,7 +26,7 @@ class UserSeeder extends Seeder
             if ($email === $admin_email) {
                 User::factory()->create([
                     'name' => 'Kamruzzaman',
-                    'email' => $email
+                    'email' => $email,
                 ]);
             }
 

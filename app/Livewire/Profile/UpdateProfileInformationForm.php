@@ -11,6 +11,7 @@ use Livewire\Component;
 class UpdateProfileInformationForm extends Component
 {
     public string $name = '';
+
     public string $email = '';
 
     /**
@@ -64,6 +65,7 @@ class UpdateProfileInformationForm extends Component
 
         Session::flash('status', 'verification-link-sent');
     }
+
     public function render()
     {
         return view('livewire.profile.update-profile-information-form');

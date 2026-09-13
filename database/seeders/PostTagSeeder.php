@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Taggable;
 use Illuminate\Database\Seeder;
 
 class PostTagSeeder extends Seeder
@@ -13,6 +14,6 @@ class PostTagSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Taggable::factory(20)->create();
+        Taggable::factory(20)->create();
     }
 }

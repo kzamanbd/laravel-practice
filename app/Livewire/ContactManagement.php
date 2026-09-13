@@ -2,21 +2,21 @@
 
 namespace App\Livewire;
 
-use Carbon\Carbon;
 use App\Exports\ContactExport;
 use App\Models\Contact;
-use Livewire\Component;
-use Livewire\WithPagination;
+use Carbon\Carbon;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\On;
+use Livewire\Component;
 use Livewire\WithFileUploads;
+use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class ContactManagement extends Component
 {
-
     use WithFileUploads, WithPagination;
 
     public int $perPage = 20;
@@ -24,6 +24,7 @@ class ContactManagement extends Component
     public $excelFile;
 
     public array $excelData = [];
+
     public string $searchKey;
 
     protected $rules = [
@@ -50,12 +51,12 @@ class ContactManagement extends Component
         $reader = IOFactory::createReader('Xlsx');
         $reader->setLoadAllSheets();
         $spreadsheet = $reader->load($url);
-        $worksheet = $spreadsheet->getActiveSheet(); //Selecting The Active Sheet
+        $worksheet = $spreadsheet->getActiveSheet(); // Selecting The Active Sheet
         $highest_row = $worksheet->getHighestRow();
         $highest_col = 'H';
 
-        $highest_cell = $highest_col . $highest_row;
-        $rang = 'A2:' . $highest_cell; // Selecting The Cell Range
+        $highest_cell = $highest_col.$highest_row;
+        $rang = 'A2:'.$highest_cell; // Selecting The Cell Range
 
         $dataToArray = $spreadsheet->getActiveSheet()->rangeToArray(
             $rang, // The worksheet range that we want to retrieve
@@ -66,7 +67,7 @@ class ContactManagement extends Component
         );
         $fields = ['e_tin', 'tin_date', 'name', 'mobile', 'address', 'police_station', 'old_tin', 'circle_name'];
         $data = array_map(function ($row) use ($fields) {
-            //Combining key value pair;
+            // Combining key value pair;
             return array_combine($fields, $row);
         }, $dataToArray);
 
@@ -108,7 +109,7 @@ class ContactManagement extends Component
         }
     }
 
-    public function getContactsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator|array
+    public function getContactsProperty(): LengthAwarePaginator|array
     {
         return (count($this->excelData) > 0) ? [] : Contact::query()->latest()->paginate($this->perPage);
     }

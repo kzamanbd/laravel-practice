@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     /**
-     * @param Request $request
      * @return mixed
      */
     public function uploadBase64(Request $request)
@@ -21,10 +20,11 @@ class HomeController extends Controller
             $filename = $file->getClientOriginalName();
             $fileData = file_get_contents($file->getRealPath());
 
-            $blob = new Blob();
+            $blob = new Blob;
             $blob->filename = $filename;
             $blob->file_data = $fileData;
             $blob->save();
+
             return redirect()->back()->with('success', 'File uploaded successfully.');
         } catch (\Exception $e) {
             return $e->getMessage();

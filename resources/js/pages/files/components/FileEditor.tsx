@@ -96,4 +96,3 @@ const FileEditor = ({
 };
 
 export default FileEditor;
-

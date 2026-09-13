@@ -3,35 +3,33 @@
 namespace App\Livewire;
 
 use App\Exports\DatabaseSchemaExport;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Maatwebsite\Excel\Facades\Excel;
 
 class DatabaseBackup extends Component
 {
-
     public $tables = [];
 
     /**
      * Export the structure of all tables in the oracle database
-     *
-     * @return \Illuminate\Support\Collection
      */
-    public function exportOracleTableStructure(string $connection = 'oracle'): \Illuminate\Support\Collection
+    public function exportOracleTableStructure(string $connection = 'oracle'): Collection
     {
         // Fetch the list of tables owned by the current schema (user)
-        $tables = DB::connection($connection)->select("
+        $tables = DB::connection($connection)->select('
             SELECT table_name
             FROM user_tables
             ORDER BY table_name
-        ");
+        ');
 
         // Iterate over each table and get column metadata
         foreach ($tables as $table) {
             $tableName = $table->table_name;
 
             // Fetch column metadata for the current table from USER_TAB_COLUMNS
-            $columns = DB::connection($connection)->select("
+            $columns = DB::connection($connection)->select('
                 SELECT
                     column_name,
                     data_type,
@@ -43,7 +41,7 @@ class DatabaseBackup extends Component
                     data_scale        -- For NUMBER columns
                 FROM user_tab_columns
                 WHERE table_name = :table_name
-            ", ['table_name' => $tableName]);
+            ', ['table_name' => $tableName]);
 
             // Add the table name and its columns with metadata to the schema array
             foreach ($columns as $column) {
@@ -66,16 +64,14 @@ class DatabaseBackup extends Component
     /**
      * Export the structure of all tables in the mysql database
      *
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
-
     public function exportMysqlTableStructure(string $connection = 'mysql')
     {
-        $table = DB::connection($connection)->select("SHOW TABLES");
+        $table = DB::connection($connection)->select('SHOW TABLES');
 
         return collect([]);
     }
-
 
     /**
      * Export the structure of all tables in the database

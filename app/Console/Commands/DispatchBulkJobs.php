@@ -46,7 +46,7 @@ class DispatchBulkJobs extends Command
                 $largePayload = $this->generateLargePayload($payloadSize);
 
                 // Create unique job ID
-                $jobId = 'job-' . Str::uuid() . '-' . $i;
+                $jobId = 'job-'.Str::uuid().'-'.$i;
 
                 // Dispatch job to the queue
                 ProcessLargeDataJob::dispatch($largePayload, $jobId)
@@ -59,7 +59,7 @@ class DispatchBulkJobs extends Command
                 usleep(1000); // 1ms delay
 
             } catch (\Exception $e) {
-                $this->error("Failed to dispatch job #{$i}: " . $e->getMessage());
+                $this->error("Failed to dispatch job #{$i}: ".$e->getMessage());
             }
         }
 
@@ -69,12 +69,12 @@ class DispatchBulkJobs extends Command
 
         $this->newLine();
         $this->info("Successfully dispatched {$successCount} jobs in {$executionTime} seconds");
-        $this->info("Average time per job dispatch: " . number_format($executionTime / $count, 4) . " seconds");
+        $this->info('Average time per job dispatch: '.number_format($executionTime / $count, 4).' seconds');
 
         // Show option to check horizon dashboard
         $this->newLine();
-        $this->info("Monitor job progress at: php artisan horizon");
-        $this->info("View queue status at: php artisan queue:work --help");
+        $this->info('Monitor job progress at: php artisan horizon');
+        $this->info('View queue status at: php artisan queue:work --help');
 
         return self::SUCCESS;
     }

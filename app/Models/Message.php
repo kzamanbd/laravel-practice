@@ -11,9 +11,10 @@ class Message extends Model
     use HasFactory;
 
     protected $guarded = [];
+
     protected $appends = [
         'msg_group',
-        'formatted_time'
+        'formatted_time',
     ];
 
     /**
@@ -48,11 +49,12 @@ class Message extends Model
 
         if ($date == date('Y-m-d')) {
             return 'Today';
-        } else if ($date == date('Y-m-d', strtotime('-1 day'))) {
-            return "Yesterday";
-        } else if ($date > date('Y-m-d', strtotime('-1 week'))) {
+        } elseif ($date == date('Y-m-d', strtotime('-1 day'))) {
+            return 'Yesterday';
+        } elseif ($date > date('Y-m-d', strtotime('-1 week'))) {
             return "$week";
         }
+
         return $createdAt->format('d M Y');
     }
 

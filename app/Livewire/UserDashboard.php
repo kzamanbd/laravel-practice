@@ -16,12 +16,12 @@ class UserDashboard extends Component
         $reader = IOFactory::createReader('Xlsx');
         $reader->setLoadAllSheets();
         $spreadsheet = $reader->load($path);
-        $worksheet = $spreadsheet->getActiveSheet(); //Selecting The Active Sheet
+        $worksheet = $spreadsheet->getActiveSheet(); // Selecting The Active Sheet
         $highest_row = $worksheet->getHighestRow();
         $highest_col = 'E';
 
-        $highest_cell = $highest_col . $highest_row;
-        $rang = 'A1:' . $highest_cell; // Selecting The Cell Range
+        $highest_cell = $highest_col.$highest_row;
+        $rang = 'A1:'.$highest_cell; // Selecting The Cell Range
 
         // get data and cell formulas active sheet
 
@@ -35,11 +35,10 @@ class UserDashboard extends Component
 
         $fields = ['sl', 'region', 'blank_field', 'target_share', 'formula'];
 
-        $data = array_map(fn($row) => array_combine($fields, $row), $dataToArray);
+        $data = array_map(fn ($row) => array_combine($fields, $row), $dataToArray);
 
         dd($data);
     }
-
 
     public function connectReverb(): void
     {

@@ -13,4 +13,3 @@ export const fetchFileContent = async (path: string) => {
         path
     });
 };
-

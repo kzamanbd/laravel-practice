@@ -11,7 +11,9 @@ use Livewire\Component;
 class UpdatePasswordForm extends Component
 {
     public string $current_password = '';
+
     public string $password = '';
+
     public string $password_confirmation = '';
 
     /**
@@ -38,6 +40,7 @@ class UpdatePasswordForm extends Component
 
         $this->dispatch('password-updated');
     }
+
     public function render()
     {
         return view('livewire.profile.update-password-form');

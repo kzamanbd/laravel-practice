@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Enums\AppContains;
-use App\Http\Helpers;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -14,10 +13,11 @@ class Conversation extends Model
     use HasFactory;
 
     protected $guarded = [];
+
     protected $appends = [
         'msg_preview',
         'last_msg_at',
-        'last_active_at'
+        'last_active_at',
     ];
 
     public function messages(): HasMany
@@ -31,6 +31,7 @@ class Conversation extends Model
         if ($this->to_user_id == auth()->id()) {
             return $this->hasOne(User::class, 'id', 'author_id');
         }
+
         return $this->hasOne(User::class, 'id', 'to_user_id');
     }
 
@@ -39,6 +40,7 @@ class Conversation extends Model
         if ($this->msg_type == AppContains::GROUP_MSG) {
             return [];
         }
+
         return [];
     }
 
@@ -50,6 +52,7 @@ class Conversation extends Model
         if ($key) {
             return getLastActiveAt($key);
         }
+
         return null;
     }
 
@@ -67,15 +70,17 @@ class Conversation extends Model
             if ($lastMessage->user_id == auth()->id()) {
                 return "You: $message";
             }
+
             return $message;
         }
+
         return 'No message yet';
     }
 
     public function getLastMsgAtAttribute(): string
     {
         $updatedAt = $this->updated_at;
-        if (!$updatedAt) {
+        if (! $updatedAt) {
             return '';
         }
         // get date week name
@@ -85,11 +90,12 @@ class Conversation extends Model
 
         if ($date == date('Y-m-d')) {
             return $time;
-        } else if ($date == date('Y-m-d', strtotime('-1 day'))) {
+        } elseif ($date == date('Y-m-d', strtotime('-1 day'))) {
             return "Yesterday $time";
-        } else if ($date > date('Y-m-d', strtotime('-1 week'))) {
+        } elseif ($date > date('Y-m-d', strtotime('-1 week'))) {
             return "$week $time";
         }
+
         return $updatedAt->format('d M Y');
     }
 }

@@ -2,8 +2,8 @@
 
 namespace App\Livewire\OpenAi;
 
-use Livewire\Component;
 use Livewire\Attributes\Validate;
+use Livewire\Component;
 
 class AiPrompt extends Component
 {
@@ -16,7 +16,7 @@ class AiPrompt extends Component
     {
         $this->messages[] = [
             'role' => 'system',
-            'content' => 'You are a helpful assistant. The response will markdown format (if needed) with well-organized, detailed, formatted and clean content.'
+            'content' => 'You are a helpful assistant. The response will markdown format (if needed) with well-organized, detailed, formatted and clean content.',
         ];
     }
 

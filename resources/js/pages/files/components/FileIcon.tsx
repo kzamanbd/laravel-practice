@@ -38,4 +38,3 @@ const FileIcon = ({ type = 'file' }: { type: string }) => {
 };
 
 export default FileIcon;
-

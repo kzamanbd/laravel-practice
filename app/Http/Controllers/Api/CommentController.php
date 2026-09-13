@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -14,7 +15,7 @@ class CommentController extends Controller
             'comment' => 'required',
         ]);
 
-        $comment = new Comment();
+        $comment = new Comment;
 
         $comment->user_id = $request->user_id;
         $comment->post_id = $request->post_id;
@@ -27,8 +28,8 @@ class CommentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Comment  $comment
-     * @return \Illuminate\Http\RedirectResponse
+     * @param  Comment  $comment
+     * @return RedirectResponse
      */
     public function destroy(Request $request)
     {

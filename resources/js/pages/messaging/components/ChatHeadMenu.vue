@@ -42,8 +42,8 @@
                 <img
                     :src="conversation.participant?.profile_photo_url"
                     class="h-10 w-10 rounded-full object-cover sm:h-12 sm:w-12" />
-                <div class="absolute bottom-0 right-0">
-                    <div class="h-4 w-4 rounded-full bg-success"></div>
+                <div class="absolute right-0 bottom-0">
+                    <div class="bg-success h-4 w-4 rounded-full"></div>
                 </div>
             </div>
             <div class="mx-3">
@@ -67,7 +67,7 @@
                     viewBox="0 0 24 24"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
-                    class="h-5 w-5 hover:text-primary">
+                    class="hover:text-primary h-5 w-5">
                     <path
                         d="M13.5 2C13.5 2 15.8335 2.21213 18.8033 5.18198C21.7731 8.15183 21.9853 10.4853 21.9853 10.4853"
                         stroke="currentColor"
@@ -92,7 +92,7 @@
                     viewBox="0 0 24 24"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
-                    class="h-5 w-5 hover:text-primary">
+                    class="hover:text-primary h-5 w-5">
                     <path
                         d="M2 11.5C2 8.21252 2 6.56878 2.90796 5.46243C3.07418 5.25989 3.25989 5.07418 3.46243 4.90796C4.56878 4 6.21252 4 9.5 4C12.7875 4 14.4312 4 15.5376 4.90796C15.7401 5.07418 15.9258 5.25989 16.092 5.46243C17 6.56878 17 8.21252 17 11.5V12.5C17 15.7875 17 17.4312 16.092 18.5376C15.9258 18.7401 15.7401 18.9258 15.5376 19.092C14.4312 20 12.7875 20 9.5 20C6.21252 20 4.56878 20 3.46243 19.092C3.25989 18.9258 3.07418 18.7401 2.90796 18.5376C2 17.4312 2 15.7875 2 12.5V11.5Z"
                         stroke="currentColor"
@@ -113,7 +113,7 @@
                         viewBox="0 0 24 24"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
-                        class="h-5 w-5 rotate-90 opacity-70 hover:text-primary">
+                        class="hover:text-primary h-5 w-5 rotate-90 opacity-70">
                         <circle
                             cx="5"
                             cy="12"
@@ -136,7 +136,7 @@
                     </svg>
                 </MenuButton>
                 <MenuItems>
-                    <ul class="dropdown-menu right-0 top-6 block">
+                    <ul class="dropdown-menu top-6 right-0 block">
                         <li>
                             <a href="javascript:;" class="dropdown-link">
                                 <svg
@@ -170,7 +170,7 @@
                                     viewBox="0 0 24 24"
                                     fill="none"
                                     xmlns="http://www.w3.org/2000/svg"
-                                    class="h-4.5 w-4.5 mr-2">
+                                    class="mr-2 h-4.5 w-4.5">
                                     <path
                                         d="M6 11C6 8.17157 6 6.75736 6.87868 5.87868C7.75736 5 9.17157 5 12 5H15C17.8284 5 19.2426 5 20.1213 5.87868C21 6.75736 21 8.17157 21 11V16C21 18.8284 21 20.2426 20.1213 21.1213C19.2426 22 17.8284 22 15 22H12C9.17157 22 7.75736 22 6.87868 21.1213C6 20.2426 6 18.8284 6 16V11Z"
                                         stroke="currentColor"
@@ -192,7 +192,7 @@
                                     viewBox="0 0 24 24"
                                     fill="none"
                                     xmlns="http://www.w3.org/2000/svg"
-                                    class="h-4.5 w-4.5 mr-2">
+                                    class="mr-2 h-4.5 w-4.5">
                                     <path
                                         opacity="0.5"
                                         d="M9.17065 4C9.58249 2.83481 10.6937 2 11.9999 2C13.3062 2 14.4174 2.83481 14.8292 4"
@@ -233,7 +233,7 @@
                                     viewBox="0 0 24 24"
                                     fill="none"
                                     xmlns="http://www.w3.org/2000/svg"
-                                    class="h-4.5 w-4.5 mr-2">
+                                    class="mr-2 h-4.5 w-4.5">
                                     <path
                                         d="M9 11.5C9 12.8807 7.88071 14 6.5 14C5.11929 14 4 12.8807 4 11.5C4 10.1193 5.11929 9 6.5 9C7.88071 9 9 10.1193 9 11.5Z"
                                         stroke="currentColor"
@@ -270,7 +270,7 @@
                                     viewBox="0 0 24 24"
                                     fill="none"
                                     xmlns="http://www.w3.org/2000/svg"
-                                    class="h-4.5 w-4.5 mr-2">
+                                    class="mr-2 h-4.5 w-4.5">
                                     <circle
                                         cx="12"
                                         cy="12"
@@ -293,4 +293,3 @@
     </div>
     <div class="h-px w-full border-b border-[#e0e6ed] dark:border-[#1b2e4b]"></div>
 </template>
-

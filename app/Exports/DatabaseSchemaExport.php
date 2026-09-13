@@ -2,19 +2,19 @@
 
 namespace App\Exports;
 
+use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Events\AfterSheet;
 
 class DatabaseSchemaExport extends BaseExportFromView
 {
-
     public function __construct(private $schema, private $tableName) {}
 
-    public function view(): \Illuminate\Contracts\View\View
+    public function view(): View
     {
         return view('exports.database-schema', [
             'schema' => $this->schema,
             'tableName' => $this->tableName,
-            'thStyle' => ['border: 1px solid #000', 'font-weight:bold', 'text-align:center', 'background: #E2EDFA']
+            'thStyle' => ['border: 1px solid #000', 'font-weight:bold', 'text-align:center', 'background: #E2EDFA'],
         ]);
     }
 
@@ -24,7 +24,7 @@ class DatabaseSchemaExport extends BaseExportFromView
         return [
             AfterSheet::class => function (AfterSheet $event) {
                 $event->sheet->getDelegate()->getRowDimension(1)->setRowHeight(50);
-            }
+            },
         ];
     }
 }

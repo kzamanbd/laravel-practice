@@ -6,15 +6,13 @@ use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Middleware\BeforeResponseInterceptor;
-use Illuminate\Http\Request;
 use Illuminate\Auth\Middleware\Authenticate;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
 
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware(Authenticate::using('sanctum'));
-
 
 Route::get('/', function (Request $request) {
     return response()->json([
@@ -25,12 +23,12 @@ Route::get('/', function (Request $request) {
 });
 
 Route::prefix('auth')->group(function () {
-    //login routes
+    // login routes
     Route::post('login', [AuthenticatedSessionController::class, 'login']);
     Route::post('register', [AuthenticatedSessionController::class, 'register']);
-    //get current user
-    Route::get('current-user', [AuthenticatedSessionController::class, 'currentUser'])->middleware(['auth:sanctum',BeforeResponseInterceptor::class]);
-    //logout
+    // get current user
+    Route::get('current-user', [AuthenticatedSessionController::class, 'currentUser'])->middleware(['auth:sanctum', BeforeResponseInterceptor::class]);
+    // logout
     Route::post('logout', [AuthenticatedSessionController::class, 'logout'])->middleware('auth:sanctum');
 });
 

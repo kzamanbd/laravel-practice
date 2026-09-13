@@ -43,4 +43,3 @@ document.addEventListener('info', function (event) {
 document.addEventListener('error', function (event) {
     toast(getMessage(event), 'error');
 });
-

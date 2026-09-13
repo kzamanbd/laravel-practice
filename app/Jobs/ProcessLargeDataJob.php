@@ -43,7 +43,7 @@ class ProcessLargeDataJob implements ShouldQueue
         // Simulate processing large payload data
         $startTime = microtime(true);
 
-        Log::info("Processing job {$this->jobId} with payload size: " . count($this->largePayload) . " items");
+        Log::info("Processing job {$this->jobId} with payload size: ".count($this->largePayload).' items');
 
         // Simulate data processing time
         sleep(rand(1, 3));
@@ -63,6 +63,6 @@ class ProcessLargeDataJob implements ShouldQueue
         $endTime = microtime(true);
         $executionTime = $endTime - $startTime;
 
-        Log::info("Job {$this->jobId} completed in {$executionTime} seconds. Processed: " . count($processedData) . " items");
+        Log::info("Job {$this->jobId} completed in {$executionTime} seconds. Processed: ".count($processedData).' items');
     }
 }

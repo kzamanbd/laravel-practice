@@ -4,6 +4,8 @@ namespace App\Livewire;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Laravel\Sanctum\NewAccessToken;
+use Laravel\Sanctum\PersonalAccessToken;
 use Livewire\Component;
 
 class ApiTokenManager extends Component
@@ -39,7 +41,7 @@ class ApiTokenManager extends Component
     /**
      * The token that is currently having its permissions managed.
      *
-     * @var \Laravel\Sanctum\PersonalAccessToken|null
+     * @var PersonalAccessToken|null
      */
     public $managingPermissionsFor;
 
@@ -108,7 +110,7 @@ class ApiTokenManager extends Component
     /**
      * Display the token value to the user.
      *
-     * @param  \Laravel\Sanctum\NewAccessToken  $token
+     * @param  NewAccessToken  $token
      * @return void
      */
     protected function displayTokenValue($token)

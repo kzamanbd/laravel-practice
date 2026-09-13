@@ -8,7 +8,7 @@
     <div class="relative flex h-full items-center justify-center lg:p-4">
         <button
             type="button"
-            class="absolute left-4 top-4 hover:text-primary lg:hidden"
+            class="hover:text-primary absolute top-4 left-4 lg:hidden"
             @click="$emit('toggle')">
             <svg
                 width="24"

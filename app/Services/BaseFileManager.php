@@ -2,21 +2,18 @@
 
 namespace App\Services;
 
-use SplFileInfo;
 use Carbon\Carbon;
-use Symfony\Component\Finder\Finder;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Filesystem\AwsS3V3Adapter;
+use Illuminate\Support\Facades\Storage;
 use League\Flysystem\FilesystemException;
+use SplFileInfo;
+use Symfony\Component\Finder\Finder;
 
 class BaseFileManager
 {
     /**
      * Get disk list
-     *
-     * @return array
      */
-
     public function getDiskList(): array
     {
         return ['local', 'public', 's3'];
@@ -24,10 +21,6 @@ class BaseFileManager
 
     /**
      * Check disk name
-     *
-     * @param $name
-     *
-     * @return bool
      */
     public function checkDisk($name): bool
     {
@@ -37,21 +30,16 @@ class BaseFileManager
 
     /**
      * Check Disk and Path
-     *
-     * @param $disk
-     * @param $path
-     *
-     * @return bool
      */
     public function checkPath($disk, $path): bool
     {
         // check disk name
-        if (!$this->checkDisk($disk)) {
+        if (! $this->checkDisk($disk)) {
             return false;
         }
 
         // check path
-        if ($path && !Storage::disk($disk)->exists($path)) {
+        if ($path && ! Storage::disk($disk)->exists($path)) {
             return false;
         }
 
@@ -61,20 +49,19 @@ class BaseFileManager
     /**
      * Helper function to format file sizes into readable format
      *
-     * @param $bytes int
-     *
+     * @param  $bytes  int
      * @return string
      */
     public function formatSizeUnits($bytes)
     {
         if ($bytes >= 1073741824) {
-            $bytes = number_format($bytes / 1073741824, 2) . ' GB';
+            $bytes = number_format($bytes / 1073741824, 2).' GB';
         } elseif ($bytes >= 1048576) {
-            $bytes = number_format($bytes / 1048576, 2) . ' MB';
+            $bytes = number_format($bytes / 1048576, 2).' MB';
         } elseif ($bytes >= 1024) {
-            $bytes = number_format($bytes / 1024, 2) . ' KB';
+            $bytes = number_format($bytes / 1024, 2).' KB';
         } elseif ($bytes > 1) {
-            $bytes = $bytes . ' bytes';
+            $bytes = $bytes.' bytes';
         } elseif ($bytes == 1) {
             $bytes = '1 byte';
         } else {
@@ -87,10 +74,7 @@ class BaseFileManager
     /**
      * Get content for the selected disk and path
      *
-     * @param $disk
-     * @param $path
      *
-     * @return array
      * @throws FilesystemException
      */
     public function getContent($disk, $path = null): array
@@ -106,10 +90,7 @@ class BaseFileManager
     /**
      * Get directories with properties
      *
-     * @param $disk
-     * @param $path
      *
-     * @return array
      * @throws FilesystemException
      */
     public function directoriesWithProperties($disk, $path = null): array
@@ -122,10 +103,7 @@ class BaseFileManager
     /**
      * Get files with properties
      *
-     * @param       $disk
-     * @param $path
      *
-     * @return array
      * @throws FilesystemException
      */
     public function filesWithProperties($disk, $path = null): array
@@ -138,10 +116,7 @@ class BaseFileManager
     /**
      * Get directories for tree module
      *
-     * @param $disk
-     * @param $path
      *
-     * @return array
      * @throws FilesystemException
      */
     public function getDirectoriesTree($disk, $path = null): array
@@ -159,25 +134,20 @@ class BaseFileManager
 
     /**
      * File properties
-     *
-     * @param $disk
-     * @param $path
-     *
-     * @return mixed
      */
     public function fileProperties($disk, $path = null): mixed
     {
         $pathInfo = pathinfo($path);
 
         $properties = [
-            'type'       => 'file',
-            'path'       => $path,
-            'basename'   => $pathInfo['basename'],
-            'dirname'    => $pathInfo['dirname'] === '.' ? '' : $pathInfo['dirname'],
-            'extension'  => $pathInfo['extension'] ?? '',
-            'filename'   => $pathInfo['filename'],
-            'size'       => Storage::disk($disk)->size($path),
-            'timestamp'  => Storage::disk($disk)->lastModified($path),
+            'type' => 'file',
+            'path' => $path,
+            'basename' => $pathInfo['basename'],
+            'dirname' => $pathInfo['dirname'] === '.' ? '' : $pathInfo['dirname'],
+            'extension' => $pathInfo['extension'] ?? '',
+            'filename' => $pathInfo['filename'],
+            'size' => Storage::disk($disk)->size($path),
+            'timestamp' => Storage::disk($disk)->lastModified($path),
             'visibility' => Storage::disk($disk)->getVisibility($path),
         ];
 
@@ -187,9 +157,8 @@ class BaseFileManager
     /**
      * Get properties for the selected directory
      *
-     * @param string $disk
-     * @param string $path
-     *
+     * @param  string  $disk
+     * @param  string  $path
      * @return array|false
      */
     public function directoryProperties($disk, $path = null): array
@@ -199,11 +168,11 @@ class BaseFileManager
         $pathInfo = pathinfo($path);
 
         $properties = [
-            'type'       => 'dir',
-            'path'       => $path,
-            'basename'   => $pathInfo['basename'],
-            'dirname'    => $pathInfo['dirname'] === '.' ? '' : $pathInfo['dirname'],
-            'timestamp'  => $adapter instanceof AwsS3V3Adapter ? null : Storage::disk($disk)->lastModified($path),
+            'type' => 'dir',
+            'path' => $path,
+            'basename' => $pathInfo['basename'],
+            'dirname' => $pathInfo['dirname'] === '.' ? '' : $pathInfo['dirname'],
+            'timestamp' => $adapter instanceof AwsS3V3Adapter ? null : Storage::disk($disk)->lastModified($path),
             'visibility' => $adapter instanceof AwsS3V3Adapter ? null : Storage::disk($disk)->getVisibility($path),
         ];
 
@@ -212,26 +181,21 @@ class BaseFileManager
 
     /**
      * Get only directories
-     *
-     * @param $disk
-     * @param $content
-     *
-     * @return array
      */
     protected function filterDir($disk, $content): array
     {
         // select only dir
-        $dirsList = array_filter($content, fn($item) => $item['type'] === 'dir');
+        $dirsList = array_filter($content, fn ($item) => $item['type'] === 'dir');
 
         $dirs = array_map(function ($item) {
             $pathInfo = pathinfo($item['path']);
 
             return [
-                'type'       => $item['type'],
-                'path'       => $item['path'],
-                'basename'   => $pathInfo['basename'],
-                'dirname'    => $pathInfo['dirname'] === '.' ? '' : $pathInfo['dirname'],
-                'timestamp'  => $item['lastModified'],
+                'type' => $item['type'],
+                'path' => $item['path'],
+                'basename' => $pathInfo['basename'],
+                'dirname' => $pathInfo['dirname'] === '.' ? '' : $pathInfo['dirname'],
+                'timestamp' => $item['lastModified'],
                 'visibility' => $item['visibility'],
             ];
         }, $dirsList);
@@ -241,29 +205,24 @@ class BaseFileManager
 
     /**
      * Get only files
-     *
-     * @param $disk
-     * @param $content
-     *
-     * @return array
      */
     protected function filterFile($disk, $content): array
     {
         // select only dir
-        $filesList = array_filter($content, fn($item) => $item['type'] === 'file');
+        $filesList = array_filter($content, fn ($item) => $item['type'] === 'file');
 
         $files = array_map(function ($item) {
             $pathInfo = pathinfo($item['path']);
 
             return [
-                'type'       => $item['type'],
-                'path'       => $item['path'],
-                'basename'   => $pathInfo['basename'],
-                'dirname'    => $pathInfo['dirname'] === '.' ? '' : $pathInfo['dirname'],
-                'extension'  => $pathInfo['extension'] ?? '',
-                'filename'   => $pathInfo['filename'],
-                'size'       => $item['fileSize'],
-                'timestamp'  => $item['lastModified'],
+                'type' => $item['type'],
+                'path' => $item['path'],
+                'basename' => $pathInfo['basename'],
+                'dirname' => $pathInfo['dirname'] === '.' ? '' : $pathInfo['dirname'],
+                'extension' => $pathInfo['extension'] ?? '',
+                'filename' => $pathInfo['filename'],
+                'size' => $item['fileSize'],
+                'timestamp' => $item['lastModified'],
                 'visibility' => $item['visibility'],
             ];
         }, $filesList);
@@ -274,18 +233,16 @@ class BaseFileManager
     /**
      * Helper function to get the file or directory info
      *
-     * @param $item SplFileInfo object
-     *
+     * @param  $item  SplFileInfo object
      * @return object
      */
-
     public function getFileInfo(SplFileInfo $item, $pathReplace = null)
     {
         $modifiedItem = [
-            'type'        => $item->getType(),
-            'name'        => $item->getFilename(),
-            'path'        => $item->getPathname(),
-            'size'        => $this->formatSizeUnits($item->getSize()),
+            'type' => $item->getType(),
+            'name' => $item->getFilename(),
+            'path' => $item->getPathname(),
+            'size' => $this->formatSizeUnits($item->getSize()),
             'modified_at' => Carbon::createFromTimestamp($item->getMTime())->toDateTimeString(),
         ];
 
@@ -306,21 +263,20 @@ class BaseFileManager
     /**
      * Helper function to get the size of a directory
      *
-     * @param $path
      *
      * @return int
      */
-
     public function getDirectorySize($path)
     {
 
-        if (!is_dir($path)) {
+        if (! is_dir($path)) {
             return filesize($path);
         }
 
         // if os is unix based or macOS then use the du command
         if (PHP_OS_FAMILY == 'Darwin' || PHP_OS_FAMILY == 'Linux') {
             $bytes = shell_exec("du -sb $path | awk '{print $1}'");
+
             return $bytes;
         }
 
@@ -330,15 +286,14 @@ class BaseFileManager
     /**
      * Function to recursively build the directory tree
      *
-     * @param $path The path to the directory string
-     * @param $pathReplace Replace the path with this string
-     *
+     * @param  $path  The path to the directory string
+     * @param  $pathReplace  Replace the path with this string
      * @return array
      */
     public function getLocalDirectoryTree($path, $pathReplace = null)
     {
 
-        $finder = new Finder();
+        $finder = new Finder;
         $finder->ignoreDotFiles(false)->depth('== 0')->in($path);
 
         $files = [];
@@ -361,11 +316,9 @@ class BaseFileManager
     /**
      * Get Remote Directory Tree (S3, FTP, etc)
      *
-     * @param $path string
-     *
+     * @param  $path  string
      * @return array
      */
-
     public function getRemoteDirectoryTree($path, string $disk = 'local')
     {
         // Implement your remote directory tree logic here

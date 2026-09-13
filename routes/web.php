@@ -1,16 +1,16 @@
 <?php
 
-use App\Livewire\Blogging;
-use App\Livewire\JobBatching;
-use App\Livewire\UserDashboard;
-use App\Livewire\BrowserSession;
-use App\Livewire\DatabaseBackup;
-use App\Livewire\ApiTokenManager;
-use App\Livewire\ContactManagement;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Middleware\LoggerMiddleware;
+use App\Livewire\ApiTokenManager;
+use App\Livewire\Blogging;
+use App\Livewire\BrowserSession;
+use App\Livewire\ContactManagement;
+use App\Livewire\DatabaseBackup;
+use App\Livewire\JobBatching;
 use App\Livewire\OpenAi\OpenAIManager;
+use App\Livewire\UserDashboard;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +27,7 @@ Route::view('/', 'welcome')->middleware(LoggerMiddleware::class);
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', UserDashboard::class)->name('dashboard');
-    Route::get('profile', fn() => view('profile'))->name('profile');
+    Route::get('profile', fn () => view('profile'))->name('profile');
     Route::get('browser-session', BrowserSession::class)->name('browser.session');
     Route::get('tokens', ApiTokenManager::class)->name('api.tokens');
     Route::get('blogging', Blogging::class)->name('blog');

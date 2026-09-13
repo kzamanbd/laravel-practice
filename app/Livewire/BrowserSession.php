@@ -3,10 +3,10 @@
 namespace App\Livewire;
 
 use Carbon\Carbon;
-use Livewire\Component;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Jenssegers\Agent\Agent;
+use Livewire\Component;
 
 class BrowserSession extends Component
 {
