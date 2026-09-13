@@ -1,0 +1,9 @@
+# Wayfinder generated route helpers
+/resources/js/actions
+/resources/js/routes
+/resources/js/wayfinder
+
+# Build output
+/public/build
+/vendor
+/node_modules
