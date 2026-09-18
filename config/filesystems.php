@@ -24,7 +24,7 @@ return [
     | may even configure multiple disks for the same driver. Examples for
     | most supported storage drivers are configured here for reference.
     |
-    | Supported Drivers: "local", "ftp", "sftp", "s3"
+    | Supported drivers: "local", "ftp", "sftp", "s3"
     |
     */
 
@@ -32,16 +32,19 @@ return [
 
         'local' => [
             'driver' => 'local',
-            'root' => storage_path('app'),
+            'root' => storage_path('app/private'),
+            'serve' => true,
             'throw' => false,
+            'report' => false,
         ],
 
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'url' => rtrim(env('APP_URL', 'http://localhost'), '/').'/storage',
             'visibility' => 'public',
             'throw' => false,
+            'report' => false,
         ],
 
         's3' => [
@@ -54,15 +57,7 @@ return [
             'endpoint' => env('AWS_ENDPOINT'),
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
             'throw' => false,
-        ],
-
-        'unido-ftp' => [
-            'driver' => 'ftp',
-            'host' => env('UNIDO_FTP_HOST', '202.84.34.77'),
-            'username' => env('UNIDO_FTP_USERNAME', 'pruni001'),
-            'password' => env('UNIDO_FTP_PASSWORD', 'u24001sftp'),
-            'passive' => true,
-            'timeout' => 30,
+            'report' => false,
         ],
 
     ],
