@@ -291,5 +291,5 @@
             </Menu>
         </div>
     </div>
-    <div class="h-px w-full border-b border-white-light dark:border-[#1b2e4b]"></div>
+    <div class="border-white-light h-px w-full border-b dark:border-[#1b2e4b]"></div>
 </template>
